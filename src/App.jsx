@@ -8,7 +8,7 @@ function App() {
 
   return (
     <>
-      <h1>Menu de postres</h1>
+      <h1 className='text-3xl'>Menu de postres</h1>
     </>
   )
 }
