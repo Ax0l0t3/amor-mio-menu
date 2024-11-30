@@ -4,11 +4,18 @@ import viteLogo from '/vite.svg'
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
+  let thisOtherVar = document.createElement("div");
+  thisOtherVar.innerHTML = "<p>This peragraph</p><p><br />This other peragraph</p>";
+  document.body.appendChild(thisOtherVar);
+  let thisString = thisOtherVar.innerText;
+  document.body.removeChild(thisOtherVar);
+  console.log(thisString);
 
   return (
     <>
-      <h1 className='text-3xl'>Menu de postres</h1>
+    <div>
+      <p>This peragraph</p><p><br />This other peragraph</p>
+    </div>
     </>
   )
 }
