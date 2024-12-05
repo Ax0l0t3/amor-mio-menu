@@ -6,10 +6,10 @@ import { AboutSVG } from '../atom/AboutIcon'
 
 export const NavBar = () => {
   return (
-    <div>
-      <PreSaveSVG />
-      <EditSVG />
+    <div className='w-[3rem]'>
       <AddSVG />
+      <EditSVG />
+      <PreSaveSVG />
       <CustomizeSVG />
       <AboutSVG />
     </div>

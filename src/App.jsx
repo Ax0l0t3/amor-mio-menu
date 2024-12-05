@@ -1,12 +1,12 @@
-import './App.css'
-import { NavBar } from './components/organism/NavBar'
+import { NavBar } from './components/organism/NavBar';
+import { OptionMainTab } from './components/molecule/OptionTab';
+import { SelectedOptionMainTab } from './components/molecule/SelectedOptionTab';
+import { MenuOptionCard } from './components/molecule/MenuOptionCard';
 
 
 function App() {
   return (
-    <>
-      <NavBar />
-    </>
+      <MenuOptionCard cardName="Capuccino"/>
   )
 }
 
