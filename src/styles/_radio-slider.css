@@ -1,0 +1,13 @@
+.radio-slider {
+    width:100px;
+    height: 100px;
+    background-color: teal;
+    border: 1px solid black;
+}
+
+/* .radio-slider::after{
+    content: "";
+    width: 5px;
+    height: 5px;
+    background-color: blue;
+} */
