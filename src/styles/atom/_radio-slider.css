@@ -1,0 +1,34 @@
+.radio-slider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 3rem;
+    height: 1.5rem;
+    background-color: #e6e6e6ff;
+    border-radius: 40px;
+    cursor: pointer;
+    transition: all 0.1s;
+    appearance: none;
+}
+
+.radio-slider::after {
+    content: "";
+    position: absolute;
+    height: 1.5rem;
+    width: 1.5rem;
+    left: 0px;
+    background-color: #999999ff;
+    border-radius: 40px;
+    transition: all 0.1s;
+}
+
+.radio-slider:checked {
+    background-color: #d5b639ff;
+    transition: all 0.1s;
+}
+
+.radio-slider:checked::after {
+    transform: translateX(100%);
+    transition: all 0.1s;
+}

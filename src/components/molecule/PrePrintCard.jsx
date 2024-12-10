@@ -1,5 +1,5 @@
 import { AddSVG } from "../atom/AddIcon"
-import "../../styles/_preprint-card.css"
+import "../../styles/molecule/_preprint-card.css"
 
 export const PrePrintCard = ({
   cardTitle = "Default"

@@ -1,0 +1,85 @@
+{
+  "tabs": [
+    {
+      "title": "Frappes",
+      "options": [
+        "Capuccino",
+        "Moka",
+        "Caramel Coffe",
+        "Cajeta",
+        "Vainilla Francesa",
+        "Taro",
+        "Chocolate Avellana",
+        "Chocolate Italiano",
+        "Chocolate Blanco",
+        "Te Chai Verde",
+        "Galleta Oreo",
+        "Galleta Chips Ahoy",
+        "Kinder Delice",
+        "Galleta Costco",
+        "Fresa Vainilla",
+        "Fresa Plátano"
+      ],
+      "selected": true
+    },
+    {
+      "title": "Favoritos",
+      "options": [],
+      "selected": false
+    },
+    {
+      "title": "Frutas con crema",
+      "options": [
+        "Vaso chico",
+        "Vaso Grande"
+      ],
+      "selected": false
+    },
+    {
+      "title": "Waffles",
+      "options": [
+        "Waffle Snickers",
+        "Waffle Sencillo",
+        "Waffle Durazno",
+        "Waffle 4 Estaciones",
+        "Waffle Coronado",
+        "Waffle Fresas con Crema",
+        "Waffle Kinder",
+        "Waffle Amor Mío",
+        "Waffle Churro"
+      ],
+      "selected": false
+    },
+    {
+      "title": "Fruta con miel y granola",
+      "options": [],
+      "selected": false
+    },
+    {
+      "title": "Bionicos",
+      "options": [],
+      "selected": false
+    },
+    {
+      "title": "Tostilocos",
+      "options": [],
+      "selected": false
+    },
+    {
+      "title": "Postres Costco",
+      "options": [
+        "Cheesecake Chispas",
+        "Cheesecake Frambuesa",
+        "Chocoflan",
+        "Pastel de Chocolate",
+        "Muffins",
+        "Galleta Chispas",
+        "Donitas Canela",
+        "Cheesecake Coronado",
+        "Muffin con Helado",
+        "Donitas Bañadas"
+      ],
+      "selected": false
+    }
+  ]
+}

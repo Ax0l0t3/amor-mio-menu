@@ -1,0 +1,9 @@
+.side-bar {
+  align-items: center;
+  background-color: #977f33;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: center;
+  width: 3rem;
+}

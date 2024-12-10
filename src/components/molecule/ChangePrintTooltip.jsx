@@ -1,4 +1,4 @@
-import "../../styles/_tooltip-triangle.css";
+import "../../styles/molecule/_tooltip-triangle.css";
 
 export const ChangePrinterTooltip = () => {
   return (

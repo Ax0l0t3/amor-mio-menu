@@ -16,11 +16,39 @@ import { ExitPrintSVG } from './components/atom/ExitPrintIcon';
 import { ChangePrinterTooltip } from './components/molecule/ChangePrintTooltip';
 import { PrePrintCard } from './components/molecule/PrePrintCard';
 import { PalettePortal } from './components/organism/PalettePortal';
+import mockData from "../mockData.json";
+import { useEffect, useState } from 'react';
 
 
 function App() {
+  const [labelOptions, setLabelOptions] = useState([])
+  useEffect(() => {
+    mockData.tabs.map(object => {
+      if (object.selected) {
+        setLabelOptions(object.options)
+      }
+    })
+  }, [])
   return (
-    <PalettePortal />
+    <>
+      <NavBar />
+      <div>
+        {
+          mockData.tabs.map(object => (
+            object.selected
+              ? <SelectedOptionMainTab key={object.title} cardTitle={object.title} />
+              : <OptionMainTab key={object.title} cardTitle={object.title} />
+          ))
+        }
+      </div>
+      <div className="options-cards">
+        {
+          labelOptions.map((option, id) => (
+            <MenuOptionCard key={id} cardName={option} />
+          ))
+        }
+      </div>
+    </>
   )
 }
 

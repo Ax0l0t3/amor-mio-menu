@@ -3,10 +3,11 @@ import { EditSVG } from '../atom/EditIcon'
 import { AddSVG } from '../atom/AddIcon'
 import { CustomizeSVG } from '../atom/CustomizeIcon'
 import { AboutSVG } from '../atom/AboutIcon'
+import "../../styles/organism/_nav-bar.css"
 
 export const NavBar = () => {
   return (
-    <div className='w-[3rem]'>
+    <div className="side-bar">
       <AddSVG />
       <EditSVG />
       <PreSaveSVG />

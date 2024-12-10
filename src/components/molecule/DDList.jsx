@@ -1,5 +1,5 @@
 import { InputLabel } from "../atom/InputLabel"
-import "../../styles/_dd-triangle.css"
+import "../../styles/molecule/_dd-triangle.css"
 
 export const DDList = () => {
     return (

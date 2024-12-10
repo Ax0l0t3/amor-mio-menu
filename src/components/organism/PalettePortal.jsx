@@ -1,4 +1,4 @@
-import "../../styles/_palette-portal.css"
+import "../../styles/organism/_palette-portal.css"
 
 export const PalettePortal = () => {
   const returnColours = [
