@@ -10,6 +10,7 @@
     cursor: pointer;
     transition: all 0.1s;
     appearance: none;
+    margin: 0 0.5rem 0 0.5rem;
 }
 
 .radio-slider::after {

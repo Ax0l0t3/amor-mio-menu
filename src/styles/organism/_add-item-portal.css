@@ -1,0 +1,9 @@
+.add-item-portal {
+  background-color: #1f1612ff;
+  height: 100%;
+  left: 4%;
+  padding: 1rem;
+  position: absolute;
+  width: 96%;
+  font-size: 1.2rem;
+}

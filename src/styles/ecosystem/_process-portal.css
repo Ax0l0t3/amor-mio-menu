@@ -1,0 +1,10 @@
+.process-portal {
+  background-color: #2708087c;
+  display: flex;
+  flex-direction: row-reverse;
+  height: 100%;
+  left: 4%;
+  position: absolute;
+  width: 96%;
+  font-size: 1.2rem;
+}

@@ -16,10 +16,31 @@ import { ExitPrintSVG } from './components/atom/ExitPrintIcon';
 import { ChangePrinterTooltip } from './components/molecule/ChangePrintTooltip';
 import { PrePrintCard } from './components/molecule/PrePrintCard';
 import { PalettePortal } from './components/organism/PalettePortal';
+import { ProcessPortal } from './components/ecosystem/ProcessPortal';
 import mockData from "../mockData.json";
 import { useEffect, useState } from 'react';
 
+/*
+public class Dish
+{
+  public string Title { get; set; }
+  public List<OptionItem> Options { get; set; }
+  public bool Selected { get; set; }
+}
 
+public class OptionItem
+{
+  public string Name { get; set; }
+  public List<BoolItem> Ingredients { get; set; }
+  public List<BoolItem> Extras { get; set; }
+}
+
+public class BoolItem
+{
+  public string Name { get; set; }
+  public bool Selected { get; set; }
+}
+*/
 function App() {
   const [labelOptions, setLabelOptions] = useState([])
   useEffect(() => {
@@ -28,7 +49,7 @@ function App() {
         setLabelOptions(object.options)
       }
     })
-  }, [])
+  }, []);
   return (
     <>
       <NavBar />
@@ -44,10 +65,11 @@ function App() {
       <div className="options-cards">
         {
           labelOptions.map((option, id) => (
-            <MenuOptionCard key={id} cardName={option} />
+            <MenuOptionCard key={id} cardName={option.name} />
           ))
         }
       </div>
+      <ProcessPortal isVisible={false}/>
     </>
   )
 }

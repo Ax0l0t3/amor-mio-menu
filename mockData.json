@@ -20,7 +20,7 @@
         "Fresa Vainilla",
         "Fresa Plátano"
       ],
-      "selected": true
+      "selected": false
     },
     {
       "title": "Favoritos",
@@ -30,10 +30,31 @@
     {
       "title": "Frutas con crema",
       "options": [
-        "Vaso chico",
-        "Vaso Grande"
+        {
+          "name": "Vaso Chico",
+          "ingredients":[
+            {
+              "name": "Fresa",
+              "selected": false
+            },
+            {
+              "name": "Durazno",
+              "selected": false
+            },
+            {
+              "name": "Uva",
+              "selected": false
+            }
+          ],
+          "extras": [{}]
+        },
+        {
+          "name": "Vaso Grande",
+          "ingredients": [],
+          "extras": []
+        }
       ],
-      "selected": false
+      "selected": true
     },
     {
       "title": "Waffles",
@@ -57,7 +78,13 @@
     },
     {
       "title": "Bionicos",
-      "options": [],
+      "options": [
+        {
+          "name": "name",
+          "ingredients": [{}],
+          "extras": [{}]
+        }
+      ],
       "selected": false
     },
     {
