@@ -46,12 +46,17 @@
               "selected": false
             }
           ],
-          "extras": [{}]
+          "extras": [{}],
+          "comments": "",
+          "printer": ""
+
         },
         {
           "name": "Vaso Grande",
           "ingredients": [],
-          "extras": []
+          "extras": [],
+          "comments": "",
+          "printer": ""
         }
       ],
       "selected": true
