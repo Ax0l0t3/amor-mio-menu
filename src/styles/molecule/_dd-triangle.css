@@ -4,11 +4,33 @@
     border-top: 12px solid #fff;
     border-left: 8px solid #0000;
     border-right: 8px solid #00000000;
-    position: absolute;
-    left: 9rem;
-    margin-top: 0.5rem;
+    margin-left: auto;
+}
+
+.dd-triangle-clicked {
+    width: 0;
+    height: 0;
+    border-top: 12px solid #aaaaaaff;
+    border-left: 8px solid #0000;
+    border-right: 8px solid #00000000;
+    margin-left: auto;
 }
 
 .dd-triangle:hover{
     border-top: 12px solid #aaaaaaff;
+}
+
+.dd-class {
+    position: relative;
+    overflow: visible;
+    width: 16%;
+    margin: 0 0.5rem;
+}
+
+.dd-class-clicked {
+    position: relative;
+    overflow: visible;
+    width: 16%;
+    margin: 0 0.5rem;
+    z-index: 10;
 }

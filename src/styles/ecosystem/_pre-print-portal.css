@@ -8,3 +8,12 @@
   width: 96%;
   font-size: 1.2rem;
 }
+
+.tickets-section {
+  display: flex;
+  overflow-x: scroll;
+}
+
+.button-section {
+  margin-left: auto;
+}

@@ -16,7 +16,7 @@ export const ProcessPortal = ({
     createPortal(
       <div className="process-portal">
         <div className="bg-[#999999ff] w-[39%] p-4">
-          <div className="bg-white w-full h-full text-black">
+          <div className="bg-white w-full h-full text-black text-base">
             <p>Barra de Cafés</p>
             <p>Capuccino</p>
             <p>Ingredientes</p>

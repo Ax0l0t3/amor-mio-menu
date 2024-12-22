@@ -1,9 +1,9 @@
 import { createPortal } from "react-dom";
-import "../../styles/ecosystem/_pre-print-portal.css";
-import { VisualizePrint } from "../organism/VisualizePrint";
+import { PrePrintViewPort } from "../organism/PrePrintViewPort";
 
 export const PrePrintPortal = ({
-  isVisible = false
+  isVisible = false,
+  closePortal = Function.prototype
 }) => {
 
   const printers = [
@@ -13,11 +13,7 @@ export const PrePrintPortal = ({
   return (
     isVisible &&
     createPortal(
-      <div className="pre-print-portal">
-        {printers.map(printer => (
-          <VisualizePrint sectionName={printer} />
-        ))}
-      </div>,
+      <PrePrintViewPort closePortal={closePortal}/>,
       document.getElementById("root")
     )
   )

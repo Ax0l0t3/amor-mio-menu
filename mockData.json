@@ -3,22 +3,62 @@
     {
       "title": "Frappes",
       "options": [
-        "Capuccino",
-        "Moka",
-        "Caramel Coffe",
-        "Cajeta",
-        "Vainilla Francesa",
-        "Taro",
-        "Chocolate Avellana",
-        "Chocolate Italiano",
-        "Chocolate Blanco",
-        "Te Chai Verde",
-        "Galleta Oreo",
-        "Galleta Chips Ahoy",
-        "Kinder Delice",
-        "Galleta Costco",
-        "Fresa Vainilla",
-        "Fresa Plátano"
+        {
+          "name": "Capuccino",
+          "ingredients": [{}],
+          "extras": [{}],
+          "comments": "",
+          "printer": ""
+        },
+        {
+          "name": "Moka",
+          "ingredients": [{}],
+          "extras": [{}],
+          "comments": "",
+          "printer": ""
+        },
+        {
+          "name": "Caramel Coffee",
+          "ingredients": [{}],
+          "extras": [{}],
+          "comments": "",
+          "printer": ""
+        },
+        {
+          "name": "Cajeta",
+          "ingredients": [{}],
+          "extras": [{}],
+          "comments": "",
+          "printer": ""
+        },
+        {
+          "name": "Vainilla Francesa",
+          "ingredients": [{}],
+          "extras": [{}],
+          "comments": "",
+          "printer": ""
+        },
+        {
+          "name": "Taro",
+          "ingredients": [{}],
+          "extras": [{}],
+          "comments": "",
+          "printer": ""
+        },
+        {
+          "name": "Chocolate Avellana",
+          "ingredients": [{}],
+          "extras": [{}],
+          "comments": "",
+          "printer": ""
+        },
+        {
+          "name": "Chocolate Italiano",
+          "ingredients": [{}],
+          "extras": [{}],
+          "comments": "",
+          "printer": ""
+        }
       ],
       "selected": false
     },
@@ -53,8 +93,8 @@
         },
         {
           "name": "Vaso Grande",
-          "ingredients": [],
-          "extras": [],
+          "ingredients": [{}],
+          "extras": [{}],
           "comments": "",
           "printer": ""
         }
@@ -64,28 +104,102 @@
     {
       "title": "Waffles",
       "options": [
-        "Waffle Snickers",
-        "Waffle Sencillo",
-        "Waffle Durazno",
-        "Waffle 4 Estaciones",
-        "Waffle Coronado",
-        "Waffle Fresas con Crema",
-        "Waffle Kinder",
-        "Waffle Amor Mío",
-        "Waffle Churro"
+        {
+          "name": "Waffle Snickers",
+          "ingredients": [{}],
+          "extras": [{}],
+          "comments": "",
+          "printer": ""
+        },
+        {
+          "name": "Waffle Sencillo",
+          "ingredients": [{}],
+          "extras": [{}],
+          "comments": "",
+          "printer": ""
+        },
+        {
+          "name": "Waffle Durazno",
+          "ingredients": [{}],
+          "extras": [{}],
+          "comments": "",
+          "printer": ""
+        },
+        {
+          "name": "Waffle 4 Estaciones",
+          "ingredients": [{}],
+          "extras": [{}],
+          "comments": "",
+          "printer": ""
+        },
+        {
+          "name": "Waffle Coronado",
+          "ingredients": [{}],
+          "extras": [{}],
+          "comments": "",
+          "printer": ""
+        }
       ],
       "selected": false
     },
     {
       "title": "Fruta con miel y granola",
-      "options": [],
+      "options": [
+        {
+          "name": "Papaya",
+          "ingredients": [{}],
+          "extras": [{}],
+          "comments": "",
+          "printer": ""
+        },
+        {
+          "name": "Melón",
+          "ingredients": [{}],
+          "extras": [{}],
+          "comments": "",
+          "printer": ""
+        },
+        {
+          "name": "Uva",
+          "ingredients": [{}],
+          "extras": [{}],
+          "comments": "",
+          "printer": ""
+        },
+        {
+          "name": "Plátano",
+          "ingredients": [{}],
+          "extras": [{}],
+          "comments": "",
+          "printer": ""
+        },
+        {
+          "name": "Fresa",
+          "ingredients": [{}],
+          "extras": [{}],
+          "comments": "",
+          "printer": ""
+        },
+        {
+          "name": "Manzana",
+          "ingredients": [{}],
+          "extras": [{}],
+          "comments": "",
+          "printer": ""
+        }
+      ],
       "selected": false
     },
     {
       "title": "Bionicos",
       "options": [
         {
-          "name": "name",
+          "name": "Plato Chico",
+          "ingredients": [{}],
+          "extras": [{}]
+        },
+        {
+          "name": "Plato Grande",
           "ingredients": [{}],
           "extras": [{}]
         }
@@ -100,16 +214,62 @@
     {
       "title": "Postres Costco",
       "options": [
-        "Cheesecake Chispas",
-        "Cheesecake Frambuesa",
-        "Chocoflan",
-        "Pastel de Chocolate",
-        "Muffins",
-        "Galleta Chispas",
-        "Donitas Canela",
-        "Cheesecake Coronado",
-        "Muffin con Helado",
-        "Donitas Bañadas"
+        {
+          "name": "Cheesecake Chispas",
+          "ingredients": [{}],
+          "extras": [{}],
+          "comments": "",
+          "printer": ""
+        },
+        {
+          "name": "Cheesecake Frambuesa",
+          "ingredients": [{}],
+          "extras": [{}],
+          "comments": "",
+          "printer": ""
+        },
+        {
+          "name": "Chocoflan",
+          "ingredients": [{}],
+          "extras": [{}],
+          "comments": "",
+          "printer": ""
+        },
+        {
+          "name": "Pastel de Chocolate",
+          "ingredients": [{}],
+          "extras": [{}],
+          "comments": "",
+          "printer": ""
+        },
+        {
+          "name": "Muffins",
+          "ingredients": [{}],
+          "extras": [{}],
+          "comments": "",
+          "printer": ""
+        },
+        {
+          "name": "Galleta Chispas",
+          "ingredients": [{}],
+          "extras": [{}],
+          "comments": "",
+          "printer": ""
+        },
+        {
+          "name": "Donitas Canela",
+          "ingredients": [{}],
+          "extras": [{}],
+          "comments": "",
+          "printer": ""
+        },
+        {
+          "name": "Cheesecake Coronado",
+          "ingredients": [{}],
+          "extras": [{}],
+          "comments": "",
+          "printer": ""
+        }
       ],
       "selected": false
     }

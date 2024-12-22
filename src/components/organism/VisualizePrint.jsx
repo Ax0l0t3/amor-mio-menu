@@ -6,25 +6,23 @@ export const VisualizePrint = ({
   return (
     <div className="flex">
       <div className="mr-4">
-        <PrePrintCard cardTitle="Product A"/>
-        <PrePrintCard cardTitle="Product B"/>
-        <PrePrintCard cardTitle="Product C"/>
-        <PrePrintCard cardTitle="Product D"/>
-        <PrePrintCard cardTitle="Product E"/>
-        <PrePrintCard cardTitle="Product F"/>
-        <PrePrintCard cardTitle="Product G"/>
-        <PrePrintCard cardTitle="Product H"/>
+        <PrePrintCard cardTitle="Product A" marginBottom="1rem" />
+        <PrePrintCard cardTitle="Product B" marginBottom="1rem" />
+        <PrePrintCard cardTitle="Product C" marginBottom="1rem" />
+        <PrePrintCard cardTitle="Product D" marginBottom="1rem" />
+        <PrePrintCard cardTitle="Product E" marginBottom="1rem" />
+        <PrePrintCard cardTitle="Product F" marginBottom="1rem" />
       </div>
-      <div className="bg-[#999999ff] w-auto p-4 mr-4">
-          <div className="bg-white w-full h-full text-black">
-            <p>Barra de Cafés</p>
-            <p>Capuccino</p>
-            <p>Ingredientes</p>
-            <p>Leche deslactosada</p>
-            <p>Extras</p>
-            <p>Chantilli</p>
-          </div>
+      <div className="bg-[#999999ff] w-[20.5rem] h-fit mr-4">
+        <div className="bg-white w-full h-full text-black text-base">
+          <p>{sectionName}</p>
+          <p>Capuccino</p>
+          <p>Ingredientes</p>
+          <p>Leche deslactosada</p>
+          <p>Extras</p>
+          <p>Chantilli</p>
         </div>
+      </div>
     </div>
   )
 }

@@ -4,6 +4,7 @@ import { RemoveSVG } from "../atom/RemoveIcon"
 import { TextButton } from "../atom/TextButton"
 import "../../styles/organism/_add-item-portal.css"
 import { AddThings } from "../molecule/AddThings"
+import { DDList } from "../molecule/DDList";
 
 export const AddItemPortal = ({
   isVisible = false,
@@ -13,13 +14,13 @@ export const AddItemPortal = ({
     isVisible &&
     createPortal(
       <div className="add-item-portal">
-        <div className="flex justify-between">
+        <div className="flex justify-between max-h-12">
           <p>Pestaña</p>
-          <InputLabel inputName="Agregar..." />
+          <DDList inputName="Agregar..." />
           <p>Nombre</p>
-          <InputLabel inputName="Agregar..." />
+          <DDList inputName="Agregar..." />
           <p>Impresora</p>
-          <InputLabel inputName="Agregar..." />
+          <DDList inputName="Agregar..." />
           <TextButton buttonLabel="Hecho" action={closePortal} />
           <RemoveSVG />
         </div>
