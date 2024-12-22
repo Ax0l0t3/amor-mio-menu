@@ -4,10 +4,10 @@ export const DdlOption = ({
 }) => {
   return (
       <div
-        className="bg-[#454a48ff] h-[1.6rem] flex items-center px-2 hover:bg-[#154a48ff] cursor-default"
+        className="bg-[#454a48ff] h-[1.6rem] px-2 hover:bg-[#154a48ff] cursor-default"
         onClick={action}
       >
-          <p>{inputName}</p>
+          <p className="max-w-full overflow-hidden text-ellipsis whitespace-nowrap">{inputName}</p>
       </div>
   )
 }

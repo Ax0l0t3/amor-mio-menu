@@ -61,7 +61,7 @@ function App() {
 
   return (
     <>
-      <NavBar />
+      <NavBar data={mockObjects}/>
       <div>
         {
           mockObjects?.map(object => (

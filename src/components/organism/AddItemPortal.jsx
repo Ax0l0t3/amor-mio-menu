@@ -8,15 +8,17 @@ import { DDList } from "../molecule/DDList";
 
 export const AddItemPortal = ({
   isVisible = false,
-  closePortal = Function.prototype
+  closePortal = Function.prototype,
+  data = [{}]
 }) => {
+  console.log(data);
   return (
     isVisible &&
     createPortal(
       <div className="add-item-portal">
         <div className="flex justify-between max-h-12">
           <p>Pestaña</p>
-          <DDList inputName="Agregar..." />
+          <DDList inputName="Agregar..." options={data}/>
           <p>Nombre</p>
           <DDList inputName="Agregar..." />
           <p>Impresora</p>
