@@ -5,74 +5,94 @@
       "options": [
         {
           "name": "Capuccino",
-          "ingredients": [{}],
-          "extras": [{}],
-          "comments": "",
-          "printer": ""
+          "ingredients": [
+            {}
+          ],
+          "extras": [
+            {}
+          ],
+          "comments": ""
         },
         {
           "name": "Moka",
-          "ingredients": [{}],
-          "extras": [{}],
-          "comments": "",
-          "printer": ""
+          "ingredients": [
+            {}
+          ],
+          "extras": [
+            {}
+          ],
+          "comments": ""
         },
         {
           "name": "Caramel Coffee",
-          "ingredients": [{}],
-          "extras": [{}],
-          "comments": "",
-          "printer": ""
+          "ingredients": [
+            {}
+          ],
+          "extras": [
+            {}
+          ],
+          "comments": ""
         },
         {
           "name": "Cajeta",
-          "ingredients": [{}],
-          "extras": [{}],
-          "comments": "",
-          "printer": ""
+          "ingredients": [
+            {}
+          ],
+          "extras": [
+            {}
+          ],
+          "comments": ""
         },
         {
           "name": "Vainilla Francesa",
-          "ingredients": [{}],
-          "extras": [{}],
-          "comments": "",
-          "printer": ""
+          "ingredients": [
+            {}
+          ],
+          "extras": [
+            {}
+          ],
+          "comments": ""
         },
         {
           "name": "Taro",
-          "ingredients": [{}],
-          "extras": [{}],
-          "comments": "",
-          "printer": ""
+          "ingredients": [
+            {}
+          ],
+          "extras": [
+            {}
+          ],
+          "comments": ""
         },
         {
           "name": "Chocolate Avellana",
-          "ingredients": [{}],
-          "extras": [{}],
-          "comments": "",
-          "printer": ""
+          "ingredients": [
+            {}
+          ],
+          "extras": [
+            {}
+          ],
+          "comments": ""
         },
         {
           "name": "Chocolate Italiano",
-          "ingredients": [{}],
-          "extras": [{}],
-          "comments": "",
-          "printer": ""
+          "ingredients": [
+            {}
+          ],
+          "extras": [
+            {}
+          ],
+          "comments": ""
         }
       ],
-      "selected": false
-    },
-    {
-      "title": "Favoritos",
-      "options": [],
-      "selected": false
+      "selected": false,
+      "printer": "TP 80mm"
     },
     {
       "title": "Frutas con crema",
       "options": [
         {
           "name": "Vaso Chico",
-          "ingredients":[
+          "ingredients": [
             {
               "name": "Fresa",
               "selected": false
@@ -86,192 +106,266 @@
               "selected": false
             }
           ],
-          "extras": [{}],
-          "comments": "",
-          "printer": ""
-
+          "extras": [
+            {}
+          ],
+          "comments": ""
         },
         {
           "name": "Vaso Grande",
-          "ingredients": [{}],
-          "extras": [{}],
-          "comments": "",
-          "printer": ""
+          "ingredients": [
+            {}
+          ],
+          "extras": [
+            {}
+          ],
+          "comments": ""
         }
       ],
-      "selected": true
+      "selected": true,
+      "printer": "TP 45mm"
     },
     {
       "title": "Waffles",
       "options": [
         {
           "name": "Waffle Snickers",
-          "ingredients": [{}],
-          "extras": [{}],
-          "comments": "",
-          "printer": ""
+          "ingredients": [
+            {}
+          ],
+          "extras": [
+            {}
+          ],
+          "comments": ""
         },
         {
           "name": "Waffle Sencillo",
-          "ingredients": [{}],
-          "extras": [{}],
-          "comments": "",
-          "printer": ""
+          "ingredients": [
+            {}
+          ],
+          "extras": [
+            {}
+          ],
+          "comments": ""
         },
         {
           "name": "Waffle Durazno",
-          "ingredients": [{}],
-          "extras": [{}],
-          "comments": "",
-          "printer": ""
+          "ingredients": [
+            {}
+          ],
+          "extras": [
+            {}
+          ],
+          "comments": ""
         },
         {
           "name": "Waffle 4 Estaciones",
-          "ingredients": [{}],
-          "extras": [{}],
-          "comments": "",
-          "printer": ""
+          "ingredients": [
+            {}
+          ],
+          "extras": [
+            {}
+          ],
+          "comments": ""
         },
         {
           "name": "Waffle Coronado",
-          "ingredients": [{}],
-          "extras": [{}],
-          "comments": "",
-          "printer": ""
+          "ingredients": [
+            {}
+          ],
+          "extras": [
+            {}
+          ],
+          "comments": ""
         }
       ],
-      "selected": false
+      "selected": false,
+      "printer": "TP 80mm"
     },
     {
       "title": "Fruta con miel y granola",
       "options": [
         {
           "name": "Papaya",
-          "ingredients": [{}],
-          "extras": [{}],
-          "comments": "",
-          "printer": ""
+          "ingredients": [
+            {}
+          ],
+          "extras": [
+            {}
+          ],
+          "comments": ""
         },
         {
           "name": "Melón",
-          "ingredients": [{}],
-          "extras": [{}],
-          "comments": "",
-          "printer": ""
+          "ingredients": [
+            {}
+          ],
+          "extras": [
+            {}
+          ],
+          "comments": ""
         },
         {
           "name": "Uva",
-          "ingredients": [{}],
-          "extras": [{}],
-          "comments": "",
-          "printer": ""
+          "ingredients": [
+            {}
+          ],
+          "extras": [
+            {}
+          ],
+          "comments": ""
         },
         {
           "name": "Plátano",
-          "ingredients": [{}],
-          "extras": [{}],
-          "comments": "",
-          "printer": ""
+          "ingredients": [
+            {}
+          ],
+          "extras": [
+            {}
+          ],
+          "comments": ""
         },
         {
           "name": "Fresa",
-          "ingredients": [{}],
-          "extras": [{}],
-          "comments": "",
-          "printer": ""
+          "ingredients": [
+            {}
+          ],
+          "extras": [
+            {}
+          ],
+          "comments": ""
         },
         {
           "name": "Manzana",
-          "ingredients": [{}],
-          "extras": [{}],
-          "comments": "",
-          "printer": ""
+          "ingredients": [
+            {}
+          ],
+          "extras": [
+            {}
+          ],
+          "comments": ""
         }
       ],
-      "selected": false
+      "selected": false,
+      "printer": "TP 45mm"
     },
     {
       "title": "Bionicos",
       "options": [
         {
           "name": "Plato Chico",
-          "ingredients": [{}],
-          "extras": [{}]
+          "ingredients": [
+            {}
+          ],
+          "extras": [
+            {}
+          ]
         },
         {
           "name": "Plato Grande",
-          "ingredients": [{}],
-          "extras": [{}]
+          "ingredients": [
+            {}
+          ],
+          "extras": [
+            {}
+          ]
         }
       ],
-      "selected": false
+      "selected": false,
+      "printer": "TP 45mm"
     },
     {
       "title": "Tostilocos",
       "options": [],
-      "selected": false
+      "selected": false,
+      "printer": "TP 80mm"
     },
     {
       "title": "Postres Costco",
       "options": [
         {
           "name": "Cheesecake Chispas",
-          "ingredients": [{}],
-          "extras": [{}],
-          "comments": "",
-          "printer": ""
+          "ingredients": [
+            {}
+          ],
+          "extras": [
+            {}
+          ],
+          "comments": ""
         },
         {
           "name": "Cheesecake Frambuesa",
-          "ingredients": [{}],
-          "extras": [{}],
-          "comments": "",
-          "printer": ""
+          "ingredients": [
+            {}
+          ],
+          "extras": [
+            {}
+          ],
+          "comments": ""
         },
         {
           "name": "Chocoflan",
-          "ingredients": [{}],
-          "extras": [{}],
-          "comments": "",
-          "printer": ""
+          "ingredients": [
+            {}
+          ],
+          "extras": [
+            {}
+          ],
+          "comments": ""
         },
         {
           "name": "Pastel de Chocolate",
-          "ingredients": [{}],
-          "extras": [{}],
-          "comments": "",
-          "printer": ""
+          "ingredients": [
+            {}
+          ],
+          "extras": [
+            {}
+          ],
+          "comments": ""
         },
         {
           "name": "Muffins",
-          "ingredients": [{}],
-          "extras": [{}],
-          "comments": "",
-          "printer": ""
+          "ingredients": [
+            {}
+          ],
+          "extras": [
+            {}
+          ],
+          "comments": ""
         },
         {
           "name": "Galleta Chispas",
-          "ingredients": [{}],
-          "extras": [{}],
-          "comments": "",
-          "printer": ""
+          "ingredients": [
+            {}
+          ],
+          "extras": [
+            {}
+          ],
+          "comments": ""
         },
         {
           "name": "Donitas Canela",
-          "ingredients": [{}],
-          "extras": [{}],
-          "comments": "",
-          "printer": ""
+          "ingredients": [
+            {}
+          ],
+          "extras": [
+            {}
+          ],
+          "comments": ""
         },
         {
           "name": "Cheesecake Coronado",
-          "ingredients": [{}],
-          "extras": [{}],
-          "comments": "",
-          "printer": ""
+          "ingredients": [
+            {}
+          ],
+          "extras": [
+            {}
+          ],
+          "comments": ""
         }
       ],
-      "selected": false
+      "selected": false,
+      "printer": "TP 45mm"
     }
   ]
 }

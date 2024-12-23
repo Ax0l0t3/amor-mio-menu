@@ -6,10 +6,6 @@ export const PrePrintPortal = ({
   closePortal = Function.prototype
 }) => {
 
-  const printers = [
-    "Printer A",
-    "Printer B"
-  ];
   return (
     isVisible &&
     createPortal(

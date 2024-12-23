@@ -5,28 +5,9 @@ import { MenuOptionCard } from './components/molecule/MenuOptionCard';
 import { ProcessPortal } from './components/ecosystem/ProcessPortal';
 import mockData from "../mockData.json";
 import { useEffect, useState } from 'react';
+import { createContext } from 'react';
 
-/*
-public class Dish
-{
-  public string Title { get; set; }
-  public List<OptionItem> Options { get; set; }
-  public bool Selected { get; set; }
-}
-
-public class OptionItem
-{
-  public string Name { get; set; }
-  public List<BoolItem> Ingredients { get; set; }
-  public List<BoolItem> Extras { get; set; }
-}
-
-public class BoolItem
-{
-  public string Name { get; set; }
-  public bool Selected { get; set; }
-}
-*/
+export const DataContext = createContext(mockData);
 
 function App() {
   const [labelOptions, setLabelOptions] = useState([]);
@@ -60,8 +41,8 @@ function App() {
   }, [mockObjects]);
 
   return (
-    <>
-      <NavBar data={mockObjects}/>
+    <DataContext.Provider value={mockObjects}>
+      <NavBar />
       <div>
         {
           mockObjects?.map(object => (
@@ -79,7 +60,7 @@ function App() {
         }
       </div>
       <ProcessPortal isVisible={false} />
-    </>
+    </DataContext.Provider>
   )
 }
 

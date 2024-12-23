@@ -9,9 +9,7 @@ import { CustomizePortal } from '../ecosystem/CustomizePortal';
 import { useState } from 'react';
 import { PrePrintPortal } from '../ecosystem/PrePrintPortal';
 
-export const NavBar = ({
-  data = [{}]
-}) => {
+export const NavBar = () => {
   const [isAddItemPortal, setIsAddItemPortal] = useState(false);
   const [isCustomPortal, setIsCustomPortal] = useState(false);
   const [isPrePrintPortal, setIsPrePrintPortal] = useState(false);
@@ -23,7 +21,6 @@ export const NavBar = ({
     { button: <AboutSVG />, action: () => console.log("Opens AboutPortal") },
   ];
 
-  console.log(data);
   return (
     <div className="side-bar">
       {navBarButtons.map((b, index) => (
@@ -35,7 +32,7 @@ export const NavBar = ({
           {b.button}
         </button>
       ))}
-      <AddItemPortal isVisible={isAddItemPortal} closePortal={() => setIsAddItemPortal(false)} data={data}/>
+      <AddItemPortal isVisible={isAddItemPortal} closePortal={() => setIsAddItemPortal(false)} />
       <CustomizePortal isVisible={isCustomPortal} closePortal={() => setIsCustomPortal(false)} />
       <PrePrintPortal isVisible={isPrePrintPortal} closePortal={() => setIsPrePrintPortal(false)} />
     </div>

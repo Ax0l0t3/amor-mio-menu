@@ -20,7 +20,7 @@ export const PrePrintViewPort = ({
         ))}
       </div>
       <div className="button-section">
-        <TextButton buttonLabel="Imprimir" action={closePortal}/>
+        <TextButton buttonLabel="Imprimir" action={closePortal} />
       </div>
     </div>
   );
