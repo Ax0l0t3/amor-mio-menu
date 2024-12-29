@@ -15,7 +15,9 @@ export const AddItemPortal = ({
 }) => {
   const mockObjects = useContext(DataContext);
   const [printers, setPrinters] = useState([]);
+  const [selectedPrinter, setSelectedPrinter] = useState("Selecciona");
   const [tabs, setTabs] = useState([]);
+  const [selectedTab, setSelectedTab] = useState("Selecciona");
 
   const getPrinters = () => {
     const thisObjects = [...mockObjects];
@@ -33,6 +35,16 @@ export const AddItemPortal = ({
     setTabs(strings);
   };
 
+  const handleTabClick = optionName => {
+    const selectedObject = mockObjects.find(object => object.title === optionName);
+    setSelectedTab(optionName);
+    setSelectedPrinter(selectedObject.printer);
+  }
+
+  const handlePrinterClick = optionName => {
+    setSelectedPrinter(optionName);
+  }
+
   useEffect(() => {
     getPrinters();
     getTabs();
@@ -44,11 +56,11 @@ export const AddItemPortal = ({
       <div className="add-item-portal">
         <div className="flex justify-between max-h-12">
           <p>Pestaña</p>
-          <DDList inputName="Agregar..." options={tabs} />
+          <DDList ddlName={selectedTab} options={tabs} clickOption={handleTabClick} />
           <p>Nombre</p>
           <InputField label="Agregar..." />
           <p>Impresora</p>
-          <DDList inputName="Agregar..." options={printers} />
+          <DDList ddlName={selectedPrinter} options={printers} clickOption={handlePrinterClick}/>
           <TextButton buttonLabel="Hecho" action={closePortal} />
           <RemoveSVG />
         </div>

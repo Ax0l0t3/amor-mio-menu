@@ -5,20 +5,20 @@ import PropTypes, { string } from "prop-types";
 
 export const DDList = ({
     ddlName = "Agregar...",
-    options = []
+    options = [],
+    clickOption = Function.prototype
 }) => {
     const [isDdl, setIsDdl] = useState(false);
-    const [selectedOption, setSelectedOption] = useState(ddlName);
 
     const handleClick = title => {
-        setSelectedOption(title);
+        clickOption(title);
         setIsDdl(!isDdl);
     };
 
     return (
         <div className={isDdl ? "dd-class-clicked" : "dd-class"}>
             <div className="bg-[#454a48ff] h-[1.6rem] flex items-center px-2 cursor-default" onClick={() => setIsDdl(!isDdl)}>
-                <p className="max-w-full overflow-hidden text-ellipsis whitespace-nowrap">{selectedOption}</p>
+                <p className="max-w-full overflow-hidden text-ellipsis whitespace-nowrap">{ddlName}</p>
                 <div className={isDdl ? "dd-triangle-clicked" : "dd-triangle"} />
             </div>
             {options.map((option, id) => (
