@@ -1,6 +1,7 @@
 import { TextButton } from "../atom/TextButton";
 import { VisualizePrint } from "./VisualizePrint";
 import "../../styles/ecosystem/_pre-print-portal.css";
+import PropTypes from "prop-types";
 
 export const PrePrintViewPort = ({
   closePortal = Function.prototype
@@ -15,8 +16,8 @@ export const PrePrintViewPort = ({
   return (
     <div className="pre-print-portal">
       <div className="tickets-section">
-        {printers.map(printer => (
-          <VisualizePrint sectionName={printer} />
+        {printers.map((printer,index) => (
+          <VisualizePrint key={index} sectionName={printer} />
         ))}
       </div>
       <div className="button-section">
@@ -24,4 +25,8 @@ export const PrePrintViewPort = ({
       </div>
     </div>
   );
+}
+
+PrePrintViewPort.propTypes = {
+  closePortal: PropTypes.func
 }
