@@ -5,7 +5,7 @@ import { TextButton } from "../atom/TextButton"
 import "../../styles/organism/_add-item-portal.css"
 import { AddThings } from "../molecule/AddThings"
 import { DDList } from "../molecule/DDList";
-import { DataContext } from "../../App";
+import { DataContext } from "../../components/utils/DataContext";
 import { useContext, useEffect, useState } from "react";
 import { InputField } from "../atom/InputField";
 
