@@ -1,7 +1,7 @@
 import { DdlOption } from "../atom/DdlOption";
 import "../../styles/molecule/_dd-triangle.css";
-import { useState } from "react";
-import PropTypes, { string } from "prop-types";
+import { useEffect, useState } from "react";
+import PropTypes from "prop-types";
 
 export const DDList = ({
     ddlName = "Agregar...",
@@ -9,11 +9,17 @@ export const DDList = ({
     clickOption = Function.prototype
 }) => {
     const [isDdl, setIsDdl] = useState(false);
+    const [finalOptions, setFinalOptions] = useState(options);
 
     const handleClick = title => {
         clickOption(title);
         setIsDdl(!isDdl);
     };
+
+    useEffect(() => {
+        const thisOptions = [...options, "Agregar..."];
+        setFinalOptions(thisOptions);
+    }, [options]);
 
     return (
         <div className={isDdl ? "dd-class-clicked" : "dd-class"}>
@@ -21,7 +27,7 @@ export const DDList = ({
                 <p className="max-w-full overflow-hidden text-ellipsis whitespace-nowrap">{ddlName}</p>
                 <div className={isDdl ? "dd-triangle-clicked" : "dd-triangle"} />
             </div>
-            {options.map((option, id) => (
+            {finalOptions.map((option, id) => (
                 isDdl && <DdlOption key={`${option}-${id}`} inputName={option} action={() => handleClick(option)} />
             ))}
         </div>
@@ -30,5 +36,6 @@ export const DDList = ({
 
 DDList.propTypes = {
     ddlName: PropTypes.string,
-    options: PropTypes.arrayOf(string)
+    options: PropTypes.arrayOf(PropTypes.string),
+    clickOption: PropTypes.func
 };

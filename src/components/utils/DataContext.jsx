@@ -1,4 +1,4 @@
 import { createContext } from 'react';
-import mockData from "../../../mockData.json";
+import BaseData from "../../../BaseData.json";
 
-export const DataContext = createContext(mockData);
+export const DataContext = createContext(BaseData);

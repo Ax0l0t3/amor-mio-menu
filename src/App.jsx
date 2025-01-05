@@ -5,7 +5,7 @@ import { MenuOptionCard } from './components/molecule/MenuOptionCard';
 import { ProcessPortal } from './components/ecosystem/ProcessPortal';
 import { useEffect, useState } from 'react';
 import { DataContext } from './components/utils/DataContext';
-import mockData from "../mockData.json";
+import BaseData from "../BaseData.json";
 
 function App() {
   const [labelOptions, setLabelOptions] = useState([]);
@@ -29,7 +29,7 @@ function App() {
   };
 
   useEffect(() => {
-    setMockObjects(mockData.tabs);
+    setMockObjects(BaseData.tabs);
   }, []);
 
   useEffect(() => {

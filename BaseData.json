@@ -1,0 +1,34 @@
+{
+    "tabs": [
+      {
+        "extras": ["Z", "Y", "X"],
+        "ingredients": ["A", "B", "C"],
+        "options":
+        [
+          {
+            "name": "Base Option",
+            "ingredients": ["A", "C"],
+            "extras": ["Y"]
+          }
+        ],
+        "printer": "Printer 1",
+        "selected": true,
+        "title": "Base Tab 1"
+      },
+      {
+        "extras": ["W", "V", "U"],
+        "ingredients": ["D", "E", "F"],
+        "options":
+        [
+          {
+            "name": "Base Option",
+            "ingredients": ["F", "D"],
+            "extras": ["W"]
+          }
+        ],
+        "printer": "Printer 2",
+        "selected": false,
+        "title": "Base Tab 2"
+      }
+    ]
+  }

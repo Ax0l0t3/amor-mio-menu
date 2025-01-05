@@ -4,20 +4,34 @@ import { RemoveSVG } from "../atom/RemoveIcon"
 import { TextButton } from "../atom/TextButton"
 import "../../styles/organism/_add-item-portal.css"
 import { AddThings } from "../molecule/AddThings"
-import { DDList } from "../molecule/DDList";
 import { DataContext } from "../../components/utils/DataContext";
 import { useContext, useEffect, useState } from "react";
 import { InputField } from "../atom/InputField";
+import { DropDownSection } from "./DropDownSection";
 
 export const AddItemPortal = ({
   isVisible = false,
   closePortal = Function.prototype,
 }) => {
   const mockObjects = useContext(DataContext);
+  const [extras, setExtras] = useState([]);
+  const [ingredients, setIngredients] = useState([]);
   const [printers, setPrinters] = useState([]);
-  const [selectedPrinter, setSelectedPrinter] = useState("Selecciona");
   const [tabs, setTabs] = useState([]);
-  const [selectedTab, setSelectedTab] = useState("Selecciona");
+  const [selectedExtra, setSelectedExtra] = useState("");
+  const [selectedIngredient, setSelectedIngredient] = useState("");
+  const [selectedPrinter, setSelectedPrinter] = useState("");
+  const [selectedTab, setSelectedTab] = useState("");
+
+  const getExtras = selectedTab => {
+    const selectedObject = mockObjects.find(object => object.title === selectedTab);
+    setExtras([...selectedObject.extras]);
+  };
+
+  const getIngredients = selectedTab => {
+    const selectedObject = mockObjects.find(object => object.title === selectedTab);
+    setIngredients([...selectedObject.ingredients]);
+  };
 
   const getPrinters = () => {
     const thisObjects = [...mockObjects];
@@ -39,16 +53,31 @@ export const AddItemPortal = ({
     const selectedObject = mockObjects.find(object => object.title === optionName);
     setSelectedTab(optionName);
     setSelectedPrinter(selectedObject.printer);
-  }
+  };
 
   const handlePrinterClick = optionName => {
     setSelectedPrinter(optionName);
   }
 
+  const handleIngredientsClick = option => {
+    setSelectedIngredient(option);
+  };
+
+  const handleExtrasClick = option => {
+    setSelectedExtra(option);
+  };
+
   useEffect(() => {
     getPrinters();
     getTabs();
   }, [mockObjects]);
+
+  useEffect(() => {
+    if (selectedTab.length > 0) {
+      getIngredients(selectedTab);
+      getExtras(selectedTab);
+    }
+  }, [selectedTab]);
 
   return (
     isVisible &&
@@ -56,16 +85,26 @@ export const AddItemPortal = ({
       <div className="add-item-portal">
         <div className="flex justify-between max-h-12">
           <p>Pestaña</p>
-          <DDList ddlName={selectedTab} options={tabs} clickOption={handleTabClick} />
+          <DropDownSection options={tabs} selectedOption={selectedTab} clickedOption={handleTabClick} />
           <p>Nombre</p>
           <InputField label="Agregar..." />
           <p>Impresora</p>
-          <DDList ddlName={selectedPrinter} options={printers} clickOption={handlePrinterClick}/>
+          <DropDownSection options={printers} selectedOption={selectedPrinter} clickedOption={handlePrinterClick} />
           <TextButton buttonLabel="Hecho" action={closePortal} />
           <RemoveSVG />
         </div>
-        <AddThings categoryName="Ingredientes" />
-        <AddThings categoryName="Extras" />
+        <AddThings
+          categoryName="Ingredientes"
+          ddoptions={ingredients}
+          selectedOption={selectedIngredient}
+          clickedThisOption={handleIngredientsClick}
+        />
+        <AddThings
+          categoryName="Extras"
+          ddoptions={extras}
+          selectedOption={selectedExtra}
+          clickedThisOption={handleExtrasClick}
+        />
         <div>
           <p>Comentarios</p>
           <InputLabel inputName="Agrega tus comentarios" width="100%" />

@@ -1,27 +1,44 @@
 import { AddSVG } from "../atom/AddIcon"
-import { InputLabel } from "../atom/InputLabel"
-import { BoolItemGroup } from "./BoolItemGroup"
-import { DDList } from "./DDList"
+import { InputField } from "../atom/InputField";
+import { DropDownSection } from "../organism/DropDownSection";
+// import { BoolItemGroup } from "./BoolItemGroup";
+import PropTypes from "prop-types";
 
 export const AddThings = ({
   categoryName = "Default",
+  clickedThisOption = Function.prototype,
+  ddoptions = [],
+  selectedOption = "",
   isAdding = true
 }) => {
+
+  const handleThisClick = option => {
+    clickedThisOption(option);
+  };
+
   return (
     <div className="mb-4">
       <p>{categoryName}</p>
       {isAdding &&
         <div className="flex max-h-[1.8rem]">
           <p className="ml-4">Categoria</p>
-          <DDList inputName="Agregar..." />
-          <p className="ml-4">Opcion</p>
-          <InputLabel inputName="Agregar..." margin="0 0 0 1rem" />
-          <button type="button" onClick={() => console.log("Add category item")}>
+          <DropDownSection options={ddoptions} selectedOption={selectedOption} clickedOption={handleThisClick} />
+          <p className="ml-4">Opción</p>
+          <InputField />
+          <button type="button" onClick={() => console.log("Add and display category item")}>
             <AddSVG svgClass="ml-4" />
           </button>
         </div>
       }
-      <BoolItemGroup />
+      {/* <BoolItemGroup /> */}
     </div>
   )
+}
+
+AddThings.propTypes = {
+  categoryName: PropTypes.string,
+  clickedThisOption: PropTypes.func,
+  isAdding: PropTypes.bool,
+  ddoptions: PropTypes.arrayOf(PropTypes.string),
+  selectedOption: PropTypes.string
 }
