@@ -14,24 +14,12 @@ export const AddItemPortal = ({
   closePortal = Function.prototype,
 }) => {
   const mockObjects = useContext(DataContext);
-  const [extras, setExtras] = useState([]);
-  const [ingredients, setIngredients] = useState([]);
   const [printers, setPrinters] = useState([]);
   const [tabs, setTabs] = useState([]);
   const [selectedExtra, setSelectedExtra] = useState("");
   const [selectedIngredient, setSelectedIngredient] = useState("");
   const [selectedPrinter, setSelectedPrinter] = useState("");
   const [selectedTab, setSelectedTab] = useState("");
-
-  const getExtras = selectedTab => {
-    const selectedObject = mockObjects.find(object => object.title === selectedTab);
-    setExtras([...selectedObject.extras]);
-  };
-
-  const getIngredients = selectedTab => {
-    const selectedObject = mockObjects.find(object => object.title === selectedTab);
-    setIngredients([...selectedObject.ingredients]);
-  };
 
   const getPrinters = () => {
     const thisObjects = [...mockObjects];
@@ -72,13 +60,6 @@ export const AddItemPortal = ({
     getTabs();
   }, [mockObjects]);
 
-  useEffect(() => {
-    if (selectedTab.length > 0) {
-      getIngredients(selectedTab);
-      getExtras(selectedTab);
-    }
-  }, [selectedTab]);
-
   return (
     isVisible &&
     createPortal(
@@ -95,15 +76,17 @@ export const AddItemPortal = ({
         </div>
         <AddThings
           categoryName="Ingredientes"
-          ddoptions={ingredients}
-          selectedOption={selectedIngredient}
           clickedThisOption={handleIngredientsClick}
+          objectProperty="ingredients"
+          selectedOption={selectedIngredient}
+          selectedTab={selectedTab}
         />
         <AddThings
           categoryName="Extras"
-          ddoptions={extras}
-          selectedOption={selectedExtra}
           clickedThisOption={handleExtrasClick}
+          objectProperty="extras"
+          selectedOption={selectedExtra}
+          selectedTab={selectedTab}
         />
         <div>
           <p>Comentarios</p>

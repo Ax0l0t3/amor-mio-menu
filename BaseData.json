@@ -1,14 +1,23 @@
 {
     "tabs": [
       {
-        "extras": ["Z", "Y", "X"],
-        "ingredients": ["A", "B", "C"],
-        "options":
-        [
+        "extras": [
+          {
+            "category": "CategoryB",
+            "options": ["D", "E", "F"]
+          }
+        ],
+        "ingredients": [
+          {
+            "category": "CategoryA",
+            "options": ["A", "B", "C"]
+          }
+        ],
+        "options": [
           {
             "name": "Base Option",
             "ingredients": ["A", "C"],
-            "extras": ["Y"]
+            "extras": ["D"]
           }
         ],
         "printer": "Printer 1",
@@ -16,14 +25,24 @@
         "title": "Base Tab 1"
       },
       {
-        "extras": ["W", "V", "U"],
-        "ingredients": ["D", "E", "F"],
+        "extras": [
+          {
+            "category": "CategoryD",
+            "options": ["J", "K", "L"]
+          }
+        ],
+        "ingredients": [
+          {
+            "category": "CategoryC",
+            "options": ["G", "H", "I"]
+          }
+        ],
         "options":
         [
           {
             "name": "Base Option",
-            "ingredients": ["F", "D"],
-            "extras": ["W"]
+            "ingredients": ["I", "H"],
+            "extras": ["L"]
           }
         ],
         "printer": "Printer 2",

@@ -1,15 +1,18 @@
 import { BoolItem } from "./BoolItem"
 
 export const BoolItemGroup = ({
-  categoryHeader = "Default"
+  categoryHeader = "Default",
+  options = []
 }) => {
   return (
     <div className="mt-4 ml-4">
       <p>{categoryHeader}</p>
       <div className="flex flex-wrap">
-        <BoolItem />
-        <BoolItem />
-        <BoolItem />
+        {
+          options.map((option, index) => (
+            <BoolItem key={index} itemName={option} />
+          ))
+        }
       </div>
     </div>
   )
