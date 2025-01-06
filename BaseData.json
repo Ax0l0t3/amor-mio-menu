@@ -3,14 +3,18 @@
       {
         "extras": [
           {
-            "category": "CategoryB",
-            "options": ["D", "E", "F"]
+            "category": "CategoryC",
+            "options": ["G", "H", "I"]
           }
         ],
         "ingredients": [
           {
             "category": "CategoryA",
             "options": ["A", "B", "C"]
+          },
+          {
+            "category": "CategoryB",
+            "options": ["D", "E", "F"]
           }
         ],
         "options": [
@@ -27,14 +31,14 @@
       {
         "extras": [
           {
-            "category": "CategoryD",
-            "options": ["J", "K", "L"]
+            "category": "CategoryE",
+            "options": ["M", "N", "O"]
           }
         ],
         "ingredients": [
           {
-            "category": "CategoryC",
-            "options": ["G", "H", "I"]
+            "category": "CategoryD",
+            "options": ["J", "K", "L"]
           }
         ],
         "options":

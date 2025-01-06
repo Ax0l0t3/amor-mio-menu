@@ -19,28 +19,39 @@ export const AddThings = ({
 
   const [ddOptions, setDdOptions] = useState([]);
   const [boolOptions, setBoolOptions] = useState([]);
+  const [inputValue, setInputValue] = useState("");
 
   const handleThisClick = option => {
     clickedThisOption(option);
   };
 
-  const getIngredients = (objectProperty, selectedTab) => {
+  const getOptions = (objectProperty, selectedTab) => {
     let sectionOptions = [];
-    let boolItemOptions = [];
     const selectedObject = mockObjects.find(object => object.title === selectedTab);
     selectedObject[objectProperty].forEach(object => {
       sectionOptions = [...sectionOptions, object.category]
-      boolItemOptions = [...boolItemOptions, object.options].flat();
     });
     setDdOptions(sectionOptions);
-    setBoolOptions(boolItemOptions);
+    setBoolOptions(selectedObject[objectProperty]);
   };
 
   useEffect(() => {
     if (selectedTab.length > 0) {
-      getIngredients(objectProperty, selectedTab)
+      getOptions(objectProperty, selectedTab)
     }
   }, [selectedTab]);
+
+  const handleAddClick = () => {
+    const selectedObject = boolOptions.map(object => {
+      const var1 = object.category === selectedOption ? [...object.options, inputValue] : [...object.options];
+      return {...object, options: var1}
+    });
+    setBoolOptions(selectedObject);
+  }
+
+  const debugInput = element => {
+    setInputValue(element);
+  };
 
   return (
     <div className="mb-4">
@@ -50,13 +61,13 @@ export const AddThings = ({
           <p className="ml-4">Categoria</p>
           <DropDownSection options={ddOptions} selectedOption={selectedOption} clickedOption={handleThisClick} />
           <p className="ml-4">Opción</p>
-          <InputField />
-          <button type="button" onClick={() => console.log("Add and display category item")}>
+          <InputField getInputValue={debugInput} />
+          <button type="button" onClick={handleAddClick}>
             <AddSVG svgClass="ml-4" />
           </button>
         </div>
       }
-      <BoolItemGroup options={boolOptions} />
+      <BoolItemGroup categories={ddOptions} boolOptions={boolOptions} />
     </div>
   )
 }
