@@ -1,6 +1,7 @@
 {
     "tabs": [
       {
+        "comments": "Base Coment 1",
         "extras": [
           {
             "category": "CategoryC",
@@ -29,6 +30,7 @@
         "title": "Base Tab 1"
       },
       {
+        "comments": "Base Coment 2",
         "extras": [
           {
             "category": "CategoryE",

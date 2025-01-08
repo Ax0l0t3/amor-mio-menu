@@ -1,9 +1,8 @@
 import { createPortal } from "react-dom";
-import { InputLabel } from "../atom/InputLabel"
-import { RemoveSVG } from "../atom/RemoveIcon"
-import { TextButton } from "../atom/TextButton"
-import "../../styles/organism/_add-item-portal.css"
-import { AddThings } from "../molecule/AddThings"
+import { RemoveSVG } from "../atom/RemoveIcon";
+import { TextButton } from "../atom/TextButton";
+import "../../styles/organism/_add-item-portal.css";
+import { AddThings } from "../molecule/AddThings";
 import { DataContext } from "../../components/utils/DataContext";
 import { useContext, useEffect, useState } from "react";
 import { InputField } from "../atom/InputField";
@@ -16,6 +15,7 @@ export const AddItemPortal = ({
   const mockObjects = useContext(DataContext);
   const [printers, setPrinters] = useState([]);
   const [tabs, setTabs] = useState([]);
+  const [selectedComment, setSelectedComment] = useState("");
   const [selectedExtra, setSelectedExtra] = useState("");
   const [selectedIngredient, setSelectedIngredient] = useState("");
   const [selectedPrinter, setSelectedPrinter] = useState("");
@@ -41,6 +41,7 @@ export const AddItemPortal = ({
     const selectedObject = mockObjects.find(object => object.title === optionName);
     setSelectedTab(optionName);
     setSelectedPrinter(selectedObject.printer);
+    setSelectedComment(selectedObject.comments);
   };
 
   const handlePrinterClick = optionName => {
@@ -68,7 +69,7 @@ export const AddItemPortal = ({
           <p>Pestaña</p>
           <DropDownSection options={tabs} selectedOption={selectedTab} clickedOption={handleTabClick} />
           <p>Nombre</p>
-          <InputField label="Agregar..." />
+          <InputField inputPlaceHolder="Platillo..."/>
           <p>Impresora</p>
           <DropDownSection options={printers} selectedOption={selectedPrinter} clickedOption={handlePrinterClick} />
           <TextButton buttonLabel="Hecho" action={closePortal} />
@@ -78,19 +79,21 @@ export const AddItemPortal = ({
           categoryName="Ingredientes"
           clickedThisOption={handleIngredientsClick}
           objectProperty="ingredients"
+          optionPlaceHolder="Ingrediente..."
           selectedOption={selectedIngredient}
           selectedTab={selectedTab}
-        />
+          />
         <AddThings
           categoryName="Extras"
           clickedThisOption={handleExtrasClick}
           objectProperty="extras"
+          optionPlaceHolder="Extra..."
           selectedOption={selectedExtra}
           selectedTab={selectedTab}
         />
         <div>
           <p>Comentarios</p>
-          <InputLabel inputName="Agrega tus comentarios" width="100%" />
+          <InputField inputValue={selectedComment} inputPlaceHolder="Tus comentarios..." width="w-[100%]"/>
         </div>
       </div>,
       document.getElementById("root")

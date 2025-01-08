@@ -4,9 +4,10 @@ import { DDList } from "../molecule/DDList";
 import PropTypes from "prop-types";
 
 export const DropDownSection = ({
-    selectedOption = "",
+    clickedOption = Function.prototype,
     options = [],
-    clickedOption = Function.prototype
+    selectedOption = "",
+    thisFunc = Function.prototype,
 }) => {
 
     const [addDdlOption, setAddDdlOption] = useState(false);
@@ -19,8 +20,12 @@ export const DropDownSection = ({
         return false;
     }
 
+    const getThisValue = value => {
+        thisFunc(value);
+    };
+
     return addDdlOption
-        ? <InputField />
+        ? <InputField getInputValue={getThisValue} />
         : <DDList ddlName={selectedOption} options={options} clickOption={handleClick} />
 }
 

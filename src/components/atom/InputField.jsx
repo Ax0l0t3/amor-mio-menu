@@ -1,15 +1,27 @@
+import { useEffect, useState } from "react";
 
 export const InputField = ({
-  getInputValue = Function.prototype
+  width = "w-[16%]",
+  getInputValue = Function.prototype,
+  inputValue = "",
+  inputPlaceHolder = "Add some text..."
 }) => {
+
+  const [thisInputValue, setThisInputValue] = useState(inputValue);
 
   const handleInputChange = e => {
     getInputValue(e.target.value);
+    setThisInputValue(e.target.value);
   };
 
+  useEffect(()=>{
+    console.log("Entered InputField useEffect", inputValue);
+    setThisInputValue(inputValue);
+  },[inputValue]);
+
   return (
-    <div className="w-[16%] ml-2">
-      <input className="bg-[#454a48] w-full h-fit" type="text" placeholder="Agregar..." onChange={e => handleInputChange(e)} />
+    <div className={`${width} ml-2`}>
+      <input className="bg-[#454a48] w-full h-fit" type="text" placeholder={inputPlaceHolder} value={thisInputValue} onChange={e => handleInputChange(e)} />
     </div>
   )
 }
