@@ -17,6 +17,10 @@
             "category": "CategoryB",
             "options": ["D", "E", "F"]
           }
+          /*{
+            "category": "CategoryC",
+            "options": ["G", "H", "I"]
+          }*/
         ],
         "options": [
           {
