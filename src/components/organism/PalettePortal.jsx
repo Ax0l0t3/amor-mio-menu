@@ -30,13 +30,17 @@ export const PalettePortal = () => {
             </div>
           ))}
         </div>
+              {/*
+                  Hover
+              */}
         <div className="flex">
-          <div className="bg-[#977f33ff] w-[4.5rem] h-[4.5rem] rounded-l-lg" />
+          <div className="bg-[#977f33ff] w-[4.5rem] h-[4.5rem] rounded-l-lg border-[4px] border-transparent hover:border-black"/>
           {returnColours.map((color, id) => (
-            <div key={id} style={{ background: color }} className="w-[4.5rem] h-[4.5rem]" />
+            <div key={id} style={{ background: color }} className="w-[4.5rem] h-[4.5rem] border-[4px] border-transparent hover:border-black"/>
           ))}
-          <div className="bg-[#808080ff] w-[4.5rem] h-[4.5rem] rounded-r-lg" />
-        </div>
+          <div className="bg-[#808080ff] w-[4.5rem] h-[4.5rem] rounded-r-lg border-[4px] border-transparent hover:border-black"/>
+        </div> 
+
       </div>
     </div>
   )
