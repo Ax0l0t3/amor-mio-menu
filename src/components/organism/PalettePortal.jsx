@@ -37,9 +37,7 @@ export const PalettePortal = () => {
             </div>
           ))}
         </div>
-              {/*
-                  Hover and Click
-              */}
+        
         <div className="flex">
           <div className="bg-[#977f33ff] w-[4.5rem] h-[4.5rem] rounded-l-lg border-[4px] border-transparent hover:border-black"
             onClick={()=>handleClick("left")}
