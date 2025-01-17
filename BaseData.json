@@ -1,7 +1,6 @@
 {
     "tabs": [
       {
-        "comments": "Base Coment 1",
         "extras": [
           {
             "category": "CategoryC",
@@ -20,9 +19,10 @@
         ],
         "options": [
           {
-            "name": "Base Option",
+            "comments": "Base Coment 1",
+            "extras": ["D"],
             "ingredients": ["A", "C"],
-            "extras": ["D"]
+            "name": "Base Option"
           }
         ],
         "printer": "Printer 1",
@@ -30,7 +30,6 @@
         "title": "Base Tab 1"
       },
       {
-        "comments": "Base Coment 2",
         "extras": [
           {
             "category": "CategoryE",
@@ -46,9 +45,10 @@
         "options":
         [
           {
-            "name": "Base Option",
+            "comments": "Base Coment 2",
+            "extras": ["L"],
             "ingredients": ["I", "H"],
-            "extras": ["L"]
+            "name": "Base Option"
           }
         ],
         "printer": "Printer 2",

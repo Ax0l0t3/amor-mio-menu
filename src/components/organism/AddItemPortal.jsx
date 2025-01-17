@@ -12,14 +12,26 @@ export const AddItemPortal = ({
   isVisible = false,
   closePortal = Function.prototype,
 }) => {
+  const baseTabObject = {
+    extras: [{}],
+    ingredients: [{}],
+    options: [{}],
+    printer: "",
+    selected: false,
+    title: ""
+  };
   const mockObjects = useContext(DataContext);
   const [printers, setPrinters] = useState([]);
   const [tabs, setTabs] = useState([]);
-  const [selectedComment, setSelectedComment] = useState("");
   const [selectedExtra, setSelectedExtra] = useState("");
   const [selectedIngredient, setSelectedIngredient] = useState("");
   const [selectedPrinter, setSelectedPrinter] = useState("");
   const [selectedTab, setSelectedTab] = useState("");
+  const [newObject, setNewObject] = useState(baseTabObject);
+  const [newDish, setNewDish] = useState("");
+  const [newIngredients, setNewIngredients] = useState({});
+  const [newExtras, setNewExtras] = useState({});
+  const [newComment, setNewComment] = useState("");
 
   const getPrinters = () => {
     const thisObjects = [...mockObjects];
@@ -41,7 +53,6 @@ export const AddItemPortal = ({
     const selectedObject = mockObjects.find(object => object.title === optionName);
     setSelectedTab(optionName);
     setSelectedPrinter(selectedObject.printer);
-    setSelectedComment(selectedObject.comments);
   };
 
   const handlePrinterClick = optionName => {
@@ -56,46 +67,83 @@ export const AddItemPortal = ({
     setSelectedExtra(option);
   };
 
+  const handleClosePortal = () => {
+    const selectedObject = mockObjects.find(object => object.title === selectedTab);
+    const optionToAdd = {
+      name: newDish,
+      comments: newComment
+    };
+    const objectToReturn = {
+      ...selectedObject,
+      options: [...selectedObject.options, optionToAdd],
+      ingredients: newIngredients,
+      extras: newExtras,
+    };
+    setNewObject(objectToReturn);
+    console.log(objectToReturn);
+    closePortal();
+  }
+
+  const handleDishChange = value => {
+    setNewDish(value);
+  };
+
+  const handleCommentsChange = value => {
+    setNewComment(value);
+  };
+
   useEffect(() => {
     getPrinters();
     getTabs();
   }, [mockObjects]);
 
+  useEffect(() => {
+    setSelectedIngredient("");
+    setSelectedExtra("");
+  }, [selectedTab])
+
   return (
     isVisible &&
     createPortal(
-      <div className="add-item-portal">
+      <form className="add-item-portal">
         <div className="flex justify-between max-h-12">
           <p>Pestaña</p>
           <DropDownSection options={tabs} selectedOption={selectedTab} clickedOption={handleTabClick} />
           <p>Nombre</p>
-          <InputField inputPlaceHolder="Platillo..."/>
+          <InputField getInputValue={handleDishChange} inputPlaceHolder="Platillo..." />
           <p>Impresora</p>
           <DropDownSection options={printers} selectedOption={selectedPrinter} clickedOption={handlePrinterClick} />
-          <TextButton buttonLabel="Hecho" action={closePortal} />
+          <TextButton buttonLabel="Hecho" action={handleClosePortal} />
           <RemoveSVG />
         </div>
         <AddThings
           categoryName="Ingredientes"
-          clickedThisOption={handleIngredientsClick}
+          clickedDDLOption={handleIngredientsClick}
           objectProperty="ingredients"
           optionPlaceHolder="Ingrediente..."
-          selectedOption={selectedIngredient}
+          returnBoolOptions={setNewIngredients}
+          selectedDDLOption={selectedIngredient}
           selectedTab={selectedTab}
-          />
+        />
         <AddThings
           categoryName="Extras"
-          clickedThisOption={handleExtrasClick}
+          clickedDDLOption={handleExtrasClick}
           objectProperty="extras"
           optionPlaceHolder="Extra..."
-          selectedOption={selectedExtra}
+          returnBoolOptions={setNewExtras}
+          selectedDDLOption={selectedExtra}
           selectedTab={selectedTab}
         />
         <div>
           <p>Comentarios</p>
-          <InputField inputValue={selectedComment} inputPlaceHolder="Tus comentarios..." width="w-[100%]"/>
+          <InputField
+            getInputValue={handleCommentsChange}
+            inputValue={newComment}
+            inputPlaceHolder="Tus comentarios..."
+            width="w-[100%]"
+          />
         </div>
-      </div>,
+      </form>,
       document.getElementById("root")
     )
   )

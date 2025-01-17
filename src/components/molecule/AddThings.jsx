@@ -8,12 +8,13 @@ import { DataContext } from "../utils/DataContext";
 
 export const AddThings = ({
   categoryName = "Default",
-  clickedThisOption = Function.prototype,
+  clickedDDLOption = Function.prototype,
   isAdding = true,
   objectProperty = "",
-  selectedOption = "",
+  optionPlaceHolder = "",
+  returnBoolOptions = Function.prototype,
+  selectedDDLOption = "",
   selectedTab = "",
-  optionPlaceHolder = ""
 }) => {
 
   const mockObjects = useContext(DataContext);
@@ -24,7 +25,7 @@ export const AddThings = ({
   const [categoryInputValue, setCategoryInputValue] = useState("");
 
   const handleThisClick = option => {
-    clickedThisOption(option);
+    clickedDDLOption(option);
     setCategoryInputValue(option);
   };
 
@@ -38,16 +39,10 @@ export const AddThings = ({
     setBoolOptions(selectedObject[objectProperty]);
   };
 
-  useEffect(() => {
-    if (selectedTab.length > 0) {
-      getOptions(objectProperty, selectedTab)
-    }
-  }, [selectedTab]);
-
   const handleAddClick = () => {
     setBoolOptions(prevState => {
       const foundIndex = prevState.findIndex(object => object.category === categoryInputValue);
-  
+
       if (foundIndex < 0) {
         // If the category doesn't exist, add a new entry
         return [...prevState, { category: categoryInputValue, options: [optionInputValue] }];
@@ -61,13 +56,22 @@ export const AddThings = ({
       }
     });
   };
-  
 
-  const debugInput = element => {
+  useEffect(() => {
+    if (selectedTab.length > 0) {
+      getOptions(objectProperty, selectedTab)
+    }
+  }, [selectedTab]);
+
+  useEffect(() => {
+    returnBoolOptions(boolOptions);
+  }, [boolOptions]);
+
+  const getInputFieldValue = element => {
     setOptionInputValue(element);
   };
 
-  const anotherFunc = e => {
+  const setDropDownInputField = e => {
     setCategoryInputValue(e);
   };
 
@@ -79,12 +83,12 @@ export const AddThings = ({
           <p className="ml-4">Categoria</p>
           <DropDownSection
             options={ddOptions}
-            selectedOption={selectedOption}
+            selectedOption={selectedDDLOption}
             clickedOption={handleThisClick}
-            thisFunc={anotherFunc}
+            getInputFieldValue={setDropDownInputField}
           />
           <p className="ml-4">Opción</p>
-          <InputField getInputValue={debugInput} inputPlaceHolder={optionPlaceHolder} />
+          <InputField getInputValue={getInputFieldValue} inputPlaceHolder={optionPlaceHolder} />
           <button type="button" onClick={handleAddClick}>
             <AddSVG svgClass="ml-4" />
           </button>
@@ -97,10 +101,11 @@ export const AddThings = ({
 
 AddThings.propTypes = {
   categoryName: PropTypes.string,
-  clickedThisOption: PropTypes.func,
+  clickedDDLOption: PropTypes.func,
   isAdding: PropTypes.bool,
   objectProperty: PropTypes.string,
   optionPlaceHolder: PropTypes.string,
-  selectedOption: PropTypes.string,
+  returnBoolOptions: PropTypes.func,
+  selectedDDLOption: PropTypes.string,
   selectedTab: PropTypes.string
 }

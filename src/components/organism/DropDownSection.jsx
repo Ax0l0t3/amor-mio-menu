@@ -5,9 +5,9 @@ import PropTypes from "prop-types";
 
 export const DropDownSection = ({
     clickedOption = Function.prototype,
+    getInputFieldValue = Function.prototype,
     options = [],
     selectedOption = "",
-    thisFunc = Function.prototype,
 }) => {
 
     const [addDdlOption, setAddDdlOption] = useState(false);
@@ -21,7 +21,7 @@ export const DropDownSection = ({
     }
 
     const getThisValue = value => {
-        thisFunc(value);
+        getInputFieldValue(value);
     };
 
     return addDdlOption
@@ -30,7 +30,8 @@ export const DropDownSection = ({
 }
 
 DropDownSection.propTypes = {
-    selectedOption: PropTypes.string,
+    clickedOption: PropTypes.func,
+    getInputFieldValue: PropTypes.func,
     options: PropTypes.arrayOf(PropTypes.string),
-    clickedOption: PropTypes.func
+    selectedOption: PropTypes.string,
 }
