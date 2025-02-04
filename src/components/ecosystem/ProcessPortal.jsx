@@ -8,9 +8,7 @@ import { FastPrintSVG } from "../atom/FastPrintIcon";
 import { PreSaveSVG } from "../atom/PreSaveIcon";
 import { ExitPrintSVG } from "../atom/ExitPrintIcon";
 
-export const ProcessPortal = ({
-  isVisible = false
-}) => {
+export const ProcessPortal = ({ isVisible = false }) => {
   return (
     isVisible &&
     createPortal(
@@ -31,17 +29,17 @@ export const ProcessPortal = ({
           <div className="flex flex-col">
             <p>Comentarios</p>
             <InputLabel inputName="Agrega tus comentarios" width="100%" />
-            <CounterDiv tailwindStyle="flex ml-auto mt-2"/>
+            <CounterDiv tailwindStyle="flex ml-auto mt-2" />
           </div>
           <div className="flex mt-auto self-end">
             <FastPrintSVG />
             <ChangePrinterSVG />
-            <PreSaveSVG svgWidth={40} svgHeight={40} twClassName="m-0"/>
+            <PreSaveSVG svgWidth={40} svgHeight={40} twClassName="m-0" />
             <ExitPrintSVG />
           </div>
         </div>
       </div>,
-      document.getElementById("root")
+      document.getElementById("root"),
     )
-  )
-}
+  );
+};

@@ -1,15 +1,10 @@
-import { useState } from "react"
+import { useState } from "react";
 
-export const CounterDiv = ({
-  pValue = 0,
-  tailwindStyle = "flex"
-}) => {
+export const CounterDiv = ({ pValue = 0, tailwindStyle = "flex" }) => {
   const [counterValue, setCounterValue] = useState(pValue);
   return (
     <div className={tailwindStyle}>
-      <p
-        className="bg-[#454a48ff] w-[2.5rem] h-[1.6rem] flex items-center justify-center text-[18px]"
-      >
+      <p className="bg-[#454a48ff] w-[2.5rem] h-[1.6rem] flex items-center justify-center text-[18px]">
         {counterValue}
       </p>
       <button
@@ -27,5 +22,5 @@ export const CounterDiv = ({
         +
       </button>
     </div>
-  )
-}
+  );
+};

@@ -18,4 +18,4 @@ export const ExitPrintSVG = () => (
       transform="rotate(-45)"
     />
   </svg>
-)
+);

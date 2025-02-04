@@ -1,8 +1,6 @@
-import { PrePrintCard } from "../molecule/PrePrintCard"
+import { PrePrintCard } from "../molecule/PrePrintCard";
 
-export const VisualizePrint = ({
-  sectionName = "Default"
-}) => {
+export const VisualizePrint = ({ sectionName = "Default" }) => {
   return (
     <div className="flex">
       <div className="mr-4">
@@ -24,5 +22,5 @@ export const VisualizePrint = ({
         </div>
       </div>
     </div>
-  )
-}
+  );
+};

@@ -7,106 +7,252 @@ import { DataContext } from "../../components/utils/DataContext";
 import { useContext, useEffect, useState } from "react";
 import { InputField } from "../atom/InputField";
 import { DropDownSection } from "./DropDownSection";
+import { AddSVG } from "../atom/AddIcon";
 
 export const AddItemPortal = ({
   isVisible = false,
   closePortal = Function.prototype,
 }) => {
-  const baseTabObject = {
-    extras: [{}],
-    ingredients: [{}],
-    options: [{}],
-    printer: "",
-    selected: false,
-    title: ""
-  };
   const mockObjects = useContext(DataContext);
+  const [localMockArray, setLocalMockArray] = useState(mockObjects);
   const [printers, setPrinters] = useState([]);
   const [tabs, setTabs] = useState([]);
-  const [selectedExtra, setSelectedExtra] = useState("");
-  const [selectedIngredient, setSelectedIngredient] = useState("");
+  const [extrasCategories, setExtrasCategories] = useState([]);
+  const [ingredientsCategories, setIngredientsCategories] = useState([]);
+  const [boolIngredients, setBoolIngredients] = useState([]);
+  const [boolExtras, setBoolExtras] = useState([]);
+
+  const [selectedExtraCategory, setSelectedExtraCategory] = useState("");
+  const [selectedIngredientCategory, setSelectedIngredientCategory] =
+    useState("");
   const [selectedPrinter, setSelectedPrinter] = useState("");
   const [selectedTab, setSelectedTab] = useState("");
-  const [newObject, setNewObject] = useState(baseTabObject);
+  const [selectedIngredients, setSelectedIngredients] = useState([]);
+  const [selectedExtras, setSelectedExtras] = useState([]);
+
+  const [isAddTab, setIsAddTab] = useState(false);
+  const [isAddPrinter, setIsAddPrinter] = useState(false);
+  const [isAddIngredientCategory, setIsAddIngredientCategory] = useState(false);
+  const [isAddExtraCategory, setIsAddExtraCategory] = useState(false);
+
   const [newDish, setNewDish] = useState("");
-  const [newIngredients, setNewIngredients] = useState({});
-  const [newExtras, setNewExtras] = useState({});
+  const [newIngredient, setNewIngredient] = useState("");
+  const [newExtra, setNewExtra] = useState("");
   const [newComment, setNewComment] = useState("");
+  const [newTab, setNewTab] = useState("");
+  const [newPrinter, setNewPrinter] = useState("");
+  const [newIngredientCategory, setNewIngredientCategory] = useState("");
+  const [newExtraCategory, setNewExtraCategory] = useState("");
 
   const getPrinters = () => {
-    const thisObjects = [...mockObjects];
-    const sorted = thisObjects.sort((objectA, objectB) => objectA.printer > objectB.printer ? -1 : 1);
+    const thisObjects = [...localMockArray];
+    const sorted = thisObjects.sort((objectA, objectB) =>
+      objectA.printer > objectB.printer ? -1 : 1,
+    );
     let uniquePrinters = [];
-    sorted.forEach(object => {
-      if (!uniquePrinters.includes(object.printer)) uniquePrinters.push(object.printer);
+    sorted.forEach((object) => {
+      if (!uniquePrinters.includes(object.printer))
+        uniquePrinters.push(object.printer);
     });
     setPrinters(uniquePrinters);
   };
 
   const getTabs = () => {
-    let strings = [];
-    mockObjects.forEach(object => strings.push(object.title));
-    setTabs(strings);
+    const foundTabs = localMockArray.map((object) => object.title);
+    setTabs(foundTabs);
   };
 
-  const handleTabClick = optionName => {
-    const selectedObject = mockObjects.find(object => object.title === optionName);
-    setSelectedTab(optionName);
-    setSelectedPrinter(selectedObject.printer);
+  const setNewIngredientsFields = (value) => {
+    setNewIngredientCategory(value);
+    setSelectedIngredientCategory(value);
   };
 
-  const handlePrinterClick = optionName => {
-    setSelectedPrinter(optionName);
-  }
-
-  const handleIngredientsClick = option => {
-    setSelectedIngredient(option);
+  const setNewExtrasFields = (value) => {
+    setNewExtraCategory(value);
+    setSelectedExtraCategory(value);
   };
 
-  const handleExtrasClick = option => {
-    setSelectedExtra(option);
+  const setNewTabsFields = (value) => {
+    setNewTab(value);
+    setSelectedTab(value);
+  };
+
+  const handleTabsChange = (value) => {
+    if (value != "Add") {
+      setSelectedTab(value);
+      const selectedObject = localMockArray.find(
+        (object) => object.title === value,
+      );
+      if (!isAddTab) {
+        setSelectedPrinter(selectedObject.printer);
+      }
+      setIngredientsCategories(
+        selectedObject.ingredients.map((object) => object.category),
+      );
+      setExtrasCategories(
+        selectedObject.extras.map((object) => object.category),
+      );
+      setBoolIngredients(
+        selectedObject.ingredients.map((object) => object.options).flat(),
+      );
+      setBoolExtras(
+        selectedObject.extras.map((object) => object.options).flat(),
+      );
+    } else {
+      setIsAddTab(!isAddTab);
+      setIsAddIngredientCategory(!isAddIngredientCategory);
+      setIsAddExtraCategory(!isAddExtraCategory);
+      setBoolExtras([]);
+      setBoolIngredients([]);
+      setLocalMockArray([
+        ...localMockArray,
+        {
+          title: value,
+          extras: [],
+          ingredients: [],
+          options: [],
+          selected: false,
+        },
+      ]);
+    }
+  };
+
+  const handlePrintersChange = (value) => {
+    if (value === "Add") {
+      setIsAddPrinter(!isAddPrinter);
+    }
+    setSelectedPrinter(value);
+  };
+
+  const handleAddItem = (propertyName, newValue, setItem, selectedCategory) => {
+    let updatedMockArray = [...localMockArray];
+    const foundTabIndex = localMockArray.findIndex(
+      (object) => object.title === selectedTab,
+    );
+    if (foundTabIndex < 0 && isAddTab) {
+      let updatedStep = [...localMockArray].reverse();
+      updatedStep[0].title = selectedTab;
+      updatedStep[0][propertyName] = [
+        { category: selectedCategory, options: [newValue] },
+      ];
+      updatedStep.reverse();
+      setLocalMockArray(updatedStep);
+      setItem([newValue]);
+      return;
+    }
+    const foundCategoryIndex = localMockArray[foundTabIndex][
+      propertyName
+    ].findIndex((object) => object.category === selectedCategory);
+    if (foundCategoryIndex < 0) {
+      const updatedPropertyObject = [
+        ...localMockArray[foundTabIndex][propertyName],
+        { category: selectedCategory, options: [newValue] },
+      ];
+      updatedMockArray[foundTabIndex][propertyName] = updatedPropertyObject;
+      setLocalMockArray(updatedMockArray);
+      setItem(updatedPropertyObject.map((object) => object.options).flat());
+      return;
+    }
+    const updatedPropertyOptions = [
+      ...localMockArray[foundTabIndex][propertyName][foundCategoryIndex]
+        .options,
+      newValue,
+    ];
+    updatedMockArray[foundTabIndex][propertyName][foundCategoryIndex].options =
+      updatedPropertyOptions;
+    setLocalMockArray(updatedMockArray);
+    setItem(
+      updatedMockArray[foundTabIndex][propertyName]
+        .map((object) => object.options)
+        .flat(),
+    );
+  };
+
+  const handleIngredientsCategoryChange = (option) => {
+    if (option === "Add") {
+      setIsAddIngredientCategory(!isAddIngredientCategory);
+    }
+    setSelectedIngredientCategory(option);
+  };
+
+  const handleExtrasCategoryChange = (option) => {
+    if (option === "Add") {
+      setIsAddExtraCategory(!isAddExtraCategory);
+    }
+    setSelectedExtraCategory(option);
   };
 
   const handleClosePortal = () => {
-    const selectedObject = mockObjects.find(object => object.title === selectedTab);
-    const optionToAdd = {
-      name: newDish,
-      comments: newComment
-    };
-    const objectToReturn = {
-      ...selectedObject,
-      options: [...selectedObject.options, optionToAdd],
-      ingredients: newIngredients,
-      extras: newExtras,
-    };
-    setNewObject(objectToReturn);
-    console.log(objectToReturn);
+    const updatedObject = [...localMockArray];
+    const foundTabIndex = updatedObject.findIndex(
+      (object) => object.title === selectedTab,
+    );
+    const updatedOptionDish = [
+      ...updatedObject[foundTabIndex].options,
+      {
+        name: newDish,
+        comments: newComment,
+        ingredients: selectedIngredients,
+        extras: selectedExtras,
+      },
+    ];
+    updatedObject[foundTabIndex].options = updatedOptionDish;
+    console.log("localMockArray", updatedObject);
+    setLocalMockArray(updatedObject);
     closePortal();
-  }
-
-  const handleDishChange = value => {
-    setNewDish(value);
   };
 
-  const handleCommentsChange = value => {
-    setNewComment(value);
+  const handleSelectedIngredientsChange = (ingredientName, isChecked) => {
+    const isInArray = selectedIngredients.includes(ingredientName);
+    if (isChecked) {
+      if (!isInArray) {
+        setSelectedIngredients([...selectedIngredients, ingredientName]);
+      }
+    } else {
+      if (isInArray) {
+        const updatedIngredients = selectedIngredients.filter(
+          (option) => option != ingredientName,
+        );
+        setSelectedIngredients(updatedIngredients);
+      }
+    }
   };
+
+  const handleSelectedExtrasChange = (extraName, isChecked) => {
+    const isInArray = selectedExtras.includes(extraName);
+    if (isChecked) {
+      if (!isInArray) {
+        setSelectedExtras([...selectedExtras, extraName]);
+      }
+    } else {
+      if (isInArray) {
+        const updatedExtras = selectedExtras.filter(
+          (option) => option != extraName,
+        );
+        setSelectedExtras(updatedExtras);
+      }
+    }
+  };
+
+  useEffect(() => {
+    setLocalMockArray(mockObjects);
+  }, [mockObjects]);
 
   useEffect(() => {
     getPrinters();
     getTabs();
-  }, [mockObjects]);
+  }, [localMockArray]);
 
   useEffect(() => {
-    setSelectedIngredient("");
-    setSelectedExtra("");
-  }, [selectedTab])
+    handleIngredientsCategoryChange(ingredientsCategories[0]);
+    handleExtrasCategoryChange(extrasCategories[0]);
+  }, [selectedTab]);
 
   return (
     isVisible &&
     createPortal(
       <form className="add-item-portal">
-        <div className="flex justify-between max-h-12">
+        {/* <div className="flex justify-between max-h-12">
           <p>Pestaña</p>
           <DropDownSection options={tabs} selectedOption={selectedTab} clickedOption={handleTabClick} />
           <p>Nombre</p>
@@ -118,11 +264,11 @@ export const AddItemPortal = ({
         </div>
         <AddThings
           categoryName="Ingredientes"
-          clickedDDLOption={handleIngredientsClick}
+          clickedDDLOption={handleIngredientsCategoryChange}
           objectProperty="ingredients"
           optionPlaceHolder="Ingrediente..."
           returnBoolOptions={setNewIngredients}
-          selectedDDLOption={selectedIngredient}
+          selectedDDLOption={selectedIngredientCategory}
           selectedTab={selectedTab}
         />
         <AddThings
@@ -142,9 +288,203 @@ export const AddItemPortal = ({
             inputPlaceHolder="Tus comentarios..."
             width="w-[100%]"
           />
+        </div> */}
+        <div className="flex justify-between max-h-12">
+          <p>Pestaña</p>
+          {isAddTab ? (
+            <ThisInputField
+              name="newTabName"
+              placeholder="Nueva Pestaña"
+              value={newTab}
+              setValue={setNewTabsFields}
+            />
+          ) : (
+            <SelectList
+              name="selectTab"
+              onChange={(e) => handleTabsChange(e.target.value)}
+              options={tabs}
+              emptyEntry
+            />
+          )}
+          <p>Nombre</p>
+          <ThisInputField
+            name="newDishName"
+            placeholder="Nuevo Platillo"
+            value={newDish}
+            setValue={setNewDish}
+          />
+          <p>Impresora</p>
+          {isAddPrinter ? (
+            <ThisInputField
+              name="newPrinterName"
+              placeholder="Nueva Impresora"
+              value={newPrinter}
+              setValue={setNewPrinter}
+            />
+          ) : (
+            <SelectList
+              name="selectPrinter"
+              onChange={(e) => handlePrintersChange(e.target.value)}
+              options={printers}
+              emptyEntry
+              value={selectedPrinter}
+            />
+          )}
+          <TextButton buttonLabel="Hecho" action={handleClosePortal} />
+        </div>
+        <div>
+          <p>Ingredients</p>
+          {isAddIngredientCategory ? (
+            <ThisInputField
+              name="newIngredientCategoryName"
+              placeholder="Nueva Categoria"
+              value={newIngredientCategory}
+              setValue={setNewIngredientsFields}
+            />
+          ) : (
+            <SelectList
+              name="selectIngredientsCategories"
+              onChange={(e) => handleIngredientsCategoryChange(e.target.value)}
+              options={ingredientsCategories}
+              value={selectedIngredientCategory}
+            />
+          )}
+          <ThisInputField
+            name="ingredientToAdd"
+            placeholder="Nuevo Ingrediente"
+            value={newIngredient}
+            setValue={setNewIngredient}
+          />
+          <AddButton
+            onClick={() =>
+              handleAddItem(
+                "ingredients",
+                newIngredient,
+                setBoolIngredients,
+                selectedIngredientCategory,
+              )
+            }
+          />
+          {boolIngredients.map((item, index) => (
+            <label key={`${item}${index}`}>
+              {item}
+              <input
+                type="checkbox"
+                onChange={(e) =>
+                  handleSelectedIngredientsChange(item, e.target.checked)
+                }
+              />
+            </label>
+          ))}
+        </div>
+        <div>
+          <p>Extras</p>
+          {isAddExtraCategory ? (
+            <ThisInputField
+              name="newIngredientCategoryName"
+              placeholder="Nueva Categoria"
+              value={newExtraCategory}
+              setValue={setNewExtrasFields}
+            />
+          ) : (
+            <SelectList
+              name="selectExtrasCategories"
+              onChange={(e) => handleExtrasCategoryChange(e.target.value)}
+              options={extrasCategories}
+              value={selectedExtraCategory}
+            />
+          )}
+          <ThisInputField
+            name="extraToAdd"
+            placeholder="Nuevo Extra"
+            value={newExtra}
+            setValue={setNewExtra}
+          />
+          <AddButton
+            onClick={() =>
+              handleAddItem(
+                "extras",
+                newExtra,
+                setBoolExtras,
+                selectedExtraCategory,
+              )
+            }
+          />
+          {boolExtras.map((item, index) => (
+            <label key={`${item}${index}`}>
+              {item}
+              <input
+                type="checkbox"
+                onChange={(e) =>
+                  handleSelectedExtrasChange(item, e.target.checked)
+                }
+              />
+            </label>
+          ))}
+        </div>
+        <div>
+          <p>Comentarios</p>
+          <ThisInputField
+            name="comments"
+            placeholder="Nuevo Comentario"
+            value={newComment}
+            setValue={setNewComment}
+          />
         </div>
       </form>,
-      document.getElementById("root")
+      document.getElementById("root"),
     )
-  )
-}
+  );
+};
+
+export const SelectList = ({
+  name = "",
+  onChange = Function.prototype,
+  options = [""],
+  emptyEntry = false,
+  value,
+}) => {
+  return (
+    <select name={name} onChange={onChange} value={value}>
+      {emptyEntry && <option value=""></option>}
+      {options.map((category, index) => (
+        <option key={index} value={category}>
+          {category}
+        </option>
+      ))}
+      <option value="Add">Agregar</option>
+    </select>
+  );
+};
+
+export const ThisInputField = ({
+  name = "",
+  type = "text",
+  placeholder = "",
+  value,
+  setValue = Function.prototype,
+}) => {
+  const handleInputChange = (value) => {
+    setValue(value);
+  };
+  return (
+    <input
+      name={name}
+      type={type}
+      placeholder={placeholder}
+      value={value}
+      onChange={(e) => handleInputChange(e.target.value)}
+    />
+  );
+};
+
+export const AddButton = ({
+  onClick = Function.prototype,
+  type = "button",
+}) => {
+  return (
+    <button type={type} onClick={onClick}>
+      <AddSVG svgClass="ml-4" />
+    </button>
+  );
+};

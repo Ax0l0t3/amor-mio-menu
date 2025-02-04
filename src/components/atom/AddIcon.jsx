@@ -1,10 +1,6 @@
 import PropTypes from "prop-types";
 
-export const AddSVG = ({
-  svgClass = "m-4",
-  svgWidth = 20,
-  svgHeight = 20,
-}) => (
+export const AddSVG = ({ svgClass = "m-4", svgWidth = 20, svgHeight = 20 }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={svgWidth}
@@ -23,10 +19,10 @@ export const AddSVG = ({
       }}
     />
   </svg>
-)
+);
 
 AddSVG.propTypes = {
   svgClass: PropTypes.string,
   svgWidth: PropTypes.number,
-  svgHeight: PropTypes.number
-}
+  svgHeight: PropTypes.number,
+};

@@ -10,5 +10,5 @@ export const ChangePrinterTooltip = () => {
       </div>
       <div className="tooltip-triangle" />
     </div>
-  )
-}
+  );
+};

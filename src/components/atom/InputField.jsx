@@ -7,10 +7,9 @@ export const InputField = ({
   inputValue = "",
   width = "w-[16%]",
 }) => {
-
   const [thisInputValue, setThisInputValue] = useState(inputValue);
 
-  const handleInputChange = e => {
+  const handleInputChange = (e) => {
     getInputValue(e.target.value);
     setThisInputValue(e.target.value);
   };
@@ -21,14 +20,20 @@ export const InputField = ({
 
   return (
     <div className={`${width} ml-2`}>
-      <input className="bg-[#454a48] w-full h-fit" type="text" placeholder={inputPlaceHolder} value={thisInputValue} onChange={e => handleInputChange(e)} />
+      <input
+        className="bg-[#454a48] w-full h-fit"
+        type="text"
+        placeholder={inputPlaceHolder}
+        value={thisInputValue}
+        onChange={(e) => handleInputChange(e)}
+      />
     </div>
-  )
-}
+  );
+};
 
 InputField.propTypes = {
   getInputValue: PropTypes.func,
   inputPlaceHolder: PropTypes.string,
   inputValue: PropTypes.string,
-  width: PropTypes.string
-}
+  width: PropTypes.string,
+};

@@ -21,4 +21,4 @@ export const EditSVG = () => (
       transform="scale(.04816 .04803) rotate(-45 24.75 228.25)"
     />
   </svg>
-)
+);
