@@ -14,7 +14,7 @@ export const AddItemPortal = ({
   closePortal = Function.prototype,
 }) => {
   const mockObjects = useContext(DataContext);
-  const [localMockArray, setLocalMockArray] = useState(mockObjects);
+  const [localMockArray, setLocalMockArray] = useState([]);
   const [printers, setPrinters] = useState([]);
   const [tabs, setTabs] = useState([]);
   const [extrasCategories, setExtrasCategories] = useState([]);
@@ -51,7 +51,7 @@ export const AddItemPortal = ({
     );
     let uniquePrinters = [];
     sorted.forEach((object) => {
-      if (!uniquePrinters.includes(object.printer))
+      if (!uniquePrinters.includes(object.printer) && object.printer != "")
         uniquePrinters.push(object.printer);
     });
     setPrinters(uniquePrinters);
@@ -75,6 +75,11 @@ export const AddItemPortal = ({
   const setNewTabsFields = (value) => {
     setNewTab(value);
     setSelectedTab(value);
+  };
+
+  const setNewPrinterFields = (value) => {
+    setNewPrinter(value);
+    setSelectedPrinter(value);
   };
 
   const handleTabsChange = (value) => {
@@ -112,6 +117,7 @@ export const AddItemPortal = ({
           ingredients: [],
           options: [],
           selected: false,
+          printer: "",
         },
       ]);
     }
@@ -124,7 +130,16 @@ export const AddItemPortal = ({
     setSelectedPrinter(value);
   };
 
-  const handleAddItem = (propertyName, newValue, setItem, selectedCategory) => {
+  const handleAddItem = (
+    propertyName,
+    newValue,
+    setItem,
+    selectedCategory,
+    setIsAddCategory,
+    isAddCategory,
+    setCategories,
+    setInputField,
+  ) => {
     let updatedMockArray = [...localMockArray];
     const foundTabIndex = localMockArray.findIndex(
       (object) => object.title === selectedTab,
@@ -135,9 +150,14 @@ export const AddItemPortal = ({
       updatedStep[0][propertyName] = [
         { category: selectedCategory, options: [newValue] },
       ];
+      setCategories(
+        updatedStep[0][propertyName].map((object) => object.category),
+      );
       updatedStep.reverse();
       setLocalMockArray(updatedStep);
       setItem([newValue]);
+      setIsAddCategory(!isAddCategory);
+      setInputField("");
       return;
     }
     const foundCategoryIndex = localMockArray[foundTabIndex][
@@ -151,6 +171,13 @@ export const AddItemPortal = ({
       updatedMockArray[foundTabIndex][propertyName] = updatedPropertyObject;
       setLocalMockArray(updatedMockArray);
       setItem(updatedPropertyObject.map((object) => object.options).flat());
+      setIsAddCategory(!isAddCategory);
+      setCategories(
+        updatedMockArray[foundTabIndex][propertyName].map(
+          (object) => object.category,
+        ),
+      );
+      setInputField("");
       return;
     }
     const updatedPropertyOptions = [
@@ -166,6 +193,7 @@ export const AddItemPortal = ({
         .map((object) => object.options)
         .flat(),
     );
+    setInputField("");
   };
 
   const handleIngredientsCategoryChange = (option) => {
@@ -197,6 +225,7 @@ export const AddItemPortal = ({
       },
     ];
     updatedObject[foundTabIndex].options = updatedOptionDish;
+    updatedObject[foundTabIndex].printer = selectedPrinter;
     console.log("localMockArray", updatedObject);
     setLocalMockArray(updatedObject);
     closePortal();
@@ -235,7 +264,7 @@ export const AddItemPortal = ({
   };
 
   useEffect(() => {
-    setLocalMockArray(mockObjects);
+    setLocalMockArray([...mockObjects]);
   }, [mockObjects]);
 
   useEffect(() => {
@@ -319,7 +348,7 @@ export const AddItemPortal = ({
               name="newPrinterName"
               placeholder="Nueva Impresora"
               value={newPrinter}
-              setValue={setNewPrinter}
+              setValue={setNewPrinterFields}
             />
           ) : (
             <SelectList
@@ -362,6 +391,10 @@ export const AddItemPortal = ({
                 newIngredient,
                 setBoolIngredients,
                 selectedIngredientCategory,
+                setIsAddIngredientCategory,
+                isAddIngredientCategory,
+                setIngredientsCategories,
+                setNewIngredient,
               )
             }
           />
@@ -407,6 +440,10 @@ export const AddItemPortal = ({
                 newExtra,
                 setBoolExtras,
                 selectedExtraCategory,
+                setIsAddExtraCategory,
+                isAddExtraCategory,
+                setExtrasCategories,
+                setNewExtra,
               )
             }
           />
@@ -445,7 +482,12 @@ export const SelectList = ({
   value,
 }) => {
   return (
-    <select name={name} onChange={onChange} value={value}>
+    <select
+      name={name}
+      onChange={onChange}
+      value={value}
+      className="bg-[#454a48] h-[1.6rem] w-[16%]"
+    >
       {emptyEntry && <option value=""></option>}
       {options.map((category, index) => (
         <option key={index} value={category}>
@@ -469,6 +511,7 @@ export const ThisInputField = ({
   };
   return (
     <input
+      className="bg-[#454a48] w-[16%] ml-2 h-[1.6rem]"
       name={name}
       type={type}
       placeholder={placeholder}
