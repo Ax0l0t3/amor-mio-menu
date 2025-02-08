@@ -2,6 +2,7 @@ import { createPortal } from "react-dom";
 import { RemoveSVG } from "../atom/RemoveIcon";
 import { TextButton } from "../atom/TextButton";
 import "../../styles/organism/_add-item-portal.css";
+import "../../styles/atom/_radio-slider.css";
 import { AddThings } from "../molecule/AddThings";
 import { DataContext } from "../../components/utils/DataContext";
 import { useContext, useEffect, useState } from "react";
@@ -97,12 +98,8 @@ export const AddItemPortal = ({
       setExtrasCategories(
         selectedObject.extras.map((object) => object.category),
       );
-      setBoolIngredients(
-        selectedObject.ingredients.map((object) => object.options).flat(),
-      );
-      setBoolExtras(
-        selectedObject.extras.map((object) => object.options).flat(),
-      );
+      setBoolIngredients(selectedObject.ingredients);
+      setBoolExtras(selectedObject.extras);
     } else {
       setIsAddTab(!isAddTab);
       setIsAddIngredientCategory(!isAddIngredientCategory);
@@ -153,9 +150,9 @@ export const AddItemPortal = ({
       setCategories(
         updatedStep[0][propertyName].map((object) => object.category),
       );
+      setItem(updatedStep[0][propertyName]);
       updatedStep.reverse();
       setLocalMockArray(updatedStep);
-      setItem([newValue]);
       setIsAddCategory(!isAddCategory);
       setInputField("");
       return;
@@ -170,7 +167,7 @@ export const AddItemPortal = ({
       ];
       updatedMockArray[foundTabIndex][propertyName] = updatedPropertyObject;
       setLocalMockArray(updatedMockArray);
-      setItem(updatedPropertyObject.map((object) => object.options).flat());
+      setItem(updatedPropertyObject);
       setIsAddCategory(!isAddCategory);
       setCategories(
         updatedMockArray[foundTabIndex][propertyName].map(
@@ -188,11 +185,7 @@ export const AddItemPortal = ({
     updatedMockArray[foundTabIndex][propertyName][foundCategoryIndex].options =
       updatedPropertyOptions;
     setLocalMockArray(updatedMockArray);
-    setItem(
-      updatedMockArray[foundTabIndex][propertyName]
-        .map((object) => object.options)
-        .flat(),
-    );
+    setItem(updatedMockArray[foundTabIndex][propertyName]);
     setInputField("");
   };
 
@@ -281,43 +274,6 @@ export const AddItemPortal = ({
     isVisible &&
     createPortal(
       <form className="add-item-portal">
-        {/* <div className="flex justify-between max-h-12">
-          <p>Pestaña</p>
-          <DropDownSection options={tabs} selectedOption={selectedTab} clickedOption={handleTabClick} />
-          <p>Nombre</p>
-          <InputField getInputValue={handleDishChange} inputPlaceHolder="Platillo..." />
-          <p>Impresora</p>
-          <DropDownSection options={printers} selectedOption={selectedPrinter} clickedOption={handlePrinterClick} />
-          <TextButton buttonLabel="Hecho" action={handleClosePortal} />
-          <RemoveSVG />
-        </div>
-        <AddThings
-          categoryName="Ingredientes"
-          clickedDDLOption={handleIngredientsCategoryChange}
-          objectProperty="ingredients"
-          optionPlaceHolder="Ingrediente..."
-          returnBoolOptions={setNewIngredients}
-          selectedDDLOption={selectedIngredientCategory}
-          selectedTab={selectedTab}
-        />
-        <AddThings
-          categoryName="Extras"
-          clickedDDLOption={handleExtrasClick}
-          objectProperty="extras"
-          optionPlaceHolder="Extra..."
-          returnBoolOptions={setNewExtras}
-          selectedDDLOption={selectedExtra}
-          selectedTab={selectedTab}
-        />
-        <div>
-          <p>Comentarios</p>
-          <InputField
-            getInputValue={handleCommentsChange}
-            inputValue={newComment}
-            inputPlaceHolder="Tus comentarios..."
-            width="w-[100%]"
-          />
-        </div> */}
         <div className="flex justify-between max-h-12">
           <p>Pestaña</p>
           {isAddTab ? (
@@ -363,101 +319,154 @@ export const AddItemPortal = ({
         </div>
         <div>
           <p>Ingredients</p>
-          {isAddIngredientCategory ? (
-            <ThisInputField
-              name="newIngredientCategoryName"
-              placeholder="Nueva Categoria"
-              value={newIngredientCategory}
-              setValue={setNewIngredientsFields}
-            />
-          ) : (
-            <SelectList
-              name="selectIngredientsCategories"
-              onChange={(e) => handleIngredientsCategoryChange(e.target.value)}
-              options={ingredientsCategories}
-              value={selectedIngredientCategory}
-            />
-          )}
-          <ThisInputField
-            name="ingredientToAdd"
-            placeholder="Nuevo Ingrediente"
-            value={newIngredient}
-            setValue={setNewIngredient}
-          />
-          <AddButton
-            onClick={() =>
-              handleAddItem(
-                "ingredients",
-                newIngredient,
-                setBoolIngredients,
-                selectedIngredientCategory,
-                setIsAddIngredientCategory,
-                isAddIngredientCategory,
-                setIngredientsCategories,
-                setNewIngredient,
-              )
-            }
-          />
-          {boolIngredients.map((item, index) => (
-            <label key={`${item}${index}`}>
-              {item}
-              <input
-                type="checkbox"
-                onChange={(e) =>
-                  handleSelectedIngredientsChange(item, e.target.checked)
+          <div className="mb-4 ml-4">
+            <div className="flex">
+              {isAddIngredientCategory ? (
+                <ThisInputField
+                  name="newIngredientCategoryName"
+                  placeholder="Nueva Categoria"
+                  value={newIngredientCategory}
+                  setValue={setNewIngredientsFields}
+                />
+              ) : (
+                <>
+                  <p className="mr-2">Category</p>
+                  <SelectList
+                    name="selectIngredientsCategories"
+                    onChange={(e) =>
+                      handleIngredientsCategoryChange(e.target.value)
+                    }
+                    options={ingredientsCategories}
+                    value={selectedIngredientCategory}
+                  />
+                </>
+              )}
+              <p className="mr-2">Option</p>
+              <ThisInputField
+                name="ingredientToAdd"
+                placeholder="Nuevo Ingrediente"
+                value={newIngredient}
+                setValue={setNewIngredient}
+              />
+              <AddButton
+                onClick={() =>
+                  handleAddItem(
+                    "ingredients",
+                    newIngredient,
+                    setBoolIngredients,
+                    selectedIngredientCategory,
+                    setIsAddIngredientCategory,
+                    isAddIngredientCategory,
+                    setIngredientsCategories,
+                    setNewIngredient,
+                  )
                 }
               />
-            </label>
-          ))}
+            </div>
+            <ul>
+              {boolIngredients.map((object, index) => (
+                <li key={`${object.category}-${index}`}>
+                  <p>{object.category}</p>
+                  <ul className="flex flex-wrap">
+                    {object.options?.map((option, index) => (
+                      <div key={`${option}${index}`} className="li-div">
+                        <label
+                          htmlFor={`${option}${index}`}
+                          className="li-label"
+                        >
+                          {option}
+                        </label>
+                        <input
+                          className="radio-slider"
+                          id={`${option}${index}`}
+                          type="checkbox"
+                          onChange={(e) =>
+                            handleSelectedIngredientsChange(
+                              option,
+                              e.target.checked,
+                            )
+                          }
+                        />
+                      </div>
+                    ))}
+                  </ul>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
         <div>
           <p>Extras</p>
-          {isAddExtraCategory ? (
-            <ThisInputField
-              name="newIngredientCategoryName"
-              placeholder="Nueva Categoria"
-              value={newExtraCategory}
-              setValue={setNewExtrasFields}
-            />
-          ) : (
-            <SelectList
-              name="selectExtrasCategories"
-              onChange={(e) => handleExtrasCategoryChange(e.target.value)}
-              options={extrasCategories}
-              value={selectedExtraCategory}
-            />
-          )}
-          <ThisInputField
-            name="extraToAdd"
-            placeholder="Nuevo Extra"
-            value={newExtra}
-            setValue={setNewExtra}
-          />
-          <AddButton
-            onClick={() =>
-              handleAddItem(
-                "extras",
-                newExtra,
-                setBoolExtras,
-                selectedExtraCategory,
-                setIsAddExtraCategory,
-                isAddExtraCategory,
-                setExtrasCategories,
-                setNewExtra,
-              )
-            }
-          />
-          {boolExtras.map((item, index) => (
-            <label key={`${item}${index}`}>
-              {item}
-              <input
-                type="checkbox"
-                onChange={(e) =>
-                  handleSelectedExtrasChange(item, e.target.checked)
+          <div className="mb-4 ml-4">
+            <div className="flex">
+              {isAddExtraCategory ? (
+                <ThisInputField
+                  name="newIngredientCategoryName"
+                  placeholder="Nueva Categoria"
+                  value={newExtraCategory}
+                  setValue={setNewExtrasFields}
+                />
+              ) : (
+                <>
+                  <p className="mr-2">Category</p>
+                  <SelectList
+                    name="selectExtrasCategories"
+                    onChange={(e) => handleExtrasCategoryChange(e.target.value)}
+                    options={extrasCategories}
+                    value={selectedExtraCategory}
+                  />
+                </>
+              )}
+              <p className="mr-2">Option</p>
+              <ThisInputField
+                name="extraToAdd"
+                placeholder="Nuevo Extra"
+                value={newExtra}
+                setValue={setNewExtra}
+              />
+              <AddButton
+                onClick={() =>
+                  handleAddItem(
+                    "extras",
+                    newExtra,
+                    setBoolExtras,
+                    selectedExtraCategory,
+                    setIsAddExtraCategory,
+                    isAddExtraCategory,
+                    setExtrasCategories,
+                    setNewExtra,
+                  )
                 }
               />
-            </label>
-          ))}
+            </div>
+            <ul>
+              {boolExtras.map((object, index) => (
+                <li key={`${object.category}-${index}`}>
+                  <p>{object.category}</p>
+                  <ul className="flex flex-wrap">
+                    {object.options?.map((option, index) => (
+                      <div key={`${option}${index}`} className="li-div">
+                        <label
+                          htmlFor={`${option}${index}`}
+                          className="li-label"
+                        >
+                          {option}
+                        </label>
+                        <input
+                          className="radio-slider"
+                          id={`${option}${index}`}
+                          type="checkbox"
+                          onChange={(e) =>
+                            handleSelectedExtrasChange(option, e.target.checked)
+                          }
+                        />
+                      </div>
+                    ))}
+                  </ul>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
         <div>
           <p>Comentarios</p>
@@ -486,7 +495,7 @@ export const SelectList = ({
       name={name}
       onChange={onChange}
       value={value}
-      className="bg-[#454a48] h-[1.6rem] w-[16%]"
+      className="bg-[#454a48] h-[1.6rem] w-[16%] mr-2"
     >
       {emptyEntry && <option value=""></option>}
       {options.map((category, index) => (
@@ -511,7 +520,7 @@ export const ThisInputField = ({
   };
   return (
     <input
-      className="bg-[#454a48] w-[16%] ml-2 h-[1.6rem]"
+      className="bg-[#454a48] w-[16%] mr-2 h-[1.6rem]"
       name={name}
       type={type}
       placeholder={placeholder}
@@ -526,8 +535,14 @@ export const AddButton = ({
   type = "button",
 }) => {
   return (
-    <button type={type} onClick={onClick}>
-      <AddSVG svgClass="ml-4" />
+    <button className="h-fit" type={type} onClick={onClick}>
+      <AddSVG svgClass="m-0" />
     </button>
   );
 };
+
+// export const BoolOptions = ({})=>{
+//   return(
+
+//   )
+// }

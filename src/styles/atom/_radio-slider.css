@@ -1,7 +1,4 @@
 .radio-slider {
-    display: flex;
-    align-items: center;
-    justify-content: center;
     position: relative;
     width: 3rem;
     height: 1.5rem;
@@ -10,7 +7,6 @@
     cursor: pointer;
     transition: all 0.1s;
     appearance: none;
-    margin: 0 0.5rem 0 0.5rem;
 }
 
 .radio-slider::after {
