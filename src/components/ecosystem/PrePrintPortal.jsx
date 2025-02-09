@@ -3,14 +3,13 @@ import { PrePrintViewPort } from "../organism/PrePrintViewPort";
 
 export const PrePrintPortal = ({
   isVisible = false,
-  closePortal = Function.prototype
+  closePortal = Function.prototype,
 }) => {
-
   return (
     isVisible &&
     createPortal(
-      <PrePrintViewPort closePortal={closePortal}/>,
-      document.getElementById("root")
+      <PrePrintViewPort closePortal={closePortal} />,
+      document.getElementById("root"),
     )
-  )
-}
+  );
+};

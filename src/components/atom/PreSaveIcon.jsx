@@ -1,7 +1,7 @@
 export const PreSaveSVG = ({
   svgWidth = 20,
   svgHeight = 20,
-  twClassName = "m-4"
+  twClassName = "m-4",
 }) => {
   return (
     <svg
@@ -23,5 +23,5 @@ export const PreSaveSVG = ({
         }}
       />
     </svg>
-  )
-}
+  );
+};

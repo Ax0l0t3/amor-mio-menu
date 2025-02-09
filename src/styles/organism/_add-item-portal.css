@@ -7,3 +7,20 @@
   width: 96%;
   font-size: 1.2rem;
 }
+
+.li-div {
+  max-width: 18%;
+  overflow: hidden;
+  width: 18%;
+  margin-right: 0.5rem;
+}
+
+.li-label {
+  background-color: #454a48;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	width: 72%;
+	display: inline-block;
+	white-space: nowrap;
+  margin-right: 0.5rem;
+}

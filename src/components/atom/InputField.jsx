@@ -1,27 +1,40 @@
-import { useEffect, useState } from "react";
+import PropTypes from "prop-types";
 
 export const InputField = ({
-  width = "w-[16%]",
-  getInputValue = Function.prototype,
-  inputValue = "",
-  inputPlaceHolder = "Add some text..."
+  name = "",
+  optionalTitle,
+  optionalTitleClassName,
+  placeholder = "",
+  setValue = Function.prototype,
+  type = "text",
+  value,
 }) => {
-
-  const [thisInputValue, setThisInputValue] = useState(inputValue);
-
-  const handleInputChange = e => {
-    getInputValue(e.target.value);
-    setThisInputValue(e.target.value);
+  const handleInputChange = (value) => {
+    setValue(value);
   };
-
-  useEffect(()=>{
-    console.log("Entered InputField useEffect", inputValue);
-    setThisInputValue(inputValue);
-  },[inputValue]);
-
   return (
-    <div className={`${width} ml-2`}>
-      <input className="bg-[#454a48] w-full h-fit" type="text" placeholder={inputPlaceHolder} value={thisInputValue} onChange={e => handleInputChange(e)} />
-    </div>
-  )
-}
+    <>
+      {optionalTitle && (
+        <p className={optionalTitleClassName}>{optionalTitle}</p>
+      )}
+      <input
+        className="bg-[#454a48] w-[16%] mr-2 h-[1.6rem]"
+        name={name}
+        type={type}
+        placeholder={placeholder}
+        value={value}
+        onChange={(e) => handleInputChange(e.target.value)}
+      />
+    </>
+  );
+};
+
+InputField.propTypes = {
+  name: PropTypes.string,
+  optionalTitle: PropTypes.string,
+  optionalTitleClassName: PropTypes.string,
+  placeholder: PropTypes.string,
+  setValue: PropTypes.func,
+  type: PropTypes.string,
+  value: PropTypes.string,
+};

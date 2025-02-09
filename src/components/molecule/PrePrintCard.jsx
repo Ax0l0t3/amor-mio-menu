@@ -1,13 +1,10 @@
-import { AddSVG } from "../atom/AddIcon"
-import "../../styles/molecule/_preprint-card.css"
+import { AddSVG } from "../atom/AddIcon";
+import "../../styles/molecule/_preprint-card.css";
 
-export const PrePrintCard = ({
-  cardTitle = "Default",
-  marginBottom = "0"
-}) => {
+export const PrePrintCard = ({ cardTitle = "Default", marginBottom = "0" }) => {
   const style = {
-    marginBottom: marginBottom
-  }
+    marginBottom: marginBottom,
+  };
   return (
     <div className="flex h-[4.5rem]" style={style}>
       <div className="bg-black flex justify-center items-center rounded-l-lg">
@@ -17,5 +14,5 @@ export const PrePrintCard = ({
         <p>{cardTitle}</p>
       </div>
     </div>
-  )
-}
+  );
+};
