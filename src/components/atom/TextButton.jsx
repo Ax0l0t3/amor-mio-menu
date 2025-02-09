@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 export const TextButton = ({
   buttonLabel = "Default",
   action = Function.prototype,
@@ -11,4 +13,9 @@ export const TextButton = ({
       {buttonLabel}
     </button>
   );
+};
+
+TextButton.propTypes = {
+  action: PropTypes.func,
+  buttonLabel: PropTypes.string,
 };

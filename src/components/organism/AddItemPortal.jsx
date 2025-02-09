@@ -1,14 +1,13 @@
 import { createPortal } from "react-dom";
-import { RemoveSVG } from "../atom/RemoveIcon";
 import { TextButton } from "../atom/TextButton";
 import "../../styles/organism/_add-item-portal.css";
 import "../../styles/atom/_radio-slider.css";
-import { AddThings } from "../molecule/AddThings";
 import { DataContext } from "../../components/utils/DataContext";
 import { useContext, useEffect, useState } from "react";
+import { SelectList } from "../molecule/SelectList";
 import { InputField } from "../atom/InputField";
-import { DropDownSection } from "./DropDownSection";
-import { AddSVG } from "../atom/AddIcon";
+import { AddButton } from "../molecule/AddButton";
+import { BoolOptions } from "../molecule/BoolOptions";
 
 export const AddItemPortal = ({
   isVisible = false,
@@ -33,8 +32,8 @@ export const AddItemPortal = ({
 
   const [isAddTab, setIsAddTab] = useState(false);
   const [isAddPrinter, setIsAddPrinter] = useState(false);
-  const [isAddIngredientCategory, setIsAddIngredientCategory] = useState(false);
   const [isAddExtraCategory, setIsAddExtraCategory] = useState(false);
+  const [isAddIngredientCategory, setIsAddIngredientCategory] = useState(false);
 
   const [newDish, setNewDish] = useState("");
   const [newIngredient, setNewIngredient] = useState("");
@@ -89,9 +88,7 @@ export const AddItemPortal = ({
       const selectedObject = localMockArray.find(
         (object) => object.title === value,
       );
-      if (!isAddTab) {
-        setSelectedPrinter(selectedObject.printer);
-      }
+      setSelectedPrinter(selectedObject.printer);
       setIngredientsCategories(
         selectedObject.ingredients.map((object) => object.category),
       );
@@ -190,9 +187,6 @@ export const AddItemPortal = ({
   };
 
   const handleIngredientsCategoryChange = (option) => {
-    if (option === "Add") {
-      setIsAddIngredientCategory(!isAddIngredientCategory);
-    }
     setSelectedIngredientCategory(option);
   };
 
@@ -224,38 +218,6 @@ export const AddItemPortal = ({
     closePortal();
   };
 
-  const handleSelectedIngredientsChange = (ingredientName, isChecked) => {
-    const isInArray = selectedIngredients.includes(ingredientName);
-    if (isChecked) {
-      if (!isInArray) {
-        setSelectedIngredients([...selectedIngredients, ingredientName]);
-      }
-    } else {
-      if (isInArray) {
-        const updatedIngredients = selectedIngredients.filter(
-          (option) => option != ingredientName,
-        );
-        setSelectedIngredients(updatedIngredients);
-      }
-    }
-  };
-
-  const handleSelectedExtrasChange = (extraName, isChecked) => {
-    const isInArray = selectedExtras.includes(extraName);
-    if (isChecked) {
-      if (!isInArray) {
-        setSelectedExtras([...selectedExtras, extraName]);
-      }
-    } else {
-      if (isInArray) {
-        const updatedExtras = selectedExtras.filter(
-          (option) => option != extraName,
-        );
-        setSelectedExtras(updatedExtras);
-      }
-    }
-  };
-
   useEffect(() => {
     setLocalMockArray([...mockObjects]);
   }, [mockObjects]);
@@ -277,7 +239,7 @@ export const AddItemPortal = ({
         <div className="flex justify-between max-h-12">
           <p>Pestaña</p>
           {isAddTab ? (
-            <ThisInputField
+            <InputField
               name="newTabName"
               placeholder="Nueva Pestaña"
               value={newTab}
@@ -291,16 +253,16 @@ export const AddItemPortal = ({
               emptyEntry
             />
           )}
-          <p>Nombre</p>
-          <ThisInputField
+          <InputField
             name="newDishName"
             placeholder="Nuevo Platillo"
             value={newDish}
             setValue={setNewDish}
+            optionalTitle="Nombre"
           />
           <p>Impresora</p>
           {isAddPrinter ? (
-            <ThisInputField
+            <InputField
               name="newPrinterName"
               placeholder="Nueva Impresora"
               value={newPrinter}
@@ -322,31 +284,31 @@ export const AddItemPortal = ({
           <div className="mb-4 ml-4">
             <div className="flex">
               {isAddIngredientCategory ? (
-                <ThisInputField
+                <InputField
                   name="newIngredientCategoryName"
                   placeholder="Nueva Categoria"
                   value={newIngredientCategory}
                   setValue={setNewIngredientsFields}
                 />
               ) : (
-                <>
-                  <p className="mr-2">Category</p>
-                  <SelectList
-                    name="selectIngredientsCategories"
-                    onChange={(e) =>
-                      handleIngredientsCategoryChange(e.target.value)
-                    }
-                    options={ingredientsCategories}
-                    value={selectedIngredientCategory}
-                  />
-                </>
+                <SelectList
+                  name="selectIngredientsCategories"
+                  onChange={(e) =>
+                    handleIngredientsCategoryChange(e.target.value)
+                  }
+                  options={ingredientsCategories}
+                  selectHeader="Category"
+                  selectHeaderClassName="mr-2"
+                  value={selectedIngredientCategory}
+                />
               )}
-              <p className="mr-2">Option</p>
-              <ThisInputField
+              <InputField
                 name="ingredientToAdd"
                 placeholder="Nuevo Ingrediente"
                 value={newIngredient}
                 setValue={setNewIngredient}
+                optionalTitle="Option"
+                optionalTitleClassName="mr-2"
               />
               <AddButton
                 onClick={() =>
@@ -363,36 +325,11 @@ export const AddItemPortal = ({
                 }
               />
             </div>
-            <ul>
-              {boolIngredients.map((object, index) => (
-                <li key={`${object.category}-${index}`}>
-                  <p>{object.category}</p>
-                  <ul className="flex flex-wrap">
-                    {object.options?.map((option, index) => (
-                      <div key={`${option}${index}`} className="li-div">
-                        <label
-                          htmlFor={`${option}${index}`}
-                          className="li-label"
-                        >
-                          {option}
-                        </label>
-                        <input
-                          className="radio-slider"
-                          id={`${option}${index}`}
-                          type="checkbox"
-                          onChange={(e) =>
-                            handleSelectedIngredientsChange(
-                              option,
-                              e.target.checked,
-                            )
-                          }
-                        />
-                      </div>
-                    ))}
-                  </ul>
-                </li>
-              ))}
-            </ul>
+            <BoolOptions
+              boolOptions={boolIngredients}
+              selectedOptions={selectedIngredients}
+              setSelectedOptions={setSelectedIngredients}
+            />
           </div>
         </div>
         <div>
@@ -400,29 +337,29 @@ export const AddItemPortal = ({
           <div className="mb-4 ml-4">
             <div className="flex">
               {isAddExtraCategory ? (
-                <ThisInputField
-                  name="newIngredientCategoryName"
+                <InputField
+                  name="newExtraCategoryName"
                   placeholder="Nueva Categoria"
                   value={newExtraCategory}
                   setValue={setNewExtrasFields}
                 />
               ) : (
-                <>
-                  <p className="mr-2">Category</p>
-                  <SelectList
-                    name="selectExtrasCategories"
-                    onChange={(e) => handleExtrasCategoryChange(e.target.value)}
-                    options={extrasCategories}
-                    value={selectedExtraCategory}
-                  />
-                </>
+                <SelectList
+                  name="selectExtrasCategories"
+                  onChange={(e) => handleExtrasCategoryChange(e.target.value)}
+                  options={extrasCategories}
+                  selectHeader="Category"
+                  selectHeaderClassName="mr-2"
+                  value={selectedExtraCategory}
+                />
               )}
-              <p className="mr-2">Option</p>
-              <ThisInputField
+              <InputField
                 name="extraToAdd"
                 placeholder="Nuevo Extra"
                 value={newExtra}
                 setValue={setNewExtra}
+                optionalTitle="Option"
+                optionalTitleClassName="mr-2"
               />
               <AddButton
                 onClick={() =>
@@ -439,42 +376,20 @@ export const AddItemPortal = ({
                 }
               />
             </div>
-            <ul>
-              {boolExtras.map((object, index) => (
-                <li key={`${object.category}-${index}`}>
-                  <p>{object.category}</p>
-                  <ul className="flex flex-wrap">
-                    {object.options?.map((option, index) => (
-                      <div key={`${option}${index}`} className="li-div">
-                        <label
-                          htmlFor={`${option}${index}`}
-                          className="li-label"
-                        >
-                          {option}
-                        </label>
-                        <input
-                          className="radio-slider"
-                          id={`${option}${index}`}
-                          type="checkbox"
-                          onChange={(e) =>
-                            handleSelectedExtrasChange(option, e.target.checked)
-                          }
-                        />
-                      </div>
-                    ))}
-                  </ul>
-                </li>
-              ))}
-            </ul>
+            <BoolOptions
+              boolOptions={boolExtras}
+              selectedOptions={selectedExtras}
+              setSelectedOptions={setSelectedExtras}
+            />
           </div>
         </div>
         <div>
-          <p>Comentarios</p>
-          <ThisInputField
+          <InputField
             name="comments"
             placeholder="Nuevo Comentario"
             value={newComment}
             setValue={setNewComment}
+            optionalTitle="Comentarios"
           />
         </div>
       </form>,
@@ -482,67 +397,3 @@ export const AddItemPortal = ({
     )
   );
 };
-
-export const SelectList = ({
-  name = "",
-  onChange = Function.prototype,
-  options = [""],
-  emptyEntry = false,
-  value,
-}) => {
-  return (
-    <select
-      name={name}
-      onChange={onChange}
-      value={value}
-      className="bg-[#454a48] h-[1.6rem] w-[16%] mr-2"
-    >
-      {emptyEntry && <option value=""></option>}
-      {options.map((category, index) => (
-        <option key={index} value={category}>
-          {category}
-        </option>
-      ))}
-      <option value="Add">Agregar</option>
-    </select>
-  );
-};
-
-export const ThisInputField = ({
-  name = "",
-  type = "text",
-  placeholder = "",
-  value,
-  setValue = Function.prototype,
-}) => {
-  const handleInputChange = (value) => {
-    setValue(value);
-  };
-  return (
-    <input
-      className="bg-[#454a48] w-[16%] mr-2 h-[1.6rem]"
-      name={name}
-      type={type}
-      placeholder={placeholder}
-      value={value}
-      onChange={(e) => handleInputChange(e.target.value)}
-    />
-  );
-};
-
-export const AddButton = ({
-  onClick = Function.prototype,
-  type = "button",
-}) => {
-  return (
-    <button className="h-fit" type={type} onClick={onClick}>
-      <AddSVG svgClass="m-0" />
-    </button>
-  );
-};
-
-// export const BoolOptions = ({})=>{
-//   return(
-
-//   )
-// }
