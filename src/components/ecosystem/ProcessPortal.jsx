@@ -1,5 +1,4 @@
 import { createPortal } from "react-dom";
-import { AddThings } from "../molecule/AddThings";
 import { InputLabel } from "../atom/InputLabel";
 import "../../styles/ecosystem/_process-portal.css";
 import { CounterDiv } from "../molecule/CounterDiv";
