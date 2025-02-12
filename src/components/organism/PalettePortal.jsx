@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import "../../styles/organism/_palette-portal.css";
+import { GreenTickIcon } from "../atom/GreenTickIcon";
+import { ImageIcon } from "../atom/ImageIcon";
 
 export const PalettePortal = () => {
   const returnColours = [
@@ -55,6 +57,10 @@ export const PalettePortal = () => {
             className="bg-[#808080ff] w-[4.5rem] h-[4.5rem] rounded-r-lg border-[4px] border-transparent hover:border-black"
             onClick={() => handleClick("right")}
           />
+        </div>
+        <div className="flex justify-end gap-2 mt-2">
+            <ImageIcon className="w-6 h-6" />
+            <GreenTickIcon className="w-6 h-6" />
         </div>
       </div>
     </div>
