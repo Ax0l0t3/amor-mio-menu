@@ -5,11 +5,12 @@ import { MenuOptionCard } from './components/molecule/MenuOptionCard';
 import { ProcessPortal } from './components/ecosystem/ProcessPortal';
 import { useEffect, useState } from 'react';
 import { DataContext } from './components/utils/DataContext';
-import BaseData from "../BaseData.json";
+import MockData from "../mockData.json";
 
 function App() {
   const [labelOptions, setLabelOptions] = useState([]);
   const [mockObjects, setMockObjects] = useState([]);
+  const [portalVisible, setPortalVisible] = useState(false);
 
   const handleClick = cardTitle => {
     const returnObjects = mockObjects.map(object => {
@@ -29,7 +30,7 @@ function App() {
   };
 
   useEffect(() => {
-    setMockObjects(BaseData.tabs);
+    setMockObjects(MockData.tabs);
   }, []);
 
   useEffect(() => {
@@ -53,11 +54,11 @@ function App() {
       <div className="options-cards">
         {
           labelOptions.map((option, id) => (
-            <MenuOptionCard key={id} cardName={option.name} />
+            <MenuOptionCard key={id} cardName={option.name} onClick={() => setPortalVisible(!portalVisible)} />
           ))
         }
       </div>
-      <ProcessPortal isVisible={false} />
+      <ProcessPortal isVisible={portalVisible} closePortal={() => setPortalVisible(!portalVisible)}/>
     </DataContext.Provider>
   )
 }

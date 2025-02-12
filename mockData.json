@@ -1,371 +1,201 @@
 {
   "tabs": [
     {
-      "title": "Frappes",
-      "options": [
+      "extras": [
         {
-          "name": "Capuccino",
-          "ingredients": [
-            {}
-          ],
-          "extras": [
-            {}
-          ],
-          "comments": ""
-        },
-        {
-          "name": "Moka",
-          "ingredients": [
-            {}
-          ],
-          "extras": [
-            {}
-          ],
-          "comments": ""
-        },
-        {
-          "name": "Caramel Coffee",
-          "ingredients": [
-            {}
-          ],
-          "extras": [
-            {}
-          ],
-          "comments": ""
-        },
-        {
-          "name": "Cajeta",
-          "ingredients": [
-            {}
-          ],
-          "extras": [
-            {}
-          ],
-          "comments": ""
-        },
-        {
-          "name": "Vainilla Francesa",
-          "ingredients": [
-            {}
-          ],
-          "extras": [
-            {}
-          ],
-          "comments": ""
-        },
-        {
-          "name": "Taro",
-          "ingredients": [
-            {}
-          ],
-          "extras": [
-            {}
-          ],
-          "comments": ""
-        },
-        {
-          "name": "Chocolate Avellana",
-          "ingredients": [
-            {}
-          ],
-          "extras": [
-            {}
-          ],
-          "comments": ""
-        },
-        {
-          "name": "Chocolate Italiano",
-          "ingredients": [
-            {}
-          ],
-          "extras": [
-            {}
-          ],
-          "comments": ""
+          "category": "Leche",
+          "options": 
+          [
+            "Leche Entera",
+            "Leche Coco",
+            "Leche Light",
+            "Leche Deslactosada",
+            "Leche Soya"
+          ]
         }
       ],
+      "ingredients": [],
+      "options": [
+        {
+          "comments": "Base Coment 1",
+          "extras": [],
+          "ingredients": [],
+          "name": "Frappuccino"
+        }
+      ],
+      "printer": "Printer 1",
       "selected": false,
-      "printer": "TP 80mm"
+      "title": "Bebidas"
     },
     {
-      "title": "Frutas con crema",
-      "options": [
+      "extras": [
         {
-          "name": "Vaso Chico",
-          "ingredients": [
-            {
-              "name": "Fresa",
-              "selected": false
-            },
-            {
-              "name": "Durazno",
-              "selected": false
-            },
-            {
-              "name": "Uva",
-              "selected": false
-            }
-          ],
-          "extras": [
-            {}
-          ],
-          "comments": ""
-        },
-        {
-          "name": "Vaso Grande",
-          "ingredients": [
-            {}
-          ],
-          "extras": [
-            {}
-          ],
-          "comments": ""
+          "category": "Toppings",
+          "options": 
+          [
+            "Almendras",
+            "Amaranto",
+            "Granola",
+            "Cinnamon Toast",
+            "Mini M&M's",
+            "KitKat",
+            "KinderDelice",
+            "Nuez",
+            "Oreo"
+          ]
         }
       ],
+      "ingredients": [
+        {
+          "category": "Frutas",
+          "options": 
+          [
+            "Fresa",
+            "Durazno",
+            "Uva",
+            "Manzana",
+            "Melon",
+            "Papaya",
+            "Platano"
+          ]
+        },
+        {
+          "category": "Toppings",
+          "options": 
+          [
+            "Almendras",
+            "Amaranto",
+            "Granola",
+            "Cinnamon Toast",
+            "Mini M&M's",
+            "KitKat",
+            "KinderDelice",
+            "Nuez",
+            "Oreo"
+          ]
+        }
+      ],
+      "options": [
+        {
+          "comments": "",
+          "extras": [],
+          "ingredients": [],
+          "name": "Vaso Chico"
+        },
+        {
+          "comments": "",
+          "extras": [],
+          "ingredients": [],
+          "name": "Vaso Grande"
+        }
+      ],
+      "printer": "Printer 1",
       "selected": true,
-      "printer": "TP 45mm"
+      "title": "Frutas con crema"
     },
     {
-      "title": "Waffles",
-      "options": [
+      "extras": [
         {
-          "name": "Waffle Snickers",
-          "ingredients": [
-            {}
-          ],
-          "extras": [
-            {}
-          ],
-          "comments": ""
-        },
-        {
-          "name": "Waffle Sencillo",
-          "ingredients": [
-            {}
-          ],
-          "extras": [
-            {}
-          ],
-          "comments": ""
-        },
-        {
-          "name": "Waffle Durazno",
-          "ingredients": [
-            {}
-          ],
-          "extras": [
-            {}
-          ],
-          "comments": ""
-        },
-        {
-          "name": "Waffle 4 Estaciones",
-          "ingredients": [
-            {}
-          ],
-          "extras": [
-            {}
-          ],
-          "comments": ""
-        },
-        {
-          "name": "Waffle Coronado",
-          "ingredients": [
-            {}
-          ],
-          "extras": [
-            {}
-          ],
-          "comments": ""
+          "category": "CategoryE",
+          "options": ["M", "N", "O"]
         }
       ],
-      "selected": false,
-      "printer": "TP 80mm"
-    },
-    {
-      "title": "Fruta con miel y granola",
-      "options": [
+      "ingredients": [
         {
-          "name": "Papaya",
-          "ingredients": [
-            {}
-          ],
-          "extras": [
-            {}
-          ],
-          "comments": ""
-        },
-        {
-          "name": "Melón",
-          "ingredients": [
-            {}
-          ],
-          "extras": [
-            {}
-          ],
-          "comments": ""
-        },
-        {
-          "name": "Uva",
-          "ingredients": [
-            {}
-          ],
-          "extras": [
-            {}
-          ],
-          "comments": ""
-        },
-        {
-          "name": "Plátano",
-          "ingredients": [
-            {}
-          ],
-          "extras": [
-            {}
-          ],
-          "comments": ""
-        },
-        {
-          "name": "Fresa",
-          "ingredients": [
-            {}
-          ],
-          "extras": [
-            {}
-          ],
-          "comments": ""
-        },
-        {
-          "name": "Manzana",
-          "ingredients": [
-            {}
-          ],
-          "extras": [
-            {}
-          ],
-          "comments": ""
+          "category": "CategoryD",
+          "options": ["J", "K", "L"]
         }
       ],
-      "selected": false,
-      "printer": "TP 45mm"
-    },
-    {
-      "title": "Bionicos",
-      "options": [
+      "options":
+      [
         {
-          "name": "Plato Chico",
-          "ingredients": [
-            {}
-          ],
-          "extras": [
-            {}
-          ]
-        },
-        {
-          "name": "Plato Grande",
-          "ingredients": [
-            {}
-          ],
-          "extras": [
-            {}
-          ]
+          "comments": "Base Coment 2",
+          "extras": ["L"],
+          "ingredients": ["I", "H"],
+          "name": "Base Option"
         }
       ],
+      "printer": "Printer 2",
       "selected": false,
-      "printer": "TP 45mm"
+      "title": "Base Tab 1"
     },
     {
-      "title": "Tostilocos",
-      "options": [],
-      "selected": false,
-      "printer": "TP 80mm"
-    },
-    {
-      "title": "Postres Costco",
-      "options": [
+      "extras": [
         {
-          "name": "Cheesecake Chispas",
-          "ingredients": [
-            {}
-          ],
-          "extras": [
-            {}
-          ],
-          "comments": ""
-        },
-        {
-          "name": "Cheesecake Frambuesa",
-          "ingredients": [
-            {}
-          ],
-          "extras": [
-            {}
-          ],
-          "comments": ""
-        },
-        {
-          "name": "Chocoflan",
-          "ingredients": [
-            {}
-          ],
-          "extras": [
-            {}
-          ],
-          "comments": ""
-        },
-        {
-          "name": "Pastel de Chocolate",
-          "ingredients": [
-            {}
-          ],
-          "extras": [
-            {}
-          ],
-          "comments": ""
-        },
-        {
-          "name": "Muffins",
-          "ingredients": [
-            {}
-          ],
-          "extras": [
-            {}
-          ],
-          "comments": ""
-        },
-        {
-          "name": "Galleta Chispas",
-          "ingredients": [
-            {}
-          ],
-          "extras": [
-            {}
-          ],
-          "comments": ""
-        },
-        {
-          "name": "Donitas Canela",
-          "ingredients": [
-            {}
-          ],
-          "extras": [
-            {}
-          ],
-          "comments": ""
-        },
-        {
-          "name": "Cheesecake Coronado",
-          "ingredients": [
-            {}
-          ],
-          "extras": [
-            {}
-          ],
-          "comments": ""
+          "category": "CategoryE",
+          "options": ["M", "N", "O"]
         }
       ],
+      "ingredients": [
+        {
+          "category": "CategoryD",
+          "options": ["J", "K", "L"]
+        }
+      ],
+      "options":
+      [
+        {
+          "comments": "Base Coment 2",
+          "extras": ["L"],
+          "ingredients": ["I", "H"],
+          "name": "Base Option"
+        }
+      ],
+      "printer": "Printer 2",
       "selected": false,
-      "printer": "TP 45mm"
+      "title": "Base Tab 2"
+    },
+    {
+      "extras": [
+        {
+          "category": "CategoryE",
+          "options": ["M", "N", "O"]
+        }
+      ],
+      "ingredients": [
+        {
+          "category": "CategoryD",
+          "options": ["J", "K", "L"]
+        }
+      ],
+      "options":
+      [
+        {
+          "comments": "Base Coment 2",
+          "extras": ["L"],
+          "ingredients": ["I", "H"],
+          "name": "Base Option"
+        }
+      ],
+      "printer": "Printer 2",
+      "selected": false,
+      "title": "Base Tab 3"
+    },
+    {
+      "extras": [
+        {
+          "category": "CategoryE",
+          "options": ["M", "N", "O"]
+        }
+      ],
+      "ingredients": [
+        {
+          "category": "CategoryD",
+          "options": ["J", "K", "L"]
+        }
+      ],
+      "options":
+      [
+        {
+          "comments": "Base Coment 2",
+          "extras": ["L"],
+          "ingredients": ["I", "H"],
+          "name": "Base Option"
+        }
+      ],
+      "printer": "Printer 2",
+      "selected": false,
+      "title": "Base Tab 4"
     }
   ]
 }
