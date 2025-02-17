@@ -55,12 +55,13 @@ export const ProcessPortal = ({
       <div className="process-portal">
         {/*Preview ticket section*/}
         <div className="bg-[#999999ff] w-[39%] min-w-[39%] p-4 preview-section">
-          <div className="bg-white w-full h-full text-black">
+          <div className="bg-white w-full h-full text-black p-2">
             <h5>Barra de Cafés</h5>
             <h5 className="pl-4">{selectedOption}</h5>
-            <div className="pl-4">
+            <br/>
+            <div>
               <h6>Ingredientes</h6>
-              <ul className="pl-4">
+              <ul>
                 {selectedIngredients.map((ingredient) => (
                   <li className="pl-4" key={ingredient}>
                     {ingredient}
@@ -68,9 +69,10 @@ export const ProcessPortal = ({
                 ))}
               </ul>
             </div>
-            <div className="pl-4">
+            <br/>
+            <div>
               <h6>Extras</h6>
-              <ul className="pl-4">
+              <ul>
                 {selectedExtras.map((extra) => (
                   <li className="pl-4" key={extra}>
                     {extra}
