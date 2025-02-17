@@ -1,4 +1,6 @@
 import PropTypes from "prop-types";
+
+// Styles
 import "../../styles/molecule/_menu-option-card.css";
 
 export const MenuOptionCard = ({
@@ -25,4 +27,5 @@ export const MenuOptionCard = ({
 
 MenuOptionCard.propTypes = {
   cardName: PropTypes.string,
+  onClick: PropTypes.func,
 };

@@ -96,28 +96,44 @@
     {
       "extras": [
         {
-          "category": "CategoryE",
-          "options": ["M", "N", "O"]
+          "category": "Untables",
+          "options": ["Lechera", "Nutella", "Philadelphia", "Crema Batida"]
+        },
+        {
+          "category": "Toppings",
+          "options": ["KinderDelice", "Almendras", "Nuez", "Kinder Bueno"]
         }
       ],
       "ingredients": [
         {
-          "category": "CategoryD",
-          "options": ["J", "K", "L"]
+          "category": "Frutas",
+          "options": ["Fresa", "Durazno", "Platano"]
         }
       ],
       "options":
       [
         {
-          "comments": "Base Coment 2",
-          "extras": ["L"],
-          "ingredients": ["I", "H"],
-          "name": "Base Option"
+          "comments": "",
+          "extras": ["Nutella", "Philadelphia", "Kinder Bueno", "Kinder Delice", "Nuez"],
+          "ingredients": ["Fresa", "Platano"],
+          "name": "Waffle kinder"
+        },
+        {
+          "comments": "",
+          "extras": ["Lechera", "Philadelphia", "Almendras"],
+          "ingredients": ["Durazno"],
+          "name": "Waffle Durazno"
+        },
+        {
+          "comments": "",
+          "extras": ["Lechera", "Crema Batida", "Nuez"],
+          "ingredients": ["Fresa"],
+          "name": "Waffle Fresas con Crema"
         }
       ],
       "printer": "Printer 2",
       "selected": false,
-      "title": "Base Tab 1"
+      "title": "Waffles"
     },
     {
       "extras": [
@@ -128,22 +144,22 @@
       ],
       "ingredients": [
         {
-          "category": "CategoryD",
-          "options": ["J", "K", "L"]
+          "category": "Vinos",
+          "options": ["Vino Tinto Cuatro Soles", "K", "L"]
         }
       ],
       "options":
       [
         {
           "comments": "Base Coment 2",
-          "extras": ["L"],
-          "ingredients": ["I", "H"],
+          "extras": ["M"],
+          "ingredients": ["Vino Tinto Cuatro Soles"],
           "name": "Base Option"
         }
       ],
       "printer": "Printer 2",
       "selected": false,
-      "title": "Base Tab 2"
+      "title": "Testing Titles"
     },
     {
       "extras": [

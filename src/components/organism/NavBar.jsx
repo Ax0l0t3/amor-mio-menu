@@ -1,13 +1,21 @@
-import { PreSaveSVG } from "../atom/PreSaveIcon";
-import { EditSVG } from "../atom/EditIcon";
+import { useState } from "react";
+
+// Atom
+import { AboutSVG } from "../atom/AboutIcon";
 import { AddSVG } from "../atom/AddIcon";
 import { CustomizeSVG } from "../atom/CustomizeIcon";
-import { AboutSVG } from "../atom/AboutIcon";
-import "../../styles/organism/_nav-bar.css";
+import { EditSVG } from "../atom/EditIcon";
+import { PreSaveSVG } from "../atom/PreSaveIcon";
+
+// Organism
 import { AddItemPortal } from "./AddItemPortal";
+
+// Ecosystem
 import { CustomizePortal } from "../ecosystem/CustomizePortal";
-import { useState } from "react";
 import { PrePrintPortal } from "../ecosystem/PrePrintPortal";
+
+// Styles
+import "../../styles/organism/_nav-bar.css";
 
 export const NavBar = () => {
   const [isAddItemPortal, setIsAddItemPortal] = useState(false);

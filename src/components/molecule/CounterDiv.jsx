@@ -1,4 +1,5 @@
 import { useState } from "react";
+import PropTypes from "prop-types";
 
 export const CounterDiv = ({ pValue = 0, tailwindStyle = "flex" }) => {
   const [counterValue, setCounterValue] = useState(pValue);
@@ -23,4 +24,9 @@ export const CounterDiv = ({ pValue = 0, tailwindStyle = "flex" }) => {
       </button>
     </div>
   );
+};
+
+CounterDiv.propTypes = {
+  pValue: PropTypes.number,
+  tailwindStyle: PropTypes.string,
 };

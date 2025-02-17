@@ -34,3 +34,8 @@ body {
   padding: 0 0.5rem 0 0.5rem;
   width: 100%;
 }
+
+@font-face {
+  font-family: ibm-semibold;
+  src: url("../public/IBMPlexMono-SemiBold.ttf");
+}

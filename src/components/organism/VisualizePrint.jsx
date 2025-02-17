@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 import { PrePrintCard } from "../molecule/PrePrintCard";
 
 export const VisualizePrint = ({ sectionName = "Default" }) => {
@@ -23,4 +25,8 @@ export const VisualizePrint = ({ sectionName = "Default" }) => {
       </div>
     </div>
   );
+};
+
+VisualizePrint.propTypes = {
+  sectionName: PropTypes.string,
 };

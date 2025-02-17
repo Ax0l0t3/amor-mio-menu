@@ -13,6 +13,7 @@
   overflow: hidden;
   width: 18%;
   margin-right: 0.5rem;
+  min-width: 13rem;
 }
 
 .li-label {

@@ -28,7 +28,7 @@ export const BoolOptions = ({
           <p>{object.category}</p>
           <ul className="flex flex-wrap">
             {object.options?.map((option, index) => (
-              <div key={`${option}${index}`} className="li-div">
+              <li key={`${option}${index}`} className="li-div">
                 <label htmlFor={`${option}${index}`} className="li-label">
                   {option}
                 </label>
@@ -40,7 +40,7 @@ export const BoolOptions = ({
                     handleSelectedChange(option, e.target.checked)
                   }
                 />
-              </div>
+              </li>
             ))}
           </ul>
         </li>
