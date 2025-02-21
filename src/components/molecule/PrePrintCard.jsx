@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { AddSVG } from "../atom/AddIcon";
 import "../../styles/molecule/_preprint-card.css";
 
@@ -15,4 +16,9 @@ export const PrePrintCard = ({ cardTitle = "Default", marginBottom = "0" }) => {
       </div>
     </div>
   );
+};
+
+PrePrintCard.propTypes = {
+  cardTitle: PropTypes.string,
+  marginBottom: PropTypes.string,
 };

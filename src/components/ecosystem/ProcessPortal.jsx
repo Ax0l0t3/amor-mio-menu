@@ -10,6 +10,7 @@ import { CounterDiv } from "../molecule/CounterDiv";
 
 // Organisms
 import { ExpandableDiv } from "../organism/ExpandableDiv";
+import { PreviewTicketSection } from "../organism/PreviewTicketSection";
 
 // Utils
 import { DataContext } from "../utils/DataContext";
@@ -54,34 +55,11 @@ export const ProcessPortal = ({
     createPortal(
       <div className="process-portal">
         {/*Preview ticket section*/}
-        <div className="bg-[#999999ff] w-[39%] min-w-[39%] p-4 preview-section">
-          <div className="bg-white w-full h-full text-black p-2">
-            <h5>Barra de Cafés</h5>
-            <h5 className="pl-4">{selectedOption}</h5>
-            <br />
-            <div>
-              <h6>Ingredientes</h6>
-              <ul>
-                {selectedIngredients.map((ingredient) => (
-                  <li className="pl-4" key={ingredient}>
-                    {ingredient}
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <br />
-            <div>
-              <h6>Extras</h6>
-              <ul>
-                {selectedExtras.map((extra) => (
-                  <li className="pl-4" key={extra}>
-                    {extra}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        </div>
+        <PreviewTicketSection
+          selectedOption={selectedOption}
+          selectedIngredients={selectedIngredients}
+          selectedExtras={selectedExtras}
+        />
         {/* Comments Section */}
         <ExpandableDiv
           closeAction={handleClose}
