@@ -58,7 +58,7 @@ export const ProcessPortal = ({
           <div className="bg-white w-full h-full text-black p-2">
             <h5>Barra de Cafés</h5>
             <h5 className="pl-4">{selectedOption}</h5>
-            <br/>
+            <br />
             <div>
               <h6>Ingredientes</h6>
               <ul>
@@ -69,7 +69,7 @@ export const ProcessPortal = ({
                 ))}
               </ul>
             </div>
-            <br/>
+            <br />
             <div>
               <h6>Extras</h6>
               <ul>
@@ -94,6 +94,7 @@ export const ProcessPortal = ({
               <InputField
                 name="commentsField"
                 placeholder="Agregar Comentario"
+                inputWidth="w-full"
               />
               <CounterDiv tailwindStyle="flex ml-auto mt-2" />
             </div>

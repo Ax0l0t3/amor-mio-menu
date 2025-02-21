@@ -1,4 +1,5 @@
 import PropTypes from "prop-types";
+import "../../styles/atom/_radio-slider.css";
 
 export const BoolOptions = ({
   boolOptions = [],
@@ -36,6 +37,7 @@ export const BoolOptions = ({
                   className="radio-slider"
                   id={`${option}${index}`}
                   type="checkbox"
+                  checked={selectedOptions.includes(option)}
                   onChange={(e) =>
                     handleSelectedChange(option, e.target.checked)
                   }

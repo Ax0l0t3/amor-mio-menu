@@ -15,7 +15,6 @@ import { DataContext } from "../../components/utils/DataContext";
 
 // Styles
 import "../../styles/organism/_add-item-portal.css";
-import "../../styles/atom/_radio-slider.css";
 
 export const AddItemPortal = ({
   isVisible = false,
