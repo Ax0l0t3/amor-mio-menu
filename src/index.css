@@ -9,7 +9,7 @@
   color: #ffffffff;
   color-scheme: light dark;
   display: flex;
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: queensides-normal;
   font-synthesis: none;
   font-weight: 400;
   height: 100%;
@@ -38,4 +38,9 @@ body {
 @font-face {
   font-family: ibm-semibold;
   src: url("../public/IBMPlexMono-SemiBold.ttf");
+}
+
+@font-face {
+  font-family: queensides-normal;
+  src: url("../public/Queensides.ttf");
 }
