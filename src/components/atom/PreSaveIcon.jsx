@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 export const PreSaveSVG = ({
   svgWidth = 20,
   svgHeight = 20,
@@ -24,4 +26,10 @@ export const PreSaveSVG = ({
       />
     </svg>
   );
+};
+
+PreSaveSVG.propTypes = {
+  svgHeight: PropTypes.number,
+  svgWidth: PropTypes.number,
+  twClassName: PropTypes.string,
 };

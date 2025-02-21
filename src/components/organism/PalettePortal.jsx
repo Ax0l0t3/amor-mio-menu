@@ -1,3 +1,4 @@
+import { useState } from "react";
 import "../../styles/organism/_palette-portal.css";
 
 export const PalettePortal = () => {

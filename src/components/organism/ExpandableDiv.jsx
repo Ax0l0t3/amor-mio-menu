@@ -15,6 +15,16 @@ export const ExpandableDiv = ({
   onSectionClick = Function.prototype,
   showSection,
 }) => {
+  const svgs = [
+    { item: <FastPrintSVG svgWidth={37} svgHeight={37} /> },
+    { item: <ChangePrinterSVG svgWidth={37} svgHeight={37} /> },
+    { item: <PreSaveSVG svgWidth={37} svgHeight={37} twClassName="m-0" /> },
+    {
+      item: <ExitPrintSVG svgWidth={37} svgHeight={37} />,
+      action: closeAction,
+    },
+  ];
+
   return (
     <div
       className={`${showSection ? "section-active" : ""} tab-division`}
@@ -23,12 +33,11 @@ export const ExpandableDiv = ({
       {children}
       {showSection && (
         <div className="flex mt-auto self-end">
-          <FastPrintSVG />
-          <ChangePrinterSVG />
-          <PreSaveSVG svgWidth={40} svgHeight={40} twClassName="m-0" />
-          <button onClick={closeAction}>
-            <ExitPrintSVG />
-          </button>
+          {svgs.map((node, index) => (
+            <button className="ml-2" onClick={node.action} key={index}>
+              {node.item}
+            </button>
+          ))}
         </div>
       )}
     </div>
