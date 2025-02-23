@@ -1,4 +1,5 @@
 import PropTypes from "prop-types";
+import "../../styles/atom/_radio-slider.css";
 
 export const BoolOptions = ({
   boolOptions = [],
@@ -28,7 +29,7 @@ export const BoolOptions = ({
           <p>{object.category}</p>
           <ul className="flex flex-wrap">
             {object.options?.map((option, index) => (
-              <div key={`${option}${index}`} className="li-div">
+              <li key={`${option}${index}`} className="li-div">
                 <label htmlFor={`${option}${index}`} className="li-label">
                   {option}
                 </label>
@@ -36,11 +37,12 @@ export const BoolOptions = ({
                   className="radio-slider"
                   id={`${option}${index}`}
                   type="checkbox"
+                  checked={selectedOptions.includes(option)}
                   onChange={(e) =>
                     handleSelectedChange(option, e.target.checked)
                   }
                 />
-              </div>
+              </li>
             ))}
           </ul>
         </li>

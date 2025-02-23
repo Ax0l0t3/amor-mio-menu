@@ -5,13 +5,15 @@ import { MenuOptionCard } from './components/molecule/MenuOptionCard';
 import { ProcessPortal } from './components/ecosystem/ProcessPortal';
 import { useEffect, useState } from 'react';
 import { DataContext } from './components/utils/DataContext';
-import BaseData from "../BaseData.json";
+import MockData from "../mockData.json";
 
 function App() {
   const [labelOptions, setLabelOptions] = useState([]);
   const [mockObjects, setMockObjects] = useState([]);
+  const [portalVisible, setPortalVisible] = useState(false);
+  const [selectedOption, setSelectedOption] = useState("");
 
-  const handleClick = cardTitle => {
+  const handleTabClick = cardTitle => {
     const returnObjects = mockObjects.map(object => {
       if (object.title === cardTitle) {
         return {
@@ -28,8 +30,13 @@ function App() {
     setMockObjects(returnObjects);
   };
 
+  const handleOptionClick = name => {
+    setSelectedOption(name);
+    setPortalVisible(!portalVisible);
+  };
+
   useEffect(() => {
-    setMockObjects(BaseData.tabs);
+    setMockObjects(MockData.tabs);
   }, []);
 
   useEffect(() => {
@@ -46,18 +53,18 @@ function App() {
           mockObjects?.map(object => (
             object.selected
               ? <SelectedOptionMainTab key={object.title} cardTitle={object.title} />
-              : <OptionMainTab key={object.title} cardTitle={object.title} action={() => handleClick(object.title)} />
+              : <OptionMainTab key={object.title} cardTitle={object.title} action={() => handleTabClick(object.title)} />
           ))
         }
       </div>
       <div className="options-cards">
         {
           labelOptions.map((option, id) => (
-            <MenuOptionCard key={id} cardName={option.name} />
+            <MenuOptionCard key={id} cardName={option.name} onClick={() => handleOptionClick(option.name)} />
           ))
         }
       </div>
-      <ProcessPortal isVisible={false} />
+      <ProcessPortal isVisible={portalVisible} selectedOption={selectedOption} closePortal={() => setPortalVisible(!portalVisible)} />
     </DataContext.Provider>
   )
 }

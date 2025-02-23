@@ -1,13 +1,20 @@
-import { createPortal } from "react-dom";
-import { TextButton } from "../atom/TextButton";
-import "../../styles/organism/_add-item-portal.css";
-import "../../styles/atom/_radio-slider.css";
-import { DataContext } from "../../components/utils/DataContext";
 import { useContext, useEffect, useState } from "react";
-import { SelectList } from "../molecule/SelectList";
+import { createPortal } from "react-dom";
+
+// Atom
 import { InputField } from "../atom/InputField";
+import { TextButton } from "../atom/TextButton";
+
+// Molecule
 import { AddButton } from "../molecule/AddButton";
 import { BoolOptions } from "../molecule/BoolOptions";
+import { SelectList } from "../molecule/SelectList";
+
+// Utils
+import { DataContext } from "../../components/utils/DataContext";
+
+// Styles
+import "../../styles/organism/_add-item-portal.css";
 
 export const AddItemPortal = ({
   isVisible = false,
@@ -187,6 +194,9 @@ export const AddItemPortal = ({
   };
 
   const handleIngredientsCategoryChange = (option) => {
+    if (option === "Add") {
+      setIsAddIngredientCategory(!isAddIngredientCategory);
+    }
     setSelectedIngredientCategory(option);
   };
 

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import "../../styles/organism/_palette-portal.css";
 import { GreenTickIcon } from "../atom/GreenTickIcon";
 import { ImageIcon } from "../atom/ImageIcon";

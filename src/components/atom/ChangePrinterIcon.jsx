@@ -1,9 +1,11 @@
-export const ChangePrinterSVG = () => {
+import PropTypes from "prop-types";
+
+export const ChangePrinterSVG = ({ svgWidth = 40, svgHeight = 40 }) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width={40}
-      height={40}
+      width={svgWidth}
+      height={svgHeight}
       viewBox="0 0 10.583 10.583"
     >
       <path
@@ -52,4 +54,9 @@ export const ChangePrinterSVG = () => {
       />
     </svg>
   );
+};
+
+ChangePrinterSVG.propTypes = {
+  svgHeight: PropTypes.number,
+  svgWidth: PropTypes.number,
 };

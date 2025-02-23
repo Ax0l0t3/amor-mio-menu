@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 
 export const InputField = ({
+  inputWidth = "w-[16%]",
   name = "",
   optionalTitle,
   optionalTitleClassName,
@@ -18,7 +19,7 @@ export const InputField = ({
         <p className={optionalTitleClassName}>{optionalTitle}</p>
       )}
       <input
-        className="bg-[#454a48] w-[16%] mr-2 h-[1.6rem]"
+        className={`bg-[#454a48] ${inputWidth} mr-2 h-[1.6rem]`}
         name={name}
         type={type}
         placeholder={placeholder}
@@ -30,6 +31,7 @@ export const InputField = ({
 };
 
 InputField.propTypes = {
+  inputWidth: PropTypes.string,
   name: PropTypes.string,
   optionalTitle: PropTypes.string,
   optionalTitleClassName: PropTypes.string,
