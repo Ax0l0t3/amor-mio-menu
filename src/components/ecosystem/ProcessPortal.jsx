@@ -30,6 +30,7 @@ export const ProcessPortal = ({
   const [selectedIngredients, setSelectedIngredients] = useState([]);
   const [selectedExtras, setSelectedExtras] = useState([]);
   const [selectedSection, setSelectedSection] = useState("Ingredients");
+  const [commentValue, setCommentValue] = useState("");
 
   const handleClose = () => {
     setSelectedExtras([]);
@@ -59,6 +60,7 @@ export const ProcessPortal = ({
           selectedOption={selectedOption}
           selectedIngredients={selectedIngredients}
           selectedExtras={selectedExtras}
+          commentValue={commentValue}
         />
         {/* Comments Section */}
         <ExpandableDiv
@@ -73,6 +75,8 @@ export const ProcessPortal = ({
                 name="commentsField"
                 placeholder="Agregar Comentario"
                 inputWidth="w-full"
+                value={commentValue}
+                setValue={setCommentValue}
               />
               <CounterDiv tailwindStyle="flex ml-auto mt-2" />
             </div>

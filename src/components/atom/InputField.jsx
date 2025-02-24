@@ -13,6 +13,7 @@ export const InputField = ({
   const handleInputChange = (value) => {
     setValue(value);
   };
+
   return (
     <>
       {optionalTitle && (
