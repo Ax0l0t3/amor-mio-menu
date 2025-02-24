@@ -31,6 +31,8 @@ export const ProcessPortal = ({
   const [selectedExtras, setSelectedExtras] = useState([]);
   const [selectedSection, setSelectedSection] = useState("Ingredients");
   const [commentValue, setCommentValue] = useState("");
+  const [selectedPrinter, setSelectedPrinter] = useState("");
+
 
   useEffect(() => {
     if (selectedOption != "") {
@@ -43,8 +45,9 @@ export const ProcessPortal = ({
       setSelectedExtras(thisOption.extras);
       setSelectedIngredients(thisOption.ingredients);
       setCommentValue(thisOption.comments);
+      setSelectedPrinter(thisTab.printer);
     }
-  }, [selectedOption]);
+  }, []);
 
   return (
     isVisible &&
@@ -56,6 +59,7 @@ export const ProcessPortal = ({
           selectedIngredients={selectedIngredients}
           selectedExtras={selectedExtras}
           commentValue={commentValue}
+          selectedPrinter={selectedPrinter}
         />
         {/* Comments Section */}
         <ExpandableDiv

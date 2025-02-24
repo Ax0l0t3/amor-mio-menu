@@ -53,7 +53,7 @@
           "name": "Smoothie Fresa"
         }
       ],
-      "printer": "Printer 1",
+      "printer": "45 mm",
       "selected": false,
       "title": "Bebidas"
     },
@@ -119,7 +119,7 @@
           "name": "Vaso Grande"
         }
       ],
-      "printer": "Printer 1",
+      "printer": "45 mm",
       "selected": true,
       "title": "Frutas con crema"
     },
@@ -161,7 +161,7 @@
           "name": "Waffle Fresas con Crema"
         }
       ],
-      "printer": "Printer 2",
+      "printer": "80 mm",
       "selected": false,
       "title": "Waffles"
     },
@@ -187,7 +187,7 @@
           "name": "Base Option"
         }
       ],
-      "printer": "Printer 2",
+      "printer": "80 mm",
       "selected": false,
       "title": "Testing Titles"
     },
@@ -213,7 +213,7 @@
           "name": "Base Option"
         }
       ],
-      "printer": "Printer 2",
+      "printer": "45 mm",
       "selected": false,
       "title": "Base Tab 3"
     },
@@ -239,7 +239,7 @@
           "name": "Base Option"
         }
       ],
-      "printer": "Printer 2",
+      "printer": "80 mm",
       "selected": false,
       "title": "Base Tab 4"
     }
