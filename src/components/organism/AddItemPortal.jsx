@@ -52,7 +52,7 @@ export const AddItemPortal = ({
   const [newExtraCategory, setNewExtraCategory] = useState("");
 
   const getPrinters = () => {
-    const thisObjects = [...localMockArray];
+    const thisObjects = [...mockObjects];
     const sorted = thisObjects.sort((objectA, objectB) =>
       objectA.printer > objectB.printer ? -1 : 1,
     );
@@ -65,7 +65,7 @@ export const AddItemPortal = ({
   };
 
   const getTabs = () => {
-    const foundTabs = localMockArray.map((object) => object.title);
+    const foundTabs = mockObjects.map((object) => object.title);
     setTabs(foundTabs);
   };
 
@@ -230,12 +230,9 @@ export const AddItemPortal = ({
 
   useEffect(() => {
     setLocalMockArray([...mockObjects]);
-  }, [mockObjects]);
-
-  useEffect(() => {
     getPrinters();
     getTabs();
-  }, [localMockArray]);
+  }, []);
 
   useEffect(() => {
     handleIngredientsCategoryChange(ingredientsCategories[0]);
