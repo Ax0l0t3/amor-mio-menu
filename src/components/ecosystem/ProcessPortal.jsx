@@ -42,7 +42,7 @@ export const ProcessPortal = ({
       setBoolExtras(thisTab.extras);
       setSelectedExtras(thisOption.extras);
       setSelectedIngredients(thisOption.ingredients);
-      setCommentValue(thisOption.comments)
+      setCommentValue(thisOption.comments);
     }
   }, [selectedOption]);
 
