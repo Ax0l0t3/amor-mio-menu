@@ -36,18 +36,24 @@ export const NavBar = () => {
           {b.button}
         </button>
       ))}
-      <AddItemPortal
-        isVisible={isAddItemPortal}
-        closePortal={() => setIsAddItemPortal(false)}
-      />
-      <CustomizePortal
-        isVisible={isCustomPortal}
-        closePortal={() => setIsCustomPortal(false)}
-      />
-      <PrePrintPortal
-        isVisible={isPrePrintPortal}
-        closePortal={() => setIsPrePrintPortal(false)}
-      />
+      {isAddItemPortal && (
+        <AddItemPortal
+          isVisible={isAddItemPortal}
+          closePortal={() => setIsAddItemPortal(false)}
+        />
+      )}
+      {isCustomPortal && (
+        <CustomizePortal
+          isVisible={isCustomPortal}
+          closePortal={() => setIsCustomPortal(false)}
+        />
+      )}
+      {isPrePrintPortal && (
+        <PrePrintPortal
+          isVisible={isPrePrintPortal}
+          closePortal={() => setIsPrePrintPortal(false)}
+        />
+      )}
     </div>
   );
 };
