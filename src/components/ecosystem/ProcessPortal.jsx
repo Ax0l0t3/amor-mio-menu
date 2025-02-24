@@ -32,12 +32,6 @@ export const ProcessPortal = ({
   const [selectedSection, setSelectedSection] = useState("Ingredients");
   const [commentValue, setCommentValue] = useState("");
 
-  const handleClose = () => {
-    setSelectedExtras([]);
-    setSelectedIngredients([]);
-    closePortal();
-  };
-
   useEffect(() => {
     if (selectedOption != "") {
       const thisTab = localMockArray.find((object) => object.selected);
@@ -48,6 +42,7 @@ export const ProcessPortal = ({
       setBoolExtras(thisTab.extras);
       setSelectedExtras(thisOption.extras);
       setSelectedIngredients(thisOption.ingredients);
+      setCommentValue(thisOption.comments)
     }
   }, [selectedOption]);
 
@@ -64,7 +59,7 @@ export const ProcessPortal = ({
         />
         {/* Comments Section */}
         <ExpandableDiv
-          closeAction={handleClose}
+          closeAction={closePortal}
           onSectionClick={() => setSelectedSection("Comments")}
           showSection={selectedSection === "Comments"}
         >
@@ -84,7 +79,7 @@ export const ProcessPortal = ({
         </ExpandableDiv>
         {/* Extras Section */}
         <ExpandableDiv
-          closeAction={handleClose}
+          closeAction={closePortal}
           onSectionClick={() => setSelectedSection("Extras")}
           showSection={selectedSection === "Extras"}
         >
@@ -99,7 +94,7 @@ export const ProcessPortal = ({
         </ExpandableDiv>
         {/* Ingredients Section */}
         <ExpandableDiv
-          closeAction={handleClose}
+          closeAction={closePortal}
           onSectionClick={() => setSelectedSection("Ingredients")}
           showSection={selectedSection === "Ingredients"}
         >

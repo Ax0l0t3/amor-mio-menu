@@ -64,7 +64,13 @@ function App() {
           ))
         }
       </div>
-      <ProcessPortal isVisible={portalVisible} selectedOption={selectedOption} closePortal={() => setPortalVisible(!portalVisible)} />
+      {portalVisible &&
+        <ProcessPortal
+          isVisible={portalVisible}
+          selectedOption={selectedOption}
+          closePortal={() => setPortalVisible(!portalVisible)}
+        />
+      }
     </DataContext.Provider>
   )
 }
