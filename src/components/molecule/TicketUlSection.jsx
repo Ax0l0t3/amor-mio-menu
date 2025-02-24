@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 
-export const TicketSection = ({ sectionHeader = "", selectedOptions }) => {
+export const TicketUlSection = ({ sectionHeader = "", selectedOptions }) => {
   return (
     <>
       <br />
@@ -18,7 +18,7 @@ export const TicketSection = ({ sectionHeader = "", selectedOptions }) => {
   );
 };
 
-TicketSection.propTypes = {
+TicketUlSection.propTypes = {
   sectionHeader: PropTypes.string,
   selectedOptions: PropTypes.arrayOf(PropTypes.string),
 };

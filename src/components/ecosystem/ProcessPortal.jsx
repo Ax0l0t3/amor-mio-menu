@@ -30,12 +30,7 @@ export const ProcessPortal = ({
   const [selectedIngredients, setSelectedIngredients] = useState([]);
   const [selectedExtras, setSelectedExtras] = useState([]);
   const [selectedSection, setSelectedSection] = useState("Ingredients");
-
-  const handleClose = () => {
-    setSelectedExtras([]);
-    setSelectedIngredients([]);
-    closePortal();
-  };
+  const [commentValue, setCommentValue] = useState("");
 
   useEffect(() => {
     if (selectedOption != "") {
@@ -47,6 +42,7 @@ export const ProcessPortal = ({
       setBoolExtras(thisTab.extras);
       setSelectedExtras(thisOption.extras);
       setSelectedIngredients(thisOption.ingredients);
+      setCommentValue(thisOption.comments);
     }
   }, [selectedOption]);
 
@@ -59,10 +55,11 @@ export const ProcessPortal = ({
           selectedOption={selectedOption}
           selectedIngredients={selectedIngredients}
           selectedExtras={selectedExtras}
+          commentValue={commentValue}
         />
         {/* Comments Section */}
         <ExpandableDiv
-          closeAction={handleClose}
+          closeAction={closePortal}
           onSectionClick={() => setSelectedSection("Comments")}
           showSection={selectedSection === "Comments"}
         >
@@ -73,6 +70,8 @@ export const ProcessPortal = ({
                 name="commentsField"
                 placeholder="Agregar Comentario"
                 inputWidth="w-full"
+                value={commentValue}
+                setValue={setCommentValue}
               />
               <CounterDiv tailwindStyle="flex ml-auto mt-2" />
             </div>
@@ -80,7 +79,7 @@ export const ProcessPortal = ({
         </ExpandableDiv>
         {/* Extras Section */}
         <ExpandableDiv
-          closeAction={handleClose}
+          closeAction={closePortal}
           onSectionClick={() => setSelectedSection("Extras")}
           showSection={selectedSection === "Extras"}
         >
@@ -95,7 +94,7 @@ export const ProcessPortal = ({
         </ExpandableDiv>
         {/* Ingredients Section */}
         <ExpandableDiv
-          closeAction={handleClose}
+          closeAction={closePortal}
           onSectionClick={() => setSelectedSection("Ingredients")}
           showSection={selectedSection === "Ingredients"}
         >

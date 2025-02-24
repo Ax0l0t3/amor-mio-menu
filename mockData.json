@@ -17,10 +17,40 @@
       "ingredients": [],
       "options": [
         {
-          "comments": "Base Coment 1",
+          "comments": "Kinder delice comment",
           "extras": [],
           "ingredients": [],
-          "name": "Frappuccino"
+          "name": "Frappe Kinder Delice"
+        },
+        {
+          "comments": "Lotus biscoff comment",
+          "extras": [],
+          "ingredients": [],
+          "name": "Frappe Lotus Biscoff"
+        },
+        {
+          "comments": "Galeta costco comment",
+          "extras": [],
+          "ingredients": [],
+          "name": "Frappe Galleta Costco"
+        },
+        {
+          "comments": "Fresa vainilla comment",
+          "extras": [],
+          "ingredients": [],
+          "name": "Smoothie Fresa Vainilla"
+        },
+        {
+          "comments": "Fresa platano comment",
+          "extras": [],
+          "ingredients": [],
+          "name": "Smoothie Fresa Platano"
+        },
+        {
+          "comments": "Fresa comment",
+          "extras": [],
+          "ingredients": [],
+          "name": "Smoothie Fresa"
         }
       ],
       "printer": "Printer 1",
@@ -101,7 +131,7 @@
         },
         {
           "category": "Toppings",
-          "options": ["KinderDelice", "Almendras", "Nuez", "Kinder Bueno"]
+          "options": ["Kinder Delice", "Almendras", "Nuez", "Kinder Bueno"]
         }
       ],
       "ingredients": [

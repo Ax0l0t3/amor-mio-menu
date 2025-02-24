@@ -59,8 +59,8 @@ export const PalettePortal = () => {
           />
         </div>
         <div className="flex justify-end gap-2 mt-2">
-            <ImageIcon className="w-6 h-6" />
-            <GreenTickIcon className="w-6 h-6" />
+          <ImageIcon className="w-6 h-6" />
+          <GreenTickIcon className="w-6 h-6" />
         </div>
       </div>
     </div>
