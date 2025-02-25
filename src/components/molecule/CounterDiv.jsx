@@ -1,8 +1,8 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
 
-export const CounterDiv = ({ pValue = 0, tailwindStyle = "flex" }) => {
-  const [counterValue, setCounterValue] = useState(pValue);
+export const CounterDiv = ({ defaultValue = 0, tailwindStyle = "flex" }) => {
+  const [counterValue, setCounterValue] = useState(defaultValue);
   return (
     <div className={tailwindStyle}>
       <p className="bg-[#454a48ff] w-[2.5rem] h-[1.6rem] flex items-center justify-center text-[18px]">
@@ -27,6 +27,6 @@ export const CounterDiv = ({ pValue = 0, tailwindStyle = "flex" }) => {
 };
 
 CounterDiv.propTypes = {
-  pValue: PropTypes.number,
+  defaultValue: PropTypes.number,
   tailwindStyle: PropTypes.string,
 };
