@@ -33,7 +33,6 @@ export const ProcessPortal = ({
   const [commentValue, setCommentValue] = useState("");
   const [selectedPrinter, setSelectedPrinter] = useState("");
 
-
   useEffect(() => {
     if (selectedOption != "") {
       const thisTab = localMockArray.find((object) => object.selected);
