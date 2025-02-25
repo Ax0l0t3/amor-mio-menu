@@ -16,9 +16,18 @@ export const ExpandableDiv = ({
   showSection,
 }) => {
   const svgs = [
-    { item: <FastPrintSVG svgWidth={37} svgHeight={37} /> },
-    { item: <ChangePrinterSVG svgWidth={37} svgHeight={37} /> },
-    { item: <PreSaveSVG svgWidth={37} svgHeight={37} twClassName="m-0" /> },
+    {
+      item: <FastPrintSVG svgWidth={37} svgHeight={37} />,
+      itemName: "Imprimir",
+    },
+    {
+      item: <ChangePrinterSVG svgWidth={37} svgHeight={37} />,
+      itemName: "Cambiar Impresora",
+    },
+    {
+      item: <PreSaveSVG svgWidth={37} svgHeight={37} twClassName="m-0" />,
+      itemName: "Precomanda",
+    },
     {
       item: <ExitPrintSVG svgWidth={37} svgHeight={37} />,
       action: closeAction,
@@ -34,9 +43,20 @@ export const ExpandableDiv = ({
       {showSection && (
         <div className="flex mt-auto self-end">
           {svgs.map((node, index) => (
-            <button className="ml-2" onClick={node.action} key={index}>
-              {node.item}
-            </button>
+            <div key={index} className="ml-2 button-and-tooltip">
+              <button
+                onClick={node.action}
+                aria-labelledby={`button-description-${index}`}
+              >
+                {node.item}
+              </button>
+              {node.itemName != null && (
+                <div role="tooltip" id={`button-description-${index}`}>
+                  {node.itemName}
+                </div>
+              )}
+              {node.itemName != null && <div className="label-triangle" />}
+            </div>
           ))}
         </div>
       )}

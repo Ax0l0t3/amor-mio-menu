@@ -1,19 +1,55 @@
-.tab-division{
-    background-color: #1f1612ff;
-    border-left: 1px solid white;
-    cursor: default;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    text-align: start;
-    transition: width 0.4s;
-    width: 3%;
-    writing-mode: vertical-lr;
-  }
-  
-  .section-active{
-    width: 40%;
-    transition: width 0.4s;
-    writing-mode: horizontal-tb;
-    padding: 0.5rem;
-  }
+.tab-division {
+  background-color: #1f1612ff;
+  border-left: 1px solid white;
+  cursor: default;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  text-align: start;
+  transition: width 0.4s;
+  width: 3%;
+  writing-mode: vertical-lr;
+}
+
+.section-active {
+  padding: 0.5rem;
+  transition: width 0.4s;
+  width: 40%;
+  writing-mode: horizontal-tb;
+}
+
+[role="tooltip"] {
+  background-color: #1c0310ff;
+  border-bottom: 2rem solid #1f1612ff;
+  border-radius:5px;
+  display: none;
+  height: 4rem;
+  padding: 0 1rem;
+  position: absolute;
+  text-wrap: nowrap;
+  top: -4rem;
+}
+
+button:hover+[role="tooltip"],
+button:focus+[role="tooltip"] {
+  display: block;
+}
+
+.button-and-tooltip {
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+
+.label-triangle {
+  border-left: 1rem solid transparent;
+  border-right: 1rem solid transparent;
+  border-top: 1rem solid #1c0310ff;
+  display: none;
+  position: absolute;
+  top: -2rem;
+}
+
+button:hover+[role="tooltip"]+.label-triangle {
+  display: block;
+}
