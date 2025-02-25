@@ -4,8 +4,8 @@ import { TicketUlSection } from "../molecule/TicketUlSection";
 
 export const PreviewTicketSection = ({
   selectedOption = "",
-  selectedIngredients,
-  selectedExtras,
+  selectedIngredients = [],
+  selectedExtras = [],
   commentValue = "",
   selectedPrinter = "",
 }) => {

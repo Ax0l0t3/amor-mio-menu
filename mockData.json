@@ -4,8 +4,7 @@
       "extras": [
         {
           "category": "Leche",
-          "options": 
-          [
+          "options": [
             "Leche Entera",
             "Leche Coco",
             "Leche Light",
@@ -61,8 +60,7 @@
       "extras": [
         {
           "category": "Toppings",
-          "options": 
-          [
+          "options": [
             "Almendras",
             "Amaranto",
             "Granola",
@@ -78,8 +76,7 @@
       "ingredients": [
         {
           "category": "Frutas",
-          "options": 
-          [
+          "options": [
             "Fresa",
             "Durazno",
             "Uva",
@@ -91,8 +88,7 @@
         },
         {
           "category": "Toppings",
-          "options": 
-          [
+          "options": [
             "Almendras",
             "Amaranto",
             "Granola",
@@ -124,40 +120,60 @@
       "title": "Frutas con crema"
     },
     {
-      "extras": [
-        {
-          "category": "Untables",
-          "options": ["Lechera", "Nutella", "Philadelphia", "Crema Batida"]
-        },
-        {
-          "category": "Toppings",
-          "options": ["Kinder Delice", "Almendras", "Nuez", "Kinder Bueno"]
-        }
-      ],
+      "extras": [],
       "ingredients": [
         {
           "category": "Frutas",
-          "options": ["Fresa", "Durazno", "Platano"]
+          "options": ["Fresa", "Durazno", "Platano", "Manzana", "Uva"]
+        },
+        {
+          "category": "Untables",
+          "options": [
+            "Nutella",
+            "Lechera",
+            "Philadelphia",
+            "Cajeta",
+            "Miel de abeja",
+            "Miel Maple"
+          ]
+        },
+        {
+          "category": "Toppings",
+          "options": [
+            "Kinder Delice",
+            "Almendras",
+            "Nuez",
+            "Kinder Bueno",
+            "Pasas",
+            "Amaranto"
+          ]
         }
       ],
-      "options":
-      [
+      "options": [
         {
           "comments": "",
-          "extras": ["Nutella", "Philadelphia", "Kinder Bueno", "Kinder Delice", "Nuez"],
-          "ingredients": ["Fresa", "Platano"],
+          "extras": [],
+          "ingredients": [
+            "Fresa",
+            "Platano",
+            "Nutella",
+            "Philadelphia",
+            "Kinder Bueno",
+            "Kinder Delice",
+            "Nuez"
+          ],
           "name": "Waffle kinder"
         },
         {
           "comments": "",
-          "extras": ["Lechera", "Philadelphia", "Almendras"],
-          "ingredients": ["Durazno"],
+          "extras": [],
+          "ingredients": ["Durazno", "Lechera", "Philadelphia", "Almendras"],
           "name": "Waffle Durazno"
         },
         {
           "comments": "",
-          "extras": ["Lechera", "Crema Batida", "Nuez"],
-          "ingredients": ["Fresa"],
+          "extras": [],
+          "ingredients": ["Fresa", "Lechera", "Crema Batida", "Nuez"],
           "name": "Waffle Fresas con Crema"
         }
       ],
@@ -178,8 +194,7 @@
           "options": ["Vino Tinto Cuatro Soles", "K", "L"]
         }
       ],
-      "options":
-      [
+      "options": [
         {
           "comments": "Base Coment 2",
           "extras": ["M"],
@@ -204,8 +219,7 @@
           "options": ["J", "K", "L"]
         }
       ],
-      "options":
-      [
+      "options": [
         {
           "comments": "Base Coment 2",
           "extras": ["L"],
@@ -230,8 +244,7 @@
           "options": ["J", "K", "L"]
         }
       ],
-      "options":
-      [
+      "options": [
         {
           "comments": "Base Coment 2",
           "extras": ["L"],
