@@ -75,7 +75,7 @@ export const ProcessPortal = ({
                 setInputValue={updateObject}
                 objectProperty="comments"
               />
-              <CounterDiv tailwindStyle="flex ml-auto mt-2" />
+              <CounterDiv defaultValue={1} tailwindStyle="flex ml-auto mt-2" />
             </div>
           )}
         </ExpandableDiv>
