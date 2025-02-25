@@ -5,19 +5,20 @@ export const BoolOptions = ({
   boolOptions = [],
   selectedOptions,
   setSelectedOptions = Function.prototype,
+  objectPropertyName,
 }) => {
   const handleSelectedChange = (extraName, isChecked) => {
     const isInArray = selectedOptions.includes(extraName);
     if (isChecked) {
       if (!isInArray) {
-        setSelectedOptions([...selectedOptions, extraName]);
+        setSelectedOptions([...selectedOptions, extraName], objectPropertyName);
       }
     } else {
       if (isInArray) {
         const updatedExtras = selectedOptions.filter(
           (option) => option != extraName,
         );
-        setSelectedOptions(updatedExtras);
+        setSelectedOptions(updatedExtras, objectPropertyName);
       }
     }
   };
@@ -55,4 +56,5 @@ BoolOptions.propTypes = {
   boolOptions: PropTypes.array,
   selectedOptions: PropTypes.array,
   setSelectedOptions: PropTypes.func,
+  objectPropertyName: PropTypes.string,
 };

@@ -14,6 +14,7 @@ import { PreviewTicketSection } from "../organism/PreviewTicketSection";
 
 // Utils
 import { DataContext } from "../utils/DataContext";
+import { objectUtil } from "../utils/ObjectUtils";
 
 // Styles
 import "../../styles/ecosystem/_process-portal.css";
@@ -25,12 +26,15 @@ export const ProcessPortal = ({
 }) => {
   const localMockArray = useContext(DataContext);
 
-  const [boolIngredients, setBoolIngredients] = useState([]);
-  const [boolExtras, setBoolExtras] = useState([]);
-  const [selectedIngredients, setSelectedIngredients] = useState([]);
-  const [selectedExtras, setSelectedExtras] = useState([]);
+  const [localTab, setLocalTab] = useState({});
+  const [localOption, setLocalOption] = useState({});
   const [selectedSection, setSelectedSection] = useState("Ingredients");
-  const [commentValue, setCommentValue] = useState("");
+
+  const updateObject = (eValue, objProp) => {
+    const [thisObject, thisMethod] = objectUtil(localOption);
+    thisMethod(eValue, objProp);
+    setLocalOption(thisObject);
+  };
 
   useEffect(() => {
     if (selectedOption != "") {
@@ -38,13 +42,10 @@ export const ProcessPortal = ({
       const thisOption = thisTab.options.find(
         (object) => object.name === selectedOption,
       );
-      setBoolIngredients(thisTab.ingredients);
-      setBoolExtras(thisTab.extras);
-      setSelectedExtras(thisOption.extras);
-      setSelectedIngredients(thisOption.ingredients);
-      setCommentValue(thisOption.comments);
+      setLocalTab(thisTab);
+      setLocalOption(thisOption);
     }
-  }, [selectedOption]);
+  }, []);
 
   return (
     isVisible &&
@@ -53,9 +54,9 @@ export const ProcessPortal = ({
         {/*Preview ticket section*/}
         <PreviewTicketSection
           selectedOption={selectedOption}
-          selectedIngredients={selectedIngredients}
-          selectedExtras={selectedExtras}
-          commentValue={commentValue}
+          selectedIngredients={localOption.ingredients}
+          selectedExtras={localOption.extras}
+          commentValue={localOption.comments}
         />
         {/* Comments Section */}
         <ExpandableDiv
@@ -70,8 +71,9 @@ export const ProcessPortal = ({
                 name="commentsField"
                 placeholder="Agregar Comentario"
                 inputWidth="w-full"
-                value={commentValue}
-                setValue={setCommentValue}
+                value={localOption.comments}
+                setInputValue={updateObject}
+                objectProperty="comments"
               />
               <CounterDiv tailwindStyle="flex ml-auto mt-2" />
             </div>
@@ -86,9 +88,10 @@ export const ProcessPortal = ({
           <p>Extras</p>
           {selectedSection === "Extras" && (
             <BoolOptions
-              boolOptions={boolExtras}
-              selectedOptions={selectedExtras}
-              setSelectedOptions={setSelectedExtras}
+              boolOptions={localTab.extras}
+              selectedOptions={localOption.extras}
+              setSelectedOptions={updateObject}
+              objectPropertyName="extras"
             />
           )}
         </ExpandableDiv>
@@ -101,9 +104,10 @@ export const ProcessPortal = ({
           <p>Ingredients</p>
           {selectedSection === "Ingredients" && (
             <BoolOptions
-              boolOptions={boolIngredients}
-              selectedOptions={selectedIngredients}
-              setSelectedOptions={setSelectedIngredients}
+              boolOptions={localTab.ingredients}
+              selectedOptions={localOption.ingredients}
+              setSelectedOptions={updateObject}
+              objectPropertyName="ingredients"
             />
           )}
         </ExpandableDiv>

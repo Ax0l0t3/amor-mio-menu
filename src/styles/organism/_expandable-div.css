@@ -1,19 +1,19 @@
-.tab-division{
-    background-color: #1f1612ff;
-    border-left: 1px solid white;
-    cursor: default;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    text-align: start;
-    transition: width 0.4s;
-    width: 3%;
-    writing-mode: vertical-lr;
-  }
-  
-  .section-active{
-    width: 40%;
-    transition: width 0.4s;
-    writing-mode: horizontal-tb;
-    padding: 0.5rem;
-  }
+.tab-division {
+  background-color: #1f1612ff;
+  border-left: 1px solid white;
+  cursor: default;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  text-align: start;
+  transition: width 0.4s;
+  width: 3%;
+  writing-mode: vertical-lr;
+}
+
+.section-active {
+  width: 40%;
+  transition: width 0.4s;
+  writing-mode: horizontal-tb;
+  padding: 0.5rem;
+}
