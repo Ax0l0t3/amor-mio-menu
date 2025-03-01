@@ -53,10 +53,8 @@ export const ProcessPortal = ({
       <div className="process-portal">
         {/*Preview ticket section*/}
         <PreviewTicketSection
-          selectedOption={selectedOption}
-          selectedIngredients={localOption.ingredients}
-          selectedExtras={localOption.extras}
-          commentValue={localOption.comments}
+          parentObject={localTab}
+          selectedObject={localOption}
         />
         {/* Comments Section */}
         <ExpandableDiv
