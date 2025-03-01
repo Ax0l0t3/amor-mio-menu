@@ -11,6 +11,13 @@
             "Leche Deslactosada",
             "Leche Soya"
           ]
+        },
+        {
+          "category": "Azucares",
+          "options": [
+            "Stevia",
+            "Zucralosa"
+          ]
         }
       ],
       "ingredients": [],
