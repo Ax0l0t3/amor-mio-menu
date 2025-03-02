@@ -4,8 +4,7 @@ export const LiObjectElement = ({ liObject = {} }) => {
   return (
     <>
       {liObject.selectedOptions.length > 0 && (
-        <li className="pl-4">
-          <br />
+        <li className="pl-4 mb-2">
           <h6>{liObject.category}</h6>
           <ul>
             {liObject.selectedOptions.map((option) => (
