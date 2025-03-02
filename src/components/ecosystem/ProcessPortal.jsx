@@ -67,26 +67,27 @@ export const ProcessPortal = ({
   };
 
   const returnExpandable = (objectProperty) => {
-    const returnable = localTab[objectProperty].map((object) => (
-      <ExpandableDiv
-        closeAction={closePortal}
-        onSectionClick={() =>
-          setSelectedSection(`${objectProperty}-${object.category}`)
-        }
-        showSection={selectedSection === `${objectProperty}-${object.category}`}
-        key={`${objectProperty}-${object.category}`}
-        sectionOrder={localTab.ingredients.length}
-      >
-        {selectedSection === `${objectProperty}-${object.category}` && (
-          <h6>{objectProperty.toUpperCase()}</h6>
-        )}
-        <p>{object.category}</p>
-        <ul className="flex flex-wrap">
-          {selectedSection === `${objectProperty}-${object.category}` &&
-            returnCheckboxes(object.options, objectProperty)}
-        </ul>
-      </ExpandableDiv>
-    ));
+    const returnable = localTab[objectProperty].map((object) => {
+      const expandableId = `${objectProperty}-${object.category}`;
+      return (
+        <ExpandableDiv
+          closeAction={closePortal}
+          onSectionClick={() => setSelectedSection(expandableId)}
+          showSection={selectedSection === expandableId}
+          key={expandableId}
+          sectionOrder={localTab.ingredients.length}
+        >
+          {selectedSection === expandableId && (
+            <h6>{objectProperty.toUpperCase()}</h6>
+          )}
+          <p>{object.category}</p>
+          <ul className="flex flex-wrap">
+            {selectedSection === expandableId &&
+              returnCheckboxes(object.options, objectProperty)}
+          </ul>
+        </ExpandableDiv>
+      );
+    });
     returnable.reverse();
     return returnable;
   };
