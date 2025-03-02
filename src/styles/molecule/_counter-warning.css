@@ -1,0 +1,36 @@
+.warning {
+    animation: slide-in 0.5s ease;
+    font-size: 1rem;
+    position: relative;
+}
+
+.warning-border{
+    border: 1px solid #f7df44ff;
+}
+
+.normal-border{
+    border-left: 2px solid #1c0310ff;
+    border-right: 2px solid #1c0310ff;
+}
+
+@keyframes slide-in {
+    0% {
+        transform: translateX(5%);
+    }
+
+    15% {
+        transform: translateX(-4%);
+    }
+
+    55% {
+        transform: translateX(3%);
+    }
+
+    95% {
+        transform: translateX(-0.5%);
+    }
+
+    100% {
+        transform: translateX(0%);
+    }
+}
