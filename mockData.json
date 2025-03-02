@@ -127,7 +127,12 @@
       "title": "Frutas con crema"
     },
     {
-      "extras": [],
+      "extras": [
+        {
+          "category": "Extra Fruta",
+          "options": ["Fresa", "Durazno", "Platano", "Manzana", "Uva"]
+        }
+      ],
       "ingredients": [
         {
           "category": "Frutas",
@@ -216,27 +221,57 @@
     {
       "extras": [
         {
-          "category": "CategoryE",
-          "options": ["M", "N", "O"]
+          "category": "Cremas",
+          "options": ["Crema", "Yoghurt con Azucar"]
+        },
+        {
+          "category": "Frutas",
+          "options": [
+            "Fresa",
+            "Durazno",
+            "Uva",
+            "Manzana",
+            "Melon",
+            "Papaya",
+            "Platano"
+          ]
         }
       ],
       "ingredients": [
         {
-          "category": "CategoryD",
-          "options": ["J", "K", "L"]
+          "category": "Frutas",
+          "options": [
+            "Fresa",
+            "Durazno",
+            "Uva",
+            "Manzana",
+            "Melon",
+            "Papaya",
+            "Platano"
+          ]
+        },
+        {
+          "category": "Topping",
+          "options": ["Crema", "Yoghurt sin Azucar"]
         }
       ],
       "options": [
         {
-          "comments": "Base Coment 2",
-          "extras": ["L"],
-          "ingredients": ["I", "H"],
-          "name": "Base Option"
+          "comments": "",
+          "extras": [],
+          "ingredients": [],
+          "name": "Bionico Chico"
+        },
+        {
+          "comments": "",
+          "extras": [],
+          "ingredients": [],
+          "name": "Bionico Grande"
         }
       ],
       "printer": "45 mm",
       "selected": false,
-      "title": "Base Tab 3"
+      "title": "Bionicos"
     },
     {
       "extras": [

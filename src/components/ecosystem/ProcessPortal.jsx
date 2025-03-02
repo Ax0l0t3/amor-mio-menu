@@ -3,9 +3,9 @@ import { useContext, useEffect, useState } from "react";
 
 // Atom
 import { InputField } from "../atom/InputField";
+import { LiCheckbox } from "../atom/LiCheckbox";
 
 // Molecule
-import { BoolOptions } from "../molecule/BoolOptions";
 import { CounterDiv } from "../molecule/CounterDiv";
 
 // Organisms
@@ -30,10 +30,66 @@ export const ProcessPortal = ({
   const [localOption, setLocalOption] = useState({});
   const [selectedSection, setSelectedSection] = useState("Ingredients");
 
-  const updateObject = (eValue, objProp) => {
+  const updateLocalOption = (eValue, objProp) => {
     const [thisObject, thisMethod] = objectUtil(localOption);
     thisMethod(eValue, objProp);
     setLocalOption(thisObject);
+  };
+
+  const handleCheckboxChange = (singleOption, objectProperty, isIncluded) => {
+    if (!isIncluded)
+      updateLocalOption(
+        [...localOption[objectProperty], singleOption],
+        objectProperty,
+      );
+    else
+      updateLocalOption(
+        localOption[objectProperty].filter((e) => e != singleOption),
+        objectProperty,
+      );
+  };
+
+  const returnCheckboxes = (options, property) => {
+    const returnCheckboxes = options.map((option, index) => {
+      const includesOption = localOption[property].includes(option);
+      return (
+        <LiCheckbox
+          key={`${option}-${index}`}
+          name={option}
+          checked={includesOption}
+          onChange={() =>
+            handleCheckboxChange(option, property, includesOption)
+          }
+        />
+      );
+    });
+    return returnCheckboxes;
+  };
+
+  const returnExpandable = (objectProperty) => {
+    const returnable = localTab[objectProperty].map((object) => {
+      const expandableId = `${objectProperty}-${object.category}`;
+      return (
+        <ExpandableDiv
+          closeAction={closePortal}
+          onSectionClick={() => setSelectedSection(expandableId)}
+          showSection={selectedSection === expandableId}
+          key={expandableId}
+          sectionOrder={localTab.ingredients.length}
+        >
+          {selectedSection === expandableId && (
+            <h6>{objectProperty.toUpperCase()}</h6>
+          )}
+          <p>{object.category}</p>
+          <ul className="flex flex-wrap">
+            {selectedSection === expandableId &&
+              returnCheckboxes(object.options, objectProperty)}
+          </ul>
+        </ExpandableDiv>
+      );
+    });
+    returnable.reverse();
+    return returnable;
   };
 
   useEffect(() => {
@@ -70,7 +126,7 @@ export const ProcessPortal = ({
                 placeholder="Agregar Comentario"
                 inputWidth="w-full"
                 value={localOption.comments}
-                setInputValue={updateObject}
+                setInputValue={updateLocalOption}
                 objectProperty="comments"
               />
               <CounterDiv defaultValue={1} tailwindStyle="flex ml-auto mt-2" />
@@ -78,37 +134,9 @@ export const ProcessPortal = ({
           )}
         </ExpandableDiv>
         {/* Extras Section */}
-        <ExpandableDiv
-          closeAction={closePortal}
-          onSectionClick={() => setSelectedSection("Extras")}
-          showSection={selectedSection === "Extras"}
-        >
-          <p>Extras</p>
-          {selectedSection === "Extras" && (
-            <BoolOptions
-              boolOptions={localTab.extras}
-              selectedOptions={localOption.extras}
-              setSelectedOptions={updateObject}
-              objectPropertyName="extras"
-            />
-          )}
-        </ExpandableDiv>
+        {localTab?.extras?.length > 0 && returnExpandable("extras")}
         {/* Ingredients Section */}
-        <ExpandableDiv
-          closeAction={closePortal}
-          onSectionClick={() => setSelectedSection("Ingredients")}
-          showSection={selectedSection === "Ingredients"}
-        >
-          <p>Ingredients</p>
-          {selectedSection === "Ingredients" && (
-            <BoolOptions
-              boolOptions={localTab.ingredients}
-              selectedOptions={localOption.ingredients}
-              setSelectedOptions={updateObject}
-              objectPropertyName="ingredients"
-            />
-          )}
-        </ExpandableDiv>
+        {localTab?.ingredients?.length > 0 && returnExpandable("ingredients")}
       </div>,
       document.getElementById("root"),
     )
