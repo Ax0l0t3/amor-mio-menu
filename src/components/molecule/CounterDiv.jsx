@@ -7,6 +7,7 @@ import "../../styles/molecule/_counter-warning.css";
 export const CounterDiv = ({ defaultValue = 0, tailwindStyle = "flex" }) => {
   const [counterValue, setCounterValue] = useState(defaultValue);
   const [warning, setWarning] = useState(false);
+  const [mouseInButton, setMouseInButton] = useState(false);
 
   const handleDecrement = () => {
     if (counterValue >= 2) {
@@ -23,7 +24,7 @@ export const CounterDiv = ({ defaultValue = 0, tailwindStyle = "flex" }) => {
 
   return (
     <div className={tailwindStyle}>
-      {warning && (
+      {warning && mouseInButton && (
         <p className="mr-2 text-[#f7df44ff] warning">Valor no válido</p>
       )}
       <p className="bg-[#454a48ff] w-[2.5rem] h-[1.6rem] flex items-center justify-center text-[18px]">
@@ -33,6 +34,8 @@ export const CounterDiv = ({ defaultValue = 0, tailwindStyle = "flex" }) => {
         onClick={handleDecrement}
         type="button"
         className={`bg-[#454a48ff] w-[1.6rem] h-[1.6rem] flex items-center justify-center ${warning ? "warning-border" : "normal-border"}`}
+        onMouseEnter={()=> setMouseInButton(true)}
+        onMouseLeave={()=> {setMouseInButton(false); setWarning(false)}}
       >
         -
       </button>
