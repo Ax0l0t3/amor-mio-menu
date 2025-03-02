@@ -34,8 +34,11 @@ export const CounterDiv = ({ defaultValue = 0, tailwindStyle = "flex" }) => {
         onClick={handleDecrement}
         type="button"
         className={`bg-[#454a48ff] w-[1.6rem] h-[1.6rem] flex items-center justify-center ${warning ? "warning-border" : "normal-border"}`}
-        onMouseEnter={()=> setMouseInButton(true)}
-        onMouseLeave={()=> {setMouseInButton(false); setWarning(false)}}
+        onMouseEnter={() => setMouseInButton(true)}
+        onMouseLeave={() => {
+          setMouseInButton(false);
+          setWarning(false);
+        }}
       >
         -
       </button>
