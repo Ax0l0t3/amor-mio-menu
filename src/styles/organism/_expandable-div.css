@@ -14,7 +14,7 @@
 
 .tab-division:hover {
   background-color: rgb(from #1f1612ff r g b / 0.5);
-  transition: background-color 0.1s ease;
+  transition: background-color 0.1s;
 }
 
 .section-active {
