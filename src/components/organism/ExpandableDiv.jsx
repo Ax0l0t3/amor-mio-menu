@@ -49,7 +49,7 @@ export const ExpandableDiv = ({
   };
   return (
     <div
-      className={`${showSection ? "section-active" : ""} tab-division`}
+      className={showSection ? "section-active" : "tab-division"}
       onClick={onSectionClick}
     >
       {children}

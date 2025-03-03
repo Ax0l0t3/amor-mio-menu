@@ -7,12 +7,25 @@
   overflow: hidden;
   text-align: start;
   transition: width 0.4s;
+  transition: background-color 0.1s;
   width: 3%;
   writing-mode: vertical-lr;
 }
 
+.tab-division:hover {
+  background-color: rgb(from #1f1612ff r g b / 0.5);
+  transition: background-color 0.1s ease;
+}
+
 .section-active {
+  background-color: #1f1612ff;
+  border-left: 1px solid white;
+  cursor: default;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
   padding: 0.5rem;
+  text-align: start;
   transition: width 0.4s;
   width: 40%;
   writing-mode: horizontal-tb;
