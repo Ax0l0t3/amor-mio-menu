@@ -12,6 +12,7 @@ import { SelectList } from "../molecule/SelectList";
 
 // Utils
 import { DataContext } from "../../components/utils/DataContext";
+import { getPlainPrinters } from "../utils/ObjectUtils";
 
 // Styles
 import "../../styles/organism/_add-item-portal.css";
@@ -53,14 +54,7 @@ export const AddItemPortal = ({
 
   const getPrinters = () => {
     const thisObjects = [...mockObjects];
-    const sorted = thisObjects.sort((objectA, objectB) =>
-      objectA.printer > objectB.printer ? -1 : 1,
-    );
-    let uniquePrinters = [];
-    sorted.forEach((object) => {
-      if (!uniquePrinters.includes(object.printer) && object.printer != "")
-        uniquePrinters.push(object.printer);
-    });
+    const uniquePrinters = getPlainPrinters(thisObjects);
     setPrinters(uniquePrinters);
   };
 

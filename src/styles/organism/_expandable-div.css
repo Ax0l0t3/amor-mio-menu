@@ -21,7 +21,7 @@
 [role="tooltip"] {
   background-color: #1c0310ff;
   border-bottom: 2rem solid #1f1612ff;
-  border-radius:5px;
+  border-radius: 5px;
   display: none;
   height: 4rem;
   padding: 0 1rem;
@@ -30,8 +30,7 @@
   top: -4rem;
 }
 
-button:hover+[role="tooltip"],
-button:focus+[role="tooltip"] {
+button:hover + [role="tooltip"] {
   display: block;
 }
 
@@ -50,6 +49,37 @@ button:focus+[role="tooltip"] {
   top: -2rem;
 }
 
-button:hover+[role="tooltip"]+.label-triangle {
+button:hover + [role="tooltip"] + .label-triangle {
   display: block;
+}
+
+.expandableDiv {
+  display: flex;
+  margin-top: auto;
+  align-self: flex-end;
+  align-items: center;
+  flex-direction: column;
+}
+
+.expandableDiv ul {
+  background-color: #1c0310ff;
+  border-radius: 5px;
+  width: 75%;
+  margin-bottom: 1rem;
+}
+
+.expandableDiv ul li {
+  border-bottom: solid 1px white;
+  display: flex;
+  padding: 0 0.5rem;
+}
+
+.expandableDiv ul li:hover::after {
+  content: "<";
+  margin-left: auto;
+  margin-right: 0.5rem;
+}
+
+.expandableDiv ul li:last-child {
+  border-bottom: none;
 }
