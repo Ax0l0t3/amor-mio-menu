@@ -14,10 +14,7 @@
         },
         {
           "category": "Azucares",
-          "options": [
-            "Stevia",
-            "Zucralosa"
-          ]
+          "options": ["Stevia", "Zucralosa"]
         }
       ],
       "ingredients": [],

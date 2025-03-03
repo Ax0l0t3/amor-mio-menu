@@ -66,6 +66,12 @@ export const ProcessPortal = ({
     return returnCheckboxes;
   };
 
+  const handlePrinterClick = (selectedPrinter) => {
+    setLocalTab((prev) => {
+      return { ...prev, printer: selectedPrinter };
+    });
+  };
+
   const returnExpandable = (objectProperty) => {
     const returnable = localTab[objectProperty].map((object) => {
       const expandableId = `${objectProperty}-${object.category}`;
@@ -75,7 +81,7 @@ export const ProcessPortal = ({
           onSectionClick={() => setSelectedSection(expandableId)}
           showSection={selectedSection === expandableId}
           key={expandableId}
-          sectionOrder={localTab.ingredients.length}
+          changePrinter={handlePrinterClick}
         >
           {selectedSection === expandableId && (
             <h6>{objectProperty.toUpperCase()}</h6>
@@ -117,6 +123,7 @@ export const ProcessPortal = ({
           closeAction={closePortal}
           onSectionClick={() => setSelectedSection("Comments")}
           showSection={selectedSection === "Comments"}
+          changePrinter={handlePrinterClick}
         >
           <p>Comentarios</p>
           {selectedSection === "Comments" && (
