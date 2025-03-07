@@ -223,7 +223,8 @@ export const AddItemPortal = ({
   };
 
   useEffect(() => {
-    setLocalMockArray([...mockObjects]);
+    const localObjects = mockObjects.map(object => object);
+    setLocalMockArray(localObjects);
     getPrinters();
     getTabs();
   }, []);
@@ -244,7 +245,7 @@ export const AddItemPortal = ({
               name="newTabName"
               placeholder="Nueva Pestaña"
               value={newTab}
-              setValue={setNewTabsFields}
+              setInputValue={setNewTabsFields}
             />
           ) : (
             <SelectList
@@ -258,7 +259,7 @@ export const AddItemPortal = ({
             name="newDishName"
             placeholder="Nuevo Platillo"
             value={newDish}
-            setValue={setNewDish}
+            setInputValue={setNewDish}
             optionalTitle="Nombre"
           />
           <p>Impresora</p>
@@ -267,7 +268,7 @@ export const AddItemPortal = ({
               name="newPrinterName"
               placeholder="Nueva Impresora"
               value={newPrinter}
-              setValue={setNewPrinterFields}
+              setInputValue={setNewPrinterFields}
             />
           ) : (
             <SelectList
@@ -289,7 +290,7 @@ export const AddItemPortal = ({
                   name="newIngredientCategoryName"
                   placeholder="Nueva Categoria"
                   value={newIngredientCategory}
-                  setValue={setNewIngredientsFields}
+                  setInputValue={setNewIngredientsFields}
                 />
               ) : (
                 <SelectList
@@ -307,7 +308,7 @@ export const AddItemPortal = ({
                 name="ingredientToAdd"
                 placeholder="Nuevo Ingrediente"
                 value={newIngredient}
-                setValue={setNewIngredient}
+                setInputValue={setNewIngredient}
                 optionalTitle="Option"
                 optionalTitleClassName="mr-2"
               />
@@ -342,7 +343,7 @@ export const AddItemPortal = ({
                   name="newExtraCategoryName"
                   placeholder="Nueva Categoria"
                   value={newExtraCategory}
-                  setValue={setNewExtrasFields}
+                  setInputValue={setNewExtrasFields}
                 />
               ) : (
                 <SelectList
@@ -358,7 +359,7 @@ export const AddItemPortal = ({
                 name="extraToAdd"
                 placeholder="Nuevo Extra"
                 value={newExtra}
-                setValue={setNewExtra}
+                setInputValue={setNewExtra}
                 optionalTitle="Option"
                 optionalTitleClassName="mr-2"
               />
@@ -389,7 +390,7 @@ export const AddItemPortal = ({
             name="comments"
             placeholder="Nuevo Comentario"
             value={newComment}
-            setValue={setNewComment}
+            setInputValue={setNewComment}
             optionalTitle="Comentarios"
           />
         </div>
