@@ -13,7 +13,7 @@ import { ExpandableDiv } from "../organism/ExpandableDiv";
 import { PreviewTicketSection } from "../organism/PreviewTicketSection";
 
 // Utils
-import { DataContext } from "../utils/DataContext";
+import { DataContext, PrintContext } from "../utils/DataContext";
 import { objectUtil } from "../utils/ObjectUtils";
 
 // Styles
@@ -25,6 +25,7 @@ export const ProcessPortal = ({
   selectedOption = "",
 }) => {
   const localMockArray = useContext(DataContext);
+  const { printContext, setPrintContext } = useContext(PrintContext);
 
   const [localTab, setLocalTab] = useState({});
   const [localOption, setLocalOption] = useState({});
@@ -72,6 +73,15 @@ export const ProcessPortal = ({
     });
   };
 
+  const convertToPrePrintObject = (initObject) => {
+    return { ...initObject, printer: localTab.printer };
+  };
+
+  const handleOptionSave = () => {
+    const objectToAdd = convertToPrePrintObject(localOption);
+    setPrintContext([...printContext, objectToAdd]);
+  };
+
   const returnExpandable = (objectProperty) => {
     const returnable = localTab[objectProperty].map((object) => {
       const expandableId = `${objectProperty}-${object.category}`;
@@ -82,6 +92,7 @@ export const ProcessPortal = ({
           showSection={selectedSection === expandableId}
           key={expandableId}
           changePrinter={handlePrinterClick}
+          saveOptions={handleOptionSave}
         >
           {selectedSection === expandableId && (
             <h6>{objectProperty.toUpperCase()}</h6>
@@ -124,6 +135,7 @@ export const ProcessPortal = ({
           onSectionClick={() => setSelectedSection("Comments")}
           showSection={selectedSection === "Comments"}
           changePrinter={handlePrinterClick}
+          saveOptions={handleOptionSave}
         >
           <p>Comentarios</p>
           {selectedSection === "Comments" && (

@@ -20,6 +20,7 @@ export const ExpandableDiv = ({
   onSectionClick = Function.prototype,
   showSection,
   changePrinter = Function.prototype,
+  saveOptions = Function.prototype,
 }) => {
   const [changingPrinter, setChangingPrinter] = useState(false);
   const workingObjects = useContext(DataContext);
@@ -37,6 +38,7 @@ export const ExpandableDiv = ({
     {
       item: <PreSaveSVG svgWidth={37} svgHeight={37} twClassName="m-0" />,
       itemName: "Precomanda",
+      action: saveOptions,
     },
     {
       item: <ExitPrintSVG svgWidth={37} svgHeight={37} />,
@@ -94,4 +96,5 @@ ExpandableDiv.propTypes = {
   children: PropTypes.node,
   onSectionClick: PropTypes.func,
   showSection: PropTypes.bool,
+  saveOptions: PropTypes.func,
 };

@@ -8,6 +8,6 @@ export const objectUtil = (obj) => {
 export const getPlainPrinters = (objs) => {
   const allPrinters = objs.map((obj) => obj.printer);
   allPrinters.sort();
-  const newArray = Array.from(new Set(allPrinters));
-  return newArray;
+  const uniquePrintersArray = Array.from(new Set(allPrinters));
+  return uniquePrintersArray;
 };
