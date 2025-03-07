@@ -30,6 +30,7 @@ export const ProcessPortal = ({
   const [localTab, setLocalTab] = useState({});
   const [localOption, setLocalOption] = useState({});
   const [selectedSection, setSelectedSection] = useState("Ingredients");
+  const [counter, setCounter] = useState(1);
 
   const updateLocalOption = (eValue, objProp) => {
     const [thisObject, thisMethod] = objectUtil(localOption);
@@ -77,9 +78,15 @@ export const ProcessPortal = ({
     return { ...initObject, printer: localTab.printer };
   };
 
-  const handleOptionSave = () => {
+  const handleOptionSave = (qtty = 1) => {
+    const array = new Array(qtty);
     const objectToAdd = convertToPrePrintObject(localOption);
-    setPrintContext([...printContext, objectToAdd]);
+    array.fill(objectToAdd);
+    setPrintContext([...printContext, ...array]);
+  };
+
+  const handleCounterChange = (qtty) => {
+    setCounter(qtty);
   };
 
   const returnExpandable = (objectProperty) => {
@@ -92,7 +99,7 @@ export const ProcessPortal = ({
           showSection={selectedSection === expandableId}
           key={expandableId}
           changePrinter={handlePrinterClick}
-          saveOptions={handleOptionSave}
+          saveOptions={() => handleOptionSave(counter)}
         >
           {selectedSection === expandableId && (
             <h6>{objectProperty.toUpperCase()}</h6>
@@ -135,7 +142,7 @@ export const ProcessPortal = ({
           onSectionClick={() => setSelectedSection("Comments")}
           showSection={selectedSection === "Comments"}
           changePrinter={handlePrinterClick}
-          saveOptions={handleOptionSave}
+          saveOptions={() => handleOptionSave(counter)}
         >
           <p>Comentarios</p>
           {selectedSection === "Comments" && (
@@ -148,7 +155,11 @@ export const ProcessPortal = ({
                 setInputValue={updateLocalOption}
                 objectProperty="comments"
               />
-              <CounterDiv defaultValue={1} tailwindStyle="flex ml-auto mt-2" />
+              <CounterDiv
+                defaultValue={1}
+                tailwindStyle="flex ml-auto mt-2"
+                counterChange={handleCounterChange}
+              />
             </div>
           )}
         </ExpandableDiv>

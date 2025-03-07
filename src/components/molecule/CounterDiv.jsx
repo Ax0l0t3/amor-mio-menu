@@ -1,10 +1,14 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 
 // Styles
 import "../../styles/molecule/_counter-warning.css";
 
-export const CounterDiv = ({ defaultValue = 0, tailwindStyle = "flex" }) => {
+export const CounterDiv = ({
+  defaultValue = 0,
+  tailwindStyle = "flex",
+  counterChange = Function.prototype,
+}) => {
   const [counterValue, setCounterValue] = useState(defaultValue);
   const [warning, setWarning] = useState(false);
 
@@ -21,6 +25,10 @@ export const CounterDiv = ({ defaultValue = 0, tailwindStyle = "flex" }) => {
   const handleIncrement = () => {
     setCounterValue(counterValue + 1);
   };
+
+  useEffect(() => {
+    counterChange(counterValue);
+  }, [counterValue]);
 
   return (
     <div className={tailwindStyle}>
@@ -49,6 +57,7 @@ export const CounterDiv = ({ defaultValue = 0, tailwindStyle = "flex" }) => {
 };
 
 CounterDiv.propTypes = {
+  counterChange: PropTypes.func,
   defaultValue: PropTypes.number,
   tailwindStyle: PropTypes.string,
 };
