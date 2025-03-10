@@ -223,7 +223,7 @@ export const AddItemPortal = ({
   };
 
   useEffect(() => {
-    const localObjects = mockObjects.map(object => object);
+    const localObjects = mockObjects.map((object) => object);
     setLocalMockArray(localObjects);
     getPrinters();
     getTabs();

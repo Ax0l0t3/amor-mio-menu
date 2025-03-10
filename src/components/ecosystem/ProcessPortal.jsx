@@ -29,13 +29,25 @@ export const ProcessPortal = ({
 
   const [localTab, setLocalTab] = useState({});
   const [localOption, setLocalOption] = useState({});
-  const [selectedSection, setSelectedSection] = useState("Ingredients");
+  const [selectedSection, setSelectedSection] = useState("");
   const [counter, setCounter] = useState(1);
 
   const updateLocalOption = (eValue, objProp) => {
     const [thisObject, thisMethod] = objectUtil(localOption);
     thisMethod(eValue, objProp);
     setLocalOption(thisObject);
+  };
+
+  const getDefaultExpanded = (object) => {
+    if (object.ingredients.length > 0) {
+      setSelectedSection(`ingredients-${object.ingredients[0].category}`);
+    }
+    if (object.ingredients.length <= 0 && object.extras.length > 0) {
+      setSelectedSection(`extras-${object.extras[0].category}`);
+    }
+    if (object.ingredients.length <= 0 && object.extras.length <= 0) {
+      setSelectedSection("Comments");
+    }
   };
 
   const handleCheckboxChange = (singleOption, objectProperty, isIncluded) => {
@@ -124,6 +136,7 @@ export const ProcessPortal = ({
       );
       setLocalTab(thisTab);
       setLocalOption(thisOption);
+      getDefaultExpanded(thisTab);
     }
   }, []);
 
