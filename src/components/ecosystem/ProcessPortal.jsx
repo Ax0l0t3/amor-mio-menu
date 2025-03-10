@@ -38,7 +38,7 @@ export const ProcessPortal = ({
     setLocalOption(thisObject);
   };
 
-  const getDefaultExpanded = (object) => {
+  const setDefaultExpanded = (object) => {
     if (object.ingredients.length > 0) {
       setSelectedSection(`ingredients-${object.ingredients[0].category}`);
     }
@@ -136,7 +136,7 @@ export const ProcessPortal = ({
       );
       setLocalTab(thisTab);
       setLocalOption(thisOption);
-      getDefaultExpanded(thisTab);
+      setDefaultExpanded(thisTab);
     }
   }, []);
 
