@@ -23,8 +23,12 @@ export const PreviewTicketSection = ({ parentObject, selectedObject }) => {
           />
         )}
         <br />
-        <h5>Comentarios</h5>
-        <p className="pl-4">{selectedObject.comments}</p>
+        {selectedObject.comments != "" && (
+          <>
+            <h5>Comentarios</h5>
+            <p className="pl-4">{selectedObject.comments}</p>
+          </>
+        )}
       </div>
     </div>
   );
