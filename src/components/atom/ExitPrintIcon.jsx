@@ -1,8 +1,10 @@
-export const ExitPrintSVG = () => (
+import PropTypes from "prop-types";
+
+export const ExitPrintSVG = ({ svgHeight = 40, svgWidth = 40 }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    width={40}
-    height={40}
+    width={svgWidth}
+    height={svgHeight}
     viewBox="0 0 10.583 10.583"
   >
     <path
@@ -19,3 +21,8 @@ export const ExitPrintSVG = () => (
     />
   </svg>
 );
+
+ExitPrintSVG.propTypes = {
+  svgHeight: PropTypes.number,
+  svgWidth: PropTypes.number,
+};

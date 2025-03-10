@@ -1,0 +1,98 @@
+.tab-division {
+  background-color: #1f1612ff;
+  border-left: 1px solid white;
+  cursor: default;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  text-align: start;
+  transition: width 0.4s;
+  transition: background-color 0.1s;
+  width: 3%;
+  writing-mode: vertical-lr;
+}
+
+.tab-division:hover {
+  background-color: rgb(from #1f1612ff r g b / 0.5);
+  transition: background-color 0.1s;
+}
+
+.section-active {
+  background-color: #1f1612ff;
+  border-left: 1px solid white;
+  cursor: default;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  padding: 0.5rem;
+  text-align: start;
+  transition: width 0.4s;
+  width: 40%;
+  writing-mode: horizontal-tb;
+}
+
+[role="tooltip"] {
+  background-color: #1c0310ff;
+  border-bottom: 2rem solid #1f1612ff;
+  border-radius: 5px;
+  display: none;
+  height: 4rem;
+  padding: 0 1rem;
+  position: absolute;
+  text-wrap: nowrap;
+  top: -4rem;
+}
+
+button:hover + [role="tooltip"] {
+  display: block;
+}
+
+.button-and-tooltip {
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+
+.label-triangle {
+  border-left: 1rem solid transparent;
+  border-right: 1rem solid transparent;
+  border-top: 1rem solid #1c0310ff;
+  display: none;
+  position: absolute;
+  top: -2rem;
+}
+
+button:hover + [role="tooltip"] + .label-triangle {
+  display: block;
+}
+
+.expandableDiv {
+  display: flex;
+  margin-top: auto;
+  align-self: flex-end;
+  align-items: center;
+  flex-direction: column;
+}
+
+.expandableDiv ul {
+  background-color: #1c0310ff;
+  border-radius: 5px;
+  width: 75%;
+  margin-bottom: 1rem;
+}
+
+.expandableDiv ul li {
+  border-bottom: solid 1px white;
+  display: flex;
+  padding: 0 0.5rem;
+}
+
+.expandableDiv ul li:hover::after {
+  content: "<";
+  margin-left: auto;
+  margin-right: 0.5rem;
+}
+
+.expandableDiv ul li:last-child {
+  border-bottom: none;
+}

@@ -1,13 +1,21 @@
-import { createPortal } from "react-dom";
-import { TextButton } from "../atom/TextButton";
-import "../../styles/organism/_add-item-portal.css";
-import "../../styles/atom/_radio-slider.css";
-import { DataContext } from "../../components/utils/DataContext";
 import { useContext, useEffect, useState } from "react";
-import { SelectList } from "../molecule/SelectList";
+import { createPortal } from "react-dom";
+
+// Atom
 import { InputField } from "../atom/InputField";
+import { TextButton } from "../atom/TextButton";
+
+// Molecule
 import { AddButton } from "../molecule/AddButton";
 import { BoolOptions } from "../molecule/BoolOptions";
+import { SelectList } from "../molecule/SelectList";
+
+// Utils
+import { DataContext } from "../../components/utils/DataContext";
+import { getPlainPrinters } from "../utils/ObjectUtils";
+
+// Styles
+import "../../styles/organism/_add-item-portal.css";
 
 export const AddItemPortal = ({
   isVisible = false,
@@ -45,20 +53,13 @@ export const AddItemPortal = ({
   const [newExtraCategory, setNewExtraCategory] = useState("");
 
   const getPrinters = () => {
-    const thisObjects = [...localMockArray];
-    const sorted = thisObjects.sort((objectA, objectB) =>
-      objectA.printer > objectB.printer ? -1 : 1,
-    );
-    let uniquePrinters = [];
-    sorted.forEach((object) => {
-      if (!uniquePrinters.includes(object.printer) && object.printer != "")
-        uniquePrinters.push(object.printer);
-    });
+    const thisObjects = [...mockObjects];
+    const uniquePrinters = getPlainPrinters(thisObjects);
     setPrinters(uniquePrinters);
   };
 
   const getTabs = () => {
-    const foundTabs = localMockArray.map((object) => object.title);
+    const foundTabs = mockObjects.map((object) => object.title);
     setTabs(foundTabs);
   };
 
@@ -187,6 +188,9 @@ export const AddItemPortal = ({
   };
 
   const handleIngredientsCategoryChange = (option) => {
+    if (option === "Add") {
+      setIsAddIngredientCategory(!isAddIngredientCategory);
+    }
     setSelectedIngredientCategory(option);
   };
 
@@ -219,13 +223,11 @@ export const AddItemPortal = ({
   };
 
   useEffect(() => {
-    setLocalMockArray([...mockObjects]);
-  }, [mockObjects]);
-
-  useEffect(() => {
+    const localObjects = mockObjects.map(object => object);
+    setLocalMockArray(localObjects);
     getPrinters();
     getTabs();
-  }, [localMockArray]);
+  }, []);
 
   useEffect(() => {
     handleIngredientsCategoryChange(ingredientsCategories[0]);
@@ -243,7 +245,7 @@ export const AddItemPortal = ({
               name="newTabName"
               placeholder="Nueva Pestaña"
               value={newTab}
-              setValue={setNewTabsFields}
+              setInputValue={setNewTabsFields}
             />
           ) : (
             <SelectList
@@ -257,7 +259,7 @@ export const AddItemPortal = ({
             name="newDishName"
             placeholder="Nuevo Platillo"
             value={newDish}
-            setValue={setNewDish}
+            setInputValue={setNewDish}
             optionalTitle="Nombre"
           />
           <p>Impresora</p>
@@ -266,7 +268,7 @@ export const AddItemPortal = ({
               name="newPrinterName"
               placeholder="Nueva Impresora"
               value={newPrinter}
-              setValue={setNewPrinterFields}
+              setInputValue={setNewPrinterFields}
             />
           ) : (
             <SelectList
@@ -288,7 +290,7 @@ export const AddItemPortal = ({
                   name="newIngredientCategoryName"
                   placeholder="Nueva Categoria"
                   value={newIngredientCategory}
-                  setValue={setNewIngredientsFields}
+                  setInputValue={setNewIngredientsFields}
                 />
               ) : (
                 <SelectList
@@ -306,7 +308,7 @@ export const AddItemPortal = ({
                 name="ingredientToAdd"
                 placeholder="Nuevo Ingrediente"
                 value={newIngredient}
-                setValue={setNewIngredient}
+                setInputValue={setNewIngredient}
                 optionalTitle="Option"
                 optionalTitleClassName="mr-2"
               />
@@ -341,7 +343,7 @@ export const AddItemPortal = ({
                   name="newExtraCategoryName"
                   placeholder="Nueva Categoria"
                   value={newExtraCategory}
-                  setValue={setNewExtrasFields}
+                  setInputValue={setNewExtrasFields}
                 />
               ) : (
                 <SelectList
@@ -357,7 +359,7 @@ export const AddItemPortal = ({
                 name="extraToAdd"
                 placeholder="Nuevo Extra"
                 value={newExtra}
-                setValue={setNewExtra}
+                setInputValue={setNewExtra}
                 optionalTitle="Option"
                 optionalTitleClassName="mr-2"
               />
@@ -388,7 +390,7 @@ export const AddItemPortal = ({
             name="comments"
             placeholder="Nuevo Comentario"
             value={newComment}
-            setValue={setNewComment}
+            setInputValue={setNewComment}
             optionalTitle="Comentarios"
           />
         </div>
