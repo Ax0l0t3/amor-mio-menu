@@ -43,7 +43,10 @@ export const ExpandableDiv = ({
     {
       item: <PreSaveSVG svgWidth={37} svgHeight={37} twClassName="m-0" />,
       itemName: "Precomanda",
-      action: saveOptions,
+      action: () => {
+        saveOptions();
+        closeAction();
+      },
     },
     {
       item: <ExitPrintSVG svgWidth={37} svgHeight={37} />,
