@@ -22,8 +22,10 @@ export const ExpandableDiv = ({
   changePrinter = Function.prototype,
   saveOptions = Function.prototype,
 }) => {
-  const [changingPrinter, setChangingPrinter] = useState(false);
   const workingObjects = useContext(DataContext);
+  const [changingPrinter, setChangingPrinter] = useState(false);
+  const [printerBlur, setPrinterBlur] = useState(false);
+  const [mouseOut, setMouseOut] = useState(true);
   const printersArray = getPlainPrinters(workingObjects);
   const svgs = [
     {
@@ -33,7 +35,10 @@ export const ExpandableDiv = ({
     {
       item: <ChangePrinterSVG svgWidth={37} svgHeight={37} />,
       itemName: "Cambiar Impresora",
-      action: () => setChangingPrinter(!changingPrinter),
+      action: () => {
+        setChangingPrinter(!changingPrinter);
+        setPrinterBlur(true);
+      },
     },
     {
       item: <PreSaveSVG svgWidth={37} svgHeight={37} twClassName="m-0" />,
@@ -49,6 +54,14 @@ export const ExpandableDiv = ({
     setChangingPrinter(false);
     changePrinter(selectedPrinter);
   };
+
+  const handleOptionsBlur = () => {
+    if (mouseOut) {
+      setPrinterBlur(false);
+      setChangingPrinter(false);
+    }
+  };
+
   return (
     <div
       className={showSection ? "section-active" : "tab-division"}
@@ -57,11 +70,19 @@ export const ExpandableDiv = ({
       {children}
       {showSection && (
         <div className="expandableDiv">
-          {changingPrinter && (
-            <ul>
+          {changingPrinter && printerBlur && (
+            <ul
+              onMouseEnter={() => setMouseOut(false)}
+              onMouseLeave={() => setMouseOut(true)}
+            >
               {printersArray.map((printer) => (
-                <li key={printer} onClick={() => handleLiClick(printer)}>
-                  {printer}
+                <li key={printer}>
+                  <button
+                    className="cursor-default"
+                    onClick={() => handleLiClick(printer)}
+                  >
+                    {printer}
+                  </button>
                 </li>
               ))}
             </ul>
@@ -71,6 +92,7 @@ export const ExpandableDiv = ({
               <div key={index} className="ml-2 button-and-tooltip">
                 <button
                   onClick={node.action}
+                  onBlur={handleOptionsBlur}
                   aria-labelledby={`button-description-${index}`}
                 >
                   {node.item}
