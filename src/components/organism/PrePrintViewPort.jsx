@@ -41,7 +41,16 @@ export const PrePrintViewPort = ({ closePortal = Function.prototype }) => {
         ))}
       </div>
       <div className="button-section">
-        <TextButton buttonLabel="Imprimir" action={closePortal} />
+        <TextButton
+          buttonLabel="Imprimir"
+          action={closePortal}
+          tailwindMargin="mb-4"
+        />
+        <TextButton
+          buttonLabel="Cancelar"
+          action={closePortal}
+          tailwindBg="bg-[#C4335F]"
+        />
       </div>
     </div>
   );

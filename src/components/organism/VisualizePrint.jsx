@@ -1,7 +1,11 @@
 import PropTypes from "prop-types";
-
-import { PrePrintCard } from "../molecule/PrePrintCard";
 import { useEffect, useState } from "react";
+
+// Molecule
+import { PrePrintCard } from "../molecule/PrePrintCard";
+
+//Styles
+import "../../styles/organism/_visualize-print.css";
 
 export const VisualizePrint = ({ sectionName = "Default", options = [] }) => {
   const propsToOrder = ["name", "ingredients", "extras", "comments"];
@@ -55,7 +59,7 @@ export const VisualizePrint = ({ sectionName = "Default", options = [] }) => {
         ))}
       </div>
       <div className="bg-[#999999ff] w-[20.5rem] h-fit mr-4  font-[ibm-semibold] text-[0.9rem]">
-        <div className="bg-white w-full h-full text-black">
+        <div className="preview-print-ticket">
           <p>{sectionName}</p>
           {ticketMessages.map((message) => {
             const messageSplitted = message.split("\t");
