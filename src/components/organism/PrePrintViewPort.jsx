@@ -9,7 +9,7 @@ import { VisualizePrint } from "./VisualizePrint";
 
 //Utils
 import { PrintContext } from "../utils/DataContext";
-import { getPlainPrinters } from "../utils/ObjectUtils";
+import { getObjectPropValue } from "../utils/ObjectUtils";
 
 // Styles
 import "../../styles/ecosystem/_pre-print-portal.css";
@@ -17,17 +17,27 @@ import "../../styles/ecosystem/_pre-print-portal.css";
 export const PrePrintViewPort = ({ closePortal = Function.prototype }) => {
   const { printContext } = useContext(PrintContext);
   const [localPrinters, setLocalPrinters] = useState([]);
+  const [workingObject, setWorkingObject] = useState({});
 
   useEffect(() => {
-    const justPrinters = getPlainPrinters(printContext);
-    setLocalPrinters(justPrinters);
+    const groupedObject = Object.groupBy(
+      printContext,
+      ({ printer }) => printer,
+    );
+    const iterator = Object.keys(groupedObject);
+    setWorkingObject(groupedObject);
+    setLocalPrinters(iterator);
   }, []);
 
   return (
     <div className="pre-print-portal">
       <div className="tickets-section">
         {localPrinters.map((printer, index) => (
-          <VisualizePrint key={index} sectionName={printer} />
+          <VisualizePrint
+            key={index}
+            sectionName={printer}
+            options={getObjectPropValue(printer, workingObject)}
+          />
         ))}
       </div>
       <div className="button-section">
