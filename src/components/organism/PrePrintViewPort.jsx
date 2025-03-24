@@ -15,9 +15,14 @@ import { getObjectPropValue } from "../utils/ObjectUtils";
 import "../../styles/ecosystem/_pre-print-portal.css";
 
 export const PrePrintViewPort = ({ closePortal = Function.prototype }) => {
-  const { printContext } = useContext(PrintContext);
+  const { printContext, setPrintContext } = useContext(PrintContext);
   const [localPrinters, setLocalPrinters] = useState([]);
   const [workingObject, setWorkingObject] = useState({});
+
+  const handlePrint = () => {
+    setPrintContext([]);
+    closePortal();
+  };
 
   useEffect(() => {
     const groupedObject = Object.groupBy(
@@ -43,7 +48,7 @@ export const PrePrintViewPort = ({ closePortal = Function.prototype }) => {
       <div className="button-section">
         <TextButton
           buttonLabel="Imprimir"
-          action={closePortal}
+          action={handlePrint}
           tailwindMargin="mb-4"
         />
         <TextButton
