@@ -11,3 +11,8 @@ export const getPlainPrinters = (objs) => {
   const uniquePrintersArray = Array.from(new Set(allPrinters));
   return uniquePrintersArray;
 };
+
+export const getObjectPropValue = (propName, utilObject) => {
+  const propValue = utilObject[propName];
+  return propValue;
+};
