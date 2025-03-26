@@ -193,31 +193,6 @@
     {
       "extras": [
         {
-          "category": "CategoryE",
-          "options": ["M", "N", "O"]
-        }
-      ],
-      "ingredients": [
-        {
-          "category": "Vinos",
-          "options": ["Vino Tinto Cuatro Soles", "K", "L"]
-        }
-      ],
-      "options": [
-        {
-          "comments": "Base Coment 2",
-          "extras": ["M"],
-          "ingredients": ["Vino Tinto Cuatro Soles"],
-          "name": "Base Option"
-        }
-      ],
-      "printer": "80 mm",
-      "selected": false,
-      "title": "Testing Titles"
-    },
-    {
-      "extras": [
-        {
           "category": "Cremas",
           "options": ["Crema", "Yoghurt con Azucar"]
         },
@@ -269,31 +244,6 @@
       "printer": "45 mm",
       "selected": false,
       "title": "Bionicos"
-    },
-    {
-      "extras": [
-        {
-          "category": "CategoryE",
-          "options": ["M", "N", "O"]
-        }
-      ],
-      "ingredients": [
-        {
-          "category": "CategoryD",
-          "options": ["J", "K", "L"]
-        }
-      ],
-      "options": [
-        {
-          "comments": "Base Coment 2",
-          "extras": ["L"],
-          "ingredients": ["I", "H"],
-          "name": "Base Option"
-        }
-      ],
-      "printer": "80 mm",
-      "selected": false,
-      "title": "Base Tab 4"
     }
   ]
 }

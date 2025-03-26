@@ -5,7 +5,7 @@ import { MenuOptionCard } from "./components/molecule/MenuOptionCard";
 import { ProcessPortal } from "./components/ecosystem/ProcessPortal";
 import { useEffect, useState } from "react";
 import { DataContext, PrintContext } from "./components/utils/DataContext";
-import MockData from "../mockData.json";
+import MockData from "../mockData-Menu.json";
 
 function App() {
   const [labelOptions, setLabelOptions] = useState([]);

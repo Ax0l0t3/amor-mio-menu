@@ -279,7 +279,7 @@ export const AddItemPortal = ({
               value={selectedPrinter}
             />
           )}
-          <TextButton buttonLabel="Hecho" action={handleClosePortal} />
+          <TextButton buttonLabel="Agregar" action={handleClosePortal} />
         </div>
         <div>
           <p>Ingredients</p>
