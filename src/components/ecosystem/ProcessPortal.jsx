@@ -91,9 +91,11 @@ export const ProcessPortal = ({
   };
 
   const handleOptionSave = (qtty = 1) => {
-    const array = new Array(qtty);
+    const array = [];
     const objectToAdd = convertToPrePrintObject(localOption);
-    array.fill(objectToAdd);
+    for (let i = 0; i < qtty; i++) {
+      array.push({ ...objectToAdd, id: `${objectToAdd.name}-${i}` });
+    }
     setPrintContext([...printContext, ...array]);
   };
 

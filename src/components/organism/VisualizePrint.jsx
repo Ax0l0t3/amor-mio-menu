@@ -1,16 +1,23 @@
 import PropTypes from "prop-types";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 // Molecule
 import { PrePrintCard } from "../molecule/PrePrintCard";
 
 //Styles
 import "../../styles/organism/_visualize-print.css";
+import { PrintContext } from "../utils/DataContext";
 
 export const VisualizePrint = ({ sectionName = "Default", options = [] }) => {
+  const { printContext, setPrintContext } = useContext(PrintContext);
   const propsToOrder = ["name", "ingredients", "extras", "comments"];
   let returnArrays = [];
   const [ticketMessages, setTicketMessages] = useState([]);
+
+  const closeDish = (id) => {
+    const newArray = printContext.filter((option) => option.id !== id);
+    setPrintContext(newArray);
+  };
 
   useEffect(() => {
     // Iterate through the options array
@@ -45,7 +52,7 @@ export const VisualizePrint = ({ sectionName = "Default", options = [] }) => {
       });
     });
     setTicketMessages(messages);
-  }, []);
+  }, [options]);
 
   return (
     <div className="flex">
@@ -55,6 +62,7 @@ export const VisualizePrint = ({ sectionName = "Default", options = [] }) => {
             key={index}
             cardTitle={option.name}
             marginBottom="1rem"
+            closeAction={() => closeDish(option.id)}
           />
         ))}
       </div>
