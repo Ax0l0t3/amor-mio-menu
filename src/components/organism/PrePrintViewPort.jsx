@@ -32,7 +32,7 @@ export const PrePrintViewPort = ({ closePortal = Function.prototype }) => {
     const iterator = Object.keys(groupedObject);
     setWorkingObject(groupedObject);
     setLocalPrinters(iterator);
-  }, []);
+  }, [printContext]);
 
   return (
     <div className="pre-print-portal">
@@ -52,7 +52,7 @@ export const PrePrintViewPort = ({ closePortal = Function.prototype }) => {
           tailwindMargin="mb-4"
         />
         <TextButton
-          buttonLabel="Cancelar"
+          buttonLabel="Cerrar"
           action={closePortal}
           tailwindBg="bg-[#C4335F]"
         />
