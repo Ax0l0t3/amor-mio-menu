@@ -43,7 +43,7 @@ export const ProcessPortal = ({
       setSelectedSection(`ingredients-${object.ingredients[0].category}`);
     }
     if (object.ingredients.length <= 0 && object.extras.length > 0) {
-      setSelectedSection(`extras-${object.extras[0].category}`);
+      setSelectedSection("Extras");
     }
     if (object.ingredients.length <= 0 && object.extras.length <= 0) {
       setSelectedSection("Comments");
@@ -179,7 +179,25 @@ export const ProcessPortal = ({
           )}
         </ExpandableDiv>
         {/* Extras Section */}
-        {localTab?.extras?.length > 0 && returnExpandable("extras")}
+        {localTab?.extras?.length > 0 &&
+          <ExpandableDiv
+            closeAction={closePortal}
+            onSectionClick={() => setSelectedSection("Extras")}
+            showSection={selectedSection === "Extras"}
+            changePrinter={handlePrinterClick}
+            saveOptions={() => handleOptionSave(counter)}
+          >
+            <h6>Extras</h6>
+            {selectedSection == "Extras" && localTab.extras.map(object => (
+              <>
+                <p>{object.category}</p>
+                <ul className="flex flex-wrap">
+                  {returnCheckboxes(object.options, "extras")}
+                </ul>
+              </>
+            ))}
+          </ExpandableDiv>
+        }
         {/* Ingredients Section */}
         {localTab?.ingredients?.length > 0 && returnExpandable("ingredients")}
       </div>,
