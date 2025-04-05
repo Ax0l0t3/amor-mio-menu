@@ -1,79 +1,136 @@
 {
   "tabs": [
     {
-      "extras": [
+      "extras": [],
+      "ingredients": [
         {
           "category": "Leche",
           "options": [
-            "Leche Entera",
-            "Leche Coco",
-            "Leche Light",
-            "Leche Deslactosada",
-            "Leche Soya"
+            "Entera",
+            "Deslactosada"
           ]
-        },
-        {
-          "category": "Azucares",
-          "options": ["Stevia", "Zucralosa"]
         }
       ],
-      "ingredients": [],
       "options": [
         {
-          "comments": "Kinder delice comment",
+          "comments": "",
           "extras": [],
           "ingredients": [],
           "name": "Frappe Kinder Delice"
         },
         {
-          "comments": "Lotus biscoff comment",
+          "comments": "",
           "extras": [],
           "ingredients": [],
           "name": "Frappe Lotus Biscoff"
         },
         {
-          "comments": "Galeta costco comment",
+          "comments": "",
           "extras": [],
           "ingredients": [],
           "name": "Frappe Galleta Costco"
         },
         {
-          "comments": "Fresa vainilla comment",
+          "comments": "",
           "extras": [],
           "ingredients": [],
           "name": "Smoothie Fresa Vainilla"
         },
         {
-          "comments": "Fresa platano comment",
+          "comments": "",
           "extras": [],
           "ingredients": [],
           "name": "Smoothie Fresa Platano"
         },
         {
-          "comments": "Fresa comment",
+          "comments": "",
           "extras": [],
           "ingredients": [],
           "name": "Smoothie Fresa"
+        },
+        {
+          "comments": "",
+          "extras": [],
+          "ingredients": [],
+          "name": "Frappe Capuccino"
+        },
+        {
+          "comments": "",
+          "extras": [],
+          "ingredients": [],
+          "name": "Frappe Moka"
+        },
+        {
+          "comments": "",
+          "extras": [],
+          "ingredients": [],
+          "name": "Frappe Caramel Coffee"
+        },
+        {
+          "comments": "",
+          "extras": [],
+          "ingredients": [],
+          "name": "Frappe Cajeta"
+        },
+        {
+          "comments": "",
+          "extras": [],
+          "ingredients": [],
+          "name": "Frappe Chocolate Blanco"
+        },
+        {
+          "comments": "",
+          "extras": [],
+          "ingredients": [],
+          "name": "Frappe Chai Verde"
+        },
+        {
+          "comments": "",
+          "extras": [],
+          "ingredients": [],
+          "name": "Frappe Galleta Oreo"
+        },
+        {
+          "comments": "",
+          "extras": [],
+          "ingredients": [],
+          "name": "Frappe Galleta Chips Ahoy"
+        },
+        {
+          "comments": "",
+          "extras": [],
+          "ingredients": [],
+          "name": "Frappe Vainilla Francesa"
+        },
+        {
+          "comments": "",
+          "extras": [],
+          "ingredients": [],
+          "name": "Frappe Taro"
+        },
+        {
+          "comments": "",
+          "extras": [],
+          "ingredients": [],
+          "name": "Frappe Chocolate Avellana"
+        },
+        {
+          "comments": "",
+          "extras": [],
+          "ingredients": [],
+          "name": "Frappe Chocolate Italiano"
         }
       ],
-      "printer": "45 mm",
+      "printer": "Barra Cafes",
       "selected": false,
       "title": "Bebidas"
     },
     {
       "extras": [
         {
-          "category": "Toppings",
+          "category": "Cremas",
           "options": [
-            "Almendras",
-            "Amaranto",
-            "Granola",
-            "Cinnamon Toast",
-            "Mini M&M's",
-            "KitKat",
-            "KinderDelice",
-            "Nuez",
-            "Oreo"
+            "Crema"
           ]
         }
       ],
@@ -95,13 +152,28 @@
           "options": [
             "Almendras",
             "Amaranto",
-            "Granola",
+            "Arroz Inflado",
+            "Bola de Helado",
+            "Carlos V",
+            "Chips Ahoy",
             "Cinnamon Toast",
-            "Mini M&M's",
+            "De Temporada",
+            "Coco Tostado",
+            "Crema Batida",
+            "Granillo",
+            "Granola",
+            "Kinder Delice",
+            "Kinder Bueno",
             "KitKat",
-            "KinderDelice",
+            "Krankys",
+            "Lucky Charms",
+            "Lunetas Yoghurt",
+            "Mini Kiss",
+            "Mini M&M's",
+            "Muibon",
             "Nuez",
-            "Oreo"
+            "Oreo",
+            "Pasas"
           ]
         }
       ],
@@ -119,21 +191,44 @@
           "name": "Vaso Grande"
         }
       ],
-      "printer": "45 mm",
+      "printer": "Barra Frutas",
       "selected": true,
       "title": "Frutas con crema"
     },
     {
       "extras": [
         {
-          "category": "Extra Fruta",
-          "options": ["Fresa", "Durazno", "Platano", "Manzana", "Uva"]
+          "category": "Fruta",
+          "options": [
+            "Fresa",
+            "Durazno",
+            "Platano",
+            "Manzana",
+            "Uva"
+          ]
+        },
+        {
+          "category": "Untables",
+          "options": [
+            "Nutella",
+            "Lechera",
+            "Philadelphia",
+            "Cajeta",
+            "Miel de abeja",
+            "Miel Maple"
+          ]
         }
       ],
       "ingredients": [
         {
           "category": "Frutas",
-          "options": ["Fresa", "Durazno", "Platano", "Manzana", "Uva"]
+          "options": [
+            "Fresa",
+            "Durazno",
+            "Platano",
+            "Manzana",
+            "Uva"
+          ]
         },
         {
           "category": "Untables",
@@ -149,16 +244,40 @@
         {
           "category": "Toppings",
           "options": [
-            "Kinder Delice",
             "Almendras",
-            "Nuez",
+            "Amaranto",
+            "Arroz Inflado",
+            "Bola de Helado",
+            "Carlos V",
+            "Chips Ahoy",
+            "Cinnamon Toast",
+            "De Temporada",
+            "Coco Tostado",
+            "Crema Batida",
+            "Granillo",
+            "Granola",
+            "Kinder Delice",
             "Kinder Bueno",
-            "Pasas",
-            "Amaranto"
+            "KitKat",
+            "Krankys",
+            "Lucky Charms",
+            "Lunetas Yoghurt",
+            "Mini Kiss",
+            "Mini M&M's",
+            "Muibon",
+            "Nuez",
+            "Oreo",
+            "Pasas"
           ]
         }
       ],
       "options": [
+        {
+          "comments": "",
+          "extras": [],
+          "ingredients": [],
+          "name": "Waffle Sencillo"
+        },
         {
           "comments": "",
           "extras": [],
@@ -176,25 +295,61 @@
         {
           "comments": "",
           "extras": [],
-          "ingredients": ["Durazno", "Lechera", "Philadelphia", "Almendras"],
+          "ingredients": [
+            "Durazno",
+            "Lechera",
+            "Philadelphia",
+            "Almendras"
+          ],
           "name": "Waffle Durazno"
         },
         {
           "comments": "",
           "extras": [],
-          "ingredients": ["Fresa", "Lechera", "Crema Batida", "Nuez"],
+          "ingredients": [
+            "Fresa",
+            "Lechera",
+            "Crema Batida",
+            "Nuez"
+          ],
           "name": "Waffle Fresas con Crema"
+        },
+        {
+          "comments": "",
+          "extras": [],
+          "ingredients": [
+            "Platano",
+            "Cajeta",
+            "Nuez",
+            "Coco Tostado"
+          ],
+          "name": "Waffle Coronado"
+        },
+        {
+          "comments": "",
+          "extras": [],
+          "ingredients": [
+            "Durazno",
+            "Fresa",
+            "Platano",
+            "Uva",
+            "Miel Maple",
+            "Almendras"
+          ],
+          "name": "Waffle 4 Estaciones"
         }
       ],
-      "printer": "80 mm",
+      "printer": "Barra Cafes",
       "selected": false,
       "title": "Waffles"
     },
     {
       "extras": [
         {
-          "category": "Cremas",
-          "options": ["Crema", "Yoghurt con Azucar"]
+          "category": "Embarrados",
+          "options": [
+            "Crema"
+          ]
         },
         {
           "category": "Frutas",
@@ -223,8 +378,40 @@
           ]
         },
         {
-          "category": "Topping",
-          "options": ["Crema", "Yoghurt sin Azucar"]
+          "category": "Embarrados",
+          "options": [
+            "Crema",
+            "Yoghurt Sin Azucar"
+          ]
+        },
+        {
+          "category": "Toppings",
+          "options": [
+            "Almendras",
+            "Amaranto",
+            "Arroz Inflado",
+            "Bola de Helado",
+            "Carlos V",
+            "Chips Ahoy",
+            "Cinnamon Toast",
+            "De Temporada",
+            "Coco Tostado",
+            "Crema Batida",
+            "Granillo",
+            "Granola",
+            "Kinder Delice",
+            "Kinder Bueno",
+            "KitKat",
+            "Krankys",
+            "Lucky Charms",
+            "Lunetas Yoghurt",
+            "Mini Kiss",
+            "Mini M&M's",
+            "Muibon",
+            "Nuez",
+            "Oreo",
+            "Pasas"
+          ]
         }
       ],
       "options": [
@@ -241,7 +428,7 @@
           "name": "Bionico Grande"
         }
       ],
-      "printer": "45 mm",
+      "printer": "Barra Frutas",
       "selected": false,
       "title": "Bionicos"
     }
