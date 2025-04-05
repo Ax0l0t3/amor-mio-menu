@@ -5,7 +5,7 @@ import { MenuOptionCard } from "./components/molecule/MenuOptionCard";
 import { ProcessPortal } from "./components/ecosystem/ProcessPortal";
 import { useEffect, useState } from "react";
 import { DataContext, PrintContext } from "./components/utils/DataContext";
-import MockData from "../mockData-Menu.json";
+import MockData from "../mockData-TestCases.json";
 
 function App() {
   const [labelOptions, setLabelOptions] = useState([]);
@@ -48,7 +48,7 @@ function App() {
 
   return (
     <DataContext.Provider value={mockObjects}>
-      <PrintContext.Provider value={{printContext,setPrintContext}}>
+      <PrintContext.Provider value={{ printContext, setPrintContext }}>
         <NavBar />
         <div>
           {mockObjects?.map((object) =>
