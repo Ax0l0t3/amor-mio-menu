@@ -29,3 +29,25 @@
   transform: translateX(100%);
   transition: all 0.1s;
 }
+
+.li-div {
+  max-width: 21%;
+  overflow: hidden;
+  width: 21%;
+  margin-right: 0.5rem;
+  margin-bottom: 0.25rem;
+  min-width: 13rem;
+  color: white;
+  display: flex;
+  align-items: center;
+}
+
+.li-label {
+  background-color: #454a48;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  width: 72%;
+  display: inline-block;
+  white-space: nowrap;
+  margin-right: 0.5rem;
+}
