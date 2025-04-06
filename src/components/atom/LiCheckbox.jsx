@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 
 // Styles
-import "../../styles/atom/_radio-slider.css";
+import "../../styles/atom/_li-checkbox.css";
 
 export const LiCheckbox = ({
   name,
