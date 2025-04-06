@@ -3,18 +3,17 @@ import { useContext, useEffect, useState } from "react";
 
 // Atom
 import { InputField } from "../atom/InputField";
-import { LiCheckbox } from "../atom/LiCheckbox";
-
 // Molecule
 import { CounterDiv } from "../molecule/CounterDiv";
 
 // Organisms
+import { BoolButtonsGroup } from "../organism/BoolButtonsGroup";
 import { ExpandableDiv } from "../organism/ExpandableDiv";
 import { PreviewTicketSection } from "../organism/PreviewTicketSection";
 
 // Utils
 import { DataContext, PrintContext } from "../utils/DataContext";
-import { objectUtil } from "../utils/ObjectUtils";
+import { updateLocalObject } from "../utils/ObjectUtils";
 
 // Styles
 import "../../styles/ecosystem/_process-portal.css";
@@ -33,9 +32,7 @@ export const ProcessPortal = ({
   const [counter, setCounter] = useState(1);
 
   const updateLocalOption = (eValue, objProp) => {
-    const [thisObject, thisMethod] = objectUtil(localOption);
-    thisMethod(eValue, objProp);
-    setLocalOption(thisObject);
+    setLocalOption(updateLocalObject(eValue, objProp, localOption));
   };
 
   const setDefaultExpanded = (object) => {
@@ -43,41 +40,11 @@ export const ProcessPortal = ({
       setSelectedSection(`ingredients-${object.ingredients[0].category}`);
     }
     if (object.ingredients.length <= 0 && object.extras.length > 0) {
-      setSelectedSection(`extras-${object.extras[0].category}`);
+      setSelectedSection("Extras");
     }
     if (object.ingredients.length <= 0 && object.extras.length <= 0) {
       setSelectedSection("Comments");
     }
-  };
-
-  const handleCheckboxChange = (singleOption, objectProperty, isIncluded) => {
-    if (!isIncluded)
-      updateLocalOption(
-        [...localOption[objectProperty], singleOption],
-        objectProperty,
-      );
-    else
-      updateLocalOption(
-        localOption[objectProperty].filter((e) => e != singleOption),
-        objectProperty,
-      );
-  };
-
-  const returnCheckboxes = (options, property) => {
-    const returnCheckboxes = options.map((option, index) => {
-      const includesOption = localOption[property].includes(option);
-      return (
-        <LiCheckbox
-          key={`${option}-${index}`}
-          name={option}
-          checked={includesOption}
-          onChange={() =>
-            handleCheckboxChange(option, property, includesOption)
-          }
-        />
-      );
-    });
-    return returnCheckboxes;
   };
 
   const handlePrinterClick = (selectedPrinter) => {
@@ -115,14 +82,19 @@ export const ProcessPortal = ({
           changePrinter={handlePrinterClick}
           saveOptions={() => handleOptionSave(counter)}
         >
-          {selectedSection === expandableId && (
-            <h6>{objectProperty.toUpperCase()}</h6>
+          {selectedSection === expandableId ? (
+            <>
+              <h6>Ingredientes</h6>
+              <BoolButtonsGroup
+                workingObject={object}
+                workingProperty={objectProperty}
+                coreObject={localOption}
+                setParentObject={setLocalOption}
+              />
+            </>
+          ) : (
+            <p>{object.category}</p>
           )}
-          <p>{object.category}</p>
-          <ul className="flex flex-wrap">
-            {selectedSection === expandableId &&
-              returnCheckboxes(object.options, objectProperty)}
-          </ul>
         </ExpandableDiv>
       );
     });
@@ -179,7 +151,32 @@ export const ProcessPortal = ({
           )}
         </ExpandableDiv>
         {/* Extras Section */}
-        {localTab?.extras?.length > 0 && returnExpandable("extras")}
+        {localTab?.extras?.length > 0 && (
+          <ExpandableDiv
+            closeAction={closePortal}
+            onSectionClick={() => setSelectedSection("Extras")}
+            showSection={selectedSection === "Extras"}
+            changePrinter={handlePrinterClick}
+            saveOptions={() => handleOptionSave(counter)}
+          >
+            {selectedSection == "Extras" ? (
+              <>
+                <h6>Extras</h6>
+                {localTab.extras.map((object, index) => (
+                  <BoolButtonsGroup
+                    workingObject={object}
+                    workingProperty="extras"
+                    coreObject={localOption}
+                    setParentObject={setLocalOption}
+                    key={index}
+                  />
+                ))}
+              </>
+            ) : (
+              <h6>Extras</h6>
+            )}
+          </ExpandableDiv>
+        )}
         {/* Ingredients Section */}
         {localTab?.ingredients?.length > 0 && returnExpandable("ingredients")}
       </div>,

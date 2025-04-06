@@ -48,7 +48,7 @@ function App() {
 
   return (
     <DataContext.Provider value={mockObjects}>
-      <PrintContext.Provider value={{printContext,setPrintContext}}>
+      <PrintContext.Provider value={{ printContext, setPrintContext }}>
         <NavBar />
         <div>
           {mockObjects?.map((object) =>
