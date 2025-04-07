@@ -5,11 +5,11 @@ export const objectUtil = (obj) => {
   return [workingObj, updateObjProp];
 };
 
-export const getPlainPrinters = (objs) => {
-  const allPrinters = objs.map((obj) => obj.printer);
-  allPrinters.sort();
-  const uniquePrintersArray = Array.from(new Set(allPrinters));
-  return uniquePrintersArray;
+export const getArrayOfProperty = (objs, property) => {
+  const allValues = objs.map((obj) => obj[property]);
+  allValues.sort();
+  const uniqueValues = Array.from(new Set(allValues));
+  return uniqueValues;
 };
 
 export const getObjectPropValue = (propName, utilObject) => {

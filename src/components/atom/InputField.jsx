@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 
 export const InputField = ({
+  inputEnabled = true,
   inputWidth = "w-[16%]",
   name = "",
   optionalTitle,
@@ -8,7 +9,7 @@ export const InputField = ({
   objectProperty,
   placeholder = "",
   setInputValue = Function.prototype,
-  type = "text",
+  tailwindHeight = "",
   value,
 }) => {
   const handleInputChange = (value) => {
@@ -22,18 +23,20 @@ export const InputField = ({
         <p className={optionalTitleClassName}>{optionalTitle}</p>
       )}
       <input
-        className={`bg-[#454a48] ${inputWidth} mr-2 h-[1.6rem]`}
+        className={`bg-[#454a48] ${inputWidth} mr-2 ${tailwindHeight}`}
         name={name}
-        type={type}
+        type="text"
         placeholder={placeholder}
         value={value}
         onChange={(e) => handleInputChange(e.target.value)}
+        disabled={!inputEnabled}
       />
     </>
   );
 };
 
 InputField.propTypes = {
+  inputEnabled: PropTypes.bool,
   inputWidth: PropTypes.string,
   name: PropTypes.string,
   optionalTitle: PropTypes.string,
@@ -41,6 +44,6 @@ InputField.propTypes = {
   objectProperty: PropTypes.string,
   placeholder: PropTypes.string,
   setInputValue: PropTypes.func,
-  type: PropTypes.string,
+  tailwindHeight: PropTypes.string,
   value: PropTypes.string,
 };

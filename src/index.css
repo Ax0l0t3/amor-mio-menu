@@ -35,6 +35,10 @@ body {
   width: 100%;
 }
 
+html {
+  font-size: 12px;
+}
+
 @font-face {
   font-family: ibm-semibold;
   src: url("../public/IBMPlexMono-SemiBold.ttf");
@@ -43,4 +47,10 @@ body {
 @font-face {
   font-family: queensides-normal;
   src: url("../public/Queensides.ttf");
+}
+
+@media screen and (min-width: 1280px) {
+  html {
+    font-size: 16px;
+  }
 }
