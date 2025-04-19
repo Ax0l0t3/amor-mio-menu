@@ -9,7 +9,7 @@ import { VisualizePrint } from "./VisualizePrint";
 
 //Utils
 import { PrintContext } from "../utils/DataContext";
-import { getObjectPropValue } from "../utils/ObjectUtils";
+import { getArrayOfProperty, getObjectPropValue } from "../utils/ObjectUtils";
 
 // Styles
 import "../../styles/ecosystem/_pre-print-portal.css";
@@ -17,6 +17,7 @@ import "../../styles/ecosystem/_pre-print-portal.css";
 export const PrePrintViewPort = ({ closePortal = Function.prototype }) => {
   const { printContext, setPrintContext } = useContext(PrintContext);
   const [localPrinters, setLocalPrinters] = useState([]);
+  const [localOrders, setLocalOrders] = useState([]);
   const [workingObject, setWorkingObject] = useState({});
 
   const handlePrint = () => {
@@ -32,6 +33,7 @@ export const PrePrintViewPort = ({ closePortal = Function.prototype }) => {
     const iterator = Object.keys(groupedObject);
     setWorkingObject(groupedObject);
     setLocalPrinters(iterator);
+    setLocalOrders(getArrayOfProperty(printContext, "order"));
   }, [printContext]);
 
   return (
@@ -42,6 +44,7 @@ export const PrePrintViewPort = ({ closePortal = Function.prototype }) => {
             key={index}
             sectionName={printer}
             options={getObjectPropValue(printer, workingObject)}
+            orders={localOrders}
           />
         ))}
       </div>

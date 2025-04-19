@@ -8,17 +8,45 @@ import { TicketMessages } from "../molecule/TicketMessages";
 //Styles
 import "../../styles/organism/_visualize-print.css";
 import { PrintContext } from "../utils/DataContext";
+import { getArrayOfProperty } from "../utils/ObjectUtils";
 
 export const VisualizePrint = ({
   sectionName = "Default",
   options = [],
-  orders = ["Eugenia", "Benemira"],
+  orders = [],
 }) => {
   const { printContext, setPrintContext } = useContext(PrintContext);
 
   const closeDish = (id) => {
     const newArray = printContext.filter((option) => option.id !== id);
     setPrintContext(newArray);
+  };
+
+  const getOrders = (order) => {
+    const ordersArray = options.filter((option) => option.order === order);
+    return ordersArray;
+  };
+
+  const getIndexes = () => {
+    const printersArray = getArrayOfProperty(printContext, "printer");
+    const index =
+      printersArray.findIndex((option) => option == sectionName) + 1;
+    return index;
+  };
+
+  const getLength = (order) => {
+    const groupedPrinters = Object.groupBy(
+      printContext,
+      ({ printer }) => printer,
+    );
+    const printerKeys = Object.keys(groupedPrinters);
+    let counter = 0;
+    printerKeys.forEach((propKey) => {
+      if (groupedPrinters[propKey].some((dish) => dish.order == order)) {
+        counter++;
+      }
+    });
+    return counter;
   };
 
   return (
@@ -36,10 +64,13 @@ export const VisualizePrint = ({
       <div className="bg-[#999999ff] w-[20.5rem] h-fit mr-4  font-[ibm-semibold] text-[0.9rem]">
         <div className="preview-print-ticket">
           <h6>{sectionName}</h6>
-          {orders.map((order) => (
+          {orders.map((order, index) => (
             <>
-              <h6>{order}</h6>
-              <TicketMessages dishes={options} />
+              <h6 key={index}>{order}</h6>
+              <p>
+                {getIndexes()}/{getLength(order)}
+              </p>
+              <TicketMessages dishes={getOrders(order)} />
               <hr />
             </>
           ))}
