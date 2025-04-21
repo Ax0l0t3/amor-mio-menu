@@ -13,12 +13,17 @@ export const TicketMessages = ({ dishes }) => {
 
   return ticketMessages.map((message) => {
     const messageSplitted = message.split("\t");
+    const lineBreaks = messageSplitted[1].split(",");
     const marginValue = (messageSplitted[0] * 4) / 4;
     const pStyle = { marginLeft: `${marginValue}rem` };
     return (
-      <p style={pStyle} key={message}>
-        {messageSplitted[1]}
-      </p>
+      <div style={pStyle} key={message}>
+        {lineBreaks.map((paragraph, index) => (
+          <ul key={index}>
+            <li style={index === 0 ? null : pStyle}>{paragraph}</li>
+          </ul>
+        ))}
+      </div>
     );
   });
 };
