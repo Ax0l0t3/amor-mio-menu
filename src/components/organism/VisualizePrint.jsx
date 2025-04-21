@@ -8,7 +8,10 @@ import { TicketMessages } from "../molecule/TicketMessages";
 //Styles
 import "../../styles/organism/_visualize-print.css";
 import { PrintContext } from "../utils/DataContext";
-import { getArrayOfProperty } from "../utils/ObjectUtils";
+import {
+  getArrayOfProperty,
+  collectionHasProperty,
+} from "../utils/ObjectUtils";
 
 export const VisualizePrint = ({
   sectionName = "Default",
@@ -24,6 +27,11 @@ export const VisualizePrint = ({
 
   const getOrders = (order) => {
     const ordersArray = options.filter((option) => option.order === order);
+    return ordersArray;
+  };
+
+  const getOptionsWoOrder = () => {
+    const ordersArray = options.filter((option) => "order" in option === false);
     return ordersArray;
   };
 
@@ -49,6 +57,32 @@ export const VisualizePrint = ({
     return counter;
   };
 
+  const groupOrderMessage = (order) => {
+    const orderLength = getLength(order);
+    if (collectionHasProperty(printContext, "order") && orderLength > 1) {
+      return `${getIndexes()}/${orderLength}`;
+    }
+    return "";
+  };
+
+  const returnMessagesWithOrders = () => {
+    const messagesNodes = orders.map((order, index) => {
+      const workingDishes = getOrders(order);
+      if (workingDishes.length > 0) {
+        return (
+          <div key={index}>
+            <h6>
+              {order} {groupOrderMessage(order)}
+            </h6>
+            <TicketMessages dishes={workingDishes} />
+            <hr />
+          </div>
+        );
+      }
+    });
+    return messagesNodes;
+  };
+
   return (
     <div className="flex">
       <div className="mr-4">
@@ -64,17 +98,8 @@ export const VisualizePrint = ({
       <div className="bg-[#999999ff] w-[20.5rem] h-fit mr-4  font-[ibm-semibold] text-[0.9rem]">
         <div className="preview-print-ticket">
           <h6>{sectionName}</h6>
-          {orders.map((order, index) => (
-            <>
-              <h6 key={index}>{order}</h6>
-              <p>
-                {getIndexes()}/{getLength(order)}
-              </p>
-              <TicketMessages dishes={getOrders(order)} />
-              <hr />
-            </>
-          ))}
-          <hr />
+          {returnMessagesWithOrders()}
+          <TicketMessages dishes={getOptionsWoOrder()} />
         </div>
       </div>
     </div>

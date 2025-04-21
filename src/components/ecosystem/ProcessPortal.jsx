@@ -57,7 +57,9 @@ export const ProcessPortal = ({
   };
 
   const convertToPrePrintObject = (initObject) => {
-    return { ...initObject, printer: localTab.printer, order: newOrderField };
+    return newOrderField === ""
+      ? { ...initObject, printer: localTab.printer }
+      : { ...initObject, printer: localTab.printer, order: newOrderField };
   };
 
   const handleOptionSave = (qtty = 1) => {
