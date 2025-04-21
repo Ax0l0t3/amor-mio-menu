@@ -13,7 +13,7 @@ import { PreviewTicketSection } from "../organism/PreviewTicketSection";
 
 // Utils
 import { DataContext, PrintContext } from "../utils/DataContext";
-import { updateLocalObject } from "../utils/ObjectUtils";
+import { getArrayOfProperty, updateLocalObject } from "../utils/ObjectUtils";
 
 // Styles
 import "../../styles/ecosystem/_process-portal.css";
@@ -26,10 +26,15 @@ export const ProcessPortal = ({
   const localMockArray = useContext(DataContext);
   const { printContext, setPrintContext } = useContext(PrintContext);
 
+  const [ordersContext, setOrdersContext] = useState([]);
   const [localTab, setLocalTab] = useState({});
   const [localOption, setLocalOption] = useState({});
   const [selectedSection, setSelectedSection] = useState("");
   const [counter, setCounter] = useState(1);
+  const [newOrderEnabled, setNewOrderEnabled] = useState(false);
+  const [newOrderField, setNewOrderField] = useState("");
+
+  const placeholderConstant = `Orden-${ordersContext.length + 1}`;
 
   const updateLocalOption = (eValue, objProp) => {
     setLocalOption(updateLocalObject(eValue, objProp, localOption));
@@ -54,7 +59,9 @@ export const ProcessPortal = ({
   };
 
   const convertToPrePrintObject = (initObject) => {
-    return { ...initObject, printer: localTab.printer };
+    return newOrderField === ""
+      ? { ...initObject, printer: localTab.printer }
+      : { ...initObject, printer: localTab.printer, order: newOrderField };
   };
 
   const handleOptionSave = (qtty = 1) => {
@@ -102,6 +109,16 @@ export const ProcessPortal = ({
     return returnable;
   };
 
+  const ordersChange = (target) => {
+    if (target.value === "newOrder") {
+      setNewOrderEnabled(target.value == "newOrder");
+      setNewOrderField(placeholderConstant);
+    } else {
+      setNewOrderEnabled(target.value == "newOrder");
+      setNewOrderField(target.value);
+    }
+  };
+
   useEffect(() => {
     if (selectedOption != "") {
       const thisTab = localMockArray.find((object) => object.selected);
@@ -111,6 +128,7 @@ export const ProcessPortal = ({
       setLocalTab(thisTab);
       setLocalOption(thisOption);
       setDefaultExpanded(thisTab);
+      setOrdersContext(getArrayOfProperty(printContext, "order"));
     }
   }, []);
 
@@ -147,6 +165,38 @@ export const ProcessPortal = ({
                 tailwindStyle="flex ml-auto mt-2"
                 counterChange={handleCounterChange}
               />
+              <fieldset>
+                <div>
+                  <label>
+                    <input
+                      type="radio"
+                      name="order"
+                      value="newOrder"
+                      onClick={(e) => ordersChange(e.target)}
+                    />
+                    <span>Orden</span>
+                  </label>
+                  <InputField
+                    name="commentsField"
+                    placeholder={placeholderConstant}
+                    inputWidth="w-full"
+                    value={newOrderField}
+                    setInputValue={setNewOrderField}
+                    inputEnabled={newOrderEnabled}
+                  />
+                </div>
+                {ordersContext.map((order, index) => (
+                  <label key={index} className="mb-2">
+                    <input
+                      type="radio"
+                      name="order"
+                      value={order}
+                      onClick={(e) => ordersChange(e.target)}
+                    />
+                    <span>{order}</span>
+                  </label>
+                ))}
+              </fieldset>
             </div>
           )}
         </ExpandableDiv>

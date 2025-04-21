@@ -1,58 +1,87 @@
 import PropTypes from "prop-types";
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 
 // Molecule
 import { PrePrintCard } from "../molecule/PrePrintCard";
+import { TicketMessages } from "../molecule/TicketMessages";
 
 //Styles
 import "../../styles/organism/_visualize-print.css";
 import { PrintContext } from "../utils/DataContext";
+import {
+  getArrayOfProperty,
+  collectionHasProperty,
+} from "../utils/ObjectUtils";
 
-export const VisualizePrint = ({ sectionName = "Default", options = [] }) => {
+export const VisualizePrint = ({
+  sectionName = "Default",
+  options = [],
+  orders = [],
+}) => {
   const { printContext, setPrintContext } = useContext(PrintContext);
-  const propsToOrder = ["name", "ingredients", "extras", "comments"];
-  let returnArrays = [];
-  const [ticketMessages, setTicketMessages] = useState([]);
 
   const closeDish = (id) => {
     const newArray = printContext.filter((option) => option.id !== id);
     setPrintContext(newArray);
   };
 
-  useEffect(() => {
-    // Iterate through the options array
-    options.forEach((obj, index) => {
-      // Save the results in an array that corresponds to each significant prop
-      let counters = [1, 1, 1, 1];
-      // Compare the n entry to each one of the entries
-      for (let k = index + 1; k < options.length; k++) {
-        // Compare each prop from each entry
-        propsToOrder.forEach((prop, index) => {
-          const debug1 = JSON.stringify(obj[prop]);
-          const debug2 = JSON.stringify(options[k][prop]);
-          if (debug1 != debug2) {
-            return;
-          }
-          counters[index] += 1;
-        });
-      }
-      // Save the results of this entry
-      returnArrays.push(counters);
-    });
+  const getOrders = (order) => {
+    const ordersArray = options.filter((option) => option.order === order);
+    return ordersArray;
+  };
 
-    // Build the array of displayed messages
-    let messages = [];
-    options.forEach((obj, index) => {
-      propsToOrder.forEach((prop, index2) => {
-        const thisMessage = `${index2 + 1}\t${returnArrays[index][index2]} x ${obj[prop]}`;
-        const includes = messages.some((thisString) =>
-          thisString.includes(obj[prop]),
-        );
-        if (!includes) messages.push(thisMessage);
-      });
+  const getOptionsWoOrder = () => {
+    const ordersArray = options.filter((option) => "order" in option === false);
+    return ordersArray;
+  };
+
+  const getIndexes = () => {
+    const printersArray = getArrayOfProperty(printContext, "printer");
+    const index =
+      printersArray.findIndex((option) => option == sectionName) + 1;
+    return index;
+  };
+
+  const getLength = (order) => {
+    const groupedPrinters = Object.groupBy(
+      printContext,
+      ({ printer }) => printer,
+    );
+    const printerKeys = Object.keys(groupedPrinters);
+    let counter = 0;
+    printerKeys.forEach((propKey) => {
+      if (groupedPrinters[propKey].some((dish) => dish.order == order)) {
+        counter++;
+      }
     });
-    setTicketMessages(messages);
-  }, [options]);
+    return counter;
+  };
+
+  const groupOrderMessage = (order) => {
+    const orderLength = getLength(order);
+    if (collectionHasProperty(printContext, "order") && orderLength > 1) {
+      return `${getIndexes()}/${orderLength}`;
+    }
+    return "";
+  };
+
+  const returnMessagesWithOrders = () => {
+    const messagesNodes = orders.map((order, index) => {
+      const workingDishes = getOrders(order);
+      if (workingDishes.length > 0) {
+        return (
+          <div key={index}>
+            <h6>
+              {order} {groupOrderMessage(order)}
+            </h6>
+            <TicketMessages dishes={workingDishes} />
+            <hr />
+          </div>
+        );
+      }
+    });
+    return messagesNodes;
+  };
 
   return (
     <div className="flex">
@@ -68,17 +97,9 @@ export const VisualizePrint = ({ sectionName = "Default", options = [] }) => {
       </div>
       <div className="bg-[#999999ff] w-[20.5rem] h-fit mr-4  font-[ibm-semibold] text-[0.9rem]">
         <div className="preview-print-ticket">
-          <p>{sectionName}</p>
-          {ticketMessages.map((message) => {
-            const messageSplitted = message.split("\t");
-            const marginValue = (messageSplitted[0] * 4) / 4;
-            const pStyle = { marginLeft: `${marginValue}rem` };
-            return (
-              <p style={pStyle} key={message}>
-                {messageSplitted[1]}
-              </p>
-            );
-          })}
+          <h6>{sectionName}</h6>
+          {returnMessagesWithOrders()}
+          <TicketMessages dishes={getOptionsWoOrder()} />
         </div>
       </div>
     </div>
@@ -86,6 +107,7 @@ export const VisualizePrint = ({ sectionName = "Default", options = [] }) => {
 };
 
 VisualizePrint.propTypes = {
+  orders: PropTypes.arrayOf(PropTypes.string),
   options: PropTypes.arrayOf(PropTypes.object),
   sectionName: PropTypes.string,
 };

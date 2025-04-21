@@ -9,7 +9,7 @@ import { PreSaveSVG } from "../atom/PreSaveIcon";
 
 // Utils
 import { DataContext } from "../utils/DataContext";
-import { getPlainPrinters } from "../utils/ObjectUtils";
+import { getArrayOfProperty } from "../utils/ObjectUtils";
 
 // Styles
 import "../../styles/organism/_expandable-div.css";
@@ -26,7 +26,7 @@ export const ExpandableDiv = ({
   const [changingPrinter, setChangingPrinter] = useState(false);
   const [printerBlur, setPrinterBlur] = useState(false);
   const [mouseOut, setMouseOut] = useState(true);
-  const printersArray = getPlainPrinters(workingObjects);
+  const printersArray = getArrayOfProperty(workingObjects, "printer");
   const svgs = [
     {
       item: <FastPrintSVG svgWidth={37} svgHeight={37} />,

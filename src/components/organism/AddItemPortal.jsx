@@ -12,7 +12,7 @@ import { SelectList } from "../molecule/SelectList";
 
 // Utils
 import { DataContext } from "../../components/utils/DataContext";
-import { getPlainPrinters } from "../utils/ObjectUtils";
+import { getArrayOfProperty } from "../utils/ObjectUtils";
 
 // Styles
 import "../../styles/organism/_add-item-portal.css";
@@ -54,7 +54,7 @@ export const AddItemPortal = ({
 
   const getPrinters = () => {
     const thisObjects = [...mockObjects];
-    const uniquePrinters = getPlainPrinters(thisObjects);
+    const uniquePrinters = getArrayOfProperty(thisObjects, "printer");
     setPrinters(uniquePrinters);
   };
 
@@ -261,6 +261,7 @@ export const AddItemPortal = ({
             value={newDish}
             setInputValue={setNewDish}
             optionalTitle="Nombre"
+            tailwindHeight="h-fit"
           />
           <p>Impresora</p>
           {isAddPrinter ? (
