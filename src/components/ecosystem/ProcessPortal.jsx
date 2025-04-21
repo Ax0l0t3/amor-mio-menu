@@ -34,6 +34,8 @@ export const ProcessPortal = ({
   const [newOrderEnabled, setNewOrderEnabled] = useState(false);
   const [newOrderField, setNewOrderField] = useState("");
 
+  const placeholderConstant = `Orden-${ordersContext.length + 1}`;
+
   const updateLocalOption = (eValue, objProp) => {
     setLocalOption(updateLocalObject(eValue, objProp, localOption));
   };
@@ -110,7 +112,9 @@ export const ProcessPortal = ({
   const ordersChange = (target) => {
     if (target.value === "newOrder") {
       setNewOrderEnabled(target.value == "newOrder");
+      setNewOrderField(placeholderConstant);
     } else {
+      setNewOrderEnabled(target.value == "newOrder");
       setNewOrderField(target.value);
     }
   };
@@ -174,7 +178,7 @@ export const ProcessPortal = ({
                   </label>
                   <InputField
                     name="commentsField"
-                    placeholder={`Orden-${ordersContext.length + 1}`}
+                    placeholder={placeholderConstant}
                     inputWidth="w-full"
                     value={newOrderField}
                     setInputValue={setNewOrderField}
@@ -182,7 +186,7 @@ export const ProcessPortal = ({
                   />
                 </div>
                 {ordersContext.map((order, index) => (
-                  <label key={index}>
+                  <label key={index} className="mb-2">
                     <input
                       type="radio"
                       name="order"
