@@ -1,14 +1,14 @@
 import { useState, useEffect } from "react";
 
 // Utils
-import { MessagesByLevels } from "../utils/Algorithms";
+import { messagesByLevels } from "../utils/Algorithms";
 
 export const TicketMessages = ({ dishes }) => {
   const propsToOrder = ["name", "ingredients", "extras", "comments"];
   const [ticketMessages, setTicketMessages] = useState([]);
 
   useEffect(() => {
-    setTicketMessages(MessagesByLevels(dishes, propsToOrder));
+    setTicketMessages(messagesByLevels(dishes, propsToOrder));
   }, [dishes]);
 
   return ticketMessages.map((message) => {
@@ -20,10 +20,13 @@ export const TicketMessages = ({ dishes }) => {
       <div style={pStyle} key={message}>
         {lineBreaks.map((paragraph, index) => (
           <ul key={index}>
-            <li style={index === 0 ? null : pStyle}>{paragraph}</li>
+            <li>{`${index === 0 ? "" : "- > "}${paragraph}`}</li>
           </ul>
         ))}
       </div>
     );
   });
 };
+// Agregar entradas "1 de 2"
+// Agregar por categorias
+// Funcion boton para toppings/crema a parte i.e (Almendras)
