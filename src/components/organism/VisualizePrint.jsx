@@ -75,7 +75,7 @@ export const VisualizePrint = ({
               {order} {groupOrderMessage(order)}
             </h6>
             <TicketMessages dishes={workingDishes} />
-            <hr />
+            <hr className="mt-2" />
           </div>
         );
       }
@@ -100,6 +100,7 @@ export const VisualizePrint = ({
           <h6>{sectionName}</h6>
           {returnMessagesWithOrders()}
           <TicketMessages dishes={getOptionsWoOrder()} />
+          {getOptionsWoOrder().length >= 1 && <hr className="mt-2" />}
         </div>
       </div>
     </div>

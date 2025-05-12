@@ -14,6 +14,7 @@ import { PreviewTicketSection } from "../organism/PreviewTicketSection";
 // Utils
 import { DataContext, PrintContext } from "../utils/DataContext";
 import { getArrayOfProperty, updateLocalObject } from "../utils/ObjectUtils";
+import { replaceAndLower } from "../utils/StringUtils";
 
 // Styles
 import "../../styles/ecosystem/_process-portal.css";
@@ -68,7 +69,11 @@ export const ProcessPortal = ({
     const array = [];
     const objectToAdd = convertToPrePrintObject(localOption);
     for (let i = 0; i < qtty; i++) {
-      array.push({ ...objectToAdd, id: `${objectToAdd.name}-${i}` });
+      const idConstructor = replaceAndLower(`${objectToAdd.ingredients}`);
+      array.push({
+        ...objectToAdd,
+        id: `${objectToAdd.name}-${idConstructor}-${i}`,
+      });
     }
     setPrintContext([...printContext, ...array]);
   };

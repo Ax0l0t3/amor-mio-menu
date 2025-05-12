@@ -17,9 +17,9 @@ export const getObjectPropValue = (propName, utilObject) => {
   return propValue;
 };
 
-export const updateLocalObject = (eValue, objProp, workingObject) => {
+export const updateLocalObject = (newValue, objProp, workingObject) => {
   const [thisObject, thisMethod] = objectUtil(workingObject);
-  thisMethod(eValue, objProp);
+  thisMethod(newValue, objProp);
   return thisObject;
 };
 

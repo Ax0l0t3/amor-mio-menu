@@ -1,7 +1,15 @@
 {
   "tabs": [
     {
-      "extras": [],
+      "extras": [
+        {
+          "category": "Topping",
+          "options": [
+            "Crema Batida",
+            "Chocolate"
+          ]
+        }
+      ],
       "ingredients": [
         {
           "category": "Leche",
@@ -132,6 +140,18 @@
           "options": [
             "Crema",
             "Sin Crema"
+          ]
+        },
+        {
+          "category": "Frutas",
+          "options": [
+            "Fresa",
+            "Durazno",
+            "Uva",
+            "Manzana",
+            "Melon",
+            "Papaya",
+            "Platano"
           ]
         }
       ],

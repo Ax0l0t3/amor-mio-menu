@@ -5,3 +5,7 @@
   color: black;
   word-break: break-all;
 }
+
+hr{
+  border-top: 2px dashed black;
+}

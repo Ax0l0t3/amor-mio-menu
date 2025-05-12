@@ -14,21 +14,20 @@ export const BoolButtonsGroup = ({
   setParentObject = Function.prototype,
 }) => {
   const [thisCoreObject, setThisCoreObject] = useState(coreObject);
-
   const handleCheckboxChange = (singleOption, objectProperty, isIncluded) => {
     if (!isIncluded) {
       const newObject = updateLocalObject(
-        [...thisCoreObject[objectProperty], singleOption],
+        [...coreObject[objectProperty], singleOption],
         objectProperty,
-        thisCoreObject,
+        coreObject,
       );
       setThisCoreObject(newObject);
       setParentObject(newObject);
     } else {
       const newObject = updateLocalObject(
-        thisCoreObject[objectProperty].filter((e) => e != singleOption),
+        coreObject[objectProperty].filter((e) => e != singleOption),
         objectProperty,
-        thisCoreObject,
+        coreObject,
       );
       setThisCoreObject(newObject);
       setParentObject(newObject);
