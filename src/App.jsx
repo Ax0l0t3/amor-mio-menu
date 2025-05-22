@@ -5,7 +5,7 @@ import { MenuOptionCard } from "./components/molecule/MenuOptionCard";
 import { ProcessPortal } from "./components/ecosystem/ProcessPortal";
 import { useEffect, useState } from "react";
 import { DataContext, PrintContext } from "./components/utils/DataContext";
-import MockData from "../mockData-Menu.json";
+import { fetchMethod } from "./components/utils/FetchUtils";
 
 function App() {
   const [labelOptions, setLabelOptions] = useState([]);
@@ -37,7 +37,12 @@ function App() {
   };
 
   useEffect(() => {
-    setMockObjects(MockData.tabs);
+    const fetchData = async () => {
+      const data = await fetchMethod("http://localhost:5297/data-menu");
+      setMockObjects(data?.tabs);
+    };
+
+    fetchData();
   }, []);
 
   useEffect(() => {
