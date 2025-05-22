@@ -1,0 +1,11 @@
+.bool-options-class {
+  max-height: 8rem;
+  overflow-y: scroll;
+}
+
+@media screen and (min-width: 1280px) {
+  .bool-options-class {
+    max-height: 12rem;
+    overflow-y: scroll;
+  }
+}

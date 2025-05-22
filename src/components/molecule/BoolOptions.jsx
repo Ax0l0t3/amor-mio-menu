@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 // Atom
 import { LiCheckbox } from "../atom/LiCheckbox";
 
+import "../../styles/molecule/_bool-options.css";
+
 export const BoolOptions = ({
   boolOptions = [],
   selectedOptions,
@@ -26,7 +28,7 @@ export const BoolOptions = ({
   };
 
   return (
-    <ul>
+    <ul className="bool-options-class">
       {boolOptions.map((object, index) => (
         <li key={`${object.category}-${index}`}>
           <p>{object.category}</p>
