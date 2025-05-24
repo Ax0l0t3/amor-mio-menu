@@ -317,6 +317,7 @@ export const AddItemPortal = ({
                 setInputValue={setNewIngredient}
                 optionalTitle="Option"
                 optionalTitleClassName="mr-2"
+                tailwindHeight="h-[1.6rem]"
               />
               <AddButton
                 onClick={() =>
@@ -368,6 +369,7 @@ export const AddItemPortal = ({
                 setInputValue={setNewExtra}
                 optionalTitle="Option"
                 optionalTitleClassName="mr-2"
+                tailwindHeight="h-[1.6rem]"
               />
               <AddButton
                 onClick={() =>
