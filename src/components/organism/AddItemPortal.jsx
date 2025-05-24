@@ -280,10 +280,15 @@ export const AddItemPortal = ({
               value={selectedPrinter}
             />
           )}
-          <TextButton buttonLabel="Agregar" action={handleClosePortal} />
+          <TextButton buttonLabel="Guardar" action={handleClosePortal} />
+          <TextButton
+            buttonLabel="Cancelar"
+            tailwindBg="bg-[#DB3356]"
+            action={closePortal}
+          />
         </div>
         <div>
-          <p>Ingredients</p>
+          <p>Ingredientes</p>
           <div className="mb-4 ml-4">
             <div className="flex">
               {isAddIngredientCategory ? (
@@ -300,7 +305,7 @@ export const AddItemPortal = ({
                     handleIngredientsCategoryChange(e.target.value)
                   }
                   options={ingredientsCategories}
-                  selectHeader="Category"
+                  selectHeader="Categoria"
                   selectHeaderClassName="mr-2"
                   value={selectedIngredientCategory}
                 />
@@ -351,7 +356,7 @@ export const AddItemPortal = ({
                   name="selectExtrasCategories"
                   onChange={(e) => handleExtrasCategoryChange(e.target.value)}
                   options={extrasCategories}
-                  selectHeader="Category"
+                  selectHeader="Categoria"
                   selectHeaderClassName="mr-2"
                   value={selectedExtraCategory}
                 />
