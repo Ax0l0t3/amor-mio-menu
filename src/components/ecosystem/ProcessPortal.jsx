@@ -24,7 +24,7 @@ export const ProcessPortal = ({
   closePortal = Function.prototype,
   selectedOption = "",
 }) => {
-  const {mockObjects, setMockObjects} = useContext(DataContext);
+  const { mockObjects } = useContext(DataContext);
   const { printContext, setPrintContext } = useContext(PrintContext);
 
   const [ordersContext, setOrdersContext] = useState([]);
