@@ -30,10 +30,10 @@ export const BoolOptions = ({
   return (
     <ul className="bool-options-class">
       {boolOptions.map((object, index) => (
-        <li key={`${object.category}-${index}`}>
-          <p>{object.category}</p>
+        <li key={`${object.Category}-${index}`}>
+          <p>{object.Category}</p>
           <ul className="flex flex-wrap">
-            {object.options?.map((option, index) => (
+            {object.Options?.map((option, index) => (
               <LiCheckbox
                 key={`${option}-${index}`}
                 name={option}

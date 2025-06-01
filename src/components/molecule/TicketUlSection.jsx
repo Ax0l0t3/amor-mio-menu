@@ -12,9 +12,9 @@ export const TicketUlSection = ({
     const returnElements = parentOptions.map((object) => {
       let thisArr = [];
       objectOptions.forEach((element) => {
-        if (object.options.includes(element)) thisArr.push(element);
+        if (object.Options.includes(element)) thisArr.push(element);
       });
-      return { category: object.category, selectedOptions: thisArr };
+      return { category: object.Category, selectedOptions: thisArr };
     });
     setUlElements(returnElements);
   }, [parentOptions, objectOptions]);

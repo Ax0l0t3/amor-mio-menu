@@ -28,12 +28,12 @@ export const PrePrintViewPort = ({ closePortal = Function.prototype }) => {
   useEffect(() => {
     const groupedObject = Object.groupBy(
       printContext,
-      ({ printer }) => printer,
+      ({ Printer }) => Printer,
     );
     const iterator = Object.keys(groupedObject);
     setWorkingObject(groupedObject);
     setLocalPrinters(iterator);
-    setLocalOrders(getArrayOfProperty(printContext, "order"));
+    setLocalOrders(getArrayOfProperty(printContext, "Order"));
   }, [printContext]);
 
   return (

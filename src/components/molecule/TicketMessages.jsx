@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { messagesByLevels } from "../utils/Algorithms";
 
 export const TicketMessages = ({ dishes }) => {
-  const propsToOrder = ["name", "ingredients", "extras", "comments"];
+  const propsToOrder = ["Name", "Ingredients", "Extras", "Comments"];
   const [ticketMessages, setTicketMessages] = useState([]);
 
   useEffect(() => {
