@@ -53,9 +53,9 @@ export const BoolButtonsGroup = ({
 
   return (
     <>
-      <p>{workingObject.category}</p>
+      <p>{workingObject.Category}</p>
       <ul className="flex flex-wrap">
-        {returnCheckboxes(workingObject.options, workingProperty)}
+        {returnCheckboxes(workingObject.Options, workingProperty)}
       </ul>
     </>
   );

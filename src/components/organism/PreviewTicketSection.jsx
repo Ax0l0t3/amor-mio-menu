@@ -6,27 +6,27 @@ export const PreviewTicketSection = ({ parentObject, selectedObject }) => {
   return (
     <div className="bg-[#999999ff] w-[39%] min-w-[39%] p-4 preview-section">
       <div className="bg-white w-full h-full text-black p-2">
-        <h5>{parentObject.printer}</h5>
-        <h5 className="pl-4">{selectedObject.name}</h5>
-        {selectedObject?.ingredients?.length > 0 && (
+        <h5>{parentObject.Printer}</h5>
+        <h5 className="pl-4">{selectedObject.Name}</h5>
+        {selectedObject?.Ingredients?.length > 0 && (
           <TicketUlSection
-            parentOptions={parentObject.ingredients}
-            objectOptions={selectedObject.ingredients}
+            parentOptions={parentObject.Ingredients}
+            objectOptions={selectedObject.Ingredients}
             sectionHeader="Ingredientes:"
           />
         )}
-        {selectedObject?.extras?.length > 0 && (
+        {selectedObject?.Extras?.length > 0 && (
           <TicketUlSection
-            parentOptions={parentObject.extras}
-            objectOptions={selectedObject.extras}
+            parentOptions={parentObject.Extras}
+            objectOptions={selectedObject.Extras}
             sectionHeader="Extras:"
           />
         )}
         <br />
-        {selectedObject.comments != "" && (
+        {selectedObject.Comments != "" && (
           <>
             <h5>Comentarios</h5>
-            <p className="pl-4">{selectedObject.comments}</p>
+            <p className="pl-4">{selectedObject.Comments}</p>
           </>
         )}
       </div>

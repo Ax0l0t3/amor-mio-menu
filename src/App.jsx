@@ -1,11 +1,10 @@
 import { NavBar } from "./components/organism/NavBar";
-import { OptionMainTab } from "./components/molecule/OptionTab";
-import { SelectedOptionMainTab } from "./components/molecule/SelectedOptionTab";
 import { MenuOptionCard } from "./components/molecule/MenuOptionCard";
 import { ProcessPortal } from "./components/ecosystem/ProcessPortal";
 import { useEffect, useState } from "react";
 import { DataContext, PrintContext } from "./components/utils/DataContext";
-import { fetchMethod } from "./components/utils/FetchUtils";
+import { fetchGet } from "./components/utils/FetchUtils";
+import { Tabs } from "./components/organism/Tabs";
 
 function App() {
   const [labelOptions, setLabelOptions] = useState([]);
@@ -14,23 +13,6 @@ function App() {
   const [portalVisible, setPortalVisible] = useState(false);
   const [selectedOption, setSelectedOption] = useState("");
 
-  const handleTabClick = (cardTitle) => {
-    const returnObjects = mockObjects.map((object) => {
-      if (object.title === cardTitle) {
-        return {
-          ...object,
-          selected: true,
-        };
-      }
-      return {
-        ...object,
-        selected: false,
-      };
-    });
-
-    setMockObjects(returnObjects);
-  };
-
   const handleOptionClick = (name) => {
     setSelectedOption(name);
     setPortalVisible(!portalVisible);
@@ -38,45 +20,30 @@ function App() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await fetchMethod("http://localhost:5297/data-menu");
-      setMockObjects(data?.tabs);
+      const data = await fetchGet("http://localhost:5000/data-menu");
+      setMockObjects(data?.Tabs);
     };
 
     fetchData();
   }, []);
 
   useEffect(() => {
-    mockObjects.forEach((element) => {
-      if (element.selected) setLabelOptions(element.options);
+    mockObjects?.forEach((element) => {
+      if (element.Selected) setLabelOptions(element.Options);
     });
   }, [mockObjects]);
 
   return (
-    <DataContext.Provider value={mockObjects}>
+    <DataContext.Provider value={{mockObjects, setMockObjects}}>
       <PrintContext.Provider value={{ printContext, setPrintContext }}>
         <NavBar />
-        <div>
-          {mockObjects?.map((object) =>
-            object.selected ? (
-              <SelectedOptionMainTab
-                key={object.title}
-                cardTitle={object.title}
-              />
-            ) : (
-              <OptionMainTab
-                key={object.title}
-                cardTitle={object.title}
-                action={() => handleTabClick(object.title)}
-              />
-            ),
-          )}
-        </div>
+        <Tabs />
         <div className="options-cards">
           {labelOptions.map((option, id) => (
             <MenuOptionCard
               key={id}
-              cardName={option.name}
-              onClick={() => handleOptionClick(option.name)}
+              cardName={option.Name}
+              onClick={() => handleOptionClick(option.Name)}
             />
           ))}
         </div>

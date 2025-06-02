@@ -22,11 +22,11 @@ export const ExpandableDiv = ({
   changePrinter = Function.prototype,
   saveOptions = Function.prototype,
 }) => {
-  const workingObjects = useContext(DataContext);
+  const { mockObjects } = useContext(DataContext);
   const [changingPrinter, setChangingPrinter] = useState(false);
   const [printerBlur, setPrinterBlur] = useState(false);
   const [mouseOut, setMouseOut] = useState(true);
-  const printersArray = getArrayOfProperty(workingObjects, "printer");
+  const printersArray = getArrayOfProperty(mockObjects, "printer");
   const svgs = [
     {
       item: <FastPrintSVG svgWidth={37} svgHeight={37} />,

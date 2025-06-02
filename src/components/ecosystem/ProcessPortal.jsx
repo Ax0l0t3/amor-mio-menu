@@ -24,7 +24,7 @@ export const ProcessPortal = ({
   closePortal = Function.prototype,
   selectedOption = "",
 }) => {
-  const localMockArray = useContext(DataContext);
+  const { mockObjects } = useContext(DataContext);
   const { printContext, setPrintContext } = useContext(PrintContext);
 
   const [ordersContext, setOrdersContext] = useState([]);
@@ -42,37 +42,37 @@ export const ProcessPortal = ({
   };
 
   const setDefaultExpanded = (object) => {
-    if (object.ingredients.length > 0) {
-      setSelectedSection(`ingredients-${object.ingredients[0].category}`);
+    if (object.Ingredients.length > 0) {
+      setSelectedSection(`Ingredients-${object.Ingredients[0].Category}`);
     }
-    if (object.ingredients.length <= 0 && object.extras.length > 0) {
+    if (object.Ingredients.length <= 0 && object.Extras.length > 0) {
       setSelectedSection("Extras");
     }
-    if (object.ingredients.length <= 0 && object.extras.length <= 0) {
+    if (object.Ingredients.length <= 0 && object.Extras.length <= 0) {
       setSelectedSection("Comments");
     }
   };
 
   const handlePrinterClick = (selectedPrinter) => {
     setLocalTab((prev) => {
-      return { ...prev, printer: selectedPrinter };
+      return { ...prev, Printer: selectedPrinter };
     });
   };
 
   const convertToPrePrintObject = (initObject) => {
     return newOrderField === ""
-      ? { ...initObject, printer: localTab.printer }
-      : { ...initObject, printer: localTab.printer, order: newOrderField };
+      ? { ...initObject, Printer: localTab.Printer }
+      : { ...initObject, Printer: localTab.Printer, Order: newOrderField };
   };
 
   const handleOptionSave = (qtty = 1) => {
     const array = [];
     const objectToAdd = convertToPrePrintObject(localOption);
     for (let i = 0; i < qtty; i++) {
-      const idConstructor = replaceAndLower(`${objectToAdd.ingredients}`);
+      const idConstructor = replaceAndLower(`${objectToAdd.Ingredients}`);
       array.push({
         ...objectToAdd,
-        id: `${objectToAdd.name}-${idConstructor}-${i}`,
+        id: `${objectToAdd.Name}-${idConstructor}-${i}`,
       });
     }
     setPrintContext([...printContext, ...array]);
@@ -84,7 +84,7 @@ export const ProcessPortal = ({
 
   const returnExpandable = (objectProperty) => {
     const returnable = localTab[objectProperty].map((object) => {
-      const expandableId = `${objectProperty}-${object.category}`;
+      const expandableId = `${objectProperty}-${object.Category}`;
       return (
         <ExpandableDiv
           closeAction={closePortal}
@@ -105,7 +105,7 @@ export const ProcessPortal = ({
               />
             </>
           ) : (
-            <p>{object.category}</p>
+            <p>{object.Category}</p>
           )}
         </ExpandableDiv>
       );
@@ -126,14 +126,14 @@ export const ProcessPortal = ({
 
   useEffect(() => {
     if (selectedOption != "") {
-      const thisTab = localMockArray.find((object) => object.selected);
-      const thisOption = thisTab.options.find(
-        (object) => object.name === selectedOption,
+      const thisTab = mockObjects?.find((object) => object.Selected);
+      const thisOption = thisTab.Options.find(
+        (object) => object.Name === selectedOption,
       );
       setLocalTab(thisTab);
       setLocalOption(thisOption);
       setDefaultExpanded(thisTab);
-      setOrdersContext(getArrayOfProperty(printContext, "order"));
+      setOrdersContext(getArrayOfProperty(printContext, "Order"));
     }
   }, []);
 
@@ -161,9 +161,9 @@ export const ProcessPortal = ({
                 name="commentsField"
                 placeholder="Agregar Comentario"
                 inputWidth="w-full"
-                value={localOption.comments}
+                value={localOption.Comments}
                 setInputValue={updateLocalOption}
-                objectProperty="comments"
+                objectProperty="Comments"
               />
               <CounterDiv
                 defaultValue={1}
@@ -206,7 +206,7 @@ export const ProcessPortal = ({
           )}
         </ExpandableDiv>
         {/* Extras Section */}
-        {localTab?.extras?.length > 0 && (
+        {localTab?.Extras?.length > 0 && (
           <ExpandableDiv
             closeAction={closePortal}
             onSectionClick={() => setSelectedSection("Extras")}
@@ -217,10 +217,10 @@ export const ProcessPortal = ({
             {selectedSection == "Extras" ? (
               <>
                 <h6>Extras</h6>
-                {localTab.extras.map((object, index) => (
+                {localTab.Extras.map((object, index) => (
                   <BoolButtonsGroup
                     workingObject={object}
-                    workingProperty="extras"
+                    workingProperty="Extras"
                     coreObject={localOption}
                     setParentObject={setLocalOption}
                     key={index}
@@ -233,7 +233,7 @@ export const ProcessPortal = ({
           </ExpandableDiv>
         )}
         {/* Ingredients Section */}
-        {localTab?.ingredients?.length > 0 && returnExpandable("ingredients")}
+        {localTab?.Ingredients?.length > 0 && returnExpandable("Ingredients")}
       </div>,
       document.getElementById("root"),
     )

@@ -26,17 +26,17 @@ export const VisualizePrint = ({
   };
 
   const getOrders = (order) => {
-    const ordersArray = options.filter((option) => option.order === order);
+    const ordersArray = options.filter((option) => option.Order === order);
     return ordersArray;
   };
 
   const getOptionsWoOrder = () => {
-    const ordersArray = options.filter((option) => "order" in option === false);
+    const ordersArray = options.filter((option) => "Order" in option === false);
     return ordersArray;
   };
 
   const getIndexes = () => {
-    const printersArray = getArrayOfProperty(printContext, "printer");
+    const printersArray = getArrayOfProperty(printContext, "Printer");
     const index =
       printersArray.findIndex((option) => option == sectionName) + 1;
     return index;
@@ -45,12 +45,12 @@ export const VisualizePrint = ({
   const getLength = (order) => {
     const groupedPrinters = Object.groupBy(
       printContext,
-      ({ printer }) => printer,
+      ({ Printer }) => Printer,
     );
     const printerKeys = Object.keys(groupedPrinters);
     let counter = 0;
     printerKeys.forEach((propKey) => {
-      if (groupedPrinters[propKey].some((dish) => dish.order == order)) {
+      if (groupedPrinters[propKey].some((dish) => dish.Order == order)) {
         counter++;
       }
     });
@@ -59,7 +59,7 @@ export const VisualizePrint = ({
 
   const groupOrderMessage = (order) => {
     const orderLength = getLength(order);
-    if (collectionHasProperty(printContext, "order") && orderLength > 1) {
+    if (collectionHasProperty(printContext, "Order") && orderLength > 1) {
       return `${getIndexes()}/${orderLength}`;
     }
     return "";
@@ -89,7 +89,7 @@ export const VisualizePrint = ({
         {options.map((option, index) => (
           <PrePrintCard
             key={index}
-            cardTitle={option.name}
+            cardTitle={option.Name}
             marginBottom="1rem"
             closeAction={() => closeDish(option.id)}
           />

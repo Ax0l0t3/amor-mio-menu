@@ -16,12 +16,13 @@ import { getArrayOfProperty } from "../utils/ObjectUtils";
 
 // Styles
 import "../../styles/organism/_add-item-portal.css";
+import { fetchPost } from "../utils/FetchUtils";
 
 export const AddItemPortal = ({
   isVisible = false,
   closePortal = Function.prototype,
 }) => {
-  const mockObjects = useContext(DataContext);
+  const { mockObjects, setMockObjects } = useContext(DataContext);
   const [localMockArray, setLocalMockArray] = useState([]);
   const [printers, setPrinters] = useState([]);
   const [tabs, setTabs] = useState([]);
@@ -53,13 +54,13 @@ export const AddItemPortal = ({
   const [newExtraCategory, setNewExtraCategory] = useState("");
 
   const getPrinters = () => {
-    const thisObjects = [...mockObjects];
-    const uniquePrinters = getArrayOfProperty(thisObjects, "printer");
+    const thisObjects = mockObjects.map((object) => object);
+    const uniquePrinters = getArrayOfProperty(thisObjects, "Printer");
     setPrinters(uniquePrinters);
   };
 
   const getTabs = () => {
-    const foundTabs = mockObjects.map((object) => object.title);
+    const foundTabs = mockObjects.map((object) => object.Title);
     setTabs(foundTabs);
   };
 
@@ -87,17 +88,17 @@ export const AddItemPortal = ({
     if (value != "Add") {
       setSelectedTab(value);
       const selectedObject = localMockArray.find(
-        (object) => object.title === value,
+        (object) => object.Title === value,
       );
-      setSelectedPrinter(selectedObject.printer);
+      setSelectedPrinter(selectedObject.Printer);
       setIngredientsCategories(
-        selectedObject.ingredients.map((object) => object.category),
+        selectedObject.Ingredients.map((object) => object.Category),
       );
       setExtrasCategories(
-        selectedObject.extras.map((object) => object.category),
+        selectedObject.Extras.map((object) => object.Category),
       );
-      setBoolIngredients(selectedObject.ingredients);
-      setBoolExtras(selectedObject.extras);
+      setBoolIngredients(selectedObject.Ingredients);
+      setBoolExtras(selectedObject.Extras);
     } else {
       setIsAddTab(!isAddTab);
       setIsAddIngredientCategory(!isAddIngredientCategory);
@@ -107,12 +108,12 @@ export const AddItemPortal = ({
       setLocalMockArray([
         ...localMockArray,
         {
-          title: value,
-          extras: [],
-          ingredients: [],
-          options: [],
-          selected: false,
-          printer: "",
+          Title: value,
+          Extras: [],
+          Ingredients: [],
+          Options: [],
+          Selected: false,
+          Printer: "",
         },
       ]);
     }
@@ -137,16 +138,16 @@ export const AddItemPortal = ({
   ) => {
     let updatedMockArray = [...localMockArray];
     const foundTabIndex = localMockArray.findIndex(
-      (object) => object.title === selectedTab,
+      (object) => object.Title === selectedTab,
     );
     if (foundTabIndex < 0 && isAddTab) {
       let updatedStep = [...localMockArray].reverse();
-      updatedStep[0].title = selectedTab;
+      updatedStep[0].Title = selectedTab;
       updatedStep[0][propertyName] = [
-        { category: selectedCategory, options: [newValue] },
+        { Category: selectedCategory, Options: [newValue] },
       ];
       setCategories(
-        updatedStep[0][propertyName].map((object) => object.category),
+        updatedStep[0][propertyName].map((object) => object.Category),
       );
       setItem(updatedStep[0][propertyName]);
       updatedStep.reverse();
@@ -157,11 +158,11 @@ export const AddItemPortal = ({
     }
     const foundCategoryIndex = localMockArray[foundTabIndex][
       propertyName
-    ].findIndex((object) => object.category === selectedCategory);
+    ].findIndex((object) => object.Category === selectedCategory);
     if (foundCategoryIndex < 0) {
       const updatedPropertyObject = [
         ...localMockArray[foundTabIndex][propertyName],
-        { category: selectedCategory, options: [newValue] },
+        { Category: selectedCategory, Options: [newValue] },
       ];
       updatedMockArray[foundTabIndex][propertyName] = updatedPropertyObject;
       setLocalMockArray(updatedMockArray);
@@ -169,7 +170,7 @@ export const AddItemPortal = ({
       setIsAddCategory(!isAddCategory);
       setCategories(
         updatedMockArray[foundTabIndex][propertyName].map(
-          (object) => object.category,
+          (object) => object.Category,
         ),
       );
       setInputField("");
@@ -177,10 +178,10 @@ export const AddItemPortal = ({
     }
     const updatedPropertyOptions = [
       ...localMockArray[foundTabIndex][propertyName][foundCategoryIndex]
-        .options,
+        .Options,
       newValue,
     ];
-    updatedMockArray[foundTabIndex][propertyName][foundCategoryIndex].options =
+    updatedMockArray[foundTabIndex][propertyName][foundCategoryIndex].Options =
       updatedPropertyOptions;
     setLocalMockArray(updatedMockArray);
     setItem(updatedMockArray[foundTabIndex][propertyName]);
@@ -202,28 +203,31 @@ export const AddItemPortal = ({
   };
 
   const handleClosePortal = () => {
-    const updatedObject = [...localMockArray];
+    const updatedObject = localMockArray.map((object) => object);
     const foundTabIndex = updatedObject.findIndex(
-      (object) => object.title === selectedTab,
+      (object) => object.Title === selectedTab,
     );
     const updatedOptionDish = [
-      ...updatedObject[foundTabIndex].options,
+      ...updatedObject[foundTabIndex].Options,
       {
-        name: newDish,
-        comments: newComment,
-        ingredients: selectedIngredients,
-        extras: selectedExtras,
+        Name: newDish,
+        Comments: newComment,
+        Ingredients: selectedIngredients,
+        Extras: selectedExtras,
       },
     ];
-    updatedObject[foundTabIndex].options = updatedOptionDish;
-    updatedObject[foundTabIndex].printer = selectedPrinter;
-    console.log("localMockArray", updatedObject);
-    setLocalMockArray(updatedObject);
+    updatedObject[foundTabIndex].Options = updatedOptionDish;
+    updatedObject[foundTabIndex].Printer = selectedPrinter;
+    fetchPost("http://localhost:5000/post-data-menu", { Tabs: updatedObject });
+    setMockObjects(updatedObject);
     closePortal();
   };
 
   useEffect(() => {
-    const localObjects = mockObjects.map((object) => object);
+    const localObjects = mockObjects.reduce((acc, obj) => {
+      acc.push({ ...obj });
+      return acc;
+    }, []);
     setLocalMockArray(localObjects);
     getPrinters();
     getTabs();
@@ -322,7 +326,7 @@ export const AddItemPortal = ({
               <AddButton
                 onClick={() =>
                   handleAddItem(
-                    "ingredients",
+                    "Ingredients",
                     newIngredient,
                     setBoolIngredients,
                     selectedIngredientCategory,
@@ -374,7 +378,7 @@ export const AddItemPortal = ({
               <AddButton
                 onClick={() =>
                   handleAddItem(
-                    "extras",
+                    "Extras",
                     newExtra,
                     setBoolExtras,
                     selectedExtraCategory,
