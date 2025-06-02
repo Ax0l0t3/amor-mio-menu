@@ -7,7 +7,7 @@ import "../../styles/molecule/_bool-options.css";
 
 export const BoolOptions = ({
   boolOptions = [],
-  selectedOptions,
+  selectedOptions = [],
   setSelectedOptions = Function.prototype,
   objectPropertyName,
 }) => {

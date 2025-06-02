@@ -13,17 +13,19 @@ import { AddItemPortal } from "./AddItemPortal";
 // Ecosystem
 import { CustomizePortal } from "../ecosystem/CustomizePortal";
 import { PrePrintPortal } from "../ecosystem/PrePrintPortal";
+import { EditItemPortal } from "../ecosystem/EditItemPortal";
 
 // Styles
 import "../../styles/organism/_nav-bar.css";
 
 export const NavBar = () => {
   const [isAddItemPortal, setIsAddItemPortal] = useState(false);
+  const [isEditItemPortal, setIsEditItemPortal] = useState(false);
   const [isCustomPortal, setIsCustomPortal] = useState(false);
   const [isPrePrintPortal, setIsPrePrintPortal] = useState(false);
   const navBarButtons = [
     { button: <AddSVG />, action: () => setIsAddItemPortal(true) },
-    { button: <EditSVG />, action: () => console.log("Opens EditItemPortal") },
+    { button: <EditSVG />, action: () => setIsEditItemPortal(true) },
     { button: <PreSaveSVG />, action: () => setIsPrePrintPortal(true) },
     { button: <CustomizeSVG />, action: () => setIsCustomPortal(true) },
     { button: <AboutSVG />, action: () => console.log("Opens AboutPortal") },
@@ -40,6 +42,12 @@ export const NavBar = () => {
         <AddItemPortal
           isVisible={isAddItemPortal}
           closePortal={() => setIsAddItemPortal(false)}
+        />
+      )}
+      {isEditItemPortal && (
+        <EditItemPortal
+          isVisible={isEditItemPortal}
+          closePortal={() => setIsEditItemPortal(false)}
         />
       )}
       {isCustomPortal && (
