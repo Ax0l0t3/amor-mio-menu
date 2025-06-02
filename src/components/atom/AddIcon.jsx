@@ -1,12 +1,16 @@
 import PropTypes from "prop-types";
 
-export const AddSVG = ({ svgClass = "m-4", svgWidth = 20, svgHeight = 20 }) => (
+export const AddSVG = ({
+  tailwindClass = "m-4",
+  svgWidth = 20,
+  svgHeight = 20,
+}) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={svgWidth}
     height={svgHeight}
     viewBox="0 0 5.292 5.292"
-    className={svgClass}
+    className={tailwindClass}
   >
     <path
       d="M2.646 0a.348.348 0 0 0-.348.348v1.95H.348a.348.348 0 1 0 0 .696h1.95v1.95a.348.348 0 1 0 .696 0v-1.95h1.95a.348.348 0 1 0 0-.696h-1.95V.348A.348.348 0 0 0 2.646 0z"
@@ -22,7 +26,7 @@ export const AddSVG = ({ svgClass = "m-4", svgWidth = 20, svgHeight = 20 }) => (
 );
 
 AddSVG.propTypes = {
-  svgClass: PropTypes.string,
+  tailwindClass: PropTypes.string,
   svgWidth: PropTypes.number,
   svgHeight: PropTypes.number,
 };

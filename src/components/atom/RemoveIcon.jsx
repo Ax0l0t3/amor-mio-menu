@@ -1,11 +1,18 @@
-export const RemoveSVG = () => (
+import PropTypes from "prop-types";
+
+export const RemoveSVG = ({
+  tailwindClass = "m-4",
+  svgWidth = 20,
+  svgHeight = 20,
+}) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     id="svg1"
-    width="50"
-    height="50"
+    width={svgWidth}
+    height={svgHeight}
     version="1.1"
     viewBox="0 0 13.229 13.229"
+    className={tailwindClass}
   >
     <g id="layer1">
       <path
@@ -22,3 +29,9 @@ export const RemoveSVG = () => (
     </g>
   </svg>
 );
+
+RemoveSVG.propTypes = {
+  svgHeight: PropTypes.number,
+  svgWidth: PropTypes.number,
+  tailwindClass: PropTypes.string,
+};

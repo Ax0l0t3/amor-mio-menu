@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 
 export const SelectList = ({
+  addOptionEntry = true,
   emptyEntry = false,
   name = "",
   onChange = Function.prototype,
@@ -24,13 +25,14 @@ export const SelectList = ({
             {category}
           </option>
         ))}
-        <option value="Add">Agregar</option>
+        {addOptionEntry && <option value="Add">Agregar</option>}
       </select>
     </>
   );
 };
 
 SelectList.propTypes = {
+  addOptionEntry: PropTypes.bool,
   emptyEntry: PropTypes.bool,
   name: PropTypes.string,
   onChange: PropTypes.func,
