@@ -1,0 +1,72 @@
+.about-portal {
+  background-image: url("/public/squareRoom3.png");
+  background-size: cover;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  font-size: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  overflow: hidden;
+  padding: 1rem 0;
+}
+
+.about-in{
+  animation-name: animate1;
+  animation-duration: 2s;
+  opacity: 1;
+}
+
+.about-out{
+  animation-name: animate2;
+  animation-duration: 1s;
+  opacity: 0;
+}
+
+.about-portal > div{
+  display: flex;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.about-portal-card{
+  background-color: #0A0B107F;
+  width: 27%;
+  height: 50%;
+  border-radius: 20px;
+  padding: 1rem;
+  transition: all 0.2s;
+}
+
+.about-portal-card:hover{
+  transform: scale(104%);
+  transition: all 0.2s;
+}
+
+@keyframes animate1 {
+  0%{
+    opacity:0;
+    transform: translateY(-100%);
+  }
+  
+  100%{
+    opacity:1;
+    transform: translateY(0%);
+  }
+}
+
+@keyframes animate2 {
+  0%{
+    opacity:1;
+    transform: translateY(0%);
+  }
+  
+  100%{
+    opacity:0;
+    transform: translateY(-100%);
+  }
+}
