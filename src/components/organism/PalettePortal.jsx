@@ -1,9 +1,18 @@
+import PropTypes from "prop-types";
 import { useState } from "react";
-import "../../styles/organism/_palette-portal.css";
+
+// Atom
+import { ExitPrintSVG } from "../atom/ExitPrintIcon";
 import { GreenTickIcon } from "../atom/GreenTickIcon";
 import { ImageIcon } from "../atom/ImageIcon";
 
-export const PalettePortal = () => {
+// Molecule
+import { SvgButton } from "../molecule/SvgButton";
+
+// Styles
+import "../../styles/organism/_palette-portal.css";
+
+export const PalettePortal = ({ closePortal = Function.prototype }) => {
   const returnColours = [
     "#1f1612ff",
     "#454a48ff",
@@ -59,10 +68,17 @@ export const PalettePortal = () => {
           />
         </div>
         <div className="flex justify-end gap-2 mt-2">
+          <SvgButton clickAction={closePortal}>
+            <ExitPrintSVG svgWidth={34} svgHeight={34} />
+          </SvgButton>
           <ImageIcon className="w-6 h-6" />
           <GreenTickIcon className="w-6 h-6" />
         </div>
       </div>
     </div>
   );
+};
+
+PalettePortal.propTypes = {
+  closePortal: PropTypes.func,
 };

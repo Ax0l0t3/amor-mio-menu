@@ -1,8 +1,10 @@
-export const AboutSVG = () => (
+import PropTypes from "prop-types";
+
+export const AboutSVG = ({ svgWidth = 20, svgHeight = 20 }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    width={20}
-    height={20}
+    width={svgWidth}
+    height={svgHeight}
     viewBox="0 0 5.292 5.292"
     className="mb-auto mt-4"
   >
@@ -21,3 +23,8 @@ export const AboutSVG = () => (
     />
   </svg>
 );
+
+AboutSVG.propTypes = {
+  svgWidth: PropTypes.number,
+  svgHeight: PropTypes.number,
+};
