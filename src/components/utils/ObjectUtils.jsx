@@ -26,3 +26,17 @@ export const updateLocalObject = (newValue, objProp, workingObject) => {
 export const collectionHasProperty = (objs, property) => {
   return objs.some((element) => property in element);
 };
+
+export const localJsonSerialize = (obj) => {
+  let toJson = {};
+  for (const [key, value] of obj.entries()) {
+      if (toJson[key]) {
+        if (!Array.isArray(toJson[key])) {
+          toJson[key] = [toJson[key]];
+        }
+        toJson[key] = [...toJson[key], value];
+      }
+      else toJson[key] = value;
+    }
+    return toJson;
+}

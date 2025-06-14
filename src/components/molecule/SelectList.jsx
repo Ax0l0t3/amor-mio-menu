@@ -14,10 +14,10 @@ export const SelectList = ({
     <>
       {selectHeader && <p className={selectHeaderClassName}>{selectHeader}</p>}
       <select
+        className="bg-[#454a48] h-[1.6rem] w-[16%] mr-2"
         name={name}
         onChange={onChange}
         value={value}
-        className="bg-[#454a48] h-[1.6rem] w-[16%] mr-2"
       >
         {emptyEntry && <option value=""></option>}
         {options.map((category, index) => (

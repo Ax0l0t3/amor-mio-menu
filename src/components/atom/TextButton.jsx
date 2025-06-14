@@ -5,10 +5,11 @@ export const TextButton = ({
   action = Function.prototype,
   tailwindMargin = "",
   tailwindBg = "bg-[#828d51ff]",
+  buttonType = "button"
 }) => {
   return (
     <button
-      type="button"
+      type={buttonType}
       className={`flex items-center justify-center w-[9rem] h-12 rounded-full ${tailwindBg} ${tailwindMargin}`}
       onClick={action}
     >
