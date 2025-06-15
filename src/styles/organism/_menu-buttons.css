@@ -1,0 +1,25 @@
+.menu-buttons {
+  display: flex;
+  margin-bottom: 1rem;
+}
+
+.menu-buttons button {
+  background-color: #1f1612ff;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow:
+    inset 2px 0px 5px #1f1612,
+    inset -2px 0px 5px #1f1612,
+    inset 0px -7px 10px #434945;
+  transition: all 0.2s;
+}
+
+.menu-buttons button:hover {
+  box-shadow:
+    inset 2px 0px 5px #1f1612,
+    inset -2px 0px 5px #1f1612,
+    inset 0px 7px 7px #434945;
+  transition: all 0.2s;
+}

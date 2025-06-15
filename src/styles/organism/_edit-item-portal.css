@@ -2,26 +2,30 @@
   background-color: #1f1612ff;
   height: 100%;
   left: 4%;
-  padding: 1rem;
   position: absolute;
   width: 96%;
   font-size: 1.2rem;
+  overflow: hidden;
 }
 
-.deletable-entry select:hover{
-    color: red;
+.deletable-entry select:hover {
+  color: red;
 }
 
-.deletable-entry p:hover{
-    color: red;
-    cursor: default;
+.deletable-entry p:hover {
+  color: red;
+  cursor: default;
 }
 
-.deletable-entry label:hover{
-    color: red;
-    cursor: default;
+.deletable-entry label:hover {
+  color: red;
+  cursor: default;
 }
 
-.icon-disabled > path{
-    fill: #393939;
+.icon-disabled > path {
+  fill: #393939;
+}
+
+.edit-item-portal fieldset {
+  margin-left: 0.5rem;
 }

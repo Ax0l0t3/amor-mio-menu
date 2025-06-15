@@ -30,13 +30,12 @@ export const collectionHasProperty = (objs, property) => {
 export const localJsonSerialize = (obj) => {
   let toJson = {};
   for (const [key, value] of obj.entries()) {
-      if (toJson[key]) {
-        if (!Array.isArray(toJson[key])) {
-          toJson[key] = [toJson[key]];
-        }
-        toJson[key] = [...toJson[key], value];
+    if (toJson[key]) {
+      if (!Array.isArray(toJson[key])) {
+        toJson[key] = [toJson[key]];
       }
-      else toJson[key] = value;
-    }
-    return toJson;
-}
+      toJson[key] = [...toJson[key], value];
+    } else toJson[key] = value;
+  }
+  return toJson;
+};

@@ -9,52 +9,30 @@ import { useEffect, useState } from "react";
 export const BoolOptions = ({
   boolOptions = [],
   selectedOptions,
-  setSelectedOptions = Function.prototype,
-  objectPropertyName,
   className = "",
   hideCheckboxes = false,
-  groupName
+  groupName,
 }) => {
-
   const [checkedOptions, setCheckedOptions] = useState(selectedOptions);
 
-  // const handleSelectedChange = (extraName, isChecked) => {
-  //   const isInArray = selectedOptions.includes(extraName);
-  //   if (isChecked) {
-  //     if (!isInArray) {
-  //       setSelectedOptions([...selectedOptions, extraName], objectPropertyName);
-  //     }
-  //   } else {
-  //     if (isInArray) {
-  //       const updatedExtras = selectedOptions.filter(
-  //         (option) => option != extraName,
-  //       );
-  //       setSelectedOptions(updatedExtras, objectPropertyName);
-  //     }
-  //   }
-  // };
-
   const onLiBoxChange = (optionName) => {
-    const foundSelected = checkedOptions.find(ing => ing === optionName);
+    const foundSelected = checkedOptions.find((ing) => ing === optionName);
     if (foundSelected) {
-      const updatedOptions = checkedOptions.filter(ing => ing !== foundSelected);
+      const updatedOptions = checkedOptions.filter(
+        (ing) => ing !== foundSelected,
+      );
       setCheckedOptions(updatedOptions);
-    }
-    else {
+    } else {
       const updatedOptions = [...checkedOptions, optionName];
       setCheckedOptions(updatedOptions);
     }
   };
 
   useEffect(() => {
-    if(selectedOptions){
-    setCheckedOptions(selectedOptions);
+    if (selectedOptions) {
+      setCheckedOptions(selectedOptions);
     }
-  }, [selectedOptions]);
-
-  useEffect(() => {
-    setCheckedOptions([]);
-  }, [boolOptions]);
+  }, [selectedOptions, boolOptions]);
 
   return (
     <ul className={`bool-options-class ${className}`}>
@@ -82,8 +60,7 @@ export const BoolOptions = ({
 BoolOptions.propTypes = {
   boolOptions: PropTypes.array,
   className: PropTypes.string,
+  groupName: PropTypes.string,
   hideCheckboxes: PropTypes.bool,
   selectedOptions: PropTypes.arrayOf(PropTypes.string),
-  setSelectedOptions: PropTypes.func,
-  objectPropertyName: PropTypes.string,
 };

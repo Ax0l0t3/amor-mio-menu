@@ -6,12 +6,16 @@ import { EditSVG } from "../atom/EditIcon";
 import { ImageIcon } from "../atom/ImageIcon";
 import { InputField } from "../atom/InputField";
 import { RemoveSVG } from "../atom/RemoveIcon";
+import { ExitPrintSVG } from "../atom/ExitPrintIcon";
+import { GreenTickIcon } from "../atom/GreenTickIcon";
 
 // Molecule
 import { BoolOptions } from "../molecule/BoolOptions";
 
 // Organism
-import { PortalHeaderSection } from "../organism/PortalHeaderSection";
+import { InputsGroup } from "../organism/InputsGroup";
+import { MenuButtons } from "../organism/MenuButtons";
+import { HeaderFieldset } from "../organism/HeaderFieldset";
 
 // Utils
 import { DataContext } from "../utils/DataContext";
@@ -19,7 +23,6 @@ import { localJsonSerialize } from "../utils/ObjectUtils";
 
 // Styles
 import "../../styles/organism/_edit-item-portal.css";
-import { InputsGroup } from "../organism/InputsGroup";
 
 export const EditItemPortal = ({
   isVisible = false,
@@ -41,49 +44,31 @@ export const EditItemPortal = ({
     const screenshot = {};
     const foundObject = objectsToEdit.find((object) => object.Selected);
     screenshot.Tab = foundObject.Title;
+    screenshot.Dish = selectedDish.Name;
+    // console.log(screenshot);
     setObjectScreenshot(screenshot);
     setEditMode(editModeString);
   };
 
-  const iconButtonsArray = [
-    {
-      svg: (
-        <ImageIcon
-          tailwindClass={editMode !== modifyModeString ? "icon-disabled" : ""}
-          svgWidth={48}
-          svgHeight={48}
-        />
-      ),
-      action: () => setEditMode(modifyModeString),
-    },
-    {
-      svg: (
-        <EditSVG
-          tailwindClass={editMode !== editModeString ? "icon-disabled" : ""}
-          svgWidth={48}
-          svgHeight={48}
-        />
-      ),
-      action: () => getScreenshot(),
-    },
-    {
-      svg: (
-        <RemoveSVG
-          tailwindClass={editMode !== deleteModeString ? "icon-disabled" : ""}
-          svgWidth={48}
-          svgHeight={48}
-        />
-      ),
-      action: () => setEditMode(deleteModeString),
-    },
-  ];
+  const handleDishChange = (e) => {
+    const foundObject = objectsToEdit.find(({ Selected }) => Selected);
+    const foundDish = foundObject.Options.find(
+      ({ Name }) => Name === e.target.value,
+    );
+    setSelectedDish(foundDish);
+  };
 
-  const textButtonsArray = [
-    {
-      label: "Guardar",
-      type: "submit"
-    },
-  ];
+  const handleTabChange = (e) => {
+    const objectsToWork = [...objectsToEdit];
+    objectsToWork.forEach((object) => {
+      if (object.Title === e.target.value) object.Selected = true;
+      else object.Selected = false;
+    });
+    const selectedTab = objectsToWork.find(({ Selected }) => Selected);
+    const defaultDish = selectedTab.Options[0];
+    setObjectsToEdit(objectsToWork);
+    setSelectedDish(defaultDish);
+  };
 
   const getIngredients = () => {
     const foundObject = objectsToEdit.find((object) => object.Selected);
@@ -97,87 +82,127 @@ export const EditItemPortal = ({
     return foundObject.Extras;
   };
 
-  const handleMouseMove = (event) => {
-    const target = event.target;
-    setHoveredHtml(target);
-  };
-
-  const handleHtmlClick = () => {
-    if (editMode === deleteModeString) {
-      if (!hoveredHtml.value) console.log(hoveredHtml.outerText);
-      else console.log(hoveredHtml.value);
-    }
-  };
-
   const handleSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
     const json = localJsonSerialize(formData);
-    console.log(json);
+    // console.log(json);
   };
+
+  // const handleMouseMove = (event) => {
+  //   const target = event.target;
+  //   setHoveredHtml(target);
+  // };
+
+  // const handleHtmlClick = () => {
+  //   if (editMode === deleteModeString) {
+  //     if (!hoveredHtml.value) console.log(hoveredHtml.outerText);
+  //     else console.log(hoveredHtml.value);
+  //   }
+  // };
+
+  const menuButtons = [
+    {
+      label: <GreenTickIcon svgWidth={48} svgHeight={48} />,
+      type: "submit",
+    },
+    {
+      label: (
+        <ImageIcon
+          tailwindClass={editMode !== modifyModeString ? "icon-disabled" : ""}
+          svgWidth={48}
+          svgHeight={48}
+        />
+      ),
+      type: "button",
+      action: () => setEditMode(modifyModeString),
+    },
+    {
+      label: (
+        <EditSVG
+          tailwindClass={editMode !== editModeString ? "icon-disabled" : ""}
+          svgWidth={48}
+          svgHeight={48}
+        />
+      ),
+      type: "button",
+      action: getScreenshot,
+    },
+    {
+      label: (
+        <RemoveSVG
+          tailwindClass={editMode !== deleteModeString ? "icon-disabled" : ""}
+          svgWidth={48}
+          svgHeight={48}
+        />
+      ),
+      type: "button",
+      action: () => setEditMode(deleteModeString),
+    },
+    {
+      label: <ExitPrintSVG svgHeight={48} svgWidth={48} />,
+      type: "button",
+      action: closePortal,
+    },
+  ];
 
   useEffect(() => {
     const localObjects = mockObjects.reduce((acc, obj) => {
       acc.push({ ...obj });
       return acc;
     }, []);
+    const initDish = localObjects.find(({ Selected }) => Selected).Options[0];
     setObjectsToEdit(localObjects);
+    setSelectedDish(initDish);
   }, []);
-
-  useEffect(() => {
-    if (objectsToEdit.length > 0) {
-      setSelectedDish(objectsToEdit.find(({ Selected }) => Selected).Options[0]);
-    }
-  }, [objectsToEdit])
 
   return (
     isVisible &&
     createPortal(
-      <form
-        className="edit-item-portal"
-        onSubmit={(e) => handleSubmit(e)}
-      >
-        <PortalHeaderSection
-          className={`edit-icons ${editMode === deleteModeString ? "deletable-entry" : ""}`}
-          exitFunction={closePortal}
-          iconButtons={iconButtonsArray}
-          setSelectedDish={setSelectedDish}
-          setWorkingOptions={setObjectsToEdit}
-          selectMode={editMode === modifyModeString}
-          textButtons={textButtonsArray}
-          workingOptions={objectsToEdit}
+      <form className="edit-item-portal" onSubmit={(e) => handleSubmit(e)}>
+        <MenuButtons options={menuButtons} />
+        <HeaderFieldset
+          scopeObjects={objectsToEdit}
+          setScopeObjects={setObjectsToEdit}
+          onTabChange={handleTabChange}
+          onDishChange={handleDishChange}
+          selectMode={editMode !== editModeString}
         />
         <fieldset name="Ingredients">
           <legend>Ingredientes</legend>
-          {editMode === editModeString 
-          ? <InputsGroup options={getIngredients()}/>
-          : <BoolOptions
-            className={`${editMode === deleteModeString ? "deletable-entry" : ""}`}
-            boolOptions={getIngredients()}
-            selectedOptions={selectedDish.Ingredients}
-            hideCheckboxes={editMode === deleteModeString}
-            groupName="Ingredients"
-          />
-          }
+          {editMode === editModeString ? (
+            <InputsGroup options={getIngredients()} />
+          ) : (
+            <BoolOptions
+              className={`${editMode === deleteModeString ? "deletable-entry" : ""}`}
+              boolOptions={getIngredients()}
+              selectedOptions={selectedDish.Ingredients}
+              hideCheckboxes={editMode === deleteModeString}
+              groupName="Ingredients"
+            />
+          )}
         </fieldset>
         <fieldset name="Extras">
           <legend>Extras</legend>
-          <BoolOptions
-            className={`${editMode === deleteModeString ? "deletable-entry" : ""}`}
-            boolOptions={getExtras()}
-            selectedOptions={selectedDish.Extras}
-            hideCheckboxes={editMode === deleteModeString}
-            groupName="Extras"
-          />
+          {editMode === editModeString ? (
+            <InputsGroup options={getExtras()} />
+          ) : (
+            <BoolOptions
+              className={`${editMode === deleteModeString ? "deletable-entry" : ""}`}
+              boolOptions={getExtras()}
+              selectedOptions={selectedDish.Extras}
+              hideCheckboxes={editMode === deleteModeString}
+              groupName="Extras"
+            />
+          )}
         </fieldset>
-        <div>
+        <div className="ml-2">
           <p>Comentarios</p>
           <InputField
             name="Comments"
             placeholder="Agregar Comentario"
             inputWidth="w-full"
             value={selectedDish.Comments}
-            objectProperty="Comments"
           />
         </div>
       </form>,

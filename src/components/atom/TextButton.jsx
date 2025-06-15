@@ -5,7 +5,7 @@ export const TextButton = ({
   action = Function.prototype,
   tailwindMargin = "",
   tailwindBg = "bg-[#828d51ff]",
-  buttonType = "button"
+  buttonType = "button",
 }) => {
   return (
     <button
@@ -21,6 +21,7 @@ export const TextButton = ({
 TextButton.propTypes = {
   action: PropTypes.func,
   buttonLabel: PropTypes.string,
+  buttonType: PropTypes.string,
   tailwindBg: PropTypes.string,
   tailwindMargin: PropTypes.string,
 };

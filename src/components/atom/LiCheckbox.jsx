@@ -13,18 +13,17 @@ export const LiCheckbox = ({
 }) => {
   const [inputChecked, setInputChecked] = useState(checked);
 
-  const handleInputChange = tag => {
+  const handleInputChange = (tag) => {
     onChange(tag.id);
   };
-  
+
   const handleInputClick = () => {
     setInputChecked(!inputChecked);
   };
 
-  useEffect(()=>{
+  useEffect(() => {
     setInputChecked(checked);
-  },[checked]);
-
+  }, [checked]);
 
   return (
     <li className="li-div">
@@ -40,7 +39,7 @@ export const LiCheckbox = ({
           type="checkbox"
           checked={inputChecked}
           onClick={handleInputClick}
-          onChange={e=>handleInputChange(e.target)}
+          onChange={(e) => handleInputChange(e.target)}
         />
       )}
     </li>
@@ -48,8 +47,9 @@ export const LiCheckbox = ({
 };
 
 LiCheckbox.propTypes = {
-  hideCheckbox: PropTypes.bool,
-  name: PropTypes.string,
   checked: PropTypes.bool,
+  hideCheckbox: PropTypes.bool,
+  id: PropTypes.string,
+  name: PropTypes.string,
   onChange: PropTypes.func,
 };

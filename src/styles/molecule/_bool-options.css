@@ -3,6 +3,10 @@
   overflow-y: scroll;
 }
 
+.bool-options-class p {
+  margin-bottom: 0.5rem;
+}
+
 @media screen and (min-width: 1280px) {
   .bool-options-class {
     max-height: 12rem;

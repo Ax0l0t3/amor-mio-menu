@@ -13,19 +13,19 @@
   padding: 1rem 0;
 }
 
-.about-in{
+.about-in {
   animation-name: animate1;
   animation-duration: 2s;
   opacity: 1;
 }
 
-.about-out{
+.about-out {
   animation-name: animate2;
   animation-duration: 1s;
   opacity: 0;
 }
 
-.about-portal > div{
+.about-portal > div {
   display: flex;
   width: 100%;
   height: 100%;
@@ -33,8 +33,8 @@
   justify-content: space-around;
 }
 
-.about-portal-card{
-  background-color: #0A0B107F;
+.about-portal-card {
+  background-color: #0a0b107f;
   width: 27%;
   height: 50%;
   border-radius: 20px;
@@ -42,31 +42,31 @@
   transition: all 0.2s;
 }
 
-.about-portal-card:hover{
+.about-portal-card:hover {
   transform: scale(104%);
   transition: all 0.2s;
 }
 
 @keyframes animate1 {
-  0%{
-    opacity:0;
+  0% {
+    opacity: 0;
     transform: translateY(-100%);
   }
-  
-  100%{
-    opacity:1;
+
+  100% {
+    opacity: 1;
     transform: translateY(0%);
   }
 }
 
 @keyframes animate2 {
-  0%{
-    opacity:1;
+  0% {
+    opacity: 1;
     transform: translateY(0%);
   }
-  
-  100%{
-    opacity:0;
+
+  100% {
+    opacity: 0;
     transform: translateY(-100%);
   }
 }

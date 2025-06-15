@@ -20,7 +20,7 @@ function App() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await fetchGet("http://localhost:5000/data-test-cases");
+      const data = await fetchGet("http://localhost:5000/data-menu");
       setMockObjects(data?.Tabs);
     };
 

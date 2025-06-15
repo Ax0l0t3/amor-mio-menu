@@ -1,0 +1,28 @@
+.fieldset-div {
+  max-height: 8rem;
+  overflow-y: scroll;
+}
+
+.fieldset-div input:focus {
+  background-image: linear-gradient(to right, #454a48 7%, #1f1612ff);
+  outline: none;
+}
+
+.input-group {
+  margin-bottom: 0.5rem;
+}
+
+.title-input {
+  margin-bottom: 0.5rem;
+}
+
+.single-input {
+  margin-bottom: 0.25em;
+}
+
+@media screen and (min-width: 1280px) {
+  .fieldset-div {
+    max-height: 12rem;
+    overflow-y: scroll;
+  }
+}

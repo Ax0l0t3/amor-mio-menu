@@ -1,19 +1,18 @@
 import PropTypes from "prop-types";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export const InputField = ({
   inputEnabled = true,
   inputWidth = "w-[16%]",
+  inputLabel = "",
   name,
   optionalTitle,
   titleClassName,
-  objectProperty,
   placeholder = "",
   value = "",
   className = "",
-  onChange = Function.prototype
+  onChange = Function.prototype,
 }) => {
-
   const [inputValue, setInputValue] = useState(value);
 
   const handleInputChange = (e) => {
@@ -21,13 +20,14 @@ export const InputField = ({
     onChange(e);
   };
 
+  useEffect(() => setInputValue(value), [value]);
+
   return (
     <>
-      {optionalTitle && (
-        <p className={titleClassName}>{optionalTitle}</p>
-      )}
+      {optionalTitle && <p className={titleClassName}>{optionalTitle}</p>}
+      <label>{inputLabel}</label>
       <input
-        className={`bg-[#454a48] ${inputWidth} mr-2 ${className}`}
+        className={`bg-[#454a48] pl-2 ${inputWidth} mr-2 ${className}`}
         name={name}
         type="text"
         placeholder={placeholder}
@@ -40,14 +40,14 @@ export const InputField = ({
 };
 
 InputField.propTypes = {
+  className: PropTypes.string,
   inputEnabled: PropTypes.bool,
+  inputLabel: PropTypes.string,
   inputWidth: PropTypes.string,
   name: PropTypes.string,
   optionalTitle: PropTypes.string,
-  titleClassName: PropTypes.string,
-  objectProperty: PropTypes.string,
+  onChange: PropTypes.func,
   placeholder: PropTypes.string,
-  setInputValue: PropTypes.func,
-  tailwindHeight: PropTypes.string,
+  titleClassName: PropTypes.string,
   value: PropTypes.string,
 };
