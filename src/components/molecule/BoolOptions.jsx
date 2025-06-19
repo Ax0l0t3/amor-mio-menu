@@ -36,8 +36,8 @@ export const BoolOptions = ({
 
   return (
     <ul className={`bool-options-class ${className}`}>
-      {boolOptions.map((object, index) => (
-        <li key={`${object.Category}-${index}`}>
+      {boolOptions.map((object, upperIndex) => (
+        <li key={`${object.Category}-${upperIndex}`}>
           <p>{object.Category}</p>
           <ul className="flex flex-wrap">
             {object.Options?.map((option, index) => (

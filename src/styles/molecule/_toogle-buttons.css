@@ -1,0 +1,21 @@
+.toogle-div {
+  max-height: 8rem;
+  overflow-y: scroll;
+}
+
+.title-button {
+  margin-bottom: 0.25rem;
+}
+
+.buttons-group {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 0.5rem;
+}
+
+@media screen and (min-width: 1280px) {
+  .toogle-div {
+    max-height: 12rem;
+    overflow-y: scroll;
+  }
+}

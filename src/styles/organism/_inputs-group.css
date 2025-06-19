@@ -13,11 +13,11 @@
 }
 
 .title-input {
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.25rem;
 }
 
 .single-input {
-  margin-bottom: 0.25em;
+  margin-bottom: 0.25rem;
 }
 
 @media screen and (min-width: 1280px) {
