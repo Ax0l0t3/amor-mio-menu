@@ -37,7 +37,7 @@ export const localJsonSerialize = (obj, modeInteger) => {
       returnObj = handleEditMode(obj);
       break;
     case 2:
-      returnObj = handleModifyMode(obj);
+      returnObj = obj;
       break;
   }
   return returnObj;

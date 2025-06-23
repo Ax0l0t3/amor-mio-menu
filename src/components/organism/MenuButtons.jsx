@@ -5,7 +5,12 @@ export const MenuButtons = ({ options = [] }) => {
   return (
     <menu className="menu-buttons">
       {options.map((object, index) => (
-        <button key={index} type={object.type} onClick={object.action}>
+        <button
+          className={object.className}
+          key={index}
+          type={object.type}
+          onClick={object.action}
+        >
           {object.label}
         </button>
       ))}

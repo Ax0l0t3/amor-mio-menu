@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
+import StringConstants from "../utils/StringConstants.json";
 
 export const SelectList = ({
   addOptionEntry = false,
@@ -12,6 +13,7 @@ export const SelectList = ({
   selectHeaderClassName = "",
   value,
 }) => {
+  const { Commons } = StringConstants;
   const [defaultSelected, setDefaultSelected] = useState(defaultValue);
   const handleChange = (e) => {
     setDefaultSelected(e.target.value);
@@ -37,7 +39,7 @@ export const SelectList = ({
             {category}
           </option>
         ))}
-        {addOptionEntry && <option value="Add">Agregar</option>}
+        {addOptionEntry && <option value={Commons.Add}>Agregar</option>}
       </select>
     </>
   );

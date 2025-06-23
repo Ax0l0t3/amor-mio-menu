@@ -2,16 +2,17 @@ import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
 
 export const InputField = ({
-  inputEnabled = true,
-  inputWidth = "w-[16%]",
-  inputLabel = "",
-  name,
-  optionalTitle,
-  titleClassName,
-  placeholder = "",
-  value = "",
   className = "",
+  inputEnabled = true,
+  inputLabel = "",
+  inputWidth = "w-[16%]",
+  labelClassName = "",
+  name,
   onChange = Function.prototype,
+  optionalTitle,
+  placeholder = "",
+  titleClassName,
+  value = "",
 }) => {
   const [inputValue, setInputValue] = useState(value);
 
@@ -25,7 +26,7 @@ export const InputField = ({
   return (
     <>
       {optionalTitle && <p className={titleClassName}>{optionalTitle}</p>}
-      <label>{inputLabel}</label>
+      <label className={labelClassName}>{inputLabel}</label>
       <input
         className={`bg-[#454a48] pl-2 ${inputWidth} mr-2 ${className}`}
         name={name}
@@ -33,7 +34,7 @@ export const InputField = ({
         placeholder={placeholder}
         value={inputValue}
         onChange={(e) => handleInputChange(e)}
-        disabled={!inputEnabled}
+        readOnly={!inputEnabled}
       />
     </>
   );

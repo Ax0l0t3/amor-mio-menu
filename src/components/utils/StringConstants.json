@@ -1,7 +1,17 @@
 {
-  "EditPortal": {
-    "Ingredients": "Ingredients",
+  "AddPortal": {
+    "Dish": "Platillo",
+    "Category": "Categoría"
+  },
+  "Commons": {
+    "Add": "Add",
     "Extras": "Extras",
+    "Ingredients": "Ingredients",
+    "Printer": "Impresora",
+    "Tab": "Pestaña",
+    "Title": "Title"
+  },
+  "EditPortal": {
     "EditModeString": "Edit Mode",
     "DeleteModeString": "Delete Mode",
     "ModifyModeString": "Modify Mode"

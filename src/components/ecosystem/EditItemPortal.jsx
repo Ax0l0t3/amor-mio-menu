@@ -11,6 +11,7 @@ import { GreenTickIcon } from "../atom/GreenTickIcon";
 
 // Molecule
 import { BoolOptions } from "../molecule/BoolOptions";
+import { ToogleButtons } from "../molecule/ToogleButtons";
 
 // Organism
 import { InputsGroup } from "../organism/InputsGroup";
@@ -20,33 +21,35 @@ import { HeaderFieldset } from "../organism/HeaderFieldset";
 // Utils
 import { DataContext } from "../utils/DataContext";
 import { localJsonSerialize } from "../utils/ObjectUtils";
+import { modifyHandler, editHandler, deleteHandler, fetchPost } from "../utils/FetchUtils";
 import StringConstants from "../utils/StringConstants.json";
 
 // Styles
 import "../../styles/organism/_edit-item-portal.css";
-import { ToogleButtons } from "../molecule/ToogleButtons";
 
 export const EditItemPortal = ({
   isVisible = false,
   closePortal = Function.prototype,
 }) => {
-  const { EditPortal } = StringConstants;
+  const { EditPortal, Commons } = StringConstants;
   const modes = [
     EditPortal.ModifyModeString,
     EditPortal.EditModeString,
     EditPortal.DeleteModeString,
   ];
 
-  const { mockObjects } = useContext(DataContext);
+  const { mockObjects, setMockObjects } = useContext(DataContext);
   const [objectsToEdit, setObjectsToEdit] = useState([]);
   const [selectedDish, setSelectedDish] = useState({});
   const [editMode, setEditMode] = useState(EditPortal.ModifyModeString);
+  const [objectScreenshot, setObjectScreenshot] = useState({});
 
   const getScreenshot = () => {
     const screenshot = {};
     const foundObject = objectsToEdit.find((object) => object.Selected);
     screenshot.Tab = foundObject.Title;
     screenshot.Dish = selectedDish.Name;
+    setObjectScreenshot(screenshot);
     setEditMode(EditPortal.EditModeString);
   };
 
@@ -57,7 +60,6 @@ export const EditItemPortal = ({
     );
     setSelectedDish(foundDish);
   };
-
   const handleTabChange = (e) => {
     const objectsToWork = [...objectsToEdit];
     objectsToWork.forEach((object) => {
@@ -85,9 +87,23 @@ export const EditItemPortal = ({
   const handleSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
+    console.log(formData);
     const currentMode = modes.findIndex((option) => option === editMode);
     const json = localJsonSerialize(formData, currentMode);
-    console.log(json);
+    let bodyObjects;
+    switch (modes.indexOf(editMode)) {
+      case 0:
+        bodyObjects = modifyHandler(json, objectsToEdit);
+        break;
+      case 1:
+        bodyObjects = editHandler(json, objectsToEdit, objectScreenshot);
+        break;
+      case 2:
+        bodyObjects = deleteHandler(json, objectsToEdit);
+        break;
+    }
+    fetchPost("http://localhost:5000/post-data-menu", { Tabs: bodyObjects });
+    setMockObjects(bodyObjects);
   };
 
   const menuButtons = [
@@ -142,14 +158,16 @@ export const EditItemPortal = ({
   ];
 
   useEffect(() => {
-    const localObjects = mockObjects.reduce((acc, obj) => {
-      acc.push({ ...obj });
-      return acc;
-    }, []);
+    const localObjects = JSON.parse(JSON.stringify(mockObjects));
     const initDish = localObjects.find(({ Selected }) => Selected).Options[0];
     setObjectsToEdit(localObjects);
     setSelectedDish(initDish);
   }, []);
+
+  useEffect(() => {
+    const localObjects = JSON.parse(JSON.stringify(mockObjects));
+    setObjectsToEdit(localObjects);
+  }, [mockObjects]);
 
   return (
     isVisible &&
@@ -157,55 +175,54 @@ export const EditItemPortal = ({
       <form className="edit-item-portal" onSubmit={(e) => handleSubmit(e)}>
         <MenuButtons options={menuButtons} />
         <HeaderFieldset
+          defaultDish={selectedDish.Name}
           scopeObjects={objectsToEdit}
           setScopeObjects={setObjectsToEdit}
           onTabChange={handleTabChange}
           onDishChange={handleDishChange}
           selectMode={editMode}
         />
-        <fieldset name={EditPortal.Ingredients}>
-          <legend>{EditPortal.Ingredients}</legend>
+        <fieldset name={Commons.Ingredients}>
+          <legend>{Commons.Ingredients}</legend>
           {editMode === EditPortal.ModifyModeString && (
             <BoolOptions
               className={`${editMode === EditPortal.DeleteModeString ? "deletable-entry" : ""}`}
               boolOptions={getIngredients()}
               selectedOptions={selectedDish.Ingredients}
               hideCheckboxes={editMode === EditPortal.DeleteModeString}
-              groupName={EditPortal.Ingredients}
+              groupName={Commons.Ingredients}
             />
           )}
           {editMode === EditPortal.EditModeString && (
             <InputsGroup
               options={getIngredients()}
-              groupName={EditPortal.Ingredients}
+              groupName={Commons.Ingredients}
+              disabledOptions={selectedDish.Ingredients}
             />
           )}
           {editMode === EditPortal.DeleteModeString && (
             <ToogleButtons
               options={getIngredients()}
-              groupName={EditPortal.Ingredients}
+              groupName={Commons.Ingredients}
             />
           )}
         </fieldset>
-        <fieldset name={EditPortal.Extras}>
-          <legend>{EditPortal.Extras}</legend>
+        <fieldset name={Commons.Extras}>
+          <legend>{Commons.Extras}</legend>
           {editMode === EditPortal.ModifyModeString && (
             <BoolOptions
               className={`${editMode === EditPortal.DeleteModeString ? "deletable-entry" : ""}`}
               boolOptions={getExtras()}
-              selectedOptions={selectedDish.Ex}
+              selectedOptions={selectedDish.Extras}
               hideCheckboxes={editMode === EditPortal.DeleteModeString}
-              groupName={EditPortal.Extras}
+              groupName={Commons.Extras}
             />
           )}
           {editMode === EditPortal.EditModeString && (
-            <InputsGroup options={getExtras()} groupName={EditPortal.Extras} />
+            <InputsGroup options={getExtras()} groupName={Commons.Extras} disabledOptions={selectedDish.Extras} />
           )}
           {editMode === EditPortal.DeleteModeString && (
-            <ToogleButtons
-              options={getExtras()}
-              groupName={EditPortal.Extras}
-            />
+            <ToogleButtons options={getExtras()} groupName={Commons.Extras} />
           )}
         </fieldset>
         {editMode !== EditPortal.DeleteModeString && (

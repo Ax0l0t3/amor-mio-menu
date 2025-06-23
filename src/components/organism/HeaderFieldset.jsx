@@ -14,17 +14,18 @@ import StringConstants from "../utils/StringConstants.json";
 
 export const HeaderFieldset = ({
   scopeObjects = [],
+  defaultDish,
   onDishChange = Function.prototype,
   onTabChange = Function.prototype,
   selectMode = StringConstants.EditPortal.ModifyModeString,
 }) => {
-  const { EditPortal } = StringConstants;
+  const { EditPortal, Commons } = StringConstants;
 
-  const [selectedDish, setSelectedDish] = useState("");
+  const [selectedDish, setSelectedDish] = useState(defaultDish);
   const [selectedPrinter, setSelectedPrinter] = useState("");
   const [localObjects, setLocalObjects] = useState(scopeObjects);
   const getTitles = () => {
-    return getArrayOfProperty(localObjects, "Title");
+    return getArrayOfProperty(localObjects, Commons.Title);
   };
   const getDishes = () => {
     const tabObject = localObjects.find(({ Selected }) => Selected);
@@ -49,18 +50,19 @@ export const HeaderFieldset = ({
   };
   useEffect(() => {
     setLocalObjects(scopeObjects);
-    setSelectedDish(
-      scopeObjects.find(({ Selected }) => Selected)?.Options[0]?.Name,
-    );
+    // setSelectedDish(
+    //   scopeObjects.find(({ Selected }) => Selected)?.Options[0]?.Name,
+    // );
     setSelectedPrinter(scopeObjects.find(({ Selected }) => Selected)?.Printer);
   }, [scopeObjects]);
+  useEffect(()=>{setSelectedDish(defaultDish)},[defaultDish]);
 
   return (
     <fieldset className="flex justify-around">
       {selectMode === EditPortal.ModifyModeString && (
         <>
           <SelectList
-            name="Title"
+            name={Commons.Title}
             selectLabel="Pestaña"
             options={getTitles()}
             onChange={(e) => handleTabChange(e)}
@@ -85,7 +87,7 @@ export const HeaderFieldset = ({
       {selectMode === EditPortal.EditModeString && (
         <>
           <InputField
-            name="Title"
+            name={Commons.Title}
             className="h-[1.6rem]"
             inputLabel="Pestaña"
             value={getSelectedTab()?.Title}
@@ -108,14 +110,14 @@ export const HeaderFieldset = ({
         <>
           <ToogleButton
             buttonLabel={getSelectedTab()?.Title}
-            buttonName="Title"
+            buttonName={Commons.Title}
             buttonTitle="Pestaña"
             className="h-[1.6rem]"
             inputValue={getSelectedTab()?.Title}
           />
           <ToogleButton
             buttonLabel={selectedDish}
-            buttonName="Options"
+            buttonName="Options.Name"
             buttonTitle="Platillo"
             className="h-[1.6rem]"
             inputValue={selectedDish}

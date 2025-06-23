@@ -4,7 +4,7 @@ import { AddSVG } from "../atom/AddIcon";
 export const AddButton = ({ onClick = Function.prototype }) => {
   return (
     <button className="h-fit" type="button" onClick={onClick}>
-      <AddSVG svgClass="m-0" />
+      <AddSVG />
     </button>
   );
 };

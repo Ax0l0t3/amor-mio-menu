@@ -30,7 +30,10 @@ export const NavBar = () => {
   const [isAboutPortal, setIsAboutPortal] = useState(false);
 
   const navBarButtons = [
-    { button: <AddSVG />, action: () => setIsAddItemPortal(true) },
+    {
+      button: <AddSVG tailwindClass="m-4" />,
+      action: () => setIsAddItemPortal(true),
+    },
     { button: <EditSVG />, action: () => setIsEditItemPortal(true) },
     { button: <PreSaveSVG />, action: () => setIsPrePrintPortal(true) },
     { button: <CustomizeSVG />, action: () => setIsCustomPortal(true) },

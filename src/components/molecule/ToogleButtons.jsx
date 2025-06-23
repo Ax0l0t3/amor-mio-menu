@@ -9,7 +9,7 @@ export const ToogleButtons = ({ options = [], groupName }) => {
         <div key={upperIndex}>
           <div className="title-button">
             <ToogleButton
-              buttonName={`${groupName}`}
+              buttonName={`${groupName}.Category`}
               inputValue={obj.Category}
               buttonLabel={obj.Category}
             />
@@ -19,7 +19,7 @@ export const ToogleButtons = ({ options = [], groupName }) => {
               <ToogleButton
                 key={innerIndex}
                 className="mb-[0.25rem]"
-                buttonName={`${groupName}.${obj.Category}`}
+                buttonName={`${groupName}.Category.${obj.Category}`}
                 inputValue={option}
                 buttonLabel={option}
               />

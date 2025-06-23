@@ -16,15 +16,17 @@ export const BoolOptions = ({
   const [checkedOptions, setCheckedOptions] = useState(selectedOptions);
 
   const onLiBoxChange = (optionName) => {
-    const foundSelected = checkedOptions.find((ing) => ing === optionName);
-    if (foundSelected) {
-      const updatedOptions = checkedOptions.filter(
-        (ing) => ing !== foundSelected,
-      );
-      setCheckedOptions(updatedOptions);
-    } else {
-      const updatedOptions = [...checkedOptions, optionName];
-      setCheckedOptions(updatedOptions);
+    if(checkedOptions){
+      const foundSelected = checkedOptions.find((ing) => ing === optionName);
+      if (foundSelected) {
+        const updatedOptions = checkedOptions.filter(
+          (ing) => ing !== foundSelected,
+        );
+        setCheckedOptions(updatedOptions);
+      } else {
+        const updatedOptions = [...checkedOptions, optionName];
+        setCheckedOptions(updatedOptions);
+      }
     }
   };
 

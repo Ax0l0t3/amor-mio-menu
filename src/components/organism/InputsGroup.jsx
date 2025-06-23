@@ -1,8 +1,11 @@
-import { InputField } from "../atom/InputField";
-import "../../styles/organism/_inputs-group.css";
 import PropTypes from "prop-types";
+// Atom
+import { InputField } from "../atom/InputField";
 
-export const InputsGroup = ({ options = [], groupName = "" }) => {
+// Styles
+import "../../styles/organism/_inputs-group.css";
+
+export const InputsGroup = ({ options = [], groupName = "", disabledOptions=[]}) => {
   return (
     <div className="fieldset-div">
       {options.map((obj, upperIndex) => (
@@ -19,6 +22,7 @@ export const InputsGroup = ({ options = [], groupName = "" }) => {
               key={innerIndex}
               value={option}
               name={`${groupName}.${upperIndex}.Options`}
+              inputEnabled={!disabledOptions.includes(option)}
             />
           ))}
         </div>

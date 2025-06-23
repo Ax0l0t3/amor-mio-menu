@@ -3,9 +3,11 @@
   overflow-y: scroll;
 }
 
-.fieldset-div input:focus {
-  background-image: linear-gradient(to right, #454a48 7%, #1f1612ff);
+.fieldset-div input:focus:not(:read-only){
+  border-right: 7px solid salmon;
+  border-radius: 1px;
   outline: none;
+  transition: all 0.15s;
 }
 
 .input-group {
@@ -18,6 +20,12 @@
 
 .single-input {
   margin-bottom: 0.25rem;
+}
+
+.single-input:read-only {
+  box-shadow: inset 4px 0px 22px #1f1612, inset -5px 0px 8px #DB3356;
+  cursor: default;
+  outline: none;
 }
 
 @media screen and (min-width: 1280px) {

@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 
 export const AddSVG = ({
-  tailwindClass = "m-4",
+  tailwindClass = "",
   svgWidth = 20,
   svgHeight = 20,
 }) => (
