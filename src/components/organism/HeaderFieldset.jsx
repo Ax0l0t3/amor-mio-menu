@@ -55,7 +55,9 @@ export const HeaderFieldset = ({
     // );
     setSelectedPrinter(scopeObjects.find(({ Selected }) => Selected)?.Printer);
   }, [scopeObjects]);
-  useEffect(()=>{setSelectedDish(defaultDish)},[defaultDish]);
+  useEffect(() => {
+    setSelectedDish(defaultDish);
+  }, [defaultDish]);
 
   return (
     <fieldset className="flex justify-around">

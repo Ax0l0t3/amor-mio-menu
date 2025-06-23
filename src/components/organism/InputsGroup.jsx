@@ -5,7 +5,11 @@ import { InputField } from "../atom/InputField";
 // Styles
 import "../../styles/organism/_inputs-group.css";
 
-export const InputsGroup = ({ options = [], groupName = "", disabledOptions=[]}) => {
+export const InputsGroup = ({
+  options = [],
+  groupName = "",
+  disabledOptions = [],
+}) => {
   return (
     <div className="fieldset-div">
       {options.map((obj, upperIndex) => (

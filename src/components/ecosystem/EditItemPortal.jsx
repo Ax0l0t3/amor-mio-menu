@@ -21,7 +21,12 @@ import { HeaderFieldset } from "../organism/HeaderFieldset";
 // Utils
 import { DataContext } from "../utils/DataContext";
 import { localJsonSerialize } from "../utils/ObjectUtils";
-import { modifyHandler, editHandler, deleteHandler, fetchPost } from "../utils/FetchUtils";
+import {
+  modifyHandler,
+  editHandler,
+  deleteHandler,
+  fetchPost,
+} from "../utils/FetchUtils";
 import StringConstants from "../utils/StringConstants.json";
 
 // Styles
@@ -219,7 +224,11 @@ export const EditItemPortal = ({
             />
           )}
           {editMode === EditPortal.EditModeString && (
-            <InputsGroup options={getExtras()} groupName={Commons.Extras} disabledOptions={selectedDish.Extras} />
+            <InputsGroup
+              options={getExtras()}
+              groupName={Commons.Extras}
+              disabledOptions={selectedDish.Extras}
+            />
           )}
           {editMode === EditPortal.DeleteModeString && (
             <ToogleButtons options={getExtras()} groupName={Commons.Extras} />

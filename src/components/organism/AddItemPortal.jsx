@@ -116,17 +116,20 @@ export const AddItemPortal = ({
       setSelectedPrinter(found.Printer);
       setIngredientCategory(found.Ingredients[0].Category);
     } else {
-      let tabs = scopeObjects.map(obj => {
-        return {...obj, Selected: false};
+      let tabs = scopeObjects.map((obj) => {
+        return { ...obj, Selected: false };
       });
-      tabs = [...tabs, {
-        Title: "",
-        Extras: [{}],
-        Ingredients: [{}],
-        Printer: "",
-        Options: [],
-        Selected: true
-      }];
+      tabs = [
+        ...tabs,
+        {
+          Title: "",
+          Extras: [{}],
+          Ingredients: [{}],
+          Printer: "",
+          Options: [],
+          Selected: true,
+        },
+      ];
       setScopeObjects(tabs);
       setIsAddIngredientCategory(true);
       setIsAddExtraCategory(true);
@@ -136,12 +139,19 @@ export const AddItemPortal = ({
   const handleAddItem = (propertyName, category, newOption, isAdd) => {
     const foundTabIndex = scopeObjects.findIndex(({ Selected }) => Selected);
     let foundTabObj = getSelectedTab();
-    if(!foundTabObj){
-      const newObjs = [...scopeObjects, {Title: "", [propertyName]: [{Category: category, Options: [newOption]}], Selected: true}];
+    if (!foundTabObj) {
+      const newObjs = [
+        ...scopeObjects,
+        {
+          Title: "",
+          [propertyName]: [{ Category: category, Options: [newOption] }],
+          Selected: true,
+        },
+      ];
       setScopeObjects(newObjs);
       isAdd(false);
       return;
-    };
+    }
     let foundCategoryObj = foundTabObj[propertyName]?.find(
       (obj) => obj.Category === category,
     );
@@ -172,31 +182,44 @@ export const AddItemPortal = ({
     });
     setScopeObjects(newObjs);
   };
-  const handleClosePortal = e => {
+  const handleClosePortal = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
     const dataJson = localJsonSerialize(formData, 0);
     const foundTabIndex = scopeObjects.findIndex(
-      (object) => object.Title === dataJson.Title
+      (object) => object.Title === dataJson.Title,
     );
-    if(foundTabIndex >= 0){
-      scopeObjects[foundTabIndex].Options = [...scopeObjects[foundTabIndex].Options, {
-        Name: dataJson.Name,
-        Comments: dataJson.Comments,
-        Extras: Array.isArray(dataJson.Extras) ? dataJson.Extras : [dataJson.Extras] ,
-        Ingredients: Array.isArray(dataJson.Ingredients) ? dataJson.Ingredients : [dataJson.Ingredients]
-      }];
-    }else{
+    if (foundTabIndex >= 0) {
+      scopeObjects[foundTabIndex].Options = [
+        ...scopeObjects[foundTabIndex].Options,
+        {
+          Name: dataJson.Name,
+          Comments: dataJson.Comments,
+          Extras: Array.isArray(dataJson.Extras)
+            ? dataJson.Extras
+            : [dataJson.Extras],
+          Ingredients: Array.isArray(dataJson.Ingredients)
+            ? dataJson.Ingredients
+            : [dataJson.Ingredients],
+        },
+      ];
+    } else {
       scopeObjects[scopeObjects.length - 1].Title = dataJson.Title;
       scopeObjects[scopeObjects.length - 1].Printer = dataJson.Printer;
       scopeObjects[scopeObjects.length - 1].Selected = false;
-      scopeObjects[scopeObjects.length - 1].Options = [{
-        Name: dataJson.Name,
-        Comments: dataJson.Comments,
-        Extras: Array.isArray(dataJson.Extras) ? dataJson.Extras : [dataJson.Extras] ,
-        Ingredients: Array.isArray(dataJson.Ingredients) ? dataJson.Ingredients : [dataJson.Ingredients]
-      }];
-    };
+      scopeObjects[scopeObjects.length - 1].Options = [
+        {
+          Name: dataJson.Name,
+          Comments: dataJson.Comments,
+          Extras: Array.isArray(dataJson.Extras)
+            ? dataJson.Extras
+            : [dataJson.Extras],
+          Ingredients: Array.isArray(dataJson.Ingredients)
+            ? dataJson.Ingredients
+            : [dataJson.Ingredients],
+        },
+      ];
+    }
     fetchPost("http://localhost:5000/post-data-menu", { Tabs: scopeObjects });
     setMockObjects(scopeObjects);
     closePortal();
@@ -205,18 +228,18 @@ export const AddItemPortal = ({
   useEffect(() => {
     const localObjects = JSON.parse(JSON.stringify(mockObjects));
     setScopeObjects(localObjects);
-    const tab = localObjects.find(({Selected})=> Selected);
-    if(tab){
+    const tab = localObjects.find(({ Selected }) => Selected);
+    if (tab) {
       setSelectedPrinter(tab.Printer);
       setIngredientCategory(tab.Ingredients[0].Category);
       setExtraCategory(tab.Extras[0].Category);
-    };
+    }
   }, []);
 
   return (
     isVisible &&
     createPortal(
-      <form className="add-item-portal" onSubmit={e => handleClosePortal(e)}>
+      <form className="add-item-portal" onSubmit={(e) => handleClosePortal(e)}>
         <MenuButtons options={headerButtons} />
         <div className="flex justify-between max-h-12">
           {isAddTab ? (
@@ -270,9 +293,7 @@ export const AddItemPortal = ({
             ) : (
               <SelectList
                 addOptionEntry
-                onChange={(e) =>
-                  ingredientCategoryChange(e.target.value)
-                }
+                onChange={(e) => ingredientCategoryChange(e.target.value)}
                 options={getArrayOfProperty(getIngredients(), "Category")}
                 selectLabel={AddPortal.Category}
                 selectHeaderClassName="mr-2"
@@ -290,11 +311,19 @@ export const AddItemPortal = ({
             />
             <AddButton
               onClick={() =>
-                handleAddItem("Ingredients", ingredientCategory, newIngredient, setIsAddIngredientCategory)
+                handleAddItem(
+                  "Ingredients",
+                  ingredientCategory,
+                  newIngredient,
+                  setIsAddIngredientCategory,
+                )
               }
             />
           </div>
-          <BoolOptions boolOptions={getIngredients()} groupName={Commons.Ingredients}/>
+          <BoolOptions
+            boolOptions={getIngredients()}
+            groupName={Commons.Ingredients}
+          />
         </fieldset>
         <fieldset>
           <legend>Extras</legend>
@@ -325,17 +354,24 @@ export const AddItemPortal = ({
               value={newExtra}
             />
             <AddButton
-              onClick={() => handleAddItem("Extras", extraCategory, newExtra, setIsAddExtraCategory)}
+              onClick={() =>
+                handleAddItem(
+                  "Extras",
+                  extraCategory,
+                  newExtra,
+                  setIsAddExtraCategory,
+                )
+              }
             />
           </div>
-          <BoolOptions boolOptions={getExtras()} groupName={Commons.Extras}/>
+          <BoolOptions boolOptions={getExtras()} groupName={Commons.Extras} />
         </fieldset>
-          <InputField
-            inputWidth="w-full"
-            name="Comments"
-            inputLabel="Comentarios"
-            placeholder="Nuevo Comentario"
-          />
+        <InputField
+          inputWidth="w-full"
+          name="Comments"
+          inputLabel="Comentarios"
+          placeholder="Nuevo Comentario"
+        />
       </form>,
       document.getElementById("root"),
     )
