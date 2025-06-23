@@ -37,8 +37,10 @@ export const ProcessPortal = ({
 
   const placeholderConstant = `Orden-${ordersContext.length + 1}`;
 
-  const updateLocalOption = (eValue, objProp) => {
-    setLocalOption(updateLocalObject(eValue, objProp, localOption));
+  const updateLocalOption = (eValue, objProp = "Comments") => {
+    setLocalOption(
+      updateLocalObject(eValue.target.value, objProp, localOption),
+    );
   };
 
   const setDefaultExpanded = (object) => {
@@ -158,12 +160,11 @@ export const ProcessPortal = ({
           {selectedSection === "Comments" && (
             <div className="flex flex-col">
               <InputField
-                name="commentsField"
-                placeholder="Agregar Comentario"
                 inputWidth="w-full"
+                name="commentsField"
+                onChange={updateLocalOption}
+                placeholder="Agregar Comentario"
                 value={localOption.Comments}
-                setInputValue={updateLocalOption}
-                objectProperty="Comments"
               />
               <CounterDiv
                 defaultValue={1}
@@ -182,12 +183,12 @@ export const ProcessPortal = ({
                     <span>Orden</span>
                   </label>
                   <InputField
-                    name="commentsField"
-                    placeholder={placeholderConstant}
-                    inputWidth="w-full"
-                    value={newOrderField}
-                    setInputValue={setNewOrderField}
                     inputEnabled={newOrderEnabled}
+                    inputWidth="w-full"
+                    name="commentsField"
+                    onChange={(e) => setNewOrderField(e.target.value)}
+                    placeholder={placeholderConstant}
+                    value={newOrderField}
                   />
                 </div>
                 {ordersContext.map((order, index) => (

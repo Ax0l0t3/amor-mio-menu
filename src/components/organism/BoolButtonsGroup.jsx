@@ -39,6 +39,7 @@ export const BoolButtonsGroup = ({
       const includesOption = thisCoreObject[property].includes(option);
       return (
         <LiCheckbox
+          id={option}
           key={`${option}-${index}`}
           name={option}
           checked={includesOption}
