@@ -92,7 +92,6 @@ export const EditItemPortal = ({
   const handleSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
-    console.log(formData);
     const currentMode = modes.findIndex((option) => option === editMode);
     const json = localJsonSerialize(formData, currentMode);
     let bodyObjects;

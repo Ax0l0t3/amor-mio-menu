@@ -36,6 +36,7 @@ export const InputsGroup = ({
 };
 
 InputsGroup.propTypes = {
-  options: PropTypes.array,
+  disabledOptions: PropTypes.string,
   groupName: PropTypes.string,
+  options: PropTypes.array,
 };

@@ -190,19 +190,21 @@ export const AddItemPortal = ({
       (object) => object.Title === dataJson.Title,
     );
     if (foundTabIndex >= 0) {
-      scopeObjects[foundTabIndex].Options = [
-        ...scopeObjects[foundTabIndex].Options,
-        {
-          Name: dataJson.Name,
-          Comments: dataJson.Comments,
-          Extras: Array.isArray(dataJson.Extras)
-            ? dataJson.Extras
-            : [dataJson.Extras],
-          Ingredients: Array.isArray(dataJson.Ingredients)
-            ? dataJson.Ingredients
-            : [dataJson.Ingredients],
-        },
-      ];
+      if (dataJson.Name) {
+        scopeObjects[foundTabIndex].Options = [
+          ...scopeObjects[foundTabIndex].Options,
+          {
+            Name: dataJson.Name,
+            Comments: dataJson.Comments,
+            Extras: Array.isArray(dataJson.Extras)
+              ? dataJson.Extras
+              : [dataJson.Extras],
+            Ingredients: Array.isArray(dataJson.Ingredients)
+              ? dataJson.Ingredients
+              : [dataJson.Ingredients],
+          },
+        ];
+      }
     } else {
       scopeObjects[scopeObjects.length - 1].Title = dataJson.Title;
       scopeObjects[scopeObjects.length - 1].Printer = dataJson.Printer;

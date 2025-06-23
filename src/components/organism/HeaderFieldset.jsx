@@ -24,6 +24,7 @@ export const HeaderFieldset = ({
   const [selectedDish, setSelectedDish] = useState(defaultDish);
   const [selectedPrinter, setSelectedPrinter] = useState("");
   const [localObjects, setLocalObjects] = useState(scopeObjects);
+
   const getTitles = () => {
     return getArrayOfProperty(localObjects, Commons.Title);
   };
@@ -38,6 +39,7 @@ export const HeaderFieldset = ({
   const getSelectedTab = () => {
     return localObjects.find(({ Selected }) => Selected);
   };
+
   const handleTabChange = (e) => {
     onTabChange(e);
   };
@@ -48,11 +50,9 @@ export const HeaderFieldset = ({
   const handlePrinterChange = (e) => {
     setSelectedPrinter(e.target.value);
   };
+
   useEffect(() => {
     setLocalObjects(scopeObjects);
-    // setSelectedDish(
-    //   scopeObjects.find(({ Selected }) => Selected)?.Options[0]?.Name,
-    // );
     setSelectedPrinter(scopeObjects.find(({ Selected }) => Selected)?.Printer);
   }, [scopeObjects]);
   useEffect(() => {
@@ -138,6 +138,7 @@ export const HeaderFieldset = ({
 };
 
 HeaderFieldset.propTypes = {
+  defaultDish: PropTypes.string,
   scopeObjects: PropTypes.array,
   onDishChange: PropTypes.func,
   onTabChange: PropTypes.func,

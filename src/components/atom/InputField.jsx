@@ -45,6 +45,7 @@ InputField.propTypes = {
   inputEnabled: PropTypes.bool,
   inputLabel: PropTypes.string,
   inputWidth: PropTypes.string,
+  labelClassName: PropTypes.string,
   name: PropTypes.string,
   optionalTitle: PropTypes.string,
   onChange: PropTypes.func,
