@@ -74,13 +74,17 @@ export const ProcessPortal = ({
     const objectToAdd = convertToPrePrintObject(localOption);
     // ...
     let indexes = [];
-    catToGo.forEach( cat => {
-      const index = localTab.Ingredients.findIndex( obj => obj.Category === cat);
-      if(index >= 0) indexes.push(index);
+    catToGo.forEach((cat) => {
+      const index = localTab.Ingredients.findIndex(
+        (obj) => obj.Category === cat,
+      );
+      if (index >= 0) indexes.push(index);
     });
-    const modifiedIngredients = objectToAdd.Ingredients.map( str => {
-      const foundStr = indexes.find( i => localTab.Ingredients[i].Options.includes(str));
-      if(foundStr) return `(${str})`;
+    const modifiedIngredients = objectToAdd.Ingredients.map((str) => {
+      const foundStr = indexes.find((i) =>
+        localTab.Ingredients[i].Options.includes(str),
+      );
+      if (foundStr) return `(${str})`;
       return str;
     });
     // ...

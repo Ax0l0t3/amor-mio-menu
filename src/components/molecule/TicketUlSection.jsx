@@ -9,9 +9,9 @@ export const TicketUlSection = ({
   wrappedCategories,
 }) => {
   const [ulElements, setUlElements] = useState([]);
-  const [selectedCategories, setSelectedCategories] = useState(wrappedCategories);
+  const [selectedCategories, setSelectedCategories] =
+    useState(wrappedCategories);
   useEffect(() => {
-    console.log("parent && objectOptionsChange");
     const returnElements = parentOptions.map((object) => {
       let thisArr = [];
       objectOptions.forEach((element) => {
@@ -20,17 +20,18 @@ export const TicketUlSection = ({
       return {
         category: object.Category,
         selectedOptions: thisArr,
-        isWrapped: wrappedCategories ? selectedCategories.includes(object.Category) : false,
+        isWrapped: wrappedCategories
+          ? selectedCategories.includes(object.Category)
+          : false,
       };
     });
     setUlElements(returnElements);
   }, [parentOptions, objectOptions, selectedCategories]);
-  useEffect(()=>{
-    if(wrappedCategories){
-      console.log("wrappedCategories Change", wrappedCategories);
-      setSelectedCategories(wrappedCategories)
+  useEffect(() => {
+    if (wrappedCategories) {
+      setSelectedCategories(wrappedCategories);
     }
-  },[wrappedCategories]);
+  }, [wrappedCategories]);
   return (
     <>
       <br />

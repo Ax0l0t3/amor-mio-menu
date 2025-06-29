@@ -5,6 +5,8 @@
   align-items: center;
   margin-right: 0.5rem;
   padding: 0 0.5rem;
+  overflow-x: clip;
+  text-wrap: nowrap;
 }
 .toogle-button.clicked {
   background-image: linear-gradient(to right, #454a48, #d5b639ff);

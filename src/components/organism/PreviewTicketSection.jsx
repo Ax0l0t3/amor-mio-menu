@@ -42,5 +42,5 @@ export const PreviewTicketSection = ({
 PreviewTicketSection.propTypes = {
   parentObject: PropTypes.object,
   selectedObject: PropTypes.object,
-  wrappedCategories: PropTypes.arrayOf(PropTypes.string)
+  wrappedCategories: PropTypes.arrayOf(PropTypes.string),
 };

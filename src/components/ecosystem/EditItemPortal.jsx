@@ -2,12 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 
 // Atom
-import { EditSVG } from "../atom/EditIcon";
-import { ImageIcon } from "../atom/ImageIcon";
 import { InputField } from "../atom/InputField";
-import { RemoveSVG } from "../atom/RemoveIcon";
-import { ExitPrintSVG } from "../atom/ExitPrintIcon";
-import { GreenTickIcon } from "../atom/GreenTickIcon";
 
 // Molecule
 import { BoolOptions } from "../molecule/BoolOptions";
@@ -108,56 +103,43 @@ export const EditItemPortal = ({
     }
     fetchPost("http://localhost:5000/post-data-menu", { Tabs: bodyObjects });
     setMockObjects(bodyObjects);
+    if (json.entries().find(([key]) => key === "Options.Name")) {
+      const initDish = bodyObjects.find(({ Selected }) => Selected).Options[0];
+      setSelectedDish(initDish);
+    }
   };
 
   const menuButtons = [
     {
-      label: <GreenTickIcon svgWidth={48} svgHeight={48} />,
+      className: "bg-[#828d51ff]",
+      label: "Guardar",
       type: "submit",
     },
     {
-      label: (
-        <ImageIcon
-          tailwindClass={
-            editMode !== EditPortal.ModifyModeString ? "icon-disabled" : ""
-          }
-          svgWidth={48}
-          svgHeight={48}
-        />
-      ),
+      className:
+        editMode === EditPortal.ModifyModeString ? "bg-[#a5860fff]" : "",
+      label: "Modificar",
       type: "button",
       action: () => setEditMode(EditPortal.ModifyModeString),
     },
     {
-      label: (
-        <EditSVG
-          tailwindClass={
-            editMode !== EditPortal.EditModeString ? "icon-disabled" : ""
-          }
-          svgWidth={48}
-          svgHeight={48}
-        />
-      ),
+      className: editMode === EditPortal.EditModeString ? "bg-[#a5860fff]" : "",
+      label: "Editar",
       type: "button",
       action: getScreenshot,
     },
     {
-      label: (
-        <RemoveSVG
-          tailwindClass={
-            editMode !== EditPortal.DeleteModeString ? "icon-disabled" : ""
-          }
-          svgWidth={48}
-          svgHeight={48}
-        />
-      ),
+      className:
+        editMode === EditPortal.DeleteModeString ? "bg-[#a5860fff]" : "",
+      label: "Eliminar",
       type: "button",
       action: () => setEditMode(EditPortal.DeleteModeString),
     },
     {
-      label: <ExitPrintSVG svgHeight={48} svgWidth={48} />,
-      type: "button",
       action: closePortal,
+      className: "bg-[#DB3356]",
+      label: "Cancelar",
+      type: "button",
     },
   ];
 

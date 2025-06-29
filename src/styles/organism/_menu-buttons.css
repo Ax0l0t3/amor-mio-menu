@@ -12,7 +12,6 @@
     inset 2px 0px 5px #1f1612,
     inset -2px 0px 5px #1f1612,
     inset 0px -7px 10px #434945;
-  transition: all 0.2s;
 }
 
 .menu-buttons button:hover {
