@@ -14,7 +14,11 @@ export const PrePrintCard = ({
     <div className="flex h-[4.5rem]" style={style}>
       <div className="bg-black flex justify-center items-center rounded-l-lg">
         <button onClick={closeAction}>
-          <AddSVG svgClass={"m-2 rotate-45"} svgHeight={14} svgWidth={14} />
+          <AddSVG
+            tailwindClass={"m-2 rotate-45"}
+            svgHeight={14}
+            svgWidth={14}
+          />
         </button>
       </div>
       <div className="card-label">

@@ -1,17 +1,24 @@
+import PropTypes from "prop-types";
 import { useState } from "react";
 import "../../styles/atom/_toogle-button.css";
-import PropTypes from "prop-types";
 
 export const ToogleButton = ({
   buttonName,
   buttonLabel,
   buttonTitle,
   className = "",
+  defaultState = false,
   inputValue,
+  onClick = Function.prototype,
+  onChange = Function.prototype,
 }) => {
-  const [latched, setLatched] = useState(false);
+  const [latched, setLatched] = useState(defaultState);
   const handleClick = (e) => {
     setLatched(e.target.checked);
+    onClick();
+  };
+  const handleChange = () => {
+    onChange();
   };
   return (
     <>
@@ -25,6 +32,8 @@ export const ToogleButton = ({
           type="checkbox"
           onClick={handleClick}
           value={inputValue}
+          checked={defaultState}
+          onChange={handleChange}
         />
       </label>
     </>
@@ -36,5 +45,8 @@ ToogleButton.propTypes = {
   buttonLabel: PropTypes.string,
   buttonTitle: PropTypes.string,
   className: PropTypes.string,
+  defaultState: PropTypes.bool,
   inputValue: PropTypes.string,
+  onClick: PropTypes.func,
+  onChange: PropTypes.func
 };

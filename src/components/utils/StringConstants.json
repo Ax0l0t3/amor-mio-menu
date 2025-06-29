@@ -15,5 +15,10 @@
     "EditModeString": "Edit Mode",
     "DeleteModeString": "Delete Mode",
     "ModifyModeString": "Modify Mode"
+  },
+  "PrintPortal": {
+    "Comments": "Comentarios",
+    "Ingredients": "Ingredientes",
+    "Name": "Nombre"
   }
 }

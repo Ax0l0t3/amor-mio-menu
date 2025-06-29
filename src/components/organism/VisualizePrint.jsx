@@ -72,7 +72,7 @@ export const VisualizePrint = ({
         return (
           <div key={index}>
             <h6>
-              {order} {groupOrderMessage(order)}
+              Orden para: {order} {groupOrderMessage(order)}
             </h6>
             <TicketMessages dishes={workingDishes} />
             <hr className="mt-2" />

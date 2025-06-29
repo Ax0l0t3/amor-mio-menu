@@ -289,6 +289,7 @@ export const AddItemPortal = ({
             {isAddIngredientCategory ? (
               <InputField
                 inputLabel={AddPortal.Category}
+                labelClassName="mr-2"
                 placeholder="Nueva Categoria"
                 onChange={newIngCategoryChange}
               />

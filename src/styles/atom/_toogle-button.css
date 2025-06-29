@@ -7,7 +7,7 @@
   padding: 0 0.5rem;
 }
 .toogle-button.clicked {
-  background-image: linear-gradient(to right, #454a48, salmon);
+  background-image: linear-gradient(to right, #454a48, #d5b639ff);
 }
 
 .toogle-button input {
