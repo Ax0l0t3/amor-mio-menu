@@ -1,0 +1,17 @@
+.header-radio-buttons {
+  display: flex;
+  justify-content: space-around;
+  width: 16%;
+}
+
+.header-radio-buttons label {
+  display: flex;
+}
+
+.header-radio-buttons input {
+  appearance: none;
+}
+
+.mode-unselected svg path {
+  fill: #333333;
+}

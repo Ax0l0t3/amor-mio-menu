@@ -2,52 +2,75 @@ import { useContext, useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 
 // Atom
-import { EditSVG } from "../atom/EditIcon";
-import { ExitPrintSVG } from "../atom/ExitPrintIcon";
 import { InputField } from "../atom/InputField";
-import { RemoveSVG } from "../atom/RemoveIcon";
 
 // Molecule
 import { BoolOptions } from "../molecule/BoolOptions";
+import { ToogleButtons } from "../molecule/ToogleButtons";
 
 // Organism
-import { PortalHeaderSection } from "../organism/PortalHeaderSection";
+import { InputsGroup } from "../organism/InputsGroup";
+import { MenuButtons } from "../organism/MenuButtons";
+import { HeaderFieldset } from "../organism/HeaderFieldset";
 
 // Utils
 import { DataContext } from "../utils/DataContext";
+import { localJsonSerialize } from "../utils/ObjectUtils";
+import {
+  modifyHandler,
+  editHandler,
+  deleteHandler,
+  fetchPost,
+} from "../utils/FetchUtils";
+import StringConstants from "../utils/StringConstants.json";
 
 // Styles
-import "../../styles/organism/_add-item-portal.css";
+import "../../styles/organism/_edit-item-portal.css";
 
 export const EditItemPortal = ({
   isVisible = false,
   closePortal = Function.prototype,
 }) => {
-  const { mockObjects } = useContext(DataContext);
+  const { EditPortal, Commons } = StringConstants;
+  const modes = [
+    EditPortal.ModifyModeString,
+    EditPortal.EditModeString,
+    EditPortal.DeleteModeString,
+  ];
+
+  const { mockObjects, setMockObjects } = useContext(DataContext);
   const [objectsToEdit, setObjectsToEdit] = useState([]);
   const [selectedDish, setSelectedDish] = useState({});
+  const [editMode, setEditMode] = useState(EditPortal.ModifyModeString);
+  const [objectScreenshot, setObjectScreenshot] = useState({});
 
-  const iconButtonsArray = [
-    {
-      svg: <EditSVG tailwindClass="" svgWidth={48} svgHeight={48} />,
-      action: () => console.log("Edit Mode"),
-    },
-    {
-      svg: <RemoveSVG tailwindClass="" svgWidth={48} svgHeight={48} />,
-      action: () => console.log("Delete Mode"),
-    },
-    {
-      svg: <ExitPrintSVG svgWidth={48} svgHeight={48} />,
-      action: closePortal,
-    },
-  ];
+  const getScreenshot = () => {
+    const screenshot = {};
+    const foundObject = objectsToEdit.find((object) => object.Selected);
+    screenshot.Tab = foundObject.Title;
+    screenshot.Dish = selectedDish.Name;
+    setObjectScreenshot(screenshot);
+    setEditMode(EditPortal.EditModeString);
+  };
 
-  const textButtonsArray = [
-    {
-      label: "Guardar",
-      action: () => console.log("Guardando..."),
-    },
-  ];
+  const handleDishChange = (e) => {
+    const foundObject = objectsToEdit.find(({ Selected }) => Selected);
+    const foundDish = foundObject.Options.find(
+      ({ Name }) => Name === e.target.value,
+    );
+    setSelectedDish(foundDish);
+  };
+  const handleTabChange = (e) => {
+    const objectsToWork = [...objectsToEdit];
+    objectsToWork.forEach((object) => {
+      if (object.Title === e.target.value) object.Selected = true;
+      else object.Selected = false;
+    });
+    const selectedTab = objectsToWork.find(({ Selected }) => Selected);
+    const defaultDish = selectedTab.Options[0];
+    setObjectsToEdit(objectsToWork);
+    setSelectedDish(defaultDish);
+  };
 
   const getIngredients = () => {
     const foundObject = objectsToEdit.find((object) => object.Selected);
@@ -61,50 +84,148 @@ export const EditItemPortal = ({
     return foundObject.Extras;
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const currentMode = modes.findIndex((option) => option === editMode);
+    const json = localJsonSerialize(formData, currentMode);
+    let bodyObjects;
+    switch (modes.indexOf(editMode)) {
+      case 0:
+        bodyObjects = modifyHandler(json, objectsToEdit);
+        break;
+      case 1:
+        bodyObjects = editHandler(json, objectsToEdit, objectScreenshot);
+        break;
+      case 2:
+        bodyObjects = deleteHandler(json, objectsToEdit);
+        break;
+    }
+    fetchPost("http://localhost:5000/post-data-menu", { Tabs: bodyObjects });
+    setMockObjects(bodyObjects);
+    if (json.entries().find(([key]) => key === "Options.Name")) {
+      const initDish = bodyObjects.find(({ Selected }) => Selected).Options[0];
+      setSelectedDish(initDish);
+    }
+  };
+
+  const menuButtons = [
+    {
+      className: "bg-[#828d51ff]",
+      label: "Guardar",
+      type: "submit",
+    },
+    {
+      className:
+        editMode === EditPortal.ModifyModeString ? "bg-[#a5860fff]" : "",
+      label: "Modificar",
+      type: "button",
+      action: () => setEditMode(EditPortal.ModifyModeString),
+    },
+    {
+      className: editMode === EditPortal.EditModeString ? "bg-[#a5860fff]" : "",
+      label: "Editar",
+      type: "button",
+      action: getScreenshot,
+    },
+    {
+      className:
+        editMode === EditPortal.DeleteModeString ? "bg-[#a5860fff]" : "",
+      label: "Eliminar",
+      type: "button",
+      action: () => setEditMode(EditPortal.DeleteModeString),
+    },
+    {
+      action: closePortal,
+      className: "bg-[#DB3356]",
+      label: "Cancelar",
+      type: "button",
+    },
+  ];
+
   useEffect(() => {
-    const localObjects = mockObjects.reduce((acc, obj) => {
-      acc.push({ ...obj });
-      return acc;
-    }, []);
-    localObjects.forEach((object) => (object.Selected = false));
+    const localObjects = JSON.parse(JSON.stringify(mockObjects));
+    const initDish = localObjects.find(({ Selected }) => Selected).Options[0];
     setObjectsToEdit(localObjects);
+    setSelectedDish(initDish);
   }, []);
+
+  useEffect(() => {
+    const localObjects = JSON.parse(JSON.stringify(mockObjects));
+    setObjectsToEdit(localObjects);
+  }, [mockObjects]);
 
   return (
     isVisible &&
     createPortal(
-      <form className="add-item-portal">
-        <PortalHeaderSection
-          iconButtons={iconButtonsArray}
-          workingOptions={objectsToEdit}
-          setSelectedDish={setSelectedDish}
-          setWorkingOptions={setObjectsToEdit}
-          textButtons={textButtonsArray}
+      <form className="edit-item-portal" onSubmit={(e) => handleSubmit(e)}>
+        <MenuButtons options={menuButtons} />
+        <HeaderFieldset
+          defaultDish={selectedDish.Name}
+          scopeObjects={objectsToEdit}
+          setScopeObjects={setObjectsToEdit}
+          onTabChange={handleTabChange}
+          onDishChange={handleDishChange}
+          selectMode={editMode}
         />
-        <div>
-          <p>Ingredientes</p>
-          <BoolOptions
-            boolOptions={getIngredients()}
-            selectedOptions={selectedDish.Ingredients}
-          />
-        </div>
-        <div>
-          <p>Extras</p>
-          <BoolOptions
-            boolOptions={getExtras()}
-            selectedOptions={selectedDish.Extras}
-          />
-        </div>
-        <div>
-          <p>Comentarios</p>
-          <InputField
-            name="commentsField"
-            placeholder="Agregar Comentario"
-            inputWidth="w-full"
-            value={selectedDish.Comments}
-            objectProperty="Comments"
-          />
-        </div>
+        <fieldset name={Commons.Ingredients}>
+          <legend>{Commons.Ingredients}</legend>
+          {editMode === EditPortal.ModifyModeString && (
+            <BoolOptions
+              className={`${editMode === EditPortal.DeleteModeString ? "deletable-entry" : ""}`}
+              boolOptions={getIngredients()}
+              selectedOptions={selectedDish.Ingredients}
+              hideCheckboxes={editMode === EditPortal.DeleteModeString}
+              groupName={Commons.Ingredients}
+            />
+          )}
+          {editMode === EditPortal.EditModeString && (
+            <InputsGroup
+              options={getIngredients()}
+              groupName={Commons.Ingredients}
+              disabledOptions={selectedDish.Ingredients}
+            />
+          )}
+          {editMode === EditPortal.DeleteModeString && (
+            <ToogleButtons
+              options={getIngredients()}
+              groupName={Commons.Ingredients}
+            />
+          )}
+        </fieldset>
+        <fieldset name={Commons.Extras}>
+          <legend>{Commons.Extras}</legend>
+          {editMode === EditPortal.ModifyModeString && (
+            <BoolOptions
+              className={`${editMode === EditPortal.DeleteModeString ? "deletable-entry" : ""}`}
+              boolOptions={getExtras()}
+              selectedOptions={selectedDish.Extras}
+              hideCheckboxes={editMode === EditPortal.DeleteModeString}
+              groupName={Commons.Extras}
+            />
+          )}
+          {editMode === EditPortal.EditModeString && (
+            <InputsGroup
+              options={getExtras()}
+              groupName={Commons.Extras}
+              disabledOptions={selectedDish.Extras}
+            />
+          )}
+          {editMode === EditPortal.DeleteModeString && (
+            <ToogleButtons options={getExtras()} groupName={Commons.Extras} />
+          )}
+        </fieldset>
+        {editMode !== EditPortal.DeleteModeString && (
+          <div className="ml-2">
+            <p>Comentarios</p>
+            <InputField
+              name="Comments"
+              placeholder="Agregar Comentario"
+              inputWidth="w-full"
+              value={selectedDish.Comments}
+            />
+          </div>
+        )}
       </form>,
       document.getElementById("root"),
     )

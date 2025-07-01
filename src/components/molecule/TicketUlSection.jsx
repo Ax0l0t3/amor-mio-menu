@@ -6,18 +6,32 @@ export const TicketUlSection = ({
   parentOptions,
   objectOptions,
   sectionHeader = "",
+  wrappedCategories,
 }) => {
   const [ulElements, setUlElements] = useState([]);
+  const [selectedCategories, setSelectedCategories] =
+    useState(wrappedCategories);
   useEffect(() => {
     const returnElements = parentOptions.map((object) => {
       let thisArr = [];
       objectOptions.forEach((element) => {
         if (object.Options.includes(element)) thisArr.push(element);
       });
-      return { category: object.Category, selectedOptions: thisArr };
+      return {
+        category: object.Category,
+        selectedOptions: thisArr,
+        isWrapped: wrappedCategories
+          ? selectedCategories.includes(object.Category)
+          : false,
+      };
     });
     setUlElements(returnElements);
-  }, [parentOptions, objectOptions]);
+  }, [parentOptions, objectOptions, selectedCategories]);
+  useEffect(() => {
+    if (wrappedCategories) {
+      setSelectedCategories(wrappedCategories);
+    }
+  }, [wrappedCategories]);
   return (
     <>
       <br />
@@ -28,6 +42,7 @@ export const TicketUlSection = ({
             <LiObjectElement
               key={`${objectElement}-${index}`}
               liObject={objectElement}
+              isWrapped={objectElement.isWrapped}
             />
           ))}
         </ul>
@@ -40,4 +55,5 @@ TicketUlSection.propTypes = {
   parentOptions: PropTypes.arrayOf(PropTypes.object),
   objectOptions: PropTypes.arrayOf(PropTypes.string),
   sectionHeader: PropTypes.string,
+  wrappedCategories: PropTypes.arrayOf(PropTypes.string),
 };

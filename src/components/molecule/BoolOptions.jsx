@@ -4,41 +4,52 @@ import PropTypes from "prop-types";
 import { LiCheckbox } from "../atom/LiCheckbox";
 
 import "../../styles/molecule/_bool-options.css";
+import { useEffect, useState } from "react";
 
 export const BoolOptions = ({
   boolOptions = [],
-  selectedOptions = [],
-  setSelectedOptions = Function.prototype,
-  objectPropertyName,
+  selectedOptions,
+  className = "",
+  hideCheckboxes = false,
+  groupName,
 }) => {
-  const handleSelectedChange = (extraName, isChecked) => {
-    const isInArray = selectedOptions.includes(extraName);
-    if (isChecked) {
-      if (!isInArray) {
-        setSelectedOptions([...selectedOptions, extraName], objectPropertyName);
-      }
-    } else {
-      if (isInArray) {
-        const updatedExtras = selectedOptions.filter(
-          (option) => option != extraName,
+  const [checkedOptions, setCheckedOptions] = useState(selectedOptions);
+
+  const onLiBoxChange = (optionName) => {
+    if (checkedOptions) {
+      const foundSelected = checkedOptions.find((ing) => ing === optionName);
+      if (foundSelected) {
+        const updatedOptions = checkedOptions.filter(
+          (ing) => ing !== foundSelected,
         );
-        setSelectedOptions(updatedExtras, objectPropertyName);
+        setCheckedOptions(updatedOptions);
+      } else {
+        const updatedOptions = [...checkedOptions, optionName];
+        setCheckedOptions(updatedOptions);
       }
     }
   };
 
+  useEffect(() => {
+    if (selectedOptions) {
+      setCheckedOptions(selectedOptions);
+    }
+  }, [selectedOptions, boolOptions]);
+
   return (
-    <ul className="bool-options-class">
-      {boolOptions.map((object, index) => (
-        <li key={`${object.Category}-${index}`}>
+    <ul className={`bool-options-class ${className}`}>
+      {boolOptions.map((object, upperIndex) => (
+        <li key={`${object.Category}-${upperIndex}`}>
           <p>{object.Category}</p>
           <ul className="flex flex-wrap">
             {object.Options?.map((option, index) => (
               <LiCheckbox
                 key={`${option}-${index}`}
-                name={option}
-                checked={selectedOptions.includes(option)}
-                onChange={(e) => handleSelectedChange(option, e.target.checked)}
+                id={option}
+                name={groupName}
+                checked={checkedOptions?.includes(option)}
+                onChange={onLiBoxChange}
+                hideCheckbox={hideCheckboxes}
               />
             ))}
           </ul>
@@ -50,7 +61,8 @@ export const BoolOptions = ({
 
 BoolOptions.propTypes = {
   boolOptions: PropTypes.array,
-  selectedOptions: PropTypes.array,
-  setSelectedOptions: PropTypes.func,
-  objectPropertyName: PropTypes.string,
+  className: PropTypes.string,
+  groupName: PropTypes.string,
+  hideCheckboxes: PropTypes.bool,
+  selectedOptions: PropTypes.arrayOf(PropTypes.string),
 };

@@ -26,3 +26,57 @@ export const updateLocalObject = (newValue, objProp, workingObject) => {
 export const collectionHasProperty = (objs, property) => {
   return objs.some((element) => property in element);
 };
+
+export const localJsonSerialize = (obj, modeInteger) => {
+  let returnObj = {};
+  switch (modeInteger) {
+    case 0:
+      returnObj = handleModifyMode(obj);
+      break;
+    case 1:
+      returnObj = handleEditMode(obj);
+      break;
+    case 2:
+      returnObj = obj;
+      break;
+  }
+  return returnObj;
+};
+
+const handleEditMode = (obj) => {
+  let debug1 = {
+    Title: "",
+    Printer: "",
+    Extras: [],
+    Ingredients: [],
+    Name: "",
+    Comments: "",
+  };
+  for (const [key, value] of obj.entries()) {
+    if (debug1[key] === undefined) {
+      const keys = key.split(".");
+      if (debug1[keys[0]][keys[1]] === undefined) {
+        debug1[keys[0]] = [...debug1[keys[0]], { [keys[2]]: value }];
+      } else {
+        let arr1 = debug1[keys[0]][keys[1]]?.[keys[2]] || [];
+        arr1.push(value);
+        debug1[keys[0]][keys[1]][keys[2]] = arr1;
+      }
+    } else {
+      debug1[key] = value;
+    }
+  }
+  return debug1;
+};
+
+const handleModifyMode = (obj) => {
+  let json = {};
+  for (const [key, value] of obj.entries()) {
+    if (json[key]) {
+      if (!Array.isArray(json[key])) {
+        json[key] = [json[key], value];
+      } else json[key] = [...json[key], value];
+    } else json[key] = value;
+  }
+  return json;
+};

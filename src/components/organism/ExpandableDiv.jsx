@@ -26,7 +26,7 @@ export const ExpandableDiv = ({
   const [changingPrinter, setChangingPrinter] = useState(false);
   const [printerBlur, setPrinterBlur] = useState(false);
   const [mouseOut, setMouseOut] = useState(true);
-  const printersArray = getArrayOfProperty(mockObjects, "printer");
+  const printersArray = getArrayOfProperty(mockObjects, "Printer");
   const svgs = [
     {
       item: <FastPrintSVG svgWidth={37} svgHeight={37} />,

@@ -27,6 +27,3 @@ export const TicketMessages = ({ dishes }) => {
     );
   });
 };
-// Agregar entradas "1 de 2"
-// Agregar por categorias
-// Funcion boton para toppings/crema a parte i.e (Almendras)

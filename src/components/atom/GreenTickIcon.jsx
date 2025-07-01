@@ -1,14 +1,14 @@
 import PropTypes from "prop-types";
 
 export const GreenTickIcon = ({
-  width = 34,
-  height = 34,
+  svgWidth = 34,
+  svgHeight = 34,
   color = "#828d51",
 }) => {
   return (
     <svg
-      width={width}
-      height={height}
+      width={svgWidth}
+      height={svgHeight}
       viewBox="0 0 8.9958331 8.9958333"
       version="1.1"
       xmlns="http://www.w3.org/2000/svg"
@@ -44,7 +44,7 @@ export const GreenTickIcon = ({
 };
 
 GreenTickIcon.propTypes = {
-  width: PropTypes.number,
-  height: PropTypes.number,
+  svgWidth: PropTypes.number,
+  svgHeight: PropTypes.number,
   color: PropTypes.string,
 };

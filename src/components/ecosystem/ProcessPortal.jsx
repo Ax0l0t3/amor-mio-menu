@@ -3,6 +3,7 @@ import { useContext, useEffect, useState } from "react";
 
 // Atom
 import { InputField } from "../atom/InputField";
+import { ToogleButton } from "../atom/ToogleButton";
 // Molecule
 import { CounterDiv } from "../molecule/CounterDiv";
 
@@ -34,11 +35,14 @@ export const ProcessPortal = ({
   const [counter, setCounter] = useState(1);
   const [newOrderEnabled, setNewOrderEnabled] = useState(false);
   const [newOrderField, setNewOrderField] = useState("");
+  const [catToGo, setCatToGo] = useState([]);
 
   const placeholderConstant = `Orden-${ordersContext.length + 1}`;
 
-  const updateLocalOption = (eValue, objProp) => {
-    setLocalOption(updateLocalObject(eValue, objProp, localOption));
+  const updateLocalOption = (eValue, objProp = "Comments") => {
+    setLocalOption(
+      updateLocalObject(eValue.target.value, objProp, localOption),
+    );
   };
 
   const setDefaultExpanded = (object) => {
@@ -68,6 +72,23 @@ export const ProcessPortal = ({
   const handleOptionSave = (qtty = 1) => {
     const array = [];
     const objectToAdd = convertToPrePrintObject(localOption);
+    // ...
+    let indexes = [];
+    catToGo.forEach((cat) => {
+      const index = localTab.Ingredients.findIndex(
+        (obj) => obj.Category === cat,
+      );
+      if (index >= 0) indexes.push(index);
+    });
+    const modifiedIngredients = objectToAdd.Ingredients.map((str) => {
+      const foundStr = indexes.find((i) =>
+        localTab.Ingredients[i].Options.includes(str),
+      );
+      if (foundStr) return `(${str})`;
+      return str;
+    });
+    // ...
+    objectToAdd.Ingredients = modifiedIngredients;
     for (let i = 0; i < qtty; i++) {
       const idConstructor = replaceAndLower(`${objectToAdd.Ingredients}`);
       array.push({
@@ -80,6 +101,16 @@ export const ProcessPortal = ({
 
   const handleCounterChange = (qtty) => {
     setCounter(qtty);
+  };
+  const handleToogleClick = (parameter) => {
+    const toUpdate = [...catToGo];
+    if (!toUpdate.includes(parameter)) {
+      setCatToGo([...toUpdate, parameter]);
+      return;
+    }
+    const index = toUpdate.indexOf(parameter);
+    toUpdate.splice(index, 1);
+    setCatToGo(toUpdate);
   };
 
   const returnExpandable = (objectProperty) => {
@@ -96,7 +127,14 @@ export const ProcessPortal = ({
         >
           {selectedSection === expandableId ? (
             <>
-              <h6>Ingredientes</h6>
+              <div className="expandible-header">
+                <h6>Ingredientes</h6>
+                <ToogleButton
+                  onClick={() => handleToogleClick(object.Category)}
+                  defaultState={catToGo.includes(object.Category)}
+                />
+                <p>Para Llevar</p>
+              </div>
               <BoolButtonsGroup
                 workingObject={object}
                 workingProperty={objectProperty}
@@ -126,7 +164,8 @@ export const ProcessPortal = ({
 
   useEffect(() => {
     if (selectedOption != "") {
-      const thisTab = mockObjects?.find((object) => object.Selected);
+      const localObjects = JSON.parse(JSON.stringify(mockObjects));
+      const thisTab = localObjects?.find((object) => object.Selected);
       const thisOption = thisTab.Options.find(
         (object) => object.Name === selectedOption,
       );
@@ -145,6 +184,7 @@ export const ProcessPortal = ({
         <PreviewTicketSection
           parentObject={localTab}
           selectedObject={localOption}
+          wrappedCategories={catToGo}
         />
         {/* Comments Section */}
         <ExpandableDiv
@@ -158,12 +198,11 @@ export const ProcessPortal = ({
           {selectedSection === "Comments" && (
             <div className="flex flex-col">
               <InputField
-                name="commentsField"
-                placeholder="Agregar Comentario"
                 inputWidth="w-full"
+                name="commentsField"
+                onChange={updateLocalOption}
+                placeholder="Agregar Comentario"
                 value={localOption.Comments}
-                setInputValue={updateLocalOption}
-                objectProperty="Comments"
               />
               <CounterDiv
                 defaultValue={1}
@@ -182,12 +221,12 @@ export const ProcessPortal = ({
                     <span>Orden</span>
                   </label>
                   <InputField
-                    name="commentsField"
-                    placeholder={placeholderConstant}
-                    inputWidth="w-full"
-                    value={newOrderField}
-                    setInputValue={setNewOrderField}
                     inputEnabled={newOrderEnabled}
+                    inputWidth="w-full"
+                    name="commentsField"
+                    onChange={(e) => setNewOrderField(e.target.value)}
+                    placeholder={placeholderConstant}
+                    value={newOrderField}
                   />
                 </div>
                 {ordersContext.map((order, index) => (

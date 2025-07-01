@@ -1,49 +1,55 @@
 import PropTypes from "prop-types";
+import { useEffect, useState } from "react";
 
 export const InputField = ({
+  className = "",
   inputEnabled = true,
+  inputLabel = "",
   inputWidth = "w-[16%]",
-  name = "",
+  labelClassName = "",
+  name,
+  onChange = Function.prototype,
   optionalTitle,
-  optionalTitleClassName,
-  objectProperty,
   placeholder = "",
-  setInputValue = Function.prototype,
-  tailwindHeight = "",
-  value,
+  titleClassName,
+  value = "",
 }) => {
-  const handleInputChange = (value) => {
-    if (objectProperty != null) setInputValue(value, objectProperty);
-    else setInputValue(value);
+  const [inputValue, setInputValue] = useState(value);
+
+  const handleInputChange = (e) => {
+    setInputValue(e.target.value);
+    onChange(e);
   };
+
+  useEffect(() => setInputValue(value), [value]);
 
   return (
     <>
-      {optionalTitle && (
-        <p className={optionalTitleClassName}>{optionalTitle}</p>
-      )}
+      {optionalTitle && <p className={titleClassName}>{optionalTitle}</p>}
+      <label className={labelClassName}>{inputLabel}</label>
       <input
-        className={`bg-[#454a48] ${inputWidth} mr-2 ${tailwindHeight}`}
+        className={`bg-[#454a48] pl-2 ${inputWidth} mr-2 ${className}`}
         name={name}
         type="text"
         placeholder={placeholder}
-        value={value}
-        onChange={(e) => handleInputChange(e.target.value)}
-        disabled={!inputEnabled}
+        value={inputValue}
+        onChange={(e) => handleInputChange(e)}
+        readOnly={!inputEnabled}
       />
     </>
   );
 };
 
 InputField.propTypes = {
+  className: PropTypes.string,
   inputEnabled: PropTypes.bool,
+  inputLabel: PropTypes.string,
   inputWidth: PropTypes.string,
+  labelClassName: PropTypes.string,
   name: PropTypes.string,
   optionalTitle: PropTypes.string,
-  optionalTitleClassName: PropTypes.string,
-  objectProperty: PropTypes.string,
+  onChange: PropTypes.func,
   placeholder: PropTypes.string,
-  setInputValue: PropTypes.func,
-  tailwindHeight: PropTypes.string,
+  titleClassName: PropTypes.string,
   value: PropTypes.string,
 };
