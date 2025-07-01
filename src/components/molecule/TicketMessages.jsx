@@ -27,35 +27,3 @@ export const TicketMessages = ({ dishes }) => {
     );
   });
 };
-// Agregar entradas "1 de 2"
-
-/*
-(Nme) 4 x Waffle Fresas
-(Ing)    (1)
-(Ing)    - > Fresa
-(Ing)    - > Crema
-(Ing)    - > M&M's
-(Ing)    - > Nutella
-(Ext)       (1)
-(Ext)       - > Crema Extra
-(Cmt)          (1)
-(Cmt)          - > Envolverlo en papel
-(Ing)    (1)
-(Ing)    - > Fresa
-(Ing)    - > Crema
-(Ing)    - > Kitkat
-(Ing)    - > Nutella
-(Ext)       (1)
-(Ext)       - > Crema Extra
-(Cmt)          (1)
-(Cmt)          - > Envolverlo en papel
-(Ing)    (2)
-(Ing)    - > Fresa
-(Ing)    - > Crema
-(Ing)    - > M&M's
-(Ing)    - > Nutella
-(Ext)       (2)
-(Ext)       - > Nutella Extra
-(Cmt)          (1)
-(Cmt)          - > Envolverlo en plastico
-*/

@@ -123,8 +123,8 @@ export const AddItemPortal = ({
         ...tabs,
         {
           Title: "",
-          Extras: [{}],
-          Ingredients: [{}],
+          Extras: [],
+          Ingredients: [],
           Printer: "",
           Options: [],
           Selected: true,
