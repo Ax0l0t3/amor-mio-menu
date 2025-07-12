@@ -73,6 +73,21 @@ export const AddItemPortal = ({
     if (!foundObject) return [];
     return foundObject.Extras || [];
   };
+  const setDefaultCategories = (tab) => {
+    const hasIngredients = tab.Ingredients.length > 0;
+    const hasExtras = tab.Extras.length > 0;
+    setSelectedPrinter(tab.Printer);
+    if (hasIngredients) {
+      setIngredientCategory(tab.Ingredients[0].Category);
+    } else {
+      setIsAddIngredientCategory(true);
+    }
+    if (hasExtras) {
+      setExtraCategory(tab.Extras[0].Category);
+    } else {
+      setIsAddExtraCategory(true);
+    }
+  };
 
   const newIngCategoryChange = (e) => {
     setIngredientCategory(e.target.value);
@@ -136,7 +151,13 @@ export const AddItemPortal = ({
       setIsAddTab(true);
     }
   };
-  const handleAddItem = (propertyName, category, newOption, isAdd) => {
+  const handleAddItem = (
+    propertyName,
+    category,
+    newOption,
+    isAdd,
+    resetInputField,
+  ) => {
     const foundTabIndex = scopeObjects.findIndex(({ Selected }) => Selected);
     let foundTabObj = getSelectedTab();
     if (!foundTabObj) {
@@ -181,6 +202,7 @@ export const AddItemPortal = ({
       else return obj;
     });
     setScopeObjects(newObjs);
+    resetInputField();
   };
   const handleClosePortal = (e) => {
     e.preventDefault();
@@ -232,9 +254,7 @@ export const AddItemPortal = ({
     setScopeObjects(localObjects);
     const tab = localObjects.find(({ Selected }) => Selected);
     if (tab) {
-      setSelectedPrinter(tab.Printer);
-      setIngredientCategory(tab.Ingredients[0].Category);
-      setExtraCategory(tab.Extras[0].Category);
+      setDefaultCategories(tab);
     }
   }, []);
 
@@ -319,6 +339,7 @@ export const AddItemPortal = ({
                   ingredientCategory,
                   newIngredient,
                   setIsAddIngredientCategory,
+                  setNewIngredient(""),
                 )
               }
             />
@@ -334,6 +355,7 @@ export const AddItemPortal = ({
             {isAddExtraCategory ? (
               <InputField
                 inputLabel={AddPortal.Category}
+                labelClassName="mr-2"
                 placeholder="Nueva Categoria"
                 onChange={newExtraCategoryChange}
               />
@@ -363,6 +385,7 @@ export const AddItemPortal = ({
                   extraCategory,
                   newExtra,
                   setIsAddExtraCategory,
+                  setNewExtra(""),
                 )
               }
             />
