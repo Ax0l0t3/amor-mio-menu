@@ -103,7 +103,10 @@ export const EditItemPortal = ({
     }
     fetchPost("http://localhost:5000/post-data-menu", { Tabs: bodyObjects });
     setMockObjects(bodyObjects);
-    if (json.entries().find(([key]) => key === "Options.Name")) {
+    if (
+      currentMode === 2 &&
+      json.entries().find(([key]) => key === "Options.Name")
+    ) {
       const initDish = bodyObjects.find(({ Selected }) => Selected).Options[0];
       setSelectedDish(initDish);
     }
