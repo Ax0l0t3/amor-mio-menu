@@ -339,7 +339,7 @@ export const AddItemPortal = ({
                   ingredientCategory,
                   newIngredient,
                   setIsAddIngredientCategory,
-                  setNewIngredient(""),
+                  () => setNewIngredient(""),
                 )
               }
             />
@@ -385,7 +385,7 @@ export const AddItemPortal = ({
                   extraCategory,
                   newExtra,
                   setIsAddExtraCategory,
-                  setNewExtra(""),
+                  () => setNewExtra(""),
                 )
               }
             />

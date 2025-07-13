@@ -1,3 +1,44 @@
+const handleEditMode = (obj) => {
+  let defaultObject = {
+    Title: "",
+    Printer: "",
+    Extras: [],
+    Ingredients: [],
+    Name: "",
+    Comments: "",
+  };
+  for (const [key, value] of obj.entries()) {
+    if (defaultObject[key] === undefined) {
+      const keys = key.split(".");
+      if (defaultObject[keys[0]][keys[1]] === undefined) {
+        defaultObject[keys[0]] = [
+          ...defaultObject[keys[0]],
+          { [keys[2]]: value },
+        ];
+      } else {
+        let arr1 = defaultObject[keys[0]][keys[1]]?.[keys[2]] || [];
+        arr1.push(value);
+        defaultObject[keys[0]][keys[1]][keys[2]] = arr1;
+      }
+    } else {
+      defaultObject[key] = value;
+    }
+  }
+  return defaultObject;
+};
+
+const handleModifyMode = (obj) => {
+  let json = {};
+  for (const [key, value] of obj.entries()) {
+    if (json[key]) {
+      if (!Array.isArray(json[key])) {
+        json[key] = [json[key], value];
+      } else json[key] = [...json[key], value];
+    } else json[key] = value;
+  }
+  return json;
+};
+
 export const objectUtil = (obj) => {
   let workingObj = { ...obj };
   const updateObjProp = (newValue, property) =>
@@ -41,42 +82,4 @@ export const localJsonSerialize = (obj, modeInteger) => {
       break;
   }
   return returnObj;
-};
-
-const handleEditMode = (obj) => {
-  let debug1 = {
-    Title: "",
-    Printer: "",
-    Extras: [],
-    Ingredients: [],
-    Name: "",
-    Comments: "",
-  };
-  for (const [key, value] of obj.entries()) {
-    if (debug1[key] === undefined) {
-      const keys = key.split(".");
-      if (debug1[keys[0]][keys[1]] === undefined) {
-        debug1[keys[0]] = [...debug1[keys[0]], { [keys[2]]: value }];
-      } else {
-        let arr1 = debug1[keys[0]][keys[1]]?.[keys[2]] || [];
-        arr1.push(value);
-        debug1[keys[0]][keys[1]][keys[2]] = arr1;
-      }
-    } else {
-      debug1[key] = value;
-    }
-  }
-  return debug1;
-};
-
-const handleModifyMode = (obj) => {
-  let json = {};
-  for (const [key, value] of obj.entries()) {
-    if (json[key]) {
-      if (!Array.isArray(json[key])) {
-        json[key] = [json[key], value];
-      } else json[key] = [...json[key], value];
-    } else json[key] = value;
-  }
-  return json;
 };
