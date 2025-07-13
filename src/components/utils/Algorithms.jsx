@@ -1,14 +1,16 @@
 import { findAndSlice } from "./StringUtils";
+import { sortObjectsByStringProperty } from "./ArrayUtils";
 
 export const messagesByLevels = (iteratorObject, levels) => {
+  const sortedIterator = sortObjectsByStringProperty(iteratorObject, levels[0]);
   // Build the array of properties count
   let returnArrays = [];
-  // Iterate through all the objects in iteratorObject
-  iteratorObject.forEach((obj, index) => {
+  // Iterate through all the objects in sortedIterator
+  sortedIterator.forEach((obj, index) => {
     // Set the initial count for all the properties as 0
     let counters = [0, 0, 0, 0];
-    // Compare the n entry with each entry in the iteratorObject
-    for (let k = index; k < iteratorObject.length; k++) {
+    // Compare the n entry with each entry in the sortedIterator
+    for (let k = index; k < sortedIterator.length; k++) {
       // Set reset variable to false
       // Set levels index to 0
       let isReturn = false;
@@ -17,7 +19,7 @@ export const messagesByLevels = (iteratorObject, levels) => {
       // Store each property count into counters[]
       while (!isReturn && i < levels.length) {
         const debug1 = JSON.stringify(obj[levels[i]]);
-        const debug2 = JSON.stringify(iteratorObject[k][levels[i]]);
+        const debug2 = JSON.stringify(sortedIterator[k][levels[i]]);
         if (debug1 != debug2) {
           isReturn = true;
         } else {
@@ -32,7 +34,7 @@ export const messagesByLevels = (iteratorObject, levels) => {
 
   // Build the array of displayed messages
   // First we get all the messages
-  const allMessages = iteratorObject.map((obj, index) => {
+  const allMessages = sortedIterator.map((obj, index) => {
     let messages = [];
     levels.forEach((prop, index2) => {
       const thisMessage = `${index2 + 1}\t${returnArrays[index][index2]} x ${obj[prop]}`;

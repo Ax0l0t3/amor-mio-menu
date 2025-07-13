@@ -14,6 +14,7 @@ export const BoolOptions = ({
   groupName,
 }) => {
   const [checkedOptions, setCheckedOptions] = useState(selectedOptions);
+  const [optionsObjects, setOptionsObjects] = useState([]);
 
   const onLiBoxChange = (optionName) => {
     if (checkedOptions) {
@@ -31,6 +32,13 @@ export const BoolOptions = ({
   };
 
   useEffect(() => {
+    if (boolOptions.length > 0) {
+      const sortedOptions = boolOptions.map((obj) => {
+        obj.Options.sort();
+        return obj;
+      });
+      setOptionsObjects(sortedOptions);
+    }
     if (selectedOptions) {
       setCheckedOptions(selectedOptions);
     }
@@ -38,7 +46,7 @@ export const BoolOptions = ({
 
   return (
     <ul className={`bool-options-class ${className}`}>
-      {boolOptions.map((object, upperIndex) => (
+      {optionsObjects.map((object, upperIndex) => (
         <li key={`${object.Category}-${upperIndex}`}>
           <p>{object.Category}</p>
           <ul className="flex flex-wrap">

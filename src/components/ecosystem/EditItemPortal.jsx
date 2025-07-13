@@ -52,6 +52,22 @@ export const EditItemPortal = ({
     setObjectScreenshot(screenshot);
     setEditMode(EditPortal.EditModeString);
   };
+  const getIngredients = () => {
+    const foundObject = objectsToEdit.find((object) => object.Selected);
+    if (!foundObject) return [];
+    return foundObject.Ingredients;
+  };
+  const getExtras = () => {
+    const foundObject = objectsToEdit.find((object) => object.Selected);
+    if (!foundObject) return [];
+    return foundObject.Extras;
+  };
+  const setDefaults = () => {
+    const localObjects = JSON.parse(JSON.stringify(mockObjects));
+    const initDish = localObjects.find(({ Selected }) => Selected).Options[0];
+    setObjectsToEdit(localObjects);
+    setSelectedDish(initDish);
+  };
 
   const handleDishChange = (e) => {
     const foundObject = objectsToEdit.find(({ Selected }) => Selected);
@@ -71,19 +87,6 @@ export const EditItemPortal = ({
     setObjectsToEdit(objectsToWork);
     setSelectedDish(defaultDish);
   };
-
-  const getIngredients = () => {
-    const foundObject = objectsToEdit.find((object) => object.Selected);
-    if (!foundObject) return [];
-    return foundObject.Ingredients;
-  };
-
-  const getExtras = () => {
-    const foundObject = objectsToEdit.find((object) => object.Selected);
-    if (!foundObject) return [];
-    return foundObject.Extras;
-  };
-
   const handleSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
@@ -141,22 +144,13 @@ export const EditItemPortal = ({
     {
       action: closePortal,
       className: "bg-[#DB3356]",
-      label: "Cancelar",
+      label: "Cerrar",
       type: "button",
     },
   ];
 
-  useEffect(() => {
-    const localObjects = JSON.parse(JSON.stringify(mockObjects));
-    const initDish = localObjects.find(({ Selected }) => Selected).Options[0];
-    setObjectsToEdit(localObjects);
-    setSelectedDish(initDish);
-  }, []);
-
-  useEffect(() => {
-    const localObjects = JSON.parse(JSON.stringify(mockObjects));
-    setObjectsToEdit(localObjects);
-  }, [mockObjects]);
+  useEffect(() => setDefaults(), []);
+  useEffect(() => setDefaults(), [mockObjects]);
 
   return (
     isVisible &&
