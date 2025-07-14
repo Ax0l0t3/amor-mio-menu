@@ -37,6 +37,10 @@ export const NavBar = () => {
     setIsEditItemPortal(false);
     setIsPrePrintPortal(false);
   };
+  const changePortal = (portalSetter) => {
+    closePortals();
+    portalSetter();
+  };
 
   const navBarButtons = [
     { button: <HomeSVG />, action: () => closePortals() },
@@ -44,10 +48,10 @@ export const NavBar = () => {
       button: <AddSVG tailwindClass="m-4" />,
       action: () => setIsAddItemPortal(true),
     },
-    { button: <EditSVG />, action: () => setIsEditItemPortal(true) },
-    { button: <PreSaveSVG />, action: () => setIsPrePrintPortal(true) },
+    { button: <EditSVG />, action: () => changePortal(() => setIsEditItemPortal(true)) },
+    { button: <PreSaveSVG />, action: () => changePortal(() => setIsPrePrintPortal(true)) },
     { button: <CustomizeSVG />, action: () => setIsCustomPortal(true) },
-    { button: <AboutSVG />, action: () => setIsAboutPortal(true) },
+    { button: <AboutSVG />, action: () => changePortal(() => setIsAboutPortal(true)) },
   ];
 
   return (

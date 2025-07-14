@@ -15,7 +15,7 @@ export const ImageIcon = ({
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
-        fill="#fff"
+        fill="#333"
         fillOpacity="1"
         stroke="none"
         strokeWidth="0.181901"
