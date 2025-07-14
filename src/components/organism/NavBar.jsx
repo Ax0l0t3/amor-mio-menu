@@ -5,6 +5,7 @@ import { AboutSVG } from "../atom/AboutIcon";
 import { AddSVG } from "../atom/AddIcon";
 import { CustomizeSVG } from "../atom/CustomizeIcon";
 import { EditSVG } from "../atom/EditIcon";
+import { HomeSVG } from "../atom/HomeIcon";
 import { PreSaveSVG } from "../atom/PreSaveIcon";
 
 // Molecule
@@ -29,7 +30,16 @@ export const NavBar = () => {
   const [isPrePrintPortal, setIsPrePrintPortal] = useState(false);
   const [isAboutPortal, setIsAboutPortal] = useState(false);
 
+  const closePortals = () => {
+    setIsAboutPortal(false);
+    setIsAddItemPortal(false);
+    setIsCustomPortal(false);
+    setIsEditItemPortal(false);
+    setIsPrePrintPortal(false);
+  };
+
   const navBarButtons = [
+    { button: <HomeSVG />, action: () => closePortals() },
     {
       button: <AddSVG tailwindClass="m-4" />,
       action: () => setIsAddItemPortal(true),
