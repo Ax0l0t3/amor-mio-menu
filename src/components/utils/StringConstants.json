@@ -19,6 +19,8 @@
   "PrintPortal": {
     "Comments": "Comentarios",
     "Ingredients": "Ingredientes",
-    "Name": "Nombre"
+    "Name": "Nombre",
+    "Hovered": "hovered",
+    "NotHovered": "!hovered"
   }
 }

@@ -90,7 +90,9 @@ export const ProcessPortal = ({
     // ...
     objectToAdd.Ingredients = modifiedIngredients;
     for (let i = 0; i < qtty; i++) {
-      const idConstructor = replaceAndLower(`${objectToAdd.Ingredients}`);
+      const idConstructor = replaceAndLower(
+        `${objectToAdd.Ingredients}${objectToAdd.Extras}${objectToAdd.Comments}`,
+      );
       array.push({
         ...objectToAdd,
         id: `${objectToAdd.Name}-${idConstructor}-${i}`,
