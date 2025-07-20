@@ -1,7 +1,9 @@
 import { findAndSlice } from "./StringUtils";
 import { sortObjectsByStringProperty } from "./ArrayUtils";
+import StringConstants from "../utils/StringConstants.json";
 
-export const messagesByLevels = (iteratorObject, levels) => {
+export const messagesByLevels = (iteratorObject, hoveredDish, levels) => {
+  const { PrintPortal } = StringConstants;
   const sortedIterator = sortObjectsByStringProperty(iteratorObject, levels[0]);
   // Build the array of properties count
   let returnArrays = [];
@@ -35,22 +37,45 @@ export const messagesByLevels = (iteratorObject, levels) => {
   // Build the array of displayed messages
   // First we get all the messages
   const allMessages = sortedIterator.map((obj, index) => {
+    // We create an empty array to store the values
     let messages = [];
+    // We iterate through levels
     levels.forEach((prop, index2) => {
-      const thisMessage = `${index2 + 1}\t${returnArrays[index][index2]} x ${obj[prop]}`;
+      // We compare the hovered dish, if any, ID with the current one
+      const prop01 = hoveredDish === undefined ? "" : hoveredDish.id;
+      const prop02 = obj.id;
+      const isHovered = prop01 === prop02;
+      // We push the complete msg [hovered\tpadding\tingredients]
+      const thisMessage = `${isHovered ? PrintPortal.Hovered : PrintPortal.NotHovered}\t${index2 + 1}\t${returnArrays[index][index2]} x ${obj[prop]}`;
       messages.push(thisMessage);
     });
     return messages;
   });
 
+  // We now filter the duplicated msgs from allMsgs
   let filteredEntries = [];
   allMessages.forEach((obj) => {
+    const hoveredIndex = 0;
+    const msgIndex = 2;
     obj.forEach((message, index2) => {
-      const stringEnding = findAndSlice("x", message);
-      const existsInFilteredEntries = filteredEntries.some((entry) =>
+      // We splitt the msg by its components [hovered, padding, ingredients]
+      const splittedMsg = message.split("\t");
+      const stringEnding = findAndSlice("x", splittedMsg[msgIndex]);
+      // We find if the current msg exists already in the filtered array
+      const foundIndex = filteredEntries.findIndex((entry) =>
         entry.endsWith(stringEnding),
       );
-      if (existsInFilteredEntries) return;
+      // If the current msg exists with a different hovered state, we update the msg
+      const isHovered = splittedMsg[hoveredIndex] === PrintPortal.Hovered;
+      if (foundIndex >= 0) {
+        filteredEntries[foundIndex] = isHovered
+          ? filteredEntries[foundIndex].replace(
+              PrintPortal.NotHovered,
+              PrintPortal.Hovered,
+            )
+          : filteredEntries[foundIndex];
+        return;
+      }
       for (let k = index2; k < obj.length; k++) {
         filteredEntries.push(obj[k]);
       }

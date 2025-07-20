@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 
 // Molecule
 import { PrePrintCard } from "../molecule/PrePrintCard";
@@ -19,29 +19,22 @@ export const VisualizePrint = ({
   orders = [],
 }) => {
   const { printContext, setPrintContext } = useContext(PrintContext);
-
-  const closeDish = (id) => {
-    const newArray = printContext.filter((option) => option.id !== id);
-    setPrintContext(newArray);
-  };
+  const [hoveredDish, setHoveredDish] = useState();
 
   const getOrders = (order) => {
     const ordersArray = options.filter((option) => option.Order === order);
     return ordersArray;
   };
-
   const getOptionsWoOrder = () => {
     const ordersArray = options.filter((option) => "Order" in option === false);
     return ordersArray;
   };
-
   const getIndexes = () => {
     const printersArray = getArrayOfProperty(printContext, "Printer");
     const index =
       printersArray.findIndex((option) => option == sectionName) + 1;
     return index;
   };
-
   const getLength = (order) => {
     const groupedPrinters = Object.groupBy(
       printContext,
@@ -56,7 +49,6 @@ export const VisualizePrint = ({
     });
     return counter;
   };
-
   const groupOrderMessage = (order) => {
     const orderLength = getLength(order);
     if (collectionHasProperty(printContext, "Order") && orderLength > 1) {
@@ -64,7 +56,6 @@ export const VisualizePrint = ({
     }
     return "";
   };
-
   const returnMessagesWithOrders = () => {
     const messagesNodes = orders.map((order, index) => {
       const workingDishes = getOrders(order);
@@ -74,13 +65,24 @@ export const VisualizePrint = ({
             <h6>
               Orden para: {order} {groupOrderMessage(order)}
             </h6>
-            <TicketMessages dishes={workingDishes} />
+            <TicketMessages dishes={workingDishes} hoveredDish={hoveredDish} />
             <hr className="mt-2" />
           </div>
         );
       }
     });
     return messagesNodes;
+  };
+
+  const closeDish = (id) => {
+    const newArray = printContext.filter((option) => option.id !== id);
+    setPrintContext(newArray);
+  };
+  const handleMouseEnter = (option) => {
+    setHoveredDish(option);
+  };
+  const handleMouseLeave = () => {
+    setHoveredDish();
   };
 
   return (
@@ -92,6 +94,8 @@ export const VisualizePrint = ({
             cardTitle={option.Name}
             marginBottom="1rem"
             closeAction={() => closeDish(option.id)}
+            onMouseEnter={() => handleMouseEnter(option)}
+            onMouseLeave={handleMouseLeave}
           />
         ))}
       </div>
@@ -99,7 +103,10 @@ export const VisualizePrint = ({
         <div className="preview-print-ticket">
           <h6>{sectionName}</h6>
           {returnMessagesWithOrders()}
-          <TicketMessages dishes={getOptionsWoOrder()} />
+          <TicketMessages
+            dishes={getOptionsWoOrder()}
+            hoveredDish={hoveredDish}
+          />
           {getOptionsWoOrder().length >= 1 && <hr className="mt-2" />}
         </div>
       </div>
