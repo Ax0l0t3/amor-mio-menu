@@ -1,8 +1,13 @@
-# React + Vite
+# Menu Project
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+To run this project
 
-Currently, two official plugins are available:
+1.- Clone this repo in your local
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+2.- Install npm ```npm install```
+
+3.- Run the development server ```npm run dev```
+
+Important note
+
+This project has to have the [BackEnd](https://github.com/Ax0l0t3/amor-mio-api) running as well to display the menu
