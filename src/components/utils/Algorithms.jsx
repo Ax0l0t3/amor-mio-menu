@@ -63,26 +63,34 @@ export const messagesByLevels = (iteratorObject, hoveredDish, levels) => {
     let arrayWathcDog = true;
     let filteWatchDog = true;
     // Check if the msg exists en the filtered array
-    while(arrayWathcDog && filteWatchDog){
+    while (arrayWathcDog && filteWatchDog) {
       // Splitted messege into categories [hovered] [padding] [msg]
       const splittedMsg = currentArr[currentCounter].split("\t");
       // Extract message ending
       const stringEnding = findAndSlice("x", splittedMsg[msgIndex]);
       // Is the current msg similar to the filtered one?
-      if(filteredEntries.length > 0 && filteredEntries[filteredCounter].endsWith(stringEnding)){
-        const splittedFilteredMsg = filteredEntries[filteredCounter].split("\t");
+      if (
+        filteredEntries.length > 0 &&
+        filteredEntries[filteredCounter].endsWith(stringEnding)
+      ) {
+        const splittedFilteredMsg =
+          filteredEntries[filteredCounter].split("\t");
         // We update the hovered state with the incoming message
-        const hoveredState = booleanHover(splittedMsg[hoveredIndex], splittedFilteredMsg[hoveredIndex]);
-        filteredEntries[filteredCounter] = `${hoveredState}\t${splittedFilteredMsg[paddingIndex]}\t${splittedFilteredMsg[msgIndex]}`;
+        const hoveredState = booleanHover(
+          splittedMsg[hoveredIndex],
+          splittedFilteredMsg[hoveredIndex],
+        );
+        filteredEntries[filteredCounter] =
+          `${hoveredState}\t${splittedFilteredMsg[paddingIndex]}\t${splittedFilteredMsg[msgIndex]}`;
         currentCounter++;
         arrayWathcDog = currentCounter < currentArr.length;
-      }else{
+      } else {
         filteredCounter++;
         filteWatchDog = filteredCounter < filteredEntries.length;
       }
-    };
+    }
     // If it doesn't exist, add the remaining array entries to filteredArray
-    if(!filteWatchDog){
+    if (!filteWatchDog) {
       fillFilteredArray(filteredEntries, currentArr, currentCounter);
     }
   });
@@ -103,4 +111,4 @@ export const booleanHover = (str1, str2) => {
   const orOutput = isStr1Hovered || isStr2Hovered;
   const output = orOutput ? PrintPortal.Hovered : PrintPortal.NotHovered;
   return output;
-}
+};
