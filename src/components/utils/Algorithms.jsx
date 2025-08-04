@@ -1,9 +1,9 @@
 import { findAndSlice } from "./StringUtils";
 import { sortObjectsByStringProperty } from "./ArrayUtils";
 import StringConstants from "../utils/StringConstants.json";
+const { PrintPortal } = StringConstants;
 
 export const messagesByLevels = (iteratorObject, hoveredDish, levels) => {
-  const { PrintPortal } = StringConstants;
   const sortedIterator = sortObjectsByStringProperty(iteratorObject, levels[0]);
   // Build the array of properties count
   let returnArrays = [];
@@ -54,34 +54,61 @@ export const messagesByLevels = (iteratorObject, hoveredDish, levels) => {
 
   // We now filter the duplicated msgs from allMsgs
   let filteredEntries = [];
-  allMessages.forEach((obj) => {
+  allMessages.forEach((currentArr) => {
     const hoveredIndex = 0;
+    const paddingIndex = 1;
     const msgIndex = 2;
-    obj.forEach((message, index2) => {
-      // We splitt the msg by its components [hovered, padding, ingredients]
-      const splittedMsg = message.split("\t");
+    let currentCounter = 0;
+    let filteredCounter = 0;
+    let arrayWathcDog = true;
+    let filteWatchDog = true;
+    // Check if the msg exists en the filtered array
+    while (arrayWathcDog && filteWatchDog) {
+      // Splitted messege into categories [hovered] [padding] [msg]
+      const splittedMsg = currentArr[currentCounter].split("\t");
+      // Extract message ending
       const stringEnding = findAndSlice("x", splittedMsg[msgIndex]);
-      // We find if the current msg exists already in the filtered array
-      const foundIndex = filteredEntries.findIndex((entry) =>
-        entry.endsWith(stringEnding),
-      );
-      // If the current msg exists with a different hovered state, we update the msg
-      const isHovered = splittedMsg[hoveredIndex] === PrintPortal.Hovered;
-      if (foundIndex >= 0) {
-        filteredEntries[foundIndex] = isHovered
-          ? filteredEntries[foundIndex].replace(
-              PrintPortal.NotHovered,
-              PrintPortal.Hovered,
-            )
-          : filteredEntries[foundIndex];
-        return;
+      // Is the current msg similar to the filtered one?
+      if (
+        filteredEntries.length > 0 &&
+        filteredEntries[filteredCounter].endsWith(stringEnding)
+      ) {
+        const splittedFilteredMsg =
+          filteredEntries[filteredCounter].split("\t");
+        // We update the hovered state with the incoming message
+        const hoveredState = booleanHover(
+          splittedMsg[hoveredIndex],
+          splittedFilteredMsg[hoveredIndex],
+        );
+        filteredEntries[filteredCounter] =
+          `${hoveredState}\t${splittedFilteredMsg[paddingIndex]}\t${splittedFilteredMsg[msgIndex]}`;
+        currentCounter++;
+        arrayWathcDog = currentCounter < currentArr.length;
+      } else {
+        filteredCounter++;
+        filteWatchDog = filteredCounter < filteredEntries.length;
       }
-      for (let k = index2; k < obj.length; k++) {
-        filteredEntries.push(obj[k]);
-      }
-    });
+    }
+    // If it doesn't exist, add the remaining array entries to filteredArray
+    if (!filteWatchDog) {
+      fillFilteredArray(filteredEntries, currentArr, currentCounter);
+    }
   });
-
+  // Filter entries with empty string
   const entriesTrimed = filteredEntries.filter((entry) => !entry.endsWith(" "));
   return entriesTrimed;
+};
+
+export const fillFilteredArray = (filtered, currentArray, index) => {
+  for (let k = index; k < currentArray.length; k++) {
+    filtered.push(currentArray[k]);
+  }
+};
+
+export const booleanHover = (str1, str2) => {
+  const isStr1Hovered = str1 === PrintPortal.Hovered;
+  const isStr2Hovered = str2 === PrintPortal.Hovered;
+  const orOutput = isStr1Hovered || isStr2Hovered;
+  const output = orOutput ? PrintPortal.Hovered : PrintPortal.NotHovered;
+  return output;
 };
