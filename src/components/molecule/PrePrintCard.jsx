@@ -8,6 +8,7 @@ export const PrePrintCard = ({
   closeAction = Function.prototype,
   onMouseEnter = Function.prototype,
   onMouseLeave = Function.prototype,
+  onCardClick = Function.prototype,
 }) => {
   const style = {
     marginBottom: marginBottom,
@@ -34,9 +35,9 @@ export const PrePrintCard = ({
           />
         </button>
       </div>
-      <div className="card-label">
+      <button className="card-label" onClick={onCardClick}>
         <p>{cardTitle}</p>
-      </div>
+      </button>
     </div>
   );
 };
@@ -45,6 +46,7 @@ PrePrintCard.propTypes = {
   cardTitle: PropTypes.string,
   closeAction: PropTypes.func,
   marginBottom: PropTypes.string,
+  onCardClick: PropTypes.func,
   onMouseEnter: PropTypes.func,
   onMouseLeave: PropTypes.func,
 };

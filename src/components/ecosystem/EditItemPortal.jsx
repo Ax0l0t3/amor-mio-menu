@@ -1,5 +1,5 @@
+import PropTypes from "prop-types";
 import { useContext, useEffect, useState } from "react";
-import { createPortal } from "react-dom";
 
 // Atom
 import { InputField } from "../atom/InputField";
@@ -27,10 +27,7 @@ import StringConstants from "../utils/StringConstants.json";
 // Styles
 import "../../styles/organism/_edit-item-portal.css";
 
-export const EditItemPortal = ({
-  isVisible = false,
-  closePortal = Function.prototype,
-}) => {
+export const EditItemPortal = ({ closePortal = Function.prototype }) => {
   const { EditPortal, Commons } = StringConstants;
   const modes = [
     EditPortal.ModifyModeString,
@@ -153,78 +150,78 @@ export const EditItemPortal = ({
   useEffect(() => setDefaults(), [mockObjects]);
 
   return (
-    isVisible &&
-    createPortal(
-      <form className="edit-item-portal" onSubmit={(e) => handleSubmit(e)}>
-        <MenuButtons options={menuButtons} />
-        <HeaderFieldset
-          defaultDish={selectedDish.Name}
-          scopeObjects={objectsToEdit}
-          setScopeObjects={setObjectsToEdit}
-          onTabChange={handleTabChange}
-          onDishChange={handleDishChange}
-          selectMode={editMode}
-        />
-        <fieldset name={Commons.Ingredients}>
-          <legend>{Commons.Ingredients}</legend>
-          {editMode === EditPortal.ModifyModeString && (
-            <BoolOptions
-              className={`${editMode === EditPortal.DeleteModeString ? "deletable-entry" : ""}`}
-              boolOptions={getIngredients()}
-              selectedOptions={selectedDish.Ingredients}
-              hideCheckboxes={editMode === EditPortal.DeleteModeString}
-              groupName={Commons.Ingredients}
-            />
-          )}
-          {editMode === EditPortal.EditModeString && (
-            <InputsGroup
-              options={getIngredients()}
-              groupName={Commons.Ingredients}
-              disabledOptions={selectedDish.Ingredients}
-            />
-          )}
-          {editMode === EditPortal.DeleteModeString && (
-            <ToogleButtons
-              options={getIngredients()}
-              groupName={Commons.Ingredients}
-            />
-          )}
-        </fieldset>
-        <fieldset name={Commons.Extras}>
-          <legend>{Commons.Extras}</legend>
-          {editMode === EditPortal.ModifyModeString && (
-            <BoolOptions
-              className={`${editMode === EditPortal.DeleteModeString ? "deletable-entry" : ""}`}
-              boolOptions={getExtras()}
-              selectedOptions={selectedDish.Extras}
-              hideCheckboxes={editMode === EditPortal.DeleteModeString}
-              groupName={Commons.Extras}
-            />
-          )}
-          {editMode === EditPortal.EditModeString && (
-            <InputsGroup
-              options={getExtras()}
-              groupName={Commons.Extras}
-              disabledOptions={selectedDish.Extras}
-            />
-          )}
-          {editMode === EditPortal.DeleteModeString && (
-            <ToogleButtons options={getExtras()} groupName={Commons.Extras} />
-          )}
-        </fieldset>
-        {editMode !== EditPortal.DeleteModeString && (
-          <div className="ml-2">
-            <p>Comentarios</p>
-            <InputField
-              name="Comments"
-              placeholder="Agregar Comentario"
-              inputWidth="w-full"
-              value={selectedDish.Comments}
-            />
-          </div>
+    <form className="edit-item-portal" onSubmit={(e) => handleSubmit(e)}>
+      <MenuButtons options={menuButtons} />
+      <HeaderFieldset
+        defaultDish={selectedDish.Name}
+        scopeObjects={objectsToEdit}
+        setScopeObjects={setObjectsToEdit}
+        onTabChange={handleTabChange}
+        onDishChange={handleDishChange}
+        selectMode={editMode}
+      />
+      <fieldset name={Commons.Ingredients}>
+        <legend>{Commons.Ingredients}</legend>
+        {editMode === EditPortal.ModifyModeString && (
+          <BoolOptions
+            className={`${editMode === EditPortal.DeleteModeString ? "deletable-entry" : ""}`}
+            boolOptions={getIngredients()}
+            selectedOptions={selectedDish.Ingredients}
+            hideCheckboxes={editMode === EditPortal.DeleteModeString}
+            groupName={Commons.Ingredients}
+          />
         )}
-      </form>,
-      document.getElementById("root"),
-    )
+        {editMode === EditPortal.EditModeString && (
+          <InputsGroup
+            options={getIngredients()}
+            groupName={Commons.Ingredients}
+            disabledOptions={selectedDish.Ingredients}
+          />
+        )}
+        {editMode === EditPortal.DeleteModeString && (
+          <ToogleButtons
+            options={getIngredients()}
+            groupName={Commons.Ingredients}
+          />
+        )}
+      </fieldset>
+      <fieldset name={Commons.Extras}>
+        <legend>{Commons.Extras}</legend>
+        {editMode === EditPortal.ModifyModeString && (
+          <BoolOptions
+            className={`${editMode === EditPortal.DeleteModeString ? "deletable-entry" : ""}`}
+            boolOptions={getExtras()}
+            selectedOptions={selectedDish.Extras}
+            hideCheckboxes={editMode === EditPortal.DeleteModeString}
+            groupName={Commons.Extras}
+          />
+        )}
+        {editMode === EditPortal.EditModeString && (
+          <InputsGroup
+            options={getExtras()}
+            groupName={Commons.Extras}
+            disabledOptions={selectedDish.Extras}
+          />
+        )}
+        {editMode === EditPortal.DeleteModeString && (
+          <ToogleButtons options={getExtras()} groupName={Commons.Extras} />
+        )}
+      </fieldset>
+      {editMode !== EditPortal.DeleteModeString && (
+        <div className="ml-2">
+          <p>Comentarios</p>
+          <InputField
+            name="Comments"
+            placeholder="Agregar Comentario"
+            inputWidth="w-full"
+            value={selectedDish.Comments}
+          />
+        </div>
+      )}
+    </form>
   );
+};
+
+EditItemPortal.propTypes = {
+  closePortal: PropTypes.func,
 };

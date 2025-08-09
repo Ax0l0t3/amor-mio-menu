@@ -1,4 +1,4 @@
-import { useState } from "react";
+import PropTypes from "prop-types";
 
 // Atom
 import { AboutSVG } from "../atom/AboutIcon";
@@ -13,53 +13,53 @@ import { SvgButton } from "../molecule/SvgButton";
 
 // Organism
 import { AddItemPortal } from "./AddItemPortal";
+import { PrePrintViewPort } from "./PrePrintViewPort";
+import { PalettePortal } from "./PalettePortal";
 
 // Ecosystem
 import { AboutPortal } from "../ecosystem/AboutPortal";
-import { CustomizePortal } from "../ecosystem/CustomizePortal";
-import { PrePrintPortal } from "../ecosystem/PrePrintPortal";
 import { EditItemPortal } from "../ecosystem/EditItemPortal";
 
 // Styles
 import "../../styles/organism/_nav-bar.css";
 
-export const NavBar = () => {
-  const [isAddItemPortal, setIsAddItemPortal] = useState(false);
-  const [isEditItemPortal, setIsEditItemPortal] = useState(false);
-  const [isCustomPortal, setIsCustomPortal] = useState(false);
-  const [isPrePrintPortal, setIsPrePrintPortal] = useState(false);
-  const [isAboutPortal, setIsAboutPortal] = useState(false);
-
-  const closePortals = () => {
-    setIsAboutPortal(false);
-    setIsAddItemPortal(false);
-    setIsCustomPortal(false);
-    setIsEditItemPortal(false);
-    setIsPrePrintPortal(false);
-  };
-  const changePortal = (portalSetter) => {
-    closePortals();
-    portalSetter();
+export const NavBar = ({
+  onButtonClick = Function.prototype,
+  closePortal = Function.prototype,
+}) => {
+  const changePortal = (isVisible, node) => {
+    onButtonClick(isVisible, node);
   };
 
   const navBarButtons = [
-    { button: <HomeSVG />, action: () => closePortals() },
+    {
+      button: <HomeSVG />,
+      action: closePortal,
+    },
     {
       button: <AddSVG tailwindClass="m-4" />,
-      action: () => setIsAddItemPortal(true),
+      action: () =>
+        changePortal(true, <AddItemPortal closePortal={closePortal} />),
     },
     {
       button: <EditSVG />,
-      action: () => changePortal(() => setIsEditItemPortal(true)),
+      action: () =>
+        changePortal(true, <EditItemPortal closePortal={closePortal} />),
     },
     {
       button: <PreSaveSVG />,
-      action: () => changePortal(() => setIsPrePrintPortal(true)),
+      action: () =>
+        changePortal(true, <PrePrintViewPort closePortal={closePortal} />),
     },
-    { button: <CustomizeSVG />, action: () => setIsCustomPortal(true) },
+    {
+      button: <CustomizeSVG />,
+      action: () =>
+        changePortal(true, <PalettePortal closePortal={closePortal} />),
+    },
     {
       button: <AboutSVG />,
-      action: () => changePortal(() => setIsAboutPortal(true)),
+      action: () =>
+        changePortal(true, <AboutPortal closePortal={closePortal} />),
     },
   ];
 
@@ -70,36 +70,11 @@ export const NavBar = () => {
           {b.button}
         </SvgButton>
       ))}
-      {isAddItemPortal && (
-        <AddItemPortal
-          isVisible={isAddItemPortal}
-          closePortal={() => setIsAddItemPortal(false)}
-        />
-      )}
-      {isEditItemPortal && (
-        <EditItemPortal
-          isVisible={isEditItemPortal}
-          closePortal={() => setIsEditItemPortal(false)}
-        />
-      )}
-      {isCustomPortal && (
-        <CustomizePortal
-          isVisible={isCustomPortal}
-          closePortal={() => setIsCustomPortal(false)}
-        />
-      )}
-      {isPrePrintPortal && (
-        <PrePrintPortal
-          isVisible={isPrePrintPortal}
-          closePortal={() => setIsPrePrintPortal(false)}
-        />
-      )}
-      {isAboutPortal && (
-        <AboutPortal
-          isVisible={isAboutPortal}
-          closePortal={() => setIsAboutPortal(false)}
-        />
-      )}
     </div>
   );
+};
+
+NavBar.propTypes = {
+  closePortal: PropTypes.func,
+  onButtonClick: PropTypes.func,
 };

@@ -2,20 +2,25 @@ import { NavBar } from "./components/organism/NavBar";
 import { MenuOptionCard } from "./components/molecule/MenuOptionCard";
 import { ProcessPortal } from "./components/ecosystem/ProcessPortal";
 import { useEffect, useState } from "react";
-import { DataContext, PrintContext } from "./components/utils/DataContext";
+import { DataContext, PrintContext, PortalContext } from "./components/utils/DataContext";
 import { fetchGet } from "./components/utils/FetchUtils";
 import { Tabs } from "./components/organism/Tabs";
+import { DisplayPortal } from "./components/organism/DisplayPortal";
 
 function App() {
   const [labelOptions, setLabelOptions] = useState([]);
   const [mockObjects, setMockObjects] = useState([]);
   const [printContext, setPrintContext] = useState([]);
-  const [portalVisible, setPortalVisible] = useState(false);
-  const [selectedOption, setSelectedOption] = useState("");
+  const [portalContext, setPortalContext] = useState({visible: false, node: null});
 
+  const handlePortalUpdate = (isVisible, node) => {
+    setPortalContext({visible: isVisible, node: node});
+  }
+  const closePortal = () => {
+    handlePortalUpdate(false, null);
+  };
   const handleOptionClick = (name) => {
-    setSelectedOption(name);
-    setPortalVisible(!portalVisible);
+    handlePortalUpdate(true, <ProcessPortal selectedOption={name} closePortal={closePortal} />)
   };
 
   useEffect(() => {
@@ -34,26 +39,22 @@ function App() {
   }, [mockObjects]);
 
   return (
-    <DataContext.Provider value={{mockObjects, setMockObjects}}>
+    <DataContext.Provider value={{ mockObjects, setMockObjects }}>
       <PrintContext.Provider value={{ printContext, setPrintContext }}>
-        <NavBar />
-        <Tabs />
-        <div className="options-cards">
-          {labelOptions.map((option, id) => (
-            <MenuOptionCard
-              key={id}
-              cardName={option.Name}
-              onClick={() => handleOptionClick(option.Name)}
-            />
-          ))}
-        </div>
-        {portalVisible && (
-          <ProcessPortal
-            isVisible={portalVisible}
-            selectedOption={selectedOption}
-            closePortal={() => setPortalVisible(!portalVisible)}
-          />
-        )}
+        <PortalContext.Provider value={{ portalContext, setPortalContext}}>
+          <NavBar onButtonClick={handlePortalUpdate} closePortal={closePortal} />
+          <Tabs />
+          <div className="options-cards">
+            {labelOptions.map((option, id) => (
+              <MenuOptionCard
+                key={id}
+                cardName={option.Name}
+                onClick={() => handleOptionClick(option.Name)}
+              />
+            ))}
+          </div>
+          <DisplayPortal isPortalVisible={portalContext.visible} portalComponent={portalContext.node} />
+        </PortalContext.Provider>
       </PrintContext.Provider>
     </DataContext.Provider>
   );
