@@ -5,9 +5,12 @@ import { useContext, useState } from "react";
 import { PrePrintCard } from "../molecule/PrePrintCard";
 import { TicketMessages } from "../molecule/TicketMessages";
 
+// Ecosystem
+import { ProcessPortal } from "../ecosystem/ProcessPortal";
+
 //Styles
 import "../../styles/organism/_visualize-print.css";
-import { PrintContext } from "../utils/DataContext";
+import { PortalContext, PrintContext } from "../utils/DataContext";
 import {
   getArrayOfProperty,
   collectionHasProperty,
@@ -19,6 +22,7 @@ export const VisualizePrint = ({
   orders = [],
 }) => {
   const { printContext, setPrintContext } = useContext(PrintContext);
+  const { setPortalContext } = useContext(PortalContext);
   const [hoveredDish, setHoveredDish] = useState();
 
   const getOrders = (order) => {
@@ -96,6 +100,20 @@ export const VisualizePrint = ({
             closeAction={() => closeDish(option.id)}
             onMouseEnter={() => handleMouseEnter(option)}
             onMouseLeave={handleMouseLeave}
+            onCardClick={() =>
+              setPortalContext({
+                visible: true,
+                node: (
+                  <ProcessPortal
+                    closePortal={() =>
+                      setPortalContext({ visible: false, node: null })
+                    }
+                    selectedOption={option.Name}
+                    optionId={option.id}
+                  />
+                ),
+              })
+            }
           />
         ))}
       </div>

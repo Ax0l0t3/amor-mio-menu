@@ -1,5 +1,5 @@
+import PropTypes from "prop-types";
 import { useContext, useEffect, useState } from "react";
-import { createPortal } from "react-dom";
 
 // Atom
 import { InputField } from "../atom/InputField";
@@ -21,10 +21,7 @@ import StringConstants from "../utils/StringConstants.json";
 // Styles
 import "../../styles/organism/_add-item-portal.css";
 
-export const AddItemPortal = ({
-  isVisible = false,
-  closePortal = Function.prototype,
-}) => {
+export const AddItemPortal = ({ closePortal = Function.prototype }) => {
   const { AddPortal, Commons } = StringConstants;
 
   const { mockObjects, setMockObjects } = useContext(DataContext);
@@ -259,147 +256,147 @@ export const AddItemPortal = ({
   }, []);
 
   return (
-    isVisible &&
-    createPortal(
-      <form className="add-item-portal" onSubmit={(e) => handleClosePortal(e)}>
-        <MenuButtons options={headerButtons} />
-        <div className="flex justify-between max-h-12">
-          {isAddTab ? (
+    <form className="add-item-portal" onSubmit={(e) => handleClosePortal(e)}>
+      <MenuButtons options={headerButtons} />
+      <div className="flex justify-between max-h-12">
+        {isAddTab ? (
+          <InputField
+            inputLabel={Commons.Tab}
+            name={Commons.Title}
+            placeholder="Nueva Pestaña"
+          />
+        ) : (
+          <SelectList
+            addOptionEntry
+            defaultValue={getSelectedTab()?.Title}
+            name={Commons.Title}
+            options={getTabs()}
+            onChange={(e) => handleTabsChange(e)}
+            selectLabel={Commons.Tab}
+          />
+        )}
+        <InputField
+          name="Name"
+          placeholder="Nuevo Platillo"
+          inputLabel={AddPortal.Dish}
+          tailwindHeight="h-fit"
+        />
+        {isAddPrinter ? (
+          <InputField
+            name={Commons.Printer}
+            inputLabel={Commons.Printer}
+            placeholder="Nueva Impresora"
+          />
+        ) : (
+          <SelectList
+            addOptionEntry
+            name="Printer"
+            onChange={(e) => handlePrintersChange(e)}
+            options={getPrinters()}
+            selectLabel={Commons.Printer}
+            defaultValue={selectedPrinter}
+          />
+        )}
+      </div>
+      <fieldset>
+        <legend>{Commons.Ingredients}</legend>
+        <div className="flex">
+          {isAddIngredientCategory ? (
             <InputField
-              inputLabel={Commons.Tab}
-              name={Commons.Title}
-              placeholder="Nueva Pestaña"
+              inputLabel={AddPortal.Category}
+              labelClassName="mr-2"
+              placeholder="Nueva Categoria"
+              onChange={newIngCategoryChange}
             />
           ) : (
             <SelectList
               addOptionEntry
-              defaultValue={getSelectedTab()?.Title}
-              name={Commons.Title}
-              options={getTabs()}
-              onChange={(e) => handleTabsChange(e)}
-              selectLabel={Commons.Tab}
+              onChange={(e) => ingredientCategoryChange(e.target.value)}
+              options={getArrayOfProperty(getIngredients(), "Category")}
+              selectLabel={AddPortal.Category}
+              selectHeaderClassName="mr-2"
+              value={ingredientCategory}
             />
           )}
           <InputField
-            name="Name"
-            placeholder="Nuevo Platillo"
-            inputLabel={AddPortal.Dish}
-            tailwindHeight="h-fit"
+            inputLabel="Option"
+            labelClassName="mr-2"
+            onChange={newIngredientChange}
+            optionalTitleClassName="mr-2"
+            placeholder="Nuevo Ingrediente"
+            tailwindHeight="h-[1.6rem]"
+            value={newIngredient}
           />
-          {isAddPrinter ? (
+          <AddButton
+            onClick={() =>
+              handleAddItem(
+                "Ingredients",
+                ingredientCategory,
+                newIngredient,
+                setIsAddIngredientCategory,
+                () => setNewIngredient(""),
+              )
+            }
+          />
+        </div>
+        <BoolOptions
+          boolOptions={getIngredients()}
+          groupName={Commons.Ingredients}
+        />
+      </fieldset>
+      <fieldset>
+        <legend>Extras</legend>
+        <div className="flex">
+          {isAddExtraCategory ? (
             <InputField
-              name={Commons.Printer}
-              inputLabel={Commons.Printer}
-              placeholder="Nueva Impresora"
+              inputLabel={AddPortal.Category}
+              labelClassName="mr-2"
+              placeholder="Nueva Categoria"
+              onChange={newExtraCategoryChange}
             />
           ) : (
             <SelectList
               addOptionEntry
-              name="Printer"
-              onChange={(e) => handlePrintersChange(e)}
-              options={getPrinters()}
-              selectLabel={Commons.Printer}
-              defaultValue={selectedPrinter}
+              onChange={(e) => extraCategoryChange(e.target.value)}
+              options={getArrayOfProperty(getExtras(), "Category")}
+              selectLabel={AddPortal.Category}
+              selectHeaderClassName="mr-2"
+              value={extraCategory}
             />
           )}
-        </div>
-        <fieldset>
-          <legend>{Commons.Ingredients}</legend>
-          <div className="flex">
-            {isAddIngredientCategory ? (
-              <InputField
-                inputLabel={AddPortal.Category}
-                labelClassName="mr-2"
-                placeholder="Nueva Categoria"
-                onChange={newIngCategoryChange}
-              />
-            ) : (
-              <SelectList
-                addOptionEntry
-                onChange={(e) => ingredientCategoryChange(e.target.value)}
-                options={getArrayOfProperty(getIngredients(), "Category")}
-                selectLabel={AddPortal.Category}
-                selectHeaderClassName="mr-2"
-                value={ingredientCategory}
-              />
-            )}
-            <InputField
-              inputLabel="Option"
-              labelClassName="mr-2"
-              onChange={newIngredientChange}
-              optionalTitleClassName="mr-2"
-              placeholder="Nuevo Ingrediente"
-              tailwindHeight="h-[1.6rem]"
-              value={newIngredient}
-            />
-            <AddButton
-              onClick={() =>
-                handleAddItem(
-                  "Ingredients",
-                  ingredientCategory,
-                  newIngredient,
-                  setIsAddIngredientCategory,
-                  () => setNewIngredient(""),
-                )
-              }
-            />
-          </div>
-          <BoolOptions
-            boolOptions={getIngredients()}
-            groupName={Commons.Ingredients}
+          <InputField
+            inputLabel="Option"
+            labelClassName="mr-2"
+            onChange={handleNewExtraChange}
+            optionalTitleClassName="mr-2"
+            placeholder="Nuevo Ingrediente"
+            tailwindHeight="h-[1.6rem]"
+            value={newExtra}
           />
-        </fieldset>
-        <fieldset>
-          <legend>Extras</legend>
-          <div className="flex">
-            {isAddExtraCategory ? (
-              <InputField
-                inputLabel={AddPortal.Category}
-                labelClassName="mr-2"
-                placeholder="Nueva Categoria"
-                onChange={newExtraCategoryChange}
-              />
-            ) : (
-              <SelectList
-                addOptionEntry
-                onChange={(e) => extraCategoryChange(e.target.value)}
-                options={getArrayOfProperty(getExtras(), "Category")}
-                selectLabel={AddPortal.Category}
-                selectHeaderClassName="mr-2"
-                value={extraCategory}
-              />
-            )}
-            <InputField
-              inputLabel="Option"
-              labelClassName="mr-2"
-              onChange={handleNewExtraChange}
-              optionalTitleClassName="mr-2"
-              placeholder="Nuevo Ingrediente"
-              tailwindHeight="h-[1.6rem]"
-              value={newExtra}
-            />
-            <AddButton
-              onClick={() =>
-                handleAddItem(
-                  "Extras",
-                  extraCategory,
-                  newExtra,
-                  setIsAddExtraCategory,
-                  () => setNewExtra(""),
-                )
-              }
-            />
-          </div>
-          <BoolOptions boolOptions={getExtras()} groupName={Commons.Extras} />
-        </fieldset>
-        <InputField
-          inputWidth="w-full"
-          name="Comments"
-          inputLabel="Comentarios"
-          placeholder="Nuevo Comentario"
-        />
-      </form>,
-      document.getElementById("root"),
-    )
+          <AddButton
+            onClick={() =>
+              handleAddItem(
+                "Extras",
+                extraCategory,
+                newExtra,
+                setIsAddExtraCategory,
+                () => setNewExtra(""),
+              )
+            }
+          />
+        </div>
+        <BoolOptions boolOptions={getExtras()} groupName={Commons.Extras} />
+      </fieldset>
+      <InputField
+        inputWidth="w-full"
+        name="Comments"
+        inputLabel="Comentarios"
+        placeholder="Nuevo Comentario"
+      />
+    </form>
   );
+};
+
+AddItemPortal.propTypes = {
+  closePortal: PropTypes.func,
 };

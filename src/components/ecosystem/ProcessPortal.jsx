@@ -1,4 +1,4 @@
-import { createPortal } from "react-dom";
+import PropTypes from "prop-types";
 import { useContext, useEffect, useState } from "react";
 
 // Atom
@@ -21,9 +21,9 @@ import { replaceAndLower } from "../utils/StringUtils";
 import "../../styles/ecosystem/_process-portal.css";
 
 export const ProcessPortal = ({
-  isVisible = false,
   closePortal = Function.prototype,
   selectedOption = "",
+  optionId,
 }) => {
   const { mockObjects } = useContext(DataContext);
   const { printContext, setPrintContext } = useContext(PrintContext);
@@ -98,7 +98,14 @@ export const ProcessPortal = ({
         id: `${objectToAdd.Name}-${idConstructor}-${i}`,
       });
     }
-    setPrintContext([...printContext, ...array]);
+    if (optionId) {
+      const toUpdate = [...printContext];
+      const foundIndex = printContext.findIndex((item) => item.id === optionId);
+      toUpdate.splice(foundIndex, 1);
+      setPrintContext([...toUpdate, ...array]);
+    } else {
+      setPrintContext([...printContext, ...array]);
+    }
   };
 
   const handleCounterChange = (qtty) => {
@@ -179,104 +186,106 @@ export const ProcessPortal = ({
   }, []);
 
   return (
-    isVisible &&
-    createPortal(
-      <div className="process-portal">
-        {/*Preview ticket section*/}
-        <PreviewTicketSection
-          parentObject={localTab}
-          selectedObject={localOption}
-          wrappedCategories={catToGo}
-        />
-        {/* Comments Section */}
+    <div className="process-portal">
+      {/*Preview ticket section*/}
+      <PreviewTicketSection
+        parentObject={localTab}
+        selectedObject={localOption}
+        wrappedCategories={catToGo}
+      />
+      {/* Comments Section */}
+      <ExpandableDiv
+        closeAction={closePortal}
+        onSectionClick={() => setSelectedSection("Comments")}
+        showSection={selectedSection === "Comments"}
+        changePrinter={handlePrinterClick}
+        saveOptions={() => handleOptionSave(counter)}
+      >
+        <p>Comentarios</p>
+        {selectedSection === "Comments" && (
+          <div className="flex flex-col">
+            <InputField
+              inputWidth="w-full"
+              name="commentsField"
+              onChange={updateLocalOption}
+              placeholder="Agregar Comentario"
+              value={localOption.Comments}
+            />
+            <CounterDiv
+              defaultValue={1}
+              tailwindStyle="flex ml-auto mt-2"
+              counterChange={handleCounterChange}
+            />
+            <fieldset>
+              <div>
+                <label>
+                  <input
+                    type="radio"
+                    name="order"
+                    value="newOrder"
+                    onClick={(e) => ordersChange(e.target)}
+                  />
+                  <span>Orden</span>
+                </label>
+                <InputField
+                  inputEnabled={newOrderEnabled}
+                  inputWidth="w-full"
+                  name="commentsField"
+                  onChange={(e) => setNewOrderField(e.target.value)}
+                  placeholder={placeholderConstant}
+                  value={newOrderField}
+                />
+              </div>
+              {ordersContext.map((order, index) => (
+                <label key={index} className="mb-2">
+                  <input
+                    type="radio"
+                    name="order"
+                    value={order}
+                    onClick={(e) => ordersChange(e.target)}
+                  />
+                  <span>{order}</span>
+                </label>
+              ))}
+            </fieldset>
+          </div>
+        )}
+      </ExpandableDiv>
+      {/* Extras Section */}
+      {localTab?.Extras?.length > 0 && (
         <ExpandableDiv
           closeAction={closePortal}
-          onSectionClick={() => setSelectedSection("Comments")}
-          showSection={selectedSection === "Comments"}
+          onSectionClick={() => setSelectedSection("Extras")}
+          showSection={selectedSection === "Extras"}
           changePrinter={handlePrinterClick}
           saveOptions={() => handleOptionSave(counter)}
         >
-          <p>Comentarios</p>
-          {selectedSection === "Comments" && (
-            <div className="flex flex-col">
-              <InputField
-                inputWidth="w-full"
-                name="commentsField"
-                onChange={updateLocalOption}
-                placeholder="Agregar Comentario"
-                value={localOption.Comments}
-              />
-              <CounterDiv
-                defaultValue={1}
-                tailwindStyle="flex ml-auto mt-2"
-                counterChange={handleCounterChange}
-              />
-              <fieldset>
-                <div>
-                  <label>
-                    <input
-                      type="radio"
-                      name="order"
-                      value="newOrder"
-                      onClick={(e) => ordersChange(e.target)}
-                    />
-                    <span>Orden</span>
-                  </label>
-                  <InputField
-                    inputEnabled={newOrderEnabled}
-                    inputWidth="w-full"
-                    name="commentsField"
-                    onChange={(e) => setNewOrderField(e.target.value)}
-                    placeholder={placeholderConstant}
-                    value={newOrderField}
-                  />
-                </div>
-                {ordersContext.map((order, index) => (
-                  <label key={index} className="mb-2">
-                    <input
-                      type="radio"
-                      name="order"
-                      value={order}
-                      onClick={(e) => ordersChange(e.target)}
-                    />
-                    <span>{order}</span>
-                  </label>
-                ))}
-              </fieldset>
-            </div>
+          {selectedSection == "Extras" ? (
+            <>
+              <h6>Extras</h6>
+              {localTab.Extras.map((object, index) => (
+                <BoolButtonsGroup
+                  workingObject={object}
+                  workingProperty="Extras"
+                  coreObject={localOption}
+                  setParentObject={setLocalOption}
+                  key={index}
+                />
+              ))}
+            </>
+          ) : (
+            <h6>Extras</h6>
           )}
         </ExpandableDiv>
-        {/* Extras Section */}
-        {localTab?.Extras?.length > 0 && (
-          <ExpandableDiv
-            closeAction={closePortal}
-            onSectionClick={() => setSelectedSection("Extras")}
-            showSection={selectedSection === "Extras"}
-            changePrinter={handlePrinterClick}
-            saveOptions={() => handleOptionSave(counter)}
-          >
-            {selectedSection == "Extras" ? (
-              <>
-                <h6>Extras</h6>
-                {localTab.Extras.map((object, index) => (
-                  <BoolButtonsGroup
-                    workingObject={object}
-                    workingProperty="Extras"
-                    coreObject={localOption}
-                    setParentObject={setLocalOption}
-                    key={index}
-                  />
-                ))}
-              </>
-            ) : (
-              <h6>Extras</h6>
-            )}
-          </ExpandableDiv>
-        )}
-        {/* Ingredients Section */}
-        {localTab?.Ingredients?.length > 0 && returnExpandable("Ingredients")}
-      </div>,
-      document.getElementById("root"),
-    )
+      )}
+      {/* Ingredients Section */}
+      {localTab?.Ingredients?.length > 0 && returnExpandable("Ingredients")}
+    </div>
   );
+};
+
+ProcessPortal.propTypes = {
+  closePortal: PropTypes.func,
+  optionId: PropTypes.string,
+  selectedOption: PropTypes.string,
 };
