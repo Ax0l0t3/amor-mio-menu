@@ -23,6 +23,7 @@ import "../../styles/ecosystem/_process-portal.css";
 export const ProcessPortal = ({
   closePortal = Function.prototype,
   selectedOption = "",
+  optionId,
 }) => {
   const { mockObjects } = useContext(DataContext);
   const { printContext, setPrintContext } = useContext(PrintContext);
@@ -97,7 +98,14 @@ export const ProcessPortal = ({
         id: `${objectToAdd.Name}-${idConstructor}-${i}`,
       });
     }
-    setPrintContext([...printContext, ...array]);
+    if (optionId) {
+      const toUpdate = [...printContext];
+      const foundIndex = printContext.findIndex((item) => item.id === optionId);
+      toUpdate.splice(foundIndex, 1);
+      setPrintContext([...toUpdate, ...array]);
+    } else {
+      setPrintContext([...printContext, ...array]);
+    }
   };
 
   const handleCounterChange = (qtty) => {
@@ -278,5 +286,6 @@ export const ProcessPortal = ({
 
 ProcessPortal.propTypes = {
   closePortal: PropTypes.func,
+  optionId: PropTypes.string,
   selectedOption: PropTypes.string,
 };

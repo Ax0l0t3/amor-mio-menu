@@ -109,6 +109,7 @@ export const VisualizePrint = ({
                       setPortalContext({ visible: false, node: null })
                     }
                     selectedOption={option.Name}
+                    optionId={option.id}
                   />
                 ),
               })
