@@ -9,6 +9,7 @@ import { VisualizePrint } from "./VisualizePrint";
 
 //Utils
 import { PrintContext } from "../utils/DataContext";
+import { fetchPost } from "../utils/FetchUtils";
 import { getArrayOfProperty, getObjectPropValue } from "../utils/ObjectUtils";
 
 // Styles
@@ -21,6 +22,7 @@ export const PrePrintViewPort = ({ closePortal = Function.prototype }) => {
   const [workingObject, setWorkingObject] = useState({});
 
   const handlePrint = () => {
+    fetchPost("http://localhost:5000/printJson", printContext);
     setPrintContext([]);
     closePortal();
   };
