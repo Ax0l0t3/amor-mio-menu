@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 
 // Atom
 import { TextButton } from "../atom/TextButton";
@@ -9,20 +9,25 @@ import { VisualizePrint } from "./VisualizePrint";
 
 //Utils
 import { PrintContext } from "../utils/DataContext";
-import { fetchPost } from "../utils/FetchUtils";
+import { fetchPostString } from "../utils/FetchUtils";
 import { getArrayOfProperty, getObjectPropValue } from "../utils/ObjectUtils";
 
 // Styles
 import "../../styles/ecosystem/_pre-print-portal.css";
 
 export const PrePrintViewPort = ({ closePortal = Function.prototype }) => {
+  const allTicketsRef = useRef(null);
   const { printContext, setPrintContext } = useContext(PrintContext);
   const [localPrinters, setLocalPrinters] = useState([]);
   const [localOrders, setLocalOrders] = useState([]);
   const [workingObject, setWorkingObject] = useState({});
 
   const handlePrint = () => {
-    fetchPost("http://localhost:5000/printJson", printContext);
+    const nodeArray = allTicketsRef.current.querySelectorAll(".preview-print-ticket");
+    const textArray = [];
+    nodeArray.forEach( element => textArray.push(element.innerHTML));
+    const textToPrint = textArray.join("#");
+    fetchPostString("http://localhost:5000/printJson", textToPrint);
     setPrintContext([]);
     closePortal();
   };
@@ -40,7 +45,7 @@ export const PrePrintViewPort = ({ closePortal = Function.prototype }) => {
 
   return (
     <div className="pre-print-portal">
-      <div className="tickets-section">
+      <div className="tickets-section" ref={allTicketsRef}>
         {localPrinters.map((printer, index) => (
           <VisualizePrint
             key={index}

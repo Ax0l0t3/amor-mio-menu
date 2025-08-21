@@ -4,6 +4,15 @@ export const fetchGet = async (endpoint) => {
   return json;
 };
 
+export const fetchPostString = async (endpoint, postBody) => {
+  const response = await fetch(endpoint, {
+    method: "POST",
+    body: postBody,
+    headers: { "Content-Type": "text/plain" },
+  });
+  return response;
+};
+
 export const fetchPost = async (endpoint, postBody) => {
   const thisBody = JSON.stringify(postBody);
   const response = await fetch(endpoint, {
