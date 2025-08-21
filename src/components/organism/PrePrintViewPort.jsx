@@ -23,9 +23,11 @@ export const PrePrintViewPort = ({ closePortal = Function.prototype }) => {
   const [workingObject, setWorkingObject] = useState({});
 
   const handlePrint = () => {
-    const nodeArray = allTicketsRef.current.querySelectorAll(".preview-print-ticket");
+    const nodeArray = allTicketsRef.current.querySelectorAll(
+      ".preview-print-ticket",
+    );
     const textArray = [];
-    nodeArray.forEach( element => textArray.push(element.innerHTML));
+    nodeArray.forEach((element) => textArray.push(element.innerHTML));
     const textToPrint = textArray.join("#");
     fetchPostString("http://localhost:5000/printJson", textToPrint);
     setPrintContext([]);

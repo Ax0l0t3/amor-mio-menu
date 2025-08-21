@@ -34,33 +34,19 @@ export const TicketMessages = ({ dishes, hoveredDish }) => {
         style={pStyle}
         key={`${message}${coreIndex}`}
       >
-        {messageSplitted[paddingIndex] != 1 && <span>({dishQtty}) {tabName[messageSplitted[paddingIndex]-1]}:</span>}
-        <ul >
+        {messageSplitted[paddingIndex] != 1 && (
+          <span>
+            ({dishQtty}) {tabName[messageSplitted[paddingIndex] - 1]}:
+          </span>
+        )}
+        <ul>
           {ingsSplitted.map((paragraph, index) => (
-            <li key={`${paragraph}${index}`}>{`${messageSplitted[paddingIndex] == 1 ? "" : "- > "}${paragraph}`}</li>
+            <li
+              key={`${paragraph}${index}`}
+            >{`${messageSplitted[paddingIndex] == 1 ? "" : "- > "}${paragraph}`}</li>
           ))}
         </ul>
       </div>
     );
   });
 };
-
-/*
-Barra Frutas
-  2 x Waffle Coronado
-    (1) Ingredientes:
-    - > Platano
-    - > Cajeta
-    - > Nuez
-    - > Coco
-      (1) Extras:
-      - > Fresa
-    (1) Ingredientes:
-    - > Platano
-    - > Cajeta
-    - > Nuez
-    - > Coco
-    - > Fresa
-      (1) Extras:
-      - > Cajeta
-*/
