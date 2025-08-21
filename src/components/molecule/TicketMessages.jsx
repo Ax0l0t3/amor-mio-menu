@@ -7,6 +7,7 @@ import StringConstants from "../utils/StringConstants.json";
 export const TicketMessages = ({ dishes, hoveredDish }) => {
   const { PrintPortal } = StringConstants;
   const propsToOrder = ["Name", "Ingredients", "Extras", "Comments"];
+  const tabName = ["Nombre", "Ingredientes", "Extras", "Comentarios"];
   const [ticketMessages, setTicketMessages] = useState([]);
 
   useEffect(() => {
@@ -33,12 +34,18 @@ export const TicketMessages = ({ dishes, hoveredDish }) => {
         style={pStyle}
         key={`${message}${coreIndex}`}
       >
-        {messageSplitted[paddingIndex] != 1 && <span>({dishQtty})</span>}
-        {ingsSplitted.map((paragraph, index) => (
-          <ul key={`${paragraph}${index}`}>
-            <li>{`${messageSplitted[paddingIndex] == 1 ? "" : "- > "}${paragraph}`}</li>
-          </ul>
-        ))}
+        {messageSplitted[paddingIndex] != 1 && (
+          <span>
+            ({dishQtty}) {tabName[messageSplitted[paddingIndex] - 1]}:
+          </span>
+        )}
+        <ul>
+          {ingsSplitted.map((paragraph, index) => (
+            <li
+              key={`${paragraph}${index}`}
+            >{`${messageSplitted[paddingIndex] == 1 ? "" : "- > "}${paragraph}`}</li>
+          ))}
+        </ul>
       </div>
     );
   });

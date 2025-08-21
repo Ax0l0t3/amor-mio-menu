@@ -47,7 +47,7 @@ export const BoolOptions = ({
   return (
     <ul className={`bool-options-class ${className}`}>
       {optionsObjects.map((object, upperIndex) => (
-        <li key={`${object.Category}-${upperIndex}`}>
+        <li key={`${object.Category}-${upperIndex}`} draggable>
           <p>{object.Category}</p>
           <ul className="flex flex-wrap">
             {object.Options?.map((option, index) => (
