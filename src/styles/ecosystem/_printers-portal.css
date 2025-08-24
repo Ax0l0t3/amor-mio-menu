@@ -1,0 +1,47 @@
+.printers-portal-style {
+  background-color: #1f1612ff;
+  height: 100%;
+  left: 4%;
+  position: absolute;
+  width: 96%;
+  font-size: 1.2rem;
+  overflow: hidden;
+}
+
+.header-grid{
+  display: grid;
+  grid-template-columns: 2% 30% 30% 30%;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.header-grid > :first-child{
+  grid-column-start: 2;
+}
+
+.printers-grid{
+  display: grid;
+  grid-template-columns: 2% 30% 30% 30% auto;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.printers-grid > input:first-child{
+  grid-column-start: 2;
+}
+
+.printers-portal-style input{
+  box-sizing: border-box;
+  outline: 1px solid #1f1612ff;
+}
+
+.printers-portal-style input:invalid{
+  outline: 1px solid #f7df44ff;
+  transition: all 0.15s;
+}
+
+.printers-portal-style input:focus{
+  border-right: 7px solid salmon;
+  border-radius: 1px;
+  transition: all 0.15s;
+}

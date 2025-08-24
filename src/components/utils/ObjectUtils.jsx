@@ -83,3 +83,20 @@ export const localJsonSerialize = (obj, modeInteger) => {
   }
   return returnObj;
 };
+
+export const localizePrinters = (attribs, formData) => {
+  let thisArray = [];
+  let k = 0;
+  const entries = Array.from(formData.entries());
+  while (k < entries.length) {
+    let i = 0;
+    let thisObject = {};
+    while (i < attribs.length) {
+      thisObject = { ...thisObject, [entries[k][0]]: entries[k][1] };
+      i++;
+      k++;
+    }
+    thisArray.push(thisObject);
+  }
+  return thisArray;
+};

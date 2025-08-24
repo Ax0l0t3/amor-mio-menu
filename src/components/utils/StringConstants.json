@@ -7,6 +7,7 @@
     "Add": "Add",
     "Extras": "Extras",
     "Ingredients": "Ingredients",
+    "Name": "Nombre",
     "Printer": "Impresora",
     "Tab": "Pestaña",
     "Title": "Title"
@@ -19,8 +20,15 @@
   "PrintPortal": {
     "Comments": "Comentarios",
     "Ingredients": "Ingredientes",
-    "Name": "Nombre",
     "Hovered": "hovered",
     "NotHovered": "!hovered"
+  },
+  "PrintersPortal": {
+    "Ip": "Ip",
+    "Port": "Puerto",
+    "Id": "Id"
+  },
+  "Dns": {
+    "Api": "http://localhost:5000/"
   }
 }

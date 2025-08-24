@@ -28,7 +28,7 @@ import StringConstants from "../utils/StringConstants.json";
 import "../../styles/organism/_edit-item-portal.css";
 
 export const EditItemPortal = ({ closePortal = Function.prototype }) => {
-  const { EditPortal, Commons } = StringConstants;
+  const { EditPortal, Commons, Dns } = StringConstants;
   const modes = [
     EditPortal.ModifyModeString,
     EditPortal.EditModeString,
@@ -101,7 +101,7 @@ export const EditItemPortal = ({ closePortal = Function.prototype }) => {
         bodyObjects = deleteHandler(json, objectsToEdit);
         break;
     }
-    fetchPost("http://localhost:5000/post-data-menu", { Tabs: bodyObjects });
+    fetchPost(`${Dns.Api}post-data-menu`, { Tabs: bodyObjects });
     setMockObjects(bodyObjects);
     if (
       currentMode === 2 &&
