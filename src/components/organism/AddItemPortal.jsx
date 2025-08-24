@@ -241,7 +241,7 @@ export const AddItemPortal = ({ closePortal = Function.prototype }) => {
         },
       ];
     }
-    fetchPost(`${Dns.Api}post-data-menu`, { Tabs: scopeObjects });
+    fetchPost(`${Dns.Api}/post-data-menu`, { Tabs: scopeObjects });
     setMockObjects(scopeObjects);
     closePortal();
   };

@@ -29,6 +29,6 @@
     "Id": "Id"
   },
   "Dns": {
-    "Api": "http://localhost:5000/"
+    "Api": "http://localhost:5000"
   }
 }

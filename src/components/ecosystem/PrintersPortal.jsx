@@ -81,7 +81,7 @@ export const PrintersPortal = ({ closePortal = Function.prototype }) => {
       const cleanString = Object.values(obj).join("-").replaceAll(" ", "");
       obj.Id = cleanString;
     });
-    fetchPost(`${Dns.Api}save-printers`, {
+    fetchPost(`${Dns.Api}/save-printers`, {
       Printers: localizedPrinters,
     });
     setPrintersContext(localizedPrinters);

@@ -101,7 +101,7 @@ export const EditItemPortal = ({ closePortal = Function.prototype }) => {
         bodyObjects = deleteHandler(json, objectsToEdit);
         break;
     }
-    fetchPost(`${Dns.Api}post-data-menu`, { Tabs: bodyObjects });
+    fetchPost(`${Dns.Api}/post-data-menu`, { Tabs: bodyObjects });
     setMockObjects(bodyObjects);
     if (
       currentMode === 2 &&

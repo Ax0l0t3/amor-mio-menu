@@ -31,7 +31,7 @@ export const PrePrintViewPort = ({ closePortal = Function.prototype }) => {
     const textArray = [];
     nodeArray.forEach((element) => textArray.push(element.innerHTML));
     const textToPrint = textArray.join("\n");
-    fetchPostString(`${Dns.Api}printJson`, textToPrint);
+    fetchPostString(`${Dns.Api}/printJson`, textToPrint);
     setPrintContext([]);
     closePortal();
   };

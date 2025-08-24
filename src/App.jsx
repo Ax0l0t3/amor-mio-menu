@@ -28,11 +28,11 @@ function App() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await fetchGet(`${Dns.Api}data-menu`);
+      const data = await fetchGet(`${Dns.Api}/data-menu`);
       setMockObjects(data?.Tabs);
     };
     const fetchPrinters = async () => {
-      const data = await fetchGet(`${Dns.Api}get-printers`);
+      const data = await fetchGet(`${Dns.Api}/get-printers`);
       setPrintersContext(data?.Printers);
     };
 
