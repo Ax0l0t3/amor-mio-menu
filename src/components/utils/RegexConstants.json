@@ -1,0 +1,6 @@
+{
+  "CommonRegex": {
+    "IpRegex": "\\d+.\\d+.\\d+.\\d+",
+    "JustDigitsRegex": "\\d+"
+  }
+}

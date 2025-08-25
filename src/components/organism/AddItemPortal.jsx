@@ -22,7 +22,7 @@ import StringConstants from "../utils/StringConstants.json";
 import "../../styles/organism/_add-item-portal.css";
 
 export const AddItemPortal = ({ closePortal = Function.prototype }) => {
-  const { AddPortal, Commons } = StringConstants;
+  const { AddPortal, Commons, Dns } = StringConstants;
 
   const { mockObjects, setMockObjects } = useContext(DataContext);
 
@@ -241,7 +241,7 @@ export const AddItemPortal = ({ closePortal = Function.prototype }) => {
         },
       ];
     }
-    fetchPost("http://localhost:5000/post-data-menu", { Tabs: scopeObjects });
+    fetchPost(`${Dns.Api}/post-data-menu`, { Tabs: scopeObjects });
     setMockObjects(scopeObjects);
     closePortal();
   };

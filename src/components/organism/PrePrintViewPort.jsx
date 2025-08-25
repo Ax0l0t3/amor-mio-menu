@@ -11,11 +11,13 @@ import { VisualizePrint } from "./VisualizePrint";
 import { PrintContext } from "../utils/DataContext";
 import { fetchPostString } from "../utils/FetchUtils";
 import { getArrayOfProperty, getObjectPropValue } from "../utils/ObjectUtils";
+import StringConstants from "../utils/StringConstants.json";
 
 // Styles
 import "../../styles/ecosystem/_pre-print-portal.css";
 
 export const PrePrintViewPort = ({ closePortal = Function.prototype }) => {
+  const { Dns } = StringConstants;
   const allTicketsRef = useRef(null);
   const { printContext, setPrintContext } = useContext(PrintContext);
   const [localPrinters, setLocalPrinters] = useState([]);
@@ -28,8 +30,8 @@ export const PrePrintViewPort = ({ closePortal = Function.prototype }) => {
     );
     const textArray = [];
     nodeArray.forEach((element) => textArray.push(element.innerHTML));
-    const textToPrint = textArray.join("#");
-    fetchPostString("http://localhost:5000/printJson", textToPrint);
+    const textToPrint = textArray.join("\n");
+    fetchPostString(`${Dns.Api}/printJson`, textToPrint);
     setPrintContext([]);
     closePortal();
   };

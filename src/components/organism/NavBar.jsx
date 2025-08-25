@@ -7,6 +7,7 @@ import { CustomizeSVG } from "../atom/CustomizeIcon";
 import { EditSVG } from "../atom/EditIcon";
 import { HomeSVG } from "../atom/HomeIcon";
 import { PreSaveSVG } from "../atom/PreSaveIcon";
+import { PrinterIconSvg } from "../atom/PrinterIcon";
 
 // Molecule
 import { SvgButton } from "../molecule/SvgButton";
@@ -19,6 +20,7 @@ import { PalettePortal } from "./PalettePortal";
 // Ecosystem
 import { AboutPortal } from "../ecosystem/AboutPortal";
 import { EditItemPortal } from "../ecosystem/EditItemPortal";
+import { PrintersPortal } from "../ecosystem/PrintersPortal";
 
 // Styles
 import "../../styles/organism/_nav-bar.css";
@@ -50,6 +52,11 @@ export const NavBar = ({
       button: <PreSaveSVG />,
       action: () =>
         changePortal(true, <PrePrintViewPort closePortal={closePortal} />),
+    },
+    {
+      button: <PrinterIconSvg />,
+      action: () =>
+        changePortal(true, <PrintersPortal closePortal={closePortal} />),
     },
     {
       button: <CustomizeSVG />,
