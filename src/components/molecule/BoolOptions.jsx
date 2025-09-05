@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import { LiCheckbox } from "../atom/LiCheckbox";
 
 import "../../styles/molecule/_bool-options.css";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export const BoolOptions = ({
   boolOptions = [],
@@ -15,6 +15,7 @@ export const BoolOptions = ({
 }) => {
   const [checkedOptions, setCheckedOptions] = useState(selectedOptions);
   const [optionsObjects, setOptionsObjects] = useState([]);
+  const firstRun = useRef(true);
 
   const onLiBoxChange = (optionName) => {
     if (checkedOptions) {
@@ -32,13 +33,17 @@ export const BoolOptions = ({
   };
 
   useEffect(() => {
-    if (boolOptions.length > 0) {
-      const sortedOptions = boolOptions.map((obj) => {
-        obj.Options.sort();
-        return obj;
-      });
-      setOptionsObjects(sortedOptions);
+    if (firstRun.current) {
+      firstRun.current = false;
+      return;
     }
+
+    const sortedOptions = boolOptions.map((obj) => {
+      obj.Options.sort();
+      return obj;
+    });
+    setOptionsObjects(sortedOptions);
+
     if (selectedOptions) {
       setCheckedOptions(selectedOptions);
     }

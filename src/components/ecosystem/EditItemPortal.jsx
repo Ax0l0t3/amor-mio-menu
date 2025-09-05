@@ -164,6 +164,7 @@ export const EditItemPortal = ({ closePortal = Function.prototype }) => {
         <legend>{Commons.Ingredients}</legend>
         {editMode === EditPortal.ModifyModeString && (
           <BoolOptions
+            key={EditPortal.ModifyModeString}
             className={`${editMode === EditPortal.DeleteModeString ? "deletable-entry" : ""}`}
             boolOptions={getIngredients()}
             selectedOptions={selectedDish.Ingredients}
@@ -173,6 +174,7 @@ export const EditItemPortal = ({ closePortal = Function.prototype }) => {
         )}
         {editMode === EditPortal.EditModeString && (
           <InputsGroup
+            key={EditPortal.EditModeString}
             options={getIngredients()}
             groupName={Commons.Ingredients}
             disabledOptions={selectedDish.Ingredients}
@@ -180,6 +182,7 @@ export const EditItemPortal = ({ closePortal = Function.prototype }) => {
         )}
         {editMode === EditPortal.DeleteModeString && (
           <ToogleButtons
+            key={EditPortal.DeleteModeString}
             options={getIngredients()}
             groupName={Commons.Ingredients}
           />

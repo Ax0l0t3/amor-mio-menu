@@ -78,3 +78,26 @@ export const PrePrintViewPort = ({ closePortal = Function.prototype }) => {
 PrePrintViewPort.propTypes = {
   closePortal: PropTypes.func,
 };
+/*
+# Define the COM port and baud rate (adjust based on your printer's settings)
+$comPort = "COM3"    # Change this to the actual COM port for your printer
+$baudRate = 9600      # Common baud rate for printers, adjust if needed
+
+# Create a SerialPort object
+$serialPort = New-Object System.IO.Ports.SerialPort $comPort, $baudRate, [System.IO.Ports.Parity]::None, 8, [System.IO.Ports.StopBits]::One
+$serialPort = New-Object System.IO.Ports.SerialPort($comPort, $baudRate, [System.IO.Ports.Parity]::None, 8, [System.IO.Ports.StopBits]::One)
+$serialPort.Open()
+
+# Send the command to set the printer's static IP
+# Example ESC/POS or similar command (replace with your printer's command set)
+$command = [System.Text.Encoding]::ASCII.GetBytes([char]27 + "@IP 192.168.100.10")
+$serialPort.Write($command, 0, $command.Length)
+
+# Optional: Send more commands for subnet mask, gateway, etc.
+$command = [System.Text.Encoding]::ASCII.GetBytes([char]27 + "[Subnet MASK COMMAND HERE]")
+$serialPort.Write($command, 0, $command.Length)
+
+# Close the serial port
+$serialPort.Close()
+
+*/

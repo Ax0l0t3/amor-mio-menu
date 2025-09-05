@@ -13,7 +13,10 @@ import { SelectList } from "../molecule/SelectList";
 import { MenuButtons } from "./MenuButtons";
 
 // Utils
-import { DataContext } from "../../components/utils/DataContext";
+import {
+  DataContext,
+  PrintersContext,
+} from "../../components/utils/DataContext";
 import { fetchPost } from "../utils/FetchUtils";
 import { getArrayOfProperty, localJsonSerialize } from "../utils/ObjectUtils";
 import StringConstants from "../utils/StringConstants.json";
@@ -25,12 +28,12 @@ export const AddItemPortal = ({ closePortal = Function.prototype }) => {
   const { AddPortal, Commons, Dns } = StringConstants;
 
   const { mockObjects, setMockObjects } = useContext(DataContext);
+  const { printersContext } = useContext(PrintersContext);
 
   const [scopeObjects, setScopeObjects] = useState([]);
   const [extraCategory, setExtraCategory] = useState("");
   const [ingredientCategory, setIngredientCategory] = useState("");
   const [selectedPrinter, setSelectedPrinter] = useState("");
-  const [isAddPrinter, setIsAddPrinter] = useState(false);
   const [isAddExtraCategory, setIsAddExtraCategory] = useState(false);
   const [isAddIngredientCategory, setIsAddIngredientCategory] = useState(false);
   const [isAddTab, setIsAddTab] = useState(false);
@@ -52,7 +55,7 @@ export const AddItemPortal = ({ closePortal = Function.prototype }) => {
   ];
 
   const getPrinters = () => {
-    return getArrayOfProperty(scopeObjects, "Printer");
+    return getArrayOfProperty(printersContext, "Name");
   };
   const getTabs = () => {
     return getArrayOfProperty(scopeObjects, Commons.Title);
@@ -111,9 +114,6 @@ export const AddItemPortal = ({ closePortal = Function.prototype }) => {
     setExtraCategory(option);
   };
   const handlePrintersChange = (e) => {
-    if (e.target.value === "Add") {
-      setIsAddPrinter(true);
-    }
     setSelectedPrinter(e.target.value);
   };
   const handleTabsChange = (e) => {
@@ -281,22 +281,13 @@ export const AddItemPortal = ({ closePortal = Function.prototype }) => {
           inputLabel={AddPortal.Dish}
           tailwindHeight="h-fit"
         />
-        {isAddPrinter ? (
-          <InputField
-            name={Commons.Printer}
-            inputLabel={Commons.Printer}
-            placeholder="Nueva Impresora"
-          />
-        ) : (
-          <SelectList
-            addOptionEntry
-            name="Printer"
-            onChange={(e) => handlePrintersChange(e)}
-            options={getPrinters()}
-            selectLabel={Commons.Printer}
-            defaultValue={selectedPrinter}
-          />
-        )}
+        <SelectList
+          name="Printer"
+          onChange={(e) => handlePrintersChange(e)}
+          options={getPrinters()}
+          selectLabel={Commons.Printer}
+          defaultValue={selectedPrinter}
+        />
       </div>
       <fieldset>
         <legend>{Commons.Ingredients}</legend>
