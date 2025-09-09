@@ -64,6 +64,20 @@ export const ProcessPortal = ({
   };
 
   const convertToPrePrintObject = (initObject) => {
+    // Add a char to "Toppings" exclusively
+    const ingredientsArr = localTab.Ingredients.find(
+      (x) => x.Category === "Toppings",
+    );
+    if (ingredientsArr) {
+      const newIngredients = initObject.Ingredients.map((x) => {
+        if (ingredientsArr.Options.includes(x)) {
+          return `${x} **`;
+        }
+        return x;
+      });
+      initObject.Ingredients = newIngredients;
+    }
+    // ...
     return newOrderField === ""
       ? { ...initObject, Printer: localTab.Printer }
       : { ...initObject, Printer: localTab.Printer, Order: newOrderField };
