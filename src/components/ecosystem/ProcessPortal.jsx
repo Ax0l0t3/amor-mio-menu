@@ -22,8 +22,9 @@ import "../../styles/ecosystem/_process-portal.css";
 
 export const ProcessPortal = ({
   closePortal = Function.prototype,
-  selectedOption = "",
   optionId,
+  prefilledObject,
+  selectedOption = "",
 }) => {
   const { mockObjects } = useContext(DataContext);
   const { printContext, setPrintContext } = useContext(PrintContext);
@@ -65,26 +66,42 @@ export const ProcessPortal = ({
 
   const convertToPrePrintObject = (initObject) => {
     // Add a char to "Toppings" exclusively
-    const ingredientsArr = localTab.Ingredients.find(
-      (x) => x.Category === "Toppings",
-    );
-    if (ingredientsArr) {
-      const newIngredients = initObject.Ingredients.map((x) => {
-        if (ingredientsArr.Options.includes(x)) {
-          return `${x} **`;
-        }
-        return x;
-      });
-      initObject.Ingredients = newIngredients;
-    }
+    // const ingredientsArr = localTab.Ingredients.find(
+    //   (x) => x.Category === "Toppings",
+    // );
+    // if (ingredientsArr) {
+    //   const newIngredients = initObject.Ingredients.map((x) => {
+    //     if (ingredientsArr.Options.includes(x)) {
+    //       return `${x} **`;
+    //     }
+    //     return x;
+    //   });
+    //   initObject.Ingredients = newIngredients;
+    // }
     // ...
     return newOrderField === ""
       ? { ...initObject, Printer: localTab.Printer }
       : { ...initObject, Printer: localTab.Printer, Order: newOrderField };
   };
 
+  const groupStringsByCategories = (list, objs) => {
+  const result = [];
+
+  objs.forEach((obj, index) => {
+    const categoryItems = list.filter(item => obj.Options.includes(item));
+    result.push(...categoryItems);
+    if(index < objs.length-1 && categoryItems.length > 0) result.push("&");
+  });
+
+  return result;
+}
+
   const handleOptionSave = (qtty = 1) => {
     const array = [];
+    const groupedIngredients = groupStringsByCategories(localOption.Ingredients, localTab.Ingredients);
+    const groupedExtras = groupStringsByCategories(localOption.Extras, localTab.Extras);
+    localOption.Ingredients = groupedIngredients;
+    localOption.Extras = groupedExtras;
     const objectToAdd = convertToPrePrintObject(localOption);
     // ...
     let indexes = [];
@@ -192,15 +209,16 @@ export const ProcessPortal = ({
       const thisOption = thisTab.Options.find(
         (object) => object.Name === selectedOption,
       );
+      const objectToUse = prefilledObject ?? thisOption;
       setLocalTab(thisTab);
-      setLocalOption(thisOption);
+      setLocalOption(objectToUse);
       setDefaultExpanded(thisTab);
       setOrdersContext(getArrayOfProperty(printContext, "Order"));
     }
   }, []);
 
   return (
-    <div className="process-portal">
+    <form className="process-portal">
       {/*Preview ticket section*/}
       <PreviewTicketSection
         parentObject={localTab}
@@ -225,11 +243,13 @@ export const ProcessPortal = ({
               placeholder="Agregar Comentario"
               value={localOption.Comments}
             />
-            <CounterDiv
-              defaultValue={1}
-              tailwindStyle="flex ml-auto mt-2"
-              counterChange={handleCounterChange}
-            />
+            {!prefilledObject && (
+              <CounterDiv
+                defaultValue={1}
+                tailwindStyle="flex ml-auto mt-2"
+                counterChange={handleCounterChange}
+              />
+            )}
             <fieldset>
               <div>
                 <label>
@@ -294,7 +314,7 @@ export const ProcessPortal = ({
       )}
       {/* Ingredients Section */}
       {localTab?.Ingredients?.length > 0 && returnExpandable("Ingredients")}
-    </div>
+    </form>
   );
 };
 
