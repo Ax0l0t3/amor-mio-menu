@@ -23,8 +23,7 @@ export const TicketMessages = ({ dishes, hoveredDish }) => {
       messageSplitted[paddingIndex] == 1
         ? messageSplitted[msgIndex]
         : messageSplitted[msgIndex].slice(4);
-    const ingsSplitted = ingsMessage.split("&,");
-    const ingsWSlashes = ingsSplitted.map(ing=> ing.replace(",", "/"));
+    const ingsSplitted = ingsMessage.split(",");
     const marginValue = (messageSplitted[paddingIndex] * 4) / 4;
     const pStyle = { paddingLeft: `${marginValue}rem` };
     const dishQtty = messageSplitted[msgIndex].at(0);
@@ -41,7 +40,7 @@ export const TicketMessages = ({ dishes, hoveredDish }) => {
           </span>
         )}
         <ul>
-          {ingsWSlashes.map((paragraph, index) => (
+          {ingsSplitted.map((paragraph, index) => (
             <li
               key={`${paragraph}${index}`}
             >{`${messageSplitted[paddingIndex] == 1 ? "" : "- > "}${paragraph}`}</li>

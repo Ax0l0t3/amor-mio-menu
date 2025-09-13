@@ -98,10 +98,6 @@ export const ProcessPortal = ({
 
   const handleOptionSave = (qtty = 1) => {
     const array = [];
-    const groupedIngredients = groupStringsByCategories(localOption.Ingredients, localTab.Ingredients);
-    const groupedExtras = groupStringsByCategories(localOption.Extras, localTab.Extras);
-    localOption.Ingredients = groupedIngredients;
-    localOption.Extras = groupedExtras;
     const objectToAdd = convertToPrePrintObject(localOption);
     // ...
     let indexes = [];
