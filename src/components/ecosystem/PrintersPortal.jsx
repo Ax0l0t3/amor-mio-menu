@@ -14,7 +14,6 @@ import { MenuButtons } from "../organism/MenuButtons";
 // Utils
 import { PrintersContext } from "../utils/DataContext";
 import { fetchPost } from "../utils/FetchUtils";
-import { localizePrinters } from "../utils/ObjectUtils";
 import RegexConstants from "../utils/RegexConstants.json";
 import StringConstants from "../utils/StringConstants.json";
 
@@ -22,12 +21,12 @@ import StringConstants from "../utils/StringConstants.json";
 import "../../styles/ecosystem/_printers-portal.css";
 
 export const PrintersPortal = ({ closePortal = Function.prototype }) => {
-  const [deleteFlag, setDeleteFlag] = useState(false);
+  const [focusElement, setFocusElement] = useState(false);
   const { printersContext, setPrintersContext } = useContext(PrintersContext);
   const portalFormRef = useRef(null);
   const { CommonRegex } = RegexConstants;
   const { Dns } = StringConstants;
-  const [currentPrinters, setCurrentPrinters] = useState(printersContext);
+  const [currentPrinters, setCurrentPrinters] = useState([]);
   const [currentFocus, setCurrentFocus] = useState(0);
   const printerAttribs = ["Name", "Ip", "Port"];
 
@@ -54,9 +53,10 @@ export const PrintersPortal = ({ closePortal = Function.prototype }) => {
     const keyPairArray = printerAttribs.map((entry) => [entry, ""]);
     const newObj = Object.fromEntries(keyPairArray);
     newObj[attrib] = e.target.value;
+    newObj.Id = new Date().toISOString();
     setCurrentPrinters([...currentPrinters, newObj]);
     setCurrentFocus(index);
-    setDeleteFlag(true);
+    setFocusElement(true);
   };
   const handleRowBlur = (e, index) => {
     const thisPrinters = [...currentPrinters];
@@ -76,25 +76,24 @@ export const PrintersPortal = ({ closePortal = Function.prototype }) => {
       emptyInput.focus();
       return;
     }
-    const localizedPrinters = localizePrinters(printerAttribs, formData);
-    localizedPrinters.forEach((obj) => {
-      const cleanString = Object.values(obj).join("-").replaceAll(" ", "");
-      obj.Id = cleanString;
-    });
     fetchPost(`${Dns.Api}/save-printers`, {
-      Printers: localizedPrinters,
+      Printers: currentPrinters,
     });
-    setPrintersContext(localizedPrinters);
+    setPrintersContext(currentPrinters);
   };
 
   useEffect(() => {
-    if (currentPrinters.length > 0 && deleteFlag) {
+    const localObjects = JSON.parse(JSON.stringify(printersContext));
+    setCurrentPrinters(localObjects);
+  }, []);
+  useEffect(() => {
+    if (currentPrinters.length > 0 && focusElement) {
       const nodeArray =
         portalFormRef.current.querySelectorAll(".printers-grid");
       const lastItem = nodeArray[nodeArray.length - 1];
       const inputItems = lastItem.getElementsByTagName("input");
       inputItems[currentFocus].focus();
-      setDeleteFlag(false);
+      setFocusElement(false);
     }
   }, [currentPrinters]);
 

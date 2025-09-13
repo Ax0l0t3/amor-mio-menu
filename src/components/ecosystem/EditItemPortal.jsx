@@ -66,6 +66,10 @@ export const EditItemPortal = ({ closePortal = Function.prototype }) => {
     setSelectedDish(initDish);
   };
 
+  const handleDragChange = (property, e) => {
+    const obj = objectsToEdit.find(({ Selected }) => Selected);
+    obj[property] = e;
+  };
   const handleDishChange = (e) => {
     const foundObject = objectsToEdit.find(({ Selected }) => Selected);
     const foundDish = foundObject.Options.find(
@@ -164,15 +168,19 @@ export const EditItemPortal = ({ closePortal = Function.prototype }) => {
         <legend>{Commons.Ingredients}</legend>
         {editMode === EditPortal.ModifyModeString && (
           <BoolOptions
-            className={`${editMode === EditPortal.DeleteModeString ? "deletable-entry" : ""}`}
             boolOptions={getIngredients()}
-            selectedOptions={selectedDish.Ingredients}
-            hideCheckboxes={editMode === EditPortal.DeleteModeString}
+            className={`${editMode === EditPortal.DeleteModeString ? "deletable-entry" : ""}`}
+            draggable
             groupName={Commons.Ingredients}
+            hideCheckboxes={editMode === EditPortal.DeleteModeString}
+            key={EditPortal.ModifyModeString}
+            onDragChange={(e) => handleDragChange(Commons.Ingredients, e)}
+            selectedOptions={selectedDish.Ingredients}
           />
         )}
         {editMode === EditPortal.EditModeString && (
           <InputsGroup
+            key={EditPortal.EditModeString}
             options={getIngredients()}
             groupName={Commons.Ingredients}
             disabledOptions={selectedDish.Ingredients}
@@ -180,6 +188,7 @@ export const EditItemPortal = ({ closePortal = Function.prototype }) => {
         )}
         {editMode === EditPortal.DeleteModeString && (
           <ToogleButtons
+            key={EditPortal.DeleteModeString}
             options={getIngredients()}
             groupName={Commons.Ingredients}
           />
@@ -191,9 +200,11 @@ export const EditItemPortal = ({ closePortal = Function.prototype }) => {
           <BoolOptions
             className={`${editMode === EditPortal.DeleteModeString ? "deletable-entry" : ""}`}
             boolOptions={getExtras()}
-            selectedOptions={selectedDish.Extras}
-            hideCheckboxes={editMode === EditPortal.DeleteModeString}
+            draggable
             groupName={Commons.Extras}
+            hideCheckboxes={editMode === EditPortal.DeleteModeString}
+            onDragChange={(e) => handleDragChange(Commons.Extras, e)}
+            selectedOptions={selectedDish.Extras}
           />
         )}
         {editMode === EditPortal.EditModeString && (

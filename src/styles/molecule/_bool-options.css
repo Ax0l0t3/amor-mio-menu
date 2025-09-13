@@ -5,6 +5,15 @@
 
 .bool-options-class p {
   margin-bottom: 0.5rem;
+  cursor: default;
+}
+
+.draggable-li {
+  border-left: 2px #fff2 dashed;
+  border-radius: 12px;
+  border-top: 2px #fff2 dashed;
+  margin-bottom: 0.5rem;
+  padding-left: 0.5rem;
 }
 
 @media screen and (min-width: 1280px) {

@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 // Atom
 import { InputField } from "../atom/InputField";
@@ -8,6 +8,7 @@ import { InputField } from "../atom/InputField";
 import { SelectList } from "../molecule/SelectList";
 
 // Utils
+import { PrintersContext } from "../utils/DataContext";
 import { getArrayOfProperty } from "../utils/ObjectUtils";
 import { ToogleButton } from "../atom/ToogleButton";
 import StringConstants from "../utils/StringConstants.json";
@@ -20,7 +21,7 @@ export const HeaderFieldset = ({
   selectMode = StringConstants.EditPortal.ModifyModeString,
 }) => {
   const { EditPortal, Commons } = StringConstants;
-
+  const { printersContext } = useContext(PrintersContext);
   const [selectedDish, setSelectedDish] = useState(defaultDish);
   const [selectedPrinter, setSelectedPrinter] = useState("");
   const [localObjects, setLocalObjects] = useState(scopeObjects);
@@ -34,7 +35,7 @@ export const HeaderFieldset = ({
     return getArrayOfProperty(tabObject.Options, "Name");
   };
   const getPrinters = () => {
-    return getArrayOfProperty(localObjects, "Printer");
+    return getArrayOfProperty(printersContext, "Name");
   };
   const getSelectedTab = () => {
     return localObjects.find(({ Selected }) => Selected);
@@ -100,12 +101,6 @@ export const HeaderFieldset = ({
             inputLabel="Platillo"
             value={selectedDish}
           />
-          <InputField
-            name="Printer"
-            className="h-[1.6rem]"
-            inputLabel="Impresora"
-            value={selectedPrinter}
-          />
         </>
       )}
       {selectMode === EditPortal.DeleteModeString && (
@@ -123,13 +118,6 @@ export const HeaderFieldset = ({
             buttonTitle="Platillo"
             className="h-[1.6rem]"
             inputValue={selectedDish}
-          />
-          <ToogleButton
-            buttonName="Printer"
-            buttonLabel={selectedPrinter}
-            buttonTitle="Impresora"
-            className="h-[1.6rem]"
-            inputValue={selectedPrinter}
           />
         </>
       )}
