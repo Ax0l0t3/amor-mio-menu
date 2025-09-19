@@ -7,7 +7,6 @@
   font-size: 1.2rem;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
   align-items: center;
   overflow: hidden;
   padding: 1rem 0;
@@ -25,12 +24,12 @@
   opacity: 0;
 }
 
-.about-portal > div {
-  display: flex;
-  width: 100%;
-  height: 100%;
+.about-portal div {
   align-items: center;
+  display: flex;
   justify-content: space-around;
+  margin-bottom: 1rem;
+  width: 100%;
 }
 
 .about-portal-card {
@@ -42,9 +41,26 @@
   transition: all 0.2s;
 }
 
-.about-portal-card:hover {
-  transform: scale(104%);
-  transition: all 0.2s;
+.svg-button svg{
+  transition: all 0.5s;
+}
+
+.svg-button:hover svg{
+  transform: scale(114%);
+  transition: all 0.5s;
+}
+
+.svg-button {
+	background-color: #0a0b107f;
+	border: solid 5px black;
+	border-radius: 5px;
+}
+
+.svg-button path{
+  fill: #fff;
+}
+.svg-button:active path{
+  fill: rgb(135, 13, 90);
 }
 
 @keyframes animate1 {
