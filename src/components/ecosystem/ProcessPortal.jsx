@@ -84,18 +84,6 @@ export const ProcessPortal = ({
       : { ...initObject, Printer: localTab.Printer, Order: newOrderField };
   };
 
-  const groupStringsByCategories = (list, objs) => {
-  const result = [];
-
-  objs.forEach((obj, index) => {
-    const categoryItems = list.filter(item => obj.Options.includes(item));
-    result.push(...categoryItems);
-    if(index < objs.length-1 && categoryItems.length > 0) result.push("&");
-  });
-
-  return result;
-}
-
   const handleOptionSave = (qtty = 1) => {
     const array = [];
     const objectToAdd = convertToPrePrintObject(localOption);
@@ -317,5 +305,6 @@ export const ProcessPortal = ({
 ProcessPortal.propTypes = {
   closePortal: PropTypes.func,
   optionId: PropTypes.string,
+  prefilledObject: PropTypes.object,
   selectedOption: PropTypes.string,
 };

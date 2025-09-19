@@ -24,7 +24,7 @@ import "../../styles/ecosystem/_about-portal.css";
 export const AboutPortal = ({ closePortal = Function.prototype }) => {
   const [clicked, setClicked] = useState(false);
   const [cards, setCards] = useState(false);
-  const [ currentInfo, setCurrentInfo] = useState(0);
+  const [currentInfo, setCurrentInfo] = useState(0);
 
   const debugClose = () => {
     if (clicked) closePortal();
@@ -43,9 +43,7 @@ export const AboutPortal = ({ closePortal = Function.prototype }) => {
     { node: <AboutMoreSVG svgHeight={50} svgWidth={50} /> },
     { node: <AboutContactSVG svgHeight={50} svgWidth={50} /> },
     { node: <AboutColaboratorsSVG svgHeight={50} svgWidth={50} /> },
-  ]
-
-  console.log("Card info diaplays: ", currentInfo);
+  ];
 
   return (
     <div
@@ -55,7 +53,11 @@ export const AboutPortal = ({ closePortal = Function.prototype }) => {
       <h1 className="text-5xl mb-4">котRooms</h1>
       <div>
         {nodeIcons.map((node, index) => (
-          <SvgButton key={index} className="svg-button" clickAction={()=>setCurrentInfo(index)}>
+          <SvgButton
+            key={index}
+            className="svg-button"
+            clickAction={() => setCurrentInfo(index)}
+          >
             {node.node}
           </SvgButton>
         ))}
