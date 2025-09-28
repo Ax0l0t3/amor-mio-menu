@@ -36,7 +36,8 @@ export const ProcessPortal = ({
   const [counter, setCounter] = useState(1);
   const [newOrderEnabled, setNewOrderEnabled] = useState(false);
   const [newOrderField, setNewOrderField] = useState("");
-  const [catToGo, setCatToGo] = useState([]);
+  const [ingsToGo, setIngsToGo] = useState([]);
+  const [extrasToGo, setExtrasToGo] = useState([]);
 
   const placeholderConstant = `Orden-${ordersContext.length + 1}`;
 
@@ -84,38 +85,31 @@ export const ProcessPortal = ({
       : { ...initObject, Printer: localTab.Printer, Order: newOrderField };
   };
 
-  const groupStringsByCategories = (list, objs) => {
-  const result = [];
-
-  objs.forEach((obj, index) => {
-    const categoryItems = list.filter(item => obj.Options.includes(item));
-    result.push(...categoryItems);
-    if(index < objs.length-1 && categoryItems.length > 0) result.push("&");
-  });
-
-  return result;
-}
-
-  const handleOptionSave = (qtty = 1) => {
-    const array = [];
-    const objectToAdd = convertToPrePrintObject(localOption);
-    // ...
+  const setOrdersToGo = (arrayToGo, objToWork, property) => {
     let indexes = [];
-    catToGo.forEach((cat) => {
-      const index = localTab.Ingredients.findIndex(
-        (obj) => obj.Category === cat,
-      );
+    arrayToGo.forEach((cat) => {
+      const index = localTab[property].findIndex((obj) => obj.Category === cat);
       if (index >= 0) indexes.push(index);
     });
-    const modifiedIngredients = objectToAdd.Ingredients.map((str) => {
-      const foundStr = indexes.find((i) =>
-        localTab.Ingredients[i].Options.includes(str),
+    const modifiedIngredients = objToWork[property].map((str) => {
+      const foundStr = indexes.some((i) =>
+        localTab[property][i].Options.includes(str),
       );
       if (foundStr) return `(${str})`;
       return str;
     });
-    // ...
-    objectToAdd.Ingredients = modifiedIngredients;
+    return modifiedIngredients;
+  };
+
+  const handleOptionSave = (qtty = 1) => {
+    const array = [];
+    const objectToAdd = convertToPrePrintObject(localOption);
+    objectToAdd.Ingredients = setOrdersToGo(
+      ingsToGo,
+      objectToAdd,
+      "Ingredients",
+    );
+    objectToAdd.Extras = setOrdersToGo(extrasToGo, objectToAdd, "Extras");
     for (let i = 0; i < qtty; i++) {
       const idConstructor = replaceAndLower(
         `${objectToAdd.Ingredients}${objectToAdd.Extras}${objectToAdd.Comments}`,
@@ -138,15 +132,24 @@ export const ProcessPortal = ({
   const handleCounterChange = (qtty) => {
     setCounter(qtty);
   };
-  const handleToogleClick = (parameter) => {
-    const toUpdate = [...catToGo];
+
+  const handleToogleClick = (parameter, arrayToGo) => {
+    const toUpdate = [...arrayToGo];
     if (!toUpdate.includes(parameter)) {
-      setCatToGo([...toUpdate, parameter]);
-      return;
+      return [...toUpdate, parameter];
     }
     const index = toUpdate.indexOf(parameter);
     toUpdate.splice(index, 1);
-    setCatToGo(toUpdate);
+    return toUpdate;
+  };
+
+  const handleToogle = (objects, arrayToGo, setToGo) => {
+    let thisObjects = [...arrayToGo];
+    objects.forEach((element) => {
+      const currentArray = handleToogleClick(element.Category, thisObjects);
+      thisObjects = currentArray;
+    });
+    setToGo(thisObjects);
   };
 
   const returnExpandable = (objectProperty) => {
@@ -166,8 +169,8 @@ export const ProcessPortal = ({
               <div className="expandible-header">
                 <h6>Ingredientes</h6>
                 <ToogleButton
-                  onClick={() => handleToogleClick(object.Category)}
-                  defaultState={catToGo.includes(object.Category)}
+                  onClick={() => handleToogle([object], ingsToGo, setIngsToGo)}
+                  defaultState={ingsToGo.includes(object.Category)}
                 />
                 <p>Para Llevar</p>
               </div>
@@ -219,7 +222,8 @@ export const ProcessPortal = ({
       <PreviewTicketSection
         parentObject={localTab}
         selectedObject={localOption}
-        wrappedCategories={catToGo}
+        wrappedIngredients={ingsToGo}
+        wrappedExtras={extrasToGo}
       />
       {/* Comments Section */}
       <ExpandableDiv
@@ -292,7 +296,16 @@ export const ProcessPortal = ({
         >
           {selectedSection == "Extras" ? (
             <>
-              <h6>Extras</h6>
+              <div className="expandible-header">
+                <h6>Extras</h6>
+                <ToogleButton
+                  onClick={() =>
+                    handleToogle(localTab.Extras, extrasToGo, setExtrasToGo)
+                  }
+                  defaultState={extrasToGo.length > 0}
+                />
+                <p>Para Llevar</p>
+              </div>
               {localTab.Extras.map((object, index) => (
                 <BoolButtonsGroup
                   workingObject={object}
@@ -317,5 +330,6 @@ export const ProcessPortal = ({
 ProcessPortal.propTypes = {
   closePortal: PropTypes.func,
   optionId: PropTypes.string,
+  prefilledObject: PropTypes.object,
   selectedOption: PropTypes.string,
 };
