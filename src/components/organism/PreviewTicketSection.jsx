@@ -5,7 +5,8 @@ import { TicketUlSection } from "../molecule/TicketUlSection";
 export const PreviewTicketSection = ({
   parentObject,
   selectedObject,
-  wrappedCategories,
+  wrappedIngredients,
+  wrappedExtras,
 }) => {
   return (
     <div className="bg-[#999999ff] w-[39%] min-w-[39%] p-4 preview-section">
@@ -17,7 +18,7 @@ export const PreviewTicketSection = ({
             parentOptions={parentObject.Ingredients}
             objectOptions={selectedObject.Ingredients}
             sectionHeader="Ingredientes:"
-            wrappedCategories={wrappedCategories}
+            wrappedCategories={wrappedIngredients}
           />
         )}
         {selectedObject?.Extras?.length > 0 && (
@@ -25,6 +26,7 @@ export const PreviewTicketSection = ({
             parentOptions={parentObject.Extras}
             objectOptions={selectedObject.Extras}
             sectionHeader="Extras:"
+            wrappedCategories={wrappedExtras}
           />
         )}
         <br />
@@ -42,5 +44,6 @@ export const PreviewTicketSection = ({
 PreviewTicketSection.propTypes = {
   parentObject: PropTypes.object,
   selectedObject: PropTypes.object,
-  wrappedCategories: PropTypes.arrayOf(PropTypes.string),
+  wrappedExtras: PropTypes.arrayOf(PropTypes.string),
+  wrappedIngredients: PropTypes.arrayOf(PropTypes.string),
 };
