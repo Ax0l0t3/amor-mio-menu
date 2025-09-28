@@ -13,11 +13,11 @@ function App() {
   const [labelOptions, setLabelOptions] = useState([]);
   const [mockObjects, setMockObjects] = useState([]);
   const [printContext, setPrintContext] = useState([]);
-  const [portalContext, setPortalContext] = useState({visible: false, node: null});
+  const [portalContext, setPortalContext] = useState({ visible: false, node: null });
   const [printersContext, setPrintersContext] = useState([]);
 
   const handlePortalUpdate = (isVisible, node) => {
-    setPortalContext({visible: isVisible, node: node});
+    setPortalContext({ visible: isVisible, node: node });
   }
   const closePortal = () => {
     handlePortalUpdate(false, null);
@@ -49,20 +49,20 @@ function App() {
   return (
     <DataContext.Provider value={{ mockObjects, setMockObjects }}>
       <PrintContext.Provider value={{ printContext, setPrintContext }}>
-        <PortalContext.Provider value={{ portalContext, setPortalContext}}>
-          <PrintersContext.Provider value={{ printersContext, setPrintersContext}}>
-          <NavBar onButtonClick={handlePortalUpdate} closePortal={closePortal} />
-          <Tabs />
-          <div className="options-cards">
-            {labelOptions.map((option, id) => (
-              <MenuOptionCard
-                key={id}
-                cardName={option.Name}
-                onClick={() => handleOptionClick(option.Name)}
-              />
-            ))}
-          </div>
-          <DisplayPortal isPortalVisible={portalContext.visible} portalComponent={portalContext.node} />
+        <PortalContext.Provider value={{ portalContext, setPortalContext }}>
+          <PrintersContext.Provider value={{ printersContext, setPrintersContext }}>
+            <NavBar onButtonClick={handlePortalUpdate} closePortal={closePortal} />
+            <Tabs />
+            <div className="options-cards">
+              {labelOptions.map((option, id) => (
+                <MenuOptionCard
+                  key={id}
+                  cardName={option.Name}
+                  onClick={() => handleOptionClick(option.Name)}
+                />
+              ))}
+            </div>
+            <DisplayPortal isPortalVisible={portalContext.visible} portalComponent={portalContext.node} />
           </PrintersContext.Provider>
         </PortalContext.Provider>
       </PrintContext.Provider>
