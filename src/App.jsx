@@ -67,9 +67,13 @@ function App() {
     const fetchData = async () => {
       const data = await fetchGet(`${Dns.Api}/data-menu`);
       let favouritesArray = [];
-      data?.Tabs.forEach(tab => tab.Options.forEach(opt => {
-        if (opt.Favourite) favouritesArray.push({ Name: opt.Name, Favourite: true, Tab: tab.Title });
-      }));
+      for(const tab of data.Tabs)
+      {
+        for(const option of tab.Options)
+        {
+          if (option.Favourite) favouritesArray.push({ Name: option.Name, Favourite: true, Tab: tab.Title });
+        }
+      }
       setFavourites(favouritesArray);
       setMockObjects(data?.Tabs);
     };

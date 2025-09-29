@@ -120,7 +120,7 @@ export const VisualizePrint = ({
                       setPortalContext({ visible: false, node: null })
                     }
                     prefilledObject={option}
-                    selectedOption={option.Name}
+                    selectedOption={option}
                     optionId={option.id}
                   />
                 ),

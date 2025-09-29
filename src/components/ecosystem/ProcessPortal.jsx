@@ -24,7 +24,7 @@ export const ProcessPortal = ({
   closePortal = Function.prototype,
   optionId,
   prefilledObject,
-  selectedOption = "",
+  selectedOption,
 }) => {
   const { mockObjects } = useContext(DataContext);
   const { printContext, setPrintContext } = useContext(PrintContext);
@@ -81,8 +81,8 @@ export const ProcessPortal = ({
     // }
     // ...
     return newOrderField === ""
-      ? { ...initObject, Printer: localTab.Printer }
-      : { ...initObject, Printer: localTab.Printer, Order: newOrderField };
+      ? { ...initObject, Printer: localTab.Printer, Tab: localTab.Title }
+      : { ...initObject, Printer: localTab.Printer, Tab: localTab.Title, Order: newOrderField };
   };
 
   const setOrdersToGo = (arrayToGo, objToWork, property) => {
@@ -202,24 +202,24 @@ export const ProcessPortal = ({
   };
 
   useEffect(() => {
-    if (selectedOption != "") {
-      console.log("selectedOption: ", selectedOption);
+    if (selectedOption) {
       const localObjects = JSON.parse(JSON.stringify(mockObjects));
-      console.log("localObjects: ", localObjects);
-      const thisTab = localObjects?.find((object) => object.Selected);
-      console.log("thisTab: ", thisTab);
+      const tabBySelected = localObjects?.find((object) => object.Selected);
+      const tabByName = localObjects?.find((object) => object.Title === selectedOption?.Tab);
+      const tabByPrefilled = localObjects?.find((object) => object.Title === prefilledObject?.Tab);
+      const thisTab = tabByPrefilled || tabBySelected || tabByName;
       const thisOption = thisTab.Options.find(
         (object) => object.Name === selectedOption.Name,
       );
-      console.log("thisOption: ", thisOption);
       const objectToUse = prefilledObject ?? thisOption;
-      console.log("objectToUse: ", objectToUse);
       setLocalTab(thisTab);
       setLocalOption(objectToUse);
       setDefaultExpanded(thisTab);
       setOrdersContext(getArrayOfProperty(printContext, "Order"));
     }
   }, []);
+
+  console.log(localOption);
 
   return (
     <form className="process-portal">
@@ -336,5 +336,5 @@ ProcessPortal.propTypes = {
   closePortal: PropTypes.func,
   optionId: PropTypes.string,
   prefilledObject: PropTypes.object,
-  selectedOption: PropTypes.string,
+  selectedOption: PropTypes.object,
 };
