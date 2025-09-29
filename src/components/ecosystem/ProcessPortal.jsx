@@ -203,12 +203,17 @@ export const ProcessPortal = ({
 
   useEffect(() => {
     if (selectedOption != "") {
+      console.log("selectedOption: ", selectedOption);
       const localObjects = JSON.parse(JSON.stringify(mockObjects));
+      console.log("localObjects: ", localObjects);
       const thisTab = localObjects?.find((object) => object.Selected);
+      console.log("thisTab: ", thisTab);
       const thisOption = thisTab.Options.find(
-        (object) => object.Name === selectedOption,
+        (object) => object.Name === selectedOption.Name,
       );
+      console.log("thisOption: ", thisOption);
       const objectToUse = prefilledObject ?? thisOption;
+      console.log("objectToUse: ", objectToUse);
       setLocalTab(thisTab);
       setLocalOption(objectToUse);
       setDefaultExpanded(thisTab);

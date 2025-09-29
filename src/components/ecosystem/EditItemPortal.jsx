@@ -61,7 +61,11 @@ export const EditItemPortal = ({ closePortal = Function.prototype }) => {
   };
   const setDefaults = () => {
     const localObjects = JSON.parse(JSON.stringify(mockObjects));
-    const initDish = localObjects.find(({ Selected }) => Selected).Options[0];
+    const selectedTab = localObjects.find(({ Selected }) => Selected);
+    if (!selectedTab) {
+      localObjects[0].Selected = true;
+    }
+    const initDish = selectedTab ? selectedTab.Options[0] : localObjects[0].Options[0];
     setObjectsToEdit(localObjects);
     setSelectedDish(initDish);
   };

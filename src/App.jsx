@@ -105,7 +105,7 @@ function App() {
                   key={id}
                   cardName={option.Name}
                   isSelected={option.Favourite}
-                  onClick={() => handleOptionClick(option.Name)}
+                  onLabelClick={() => handleOptionClick(option)}
                   onHexClick={() => handleAddingFavourite(option)}
                 />
               ))}
