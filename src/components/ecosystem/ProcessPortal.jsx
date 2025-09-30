@@ -67,15 +67,15 @@ export const ProcessPortal = ({
   };
 
   const convertToPrePrintObject = (initObject) => {
-    const emptyOrderObject = {
+    const baseOrderObject = {
       ...initObject,
       Printer: localTab.Printer,
       Tab: localTab.Title,
       ExtrasToGo: extrasToGo,
       IngsToGo: ingsToGo,
     };
-    if (newOrderField !== "") emptyOrderObject.Order = newOrderField;
-    return emptyOrderObject;
+    if (newOrderField !== "") baseOrderObject.Order = newOrderField;
+    return baseOrderObject;
   };
 
   const setOrdersToGo = (arrayToGo, objToWork, property) => {
@@ -194,8 +194,6 @@ export const ProcessPortal = ({
       setNewOrderField(target.value);
     }
   };
-
-  
 
   useEffect(() => {
     const localObjects = JSON.parse(JSON.stringify(mockObjects));

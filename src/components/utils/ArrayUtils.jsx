@@ -13,5 +13,5 @@ export const sortObjectsByStringProperty = (baseArray, property) => {
 };
 
 export const cleanParenthesis = (baseArray) => {
-    return baseArray.map((el) => removeParenthesis(el));
-  };
+  return baseArray.map((el) => removeParenthesis(el));
+};
