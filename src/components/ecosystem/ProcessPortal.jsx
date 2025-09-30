@@ -14,6 +14,7 @@ import { PreviewTicketSection } from "../organism/PreviewTicketSection";
 
 // Utils
 import { DataContext, PrintContext } from "../utils/DataContext";
+import { cleanParenthesis } from "../utils/ArrayUtils";
 import { getArrayOfProperty, updateLocalObject } from "../utils/ObjectUtils";
 import { replaceAndLower } from "../utils/StringUtils";
 
@@ -66,23 +67,15 @@ export const ProcessPortal = ({
   };
 
   const convertToPrePrintObject = (initObject) => {
-    // Add a char to "Toppings" exclusively
-    // const ingredientsArr = localTab.Ingredients.find(
-    //   (x) => x.Category === "Toppings",
-    // );
-    // if (ingredientsArr) {
-    //   const newIngredients = initObject.Ingredients.map((x) => {
-    //     if (ingredientsArr.Options.includes(x)) {
-    //       return `${x} **`;
-    //     }
-    //     return x;
-    //   });
-    //   initObject.Ingredients = newIngredients;
-    // }
-    // ...
-    return newOrderField === ""
-      ? { ...initObject, Printer: localTab.Printer, Tab: localTab.Title }
-      : { ...initObject, Printer: localTab.Printer, Tab: localTab.Title, Order: newOrderField };
+    const emptyOrderObject = {
+      ...initObject,
+      Printer: localTab.Printer,
+      Tab: localTab.Title,
+      ExtrasToGo: extrasToGo,
+      IngsToGo: ingsToGo,
+    };
+    if (newOrderField !== "") emptyOrderObject.Order = newOrderField;
+    return emptyOrderObject;
   };
 
   const setOrdersToGo = (arrayToGo, objToWork, property) => {
@@ -155,6 +148,7 @@ export const ProcessPortal = ({
   const returnExpandable = (objectProperty) => {
     const returnable = localTab[objectProperty].map((object) => {
       const expandableId = `${objectProperty}-${object.Category}`;
+      const includesCategory = ingsToGo.includes(object.Category);
       return (
         <ExpandableDiv
           closeAction={closePortal}
@@ -170,7 +164,7 @@ export const ProcessPortal = ({
                 <h6>Ingredientes</h6>
                 <ToogleButton
                   onClick={() => handleToogle([object], ingsToGo, setIngsToGo)}
-                  defaultState={ingsToGo.includes(object.Category)}
+                  defaultState={includesCategory}
                 />
                 <p>Para Llevar</p>
               </div>
@@ -201,25 +195,39 @@ export const ProcessPortal = ({
     }
   };
 
+  
+
   useEffect(() => {
+    const localObjects = JSON.parse(JSON.stringify(mockObjects));
+    let objectToUse;
+    let thisTab;
     if (selectedOption) {
-      const localObjects = JSON.parse(JSON.stringify(mockObjects));
       const tabBySelected = localObjects?.find((object) => object.Selected);
-      const tabByName = localObjects?.find((object) => object.Title === selectedOption?.Tab);
-      const tabByPrefilled = localObjects?.find((object) => object.Title === prefilledObject?.Tab);
-      const thisTab = tabByPrefilled || tabBySelected || tabByName;
-      const thisOption = thisTab.Options.find(
+      const tabByName = localObjects?.find(
+        (object) => object.Title === selectedOption?.Tab,
+      );
+      thisTab = tabBySelected || tabByName;
+      objectToUse = thisTab.Options.find(
         (object) => object.Name === selectedOption.Name,
       );
-      const objectToUse = prefilledObject ?? thisOption;
-      setLocalTab(thisTab);
-      setLocalOption(objectToUse);
-      setDefaultExpanded(thisTab);
-      setOrdersContext(getArrayOfProperty(printContext, "Order"));
     }
+    if (prefilledObject) {
+      const cleanIngs = cleanParenthesis(prefilledObject.Ingredients);
+      const cleanExtras = cleanParenthesis(prefilledObject.Extras);
+      thisTab = localObjects?.find(
+        (object) => object.Title === prefilledObject?.Tab,
+      );
+      objectToUse = prefilledObject;
+      objectToUse.Ingredients = cleanIngs;
+      objectToUse.Extras = cleanExtras;
+    }
+    setIngsToGo(objectToUse.IngsToGo ?? []);
+    setExtrasToGo(objectToUse.ExtrasToGo ?? []);
+    setLocalTab(thisTab);
+    setLocalOption(objectToUse);
+    setDefaultExpanded(thisTab);
+    setOrdersContext(getArrayOfProperty(printContext, "Order"));
   }, []);
-
-  console.log(localOption);
 
   return (
     <form className="process-portal">

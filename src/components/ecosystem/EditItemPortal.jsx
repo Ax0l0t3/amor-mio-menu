@@ -65,7 +65,9 @@ export const EditItemPortal = ({ closePortal = Function.prototype }) => {
     if (!selectedTab) {
       localObjects[0].Selected = true;
     }
-    const initDish = selectedTab ? selectedTab.Options[0] : localObjects[0].Options[0];
+    const initDish = selectedTab
+      ? selectedTab.Options[0]
+      : localObjects[0].Options[0];
     setObjectsToEdit(localObjects);
     setSelectedDish(initDish);
   };

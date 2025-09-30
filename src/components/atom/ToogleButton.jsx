@@ -21,6 +21,7 @@ export const ToogleButton = ({
     onChange();
   };
   useEffect(() => setLatched(false), [buttonLabel]);
+  useEffect(() => setLatched(defaultState), [defaultState]);
   return (
     <>
       {buttonTitle && <h4>{buttonTitle}</h4>}
