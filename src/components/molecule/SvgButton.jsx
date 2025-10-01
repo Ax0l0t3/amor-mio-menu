@@ -1,9 +1,13 @@
 import PropTypes from "prop-types";
 import "../../styles/molecule/_svg-button.css";
 
-export const SvgButton = ({ children, clickAction = Function.prototype }) => {
+export const SvgButton = ({
+  className = "",
+  children,
+  clickAction = Function.prototype,
+}) => {
   return (
-    <button onClick={clickAction} type="button">
+    <button className={className} onClick={clickAction} type="button">
       {children}
     </button>
   );
@@ -11,5 +15,6 @@ export const SvgButton = ({ children, clickAction = Function.prototype }) => {
 
 SvgButton.propTypes = {
   children: PropTypes.node,
+  className: PropTypes.string,
   clickAction: PropTypes.func,
 };
