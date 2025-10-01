@@ -1,3 +1,5 @@
+import { removeParenthesis } from "./StringUtils";
+
 export const sortObjectsByStringProperty = (baseArray, property) => {
   const toSortArray = [...baseArray];
   toSortArray.sort((a, b) => {
@@ -8,4 +10,8 @@ export const sortObjectsByStringProperty = (baseArray, property) => {
     return 0;
   });
   return toSortArray;
+};
+
+export const cleanParenthesis = (baseArray) => {
+  return baseArray.map((el) => removeParenthesis(el));
 };

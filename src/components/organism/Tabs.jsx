@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 // Molecules
 import { OptionMainTab } from "../molecule/OptionTab";
@@ -33,6 +33,13 @@ export const Tabs = () => {
     handleTabClick(cardTitle);
     setFavouritesSelected(true);
   };
+
+  useEffect(() => {
+    if (mockObjects) {
+      const hasSelected = mockObjects.some(({ Selected }) => Selected);
+      setFavouritesSelected(!hasSelected);
+    }
+  }, [mockObjects]);
 
   return (
     <div>

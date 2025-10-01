@@ -8,3 +8,5 @@ export const findAndSlice = (character, string) => {
   const xIndex = string.indexOf(character);
   return string.slice(xIndex);
 };
+
+export const removeParenthesis = (el) => el.replace("(", "").replace(")", "");
