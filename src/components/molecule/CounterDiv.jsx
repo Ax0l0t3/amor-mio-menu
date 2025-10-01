@@ -1,6 +1,12 @@
 import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 
+// Atom
+import { WarningMessage } from "../atom/WarningMessage";
+
+// Utils
+import StringConstants from "../utils/StringConstants.json";
+
 // Styles
 import "../../styles/molecule/_counter-warning.css";
 
@@ -9,6 +15,7 @@ export const CounterDiv = ({
   tailwindStyle = "flex",
   counterChange = Function.prototype,
 }) => {
+  const {ProcessPortal} = StringConstants;
   const [counterValue, setCounterValue] = useState(defaultValue);
   const [warning, setWarning] = useState(false);
 
@@ -32,9 +39,7 @@ export const CounterDiv = ({
 
   return (
     <div className={tailwindStyle}>
-      {warning && (
-        <p className="mr-2 text-[#f7df44ff] warning">Valores mayores a 0</p>
-      )}
+      <WarningMessage isWarning={warning} message={ProcessPortal.CounterWarning}/>
       <p className="bg-[#454a48ff] w-[2.5rem] h-[1.6rem] flex items-center justify-center text-[18px]">
         {counterValue}
       </p>

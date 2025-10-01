@@ -85,6 +85,9 @@
     "Port": "Puerto",
     "Id": "Id"
   },
+  "ProcessPortal":{
+    "CounterWarning": "Valores mayores a 0"
+  },
   "Dns": {
     "Api": "http://localhost:5000"
   },

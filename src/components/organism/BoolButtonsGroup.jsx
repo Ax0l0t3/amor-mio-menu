@@ -36,18 +36,15 @@ export const BoolButtonsGroup = ({
 
   const returnCheckboxes = (options, property) => {
     const returnCheckboxes = options.map((option, index) => {
-      const optionIndex = thisCoreObject[property].findIndex((element) =>
-        element.includes(option),
-      );
-      const includesOption = optionIndex > -1;
+      const isIncluded = thisCoreObject[property].includes(option);
       return (
         <LiCheckbox
           id={option}
           key={`${option}-${index}`}
           name={option}
-          checked={includesOption}
+          checked={isIncluded}
           onChange={() =>
-            handleCheckboxChange(option, property, includesOption)
+            handleCheckboxChange(option, property, isIncluded)
           }
         />
       );
