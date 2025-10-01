@@ -1,4 +1,61 @@
 {
+  "AboutPortal": [
+    {
+      "Title": "KotRooms",
+      "Paragraph": "KotRooms es una alternativa a las grandes corporaciónes y los productos ya pre establecidos. Muchachos desarrolladores optaron por salir de la corporativa ejecutiva y las organizaciónes frías para mejor abrir su propio negocio de desarrollo de soluciónes informáticas. Un grupo de personas dedicados a programar, diseñar y manufacturar tu proyecto. La gran diferencia es que somos un grupo interdisciplinario. Lo que se traduce a que, cualquier idea, probablemente la podamos hacer.",
+      "Img": "../../public/whatKotRooms.png"
+    },
+    {
+      "Title": "Páginas Web",
+      "Paragraph": "Las páginas web son herramientas. Mejoran tu alcance y potencian tu credibilidad como emprendedor. Nosotros podemos ayudarte a crear una página web exclusivamente para ti. Lo mejor es que tienes toda la libertad creativa del proyecto, o si lo prefieres, nuestros mejores expertos pueden ayudarte en tu camino a ser una empresa líder.",
+      "Img": "../../public/webPages.png"
+    },
+    {
+      "Title": "Apps",
+      "Paragraph": "El consumo de las applicaciónes móviles ha incrementado exponencialmente los últimos años. Uber, Rappi, Didi, Airbnb, etc... todas son ejemplos de apps populares. Pero, tú tambien puedes tener la tuya. Si encontraste una app en la playstore, pero quieres que tenga esto o aquello, lo podemos hacer. O si mejor prefieres una completamente a tu medida, sin problemas. Organizar pedidos, un menú digital, escaners de códigos, envío de información, bots... Las herramientas pueden llevarte a tomar oportunidades, o perderlas.",
+      "Img": "../../public/appsDevelopment.png"
+    },
+    {
+      "Title": "Desarrollo Juegos",
+      "Paragraph": "¿Por que no también ayudarte con tus juegos? Quizá tengas no un negocio pero una idea para hacer más divertida la experiencia de tus usuarios, quizá sólo quieres des estresarte con un juego de tu invención. Quizá sólo quieres ayuda con tus tareas escolares. Supongo que también podemos ayudarte.",
+      "Img": "../../public/gameDevelopment.png"
+    },
+    {
+      "Title": "Automatización",
+      "Paragraph": "La vida del emprendedor no es sólo páginas web y applicaciónes móviles. A veces se requieren medidas más específicas ¿Una impresora manejada por bluetooth? ¿Quizá un dron que monitoree cada determinado tiempo? Quizá un menú que se muestre automáticamente o cámaras de seguridad que detecten patrones o rostros. Una solución integral que requiera no solo programación, pero también cierta interacción con con otros perifericos. Hecho.",
+      "Img": "../../public/automationRobot.png"
+    },
+    {
+      "Title": "Soluciones Personales",
+      "Paragraph": "Una página web o una app existen ya y por montones, lo mismo herramientas para el diseño y desarrollo de las mismas. Es posible incluso ya hacerlas con Chatgpt o cualquier otra IA. Pero ¿Te has preguntado, puedo agregarle esto? ¿Podría agregarle esta imagen, quitarle esto otro, ponerle esta funcionalidad, agregarle un jueguito y hackear el pentágono? Y empiezas a jugar con todas las plantillas que tienes, ¿pero ninguna te satisface? Te tenemos cubierto. Soluciones adaptativas integrales pensadas en tus necesidades específicas.",
+      "Img": "../../public/personalSolutions.png"
+    },
+    {
+      "Title": "Servidores",
+      "Paragraph": "Si estas pensando ¿Cómo puedes almacenar tu información, en otro equipo, con acceso 24/7 y aún mantenerse privado? Un servidor es la respuesta. Ya terminaste de desarrollar tu cv en línea, pero no sabes como subirlo para que lo vean hasta rusia, puedes usar uno de nuestros servidores. Como parte de las soluciones, se ofrece un servicio de almacenamiento en la nube, ya sea usando uno de nuestros servidores o podemos, como con todo lo demás, ofrecerte crear el tuyo propio para que lo tengas en casa y puedas acceder a él cuando quieras. O si prefieres que nos encarguemos de todo, también podemos hacerlo.",
+      "Img": "../../public/serversService.png"
+    },
+    {
+      "Title": "Calidad y Pruebas",
+      "Paragraph": "Ya quedó tu aplicación. Tiene miles de visitas por día. Y de pronto, alguien te escribe diciendote, la aplicación no sirve, o, se borró mi base de datos. Si te ha pasado, es muy probable que sea por falta de planeación y ambientes de pruebas para probar y corregir el correcto funcionamiento de tu aplicación. Ahora tus clientes te llaman enojados pq no pueden entrar. KotRooms ofrece testeo manual y automatizado de aplicaciónes. Para que no te vuelva a pasar, cada vez que subes tu código, podemos ejecutar un script que revise que no hayas roto nada, y que lo nuevo que agregaste esté ahí. Pruebas de integración, de rendimiento, de interfáz gráfica e incluso de seguridad.",
+      "Img": "../../public/testingServices.png"
+    },
+    {
+      "Title": "Ideas Para Tus Ideas",
+      "Paragraph": "Dejanos escuchar tus ideas. Muy posiblemente tenemos una manera de resolver cualquier reto que nos propongas. Y si no sabemos, nos lo inventamos. Nuestros integrantes cuentan con la experiencia y competencias en las distintas ramas de la ingeniería para poder resolver tus proyectos. Además, contamos con las personas correctas para conectar cualquier necesidad que surja.",
+      "Img": "../../public/moreProjects.png"
+    },
+    {
+      "Title": "Contacto",
+      "Paragraph": "Whats +52 99 11 24 96 16\nwww.kotrooms.com",
+      "Img": "../../public/contactTeam.png"
+    },
+    {
+      "Title": "Colaboradores",
+      "Paragraph": "KotRooms: Soluciones mecatrónicas\nCasiTrajeados: Marketing y diseño",
+      "Img": "../../public/teamColaboration.png"
+    }
+  ],
   "AddPortal": {
     "Dish": "Platillo",
     "Category": "Categoría"

@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 // Atom
 import { AboutAppsSVG } from "../atom/AboutApps";
@@ -18,18 +18,42 @@ import { ExitPrintSVG } from "../atom/ExitPrintIcon";
 // Molecule
 import { SvgButton } from "../molecule/SvgButton";
 
+// Utils
+import StringConstants from "../utils/StringConstants.json";
+
 // Styles
 import "../../styles/ecosystem/_about-portal.css";
+import { OverflowCard } from "../molecule/OverflowCard";
 
 export const AboutPortal = ({ closePortal = Function.prototype }) => {
-  const [clicked, setClicked] = useState(false);
-  const [cards, setCards] = useState(false);
-  const [currentInfo, setCurrentInfo] = useState(0);
+  const { AboutPortal } = StringConstants;
+  const [isNavBarAnimation, setIsNavBarAnimation] = useState(false);
+  const [displayCard, setDisplayCard] = useState(false);
+  const [animationRunning, setAnimationRunning] = useState(false);
+  const [clickedIcon, setClickedIcon] = useState(0);
+  const [displayInfo, setDisplayInfo] = useState(0);
+  const [mainPortalAnimation, setMainPortalAnimation] = useState(false);
 
-  const debugClose = () => {
-    if (clicked) closePortal();
-    if (!clicked) setCards(true);
+  const handleIconClick = (index) => {
+    if (index !== displayInfo) {
+      setDisplayCard(false);
+      setClickedIcon(index);
+    }
   };
+
+  const exitFn = () => {
+    setMainPortalAnimation(true);
+  };
+
+  useEffect(() => {
+    setDisplayInfo(clickedIcon);
+    if (isNavBarAnimation) setDisplayCard(true);
+  }, [clickedIcon]);
+
+  useEffect(() => {
+    if (!animationRunning && !displayCard) setIsNavBarAnimation(true);
+    if (!animationRunning && displayCard && mainPortalAnimation) closePortal();
+  }, [animationRunning]);
 
   const nodeIcons = [
     { node: <AboutKotRoomsSVG svgHeight={50} svgWidth={50} /> },
@@ -41,36 +65,59 @@ export const AboutPortal = ({ closePortal = Function.prototype }) => {
     { node: <AboutServersSVG svgHeight={50} svgWidth={50} /> },
     { node: <AboutTestingSVG svgHeight={50} svgWidth={50} /> },
     { node: <AboutMoreSVG svgHeight={50} svgWidth={50} /> },
-    { node: <AboutContactSVG svgHeight={50} svgWidth={50} /> },
-    { node: <AboutColaboratorsSVG svgHeight={50} svgWidth={50} /> },
   ];
 
   return (
     <div
-      onAnimationEnd={debugClose}
-      className={`about-portal ${clicked ? "about-out" : "about-in"}`}
+      onAnimationStart={() => setAnimationRunning(true)}
+      onAnimationEnd={() => setAnimationRunning(false)}
+      className={
+        mainPortalAnimation ? "about-portal about-out" : "about-portal about-in"
+      }
     >
-      <h1 className="text-5xl mb-4">котRooms</h1>
-      <div>
-        {nodeIcons.map((node, index) => (
-          <SvgButton
-            key={index}
-            className="svg-button"
-            clickAction={() => setCurrentInfo(index)}
-          >
-            {node.node}
-          </SvgButton>
-        ))}
-      </div>
-      <div
-        className={`about-portal-card ${cards ? "about-in" : "about-out"}`}
-        style={{ animationDuration: "1s" }}
+      <nav
+        className={isNavBarAnimation ? "about-nav-pos" : "about-nav-pre"}
+        onAnimationEnd={() => setDisplayCard(true)}
       >
-        <h3>Card1</h3>
-      </div>
-      <SvgButton className="mt-auto" clickAction={() => setClicked(true)}>
-        <ExitPrintSVG />
-      </SvgButton>
+        <h1 className="text-5xl">котRooms</h1>
+        <div className="about-nav-buttons">
+          {nodeIcons.map((node, index) => (
+            <SvgButton
+              key={index}
+              className={
+                clickedIcon === index ? "svg-button-active" : "svg-button"
+              }
+              clickAction={() => handleIconClick(index)}
+            >
+              {node.node}
+            </SvgButton>
+          ))}
+        </div>
+      </nav>
+      {displayCard && (
+        <OverflowCard
+          infoHeader={AboutPortal[displayInfo].Title}
+          infoParagraph={AboutPortal[displayInfo].Paragraph}
+          imgUrl={AboutPortal[displayInfo].Img}
+        />
+      )}
+      <footer
+        className={isNavBarAnimation ? "about-footer-pos" : "about-footer-pre"}
+      >
+        <div className="footer-contact">
+          <AboutContactSVG svgHeight={30} svgWidth={30} />
+          <p>www.kotrooms.net</p>
+        </div>
+        <div className="footer-colabs">
+          <AboutColaboratorsSVG svgHeight={30} svgWidth={30} />
+          <p>KotRooms</p>
+          <p>|</p>
+          <p>CasiTrajeados</p>
+        </div>
+        <SvgButton clickAction={exitFn}>
+          <ExitPrintSVG svgHeight={30} svgWidth={30} />
+        </SvgButton>
+      </footer>
     </div>
   );
 };
