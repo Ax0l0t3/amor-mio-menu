@@ -23,6 +23,7 @@ export const PalettePortal = ({ closePortal = Function.prototype }) => {
     "#e6e6e6ff",
     "#1c0310ff",
     "#45EAF7ff",
+    "#DB3356ff",
   ];
 
   const gradients = [

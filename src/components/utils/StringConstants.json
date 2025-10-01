@@ -87,5 +87,8 @@
   },
   "Dns": {
     "Api": "http://localhost:5000"
+  },
+  "Tabs": {
+    "Favourites": "Favoritos"
   }
 }

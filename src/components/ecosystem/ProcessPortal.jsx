@@ -14,6 +14,7 @@ import { PreviewTicketSection } from "../organism/PreviewTicketSection";
 
 // Utils
 import { DataContext, PrintContext } from "../utils/DataContext";
+import { cleanParenthesis } from "../utils/ArrayUtils";
 import { getArrayOfProperty, updateLocalObject } from "../utils/ObjectUtils";
 import { replaceAndLower } from "../utils/StringUtils";
 
@@ -24,7 +25,7 @@ export const ProcessPortal = ({
   closePortal = Function.prototype,
   optionId,
   prefilledObject,
-  selectedOption = "",
+  selectedOption,
 }) => {
   const { mockObjects } = useContext(DataContext);
   const { printContext, setPrintContext } = useContext(PrintContext);
@@ -36,7 +37,8 @@ export const ProcessPortal = ({
   const [counter, setCounter] = useState(1);
   const [newOrderEnabled, setNewOrderEnabled] = useState(false);
   const [newOrderField, setNewOrderField] = useState("");
-  const [catToGo, setCatToGo] = useState([]);
+  const [ingsToGo, setIngsToGo] = useState([]);
+  const [extrasToGo, setExtrasToGo] = useState([]);
 
   const placeholderConstant = `Orden-${ordersContext.length + 1}`;
 
@@ -65,45 +67,42 @@ export const ProcessPortal = ({
   };
 
   const convertToPrePrintObject = (initObject) => {
-    // Add a char to "Toppings" exclusively
-    // const ingredientsArr = localTab.Ingredients.find(
-    //   (x) => x.Category === "Toppings",
-    // );
-    // if (ingredientsArr) {
-    //   const newIngredients = initObject.Ingredients.map((x) => {
-    //     if (ingredientsArr.Options.includes(x)) {
-    //       return `${x} **`;
-    //     }
-    //     return x;
-    //   });
-    //   initObject.Ingredients = newIngredients;
-    // }
-    // ...
-    return newOrderField === ""
-      ? { ...initObject, Printer: localTab.Printer }
-      : { ...initObject, Printer: localTab.Printer, Order: newOrderField };
+    const baseOrderObject = {
+      ...initObject,
+      Printer: localTab.Printer,
+      Tab: localTab.Title,
+      ExtrasToGo: extrasToGo,
+      IngsToGo: ingsToGo,
+    };
+    if (newOrderField !== "") baseOrderObject.Order = newOrderField;
+    return baseOrderObject;
+  };
+
+  const setOrdersToGo = (arrayToGo, objToWork, property) => {
+    let indexes = [];
+    arrayToGo.forEach((cat) => {
+      const index = localTab[property].findIndex((obj) => obj.Category === cat);
+      if (index >= 0) indexes.push(index);
+    });
+    const modifiedIngredients = objToWork[property].map((str) => {
+      const foundStr = indexes.some((i) =>
+        localTab[property][i].Options.includes(str),
+      );
+      if (foundStr) return `(${str})`;
+      return str;
+    });
+    return modifiedIngredients;
   };
 
   const handleOptionSave = (qtty = 1) => {
     const array = [];
     const objectToAdd = convertToPrePrintObject(localOption);
-    // ...
-    let indexes = [];
-    catToGo.forEach((cat) => {
-      const index = localTab.Ingredients.findIndex(
-        (obj) => obj.Category === cat,
-      );
-      if (index >= 0) indexes.push(index);
-    });
-    const modifiedIngredients = objectToAdd.Ingredients.map((str) => {
-      const foundStr = indexes.find((i) =>
-        localTab.Ingredients[i].Options.includes(str),
-      );
-      if (foundStr) return `(${str})`;
-      return str;
-    });
-    // ...
-    objectToAdd.Ingredients = modifiedIngredients;
+    objectToAdd.Ingredients = setOrdersToGo(
+      ingsToGo,
+      objectToAdd,
+      "Ingredients",
+    );
+    objectToAdd.Extras = setOrdersToGo(extrasToGo, objectToAdd, "Extras");
     for (let i = 0; i < qtty; i++) {
       const idConstructor = replaceAndLower(
         `${objectToAdd.Ingredients}${objectToAdd.Extras}${objectToAdd.Comments}`,
@@ -126,20 +125,30 @@ export const ProcessPortal = ({
   const handleCounterChange = (qtty) => {
     setCounter(qtty);
   };
-  const handleToogleClick = (parameter) => {
-    const toUpdate = [...catToGo];
+
+  const handleToogleClick = (parameter, arrayToGo) => {
+    const toUpdate = [...arrayToGo];
     if (!toUpdate.includes(parameter)) {
-      setCatToGo([...toUpdate, parameter]);
-      return;
+      return [...toUpdate, parameter];
     }
     const index = toUpdate.indexOf(parameter);
     toUpdate.splice(index, 1);
-    setCatToGo(toUpdate);
+    return toUpdate;
+  };
+
+  const handleToogle = (objects, arrayToGo, setToGo) => {
+    let thisObjects = [...arrayToGo];
+    objects.forEach((element) => {
+      const currentArray = handleToogleClick(element.Category, thisObjects);
+      thisObjects = currentArray;
+    });
+    setToGo(thisObjects);
   };
 
   const returnExpandable = (objectProperty) => {
     const returnable = localTab[objectProperty].map((object) => {
       const expandableId = `${objectProperty}-${object.Category}`;
+      const includesCategory = ingsToGo.includes(object.Category);
       return (
         <ExpandableDiv
           closeAction={closePortal}
@@ -154,8 +163,8 @@ export const ProcessPortal = ({
               <div className="expandible-header">
                 <h6>Ingredientes</h6>
                 <ToogleButton
-                  onClick={() => handleToogleClick(object.Category)}
-                  defaultState={catToGo.includes(object.Category)}
+                  onClick={() => handleToogle([object], ingsToGo, setIngsToGo)}
+                  defaultState={includesCategory}
                 />
                 <p>Para Llevar</p>
               </div>
@@ -187,18 +196,35 @@ export const ProcessPortal = ({
   };
 
   useEffect(() => {
-    if (selectedOption != "") {
-      const localObjects = JSON.parse(JSON.stringify(mockObjects));
-      const thisTab = localObjects?.find((object) => object.Selected);
-      const thisOption = thisTab.Options.find(
-        (object) => object.Name === selectedOption,
+    const localObjects = JSON.parse(JSON.stringify(mockObjects));
+    let objectToUse;
+    let thisTab;
+    if (selectedOption) {
+      const tabBySelected = localObjects?.find((object) => object.Selected);
+      const tabByName = localObjects?.find(
+        (object) => object.Title === selectedOption?.Tab,
       );
-      const objectToUse = prefilledObject ?? thisOption;
-      setLocalTab(thisTab);
-      setLocalOption(objectToUse);
-      setDefaultExpanded(thisTab);
-      setOrdersContext(getArrayOfProperty(printContext, "Order"));
+      thisTab = tabBySelected || tabByName;
+      objectToUse = thisTab.Options.find(
+        (object) => object.Name === selectedOption.Name,
+      );
     }
+    if (prefilledObject) {
+      const cleanIngs = cleanParenthesis(prefilledObject.Ingredients);
+      const cleanExtras = cleanParenthesis(prefilledObject.Extras);
+      thisTab = localObjects?.find(
+        (object) => object.Title === prefilledObject?.Tab,
+      );
+      objectToUse = prefilledObject;
+      objectToUse.Ingredients = cleanIngs;
+      objectToUse.Extras = cleanExtras;
+    }
+    setIngsToGo(objectToUse.IngsToGo ?? []);
+    setExtrasToGo(objectToUse.ExtrasToGo ?? []);
+    setLocalTab(thisTab);
+    setLocalOption(objectToUse);
+    setDefaultExpanded(thisTab);
+    setOrdersContext(getArrayOfProperty(printContext, "Order"));
   }, []);
 
   return (
@@ -207,7 +233,8 @@ export const ProcessPortal = ({
       <PreviewTicketSection
         parentObject={localTab}
         selectedObject={localOption}
-        wrappedCategories={catToGo}
+        wrappedIngredients={ingsToGo}
+        wrappedExtras={extrasToGo}
       />
       {/* Comments Section */}
       <ExpandableDiv
@@ -280,7 +307,16 @@ export const ProcessPortal = ({
         >
           {selectedSection == "Extras" ? (
             <>
-              <h6>Extras</h6>
+              <div className="expandible-header">
+                <h6>Extras</h6>
+                <ToogleButton
+                  onClick={() =>
+                    handleToogle(localTab.Extras, extrasToGo, setExtrasToGo)
+                  }
+                  defaultState={extrasToGo.length > 0}
+                />
+                <p>Para Llevar</p>
+              </div>
               {localTab.Extras.map((object, index) => (
                 <BoolButtonsGroup
                   workingObject={object}
@@ -306,5 +342,5 @@ ProcessPortal.propTypes = {
   closePortal: PropTypes.func,
   optionId: PropTypes.string,
   prefilledObject: PropTypes.object,
-  selectedOption: PropTypes.string,
+  selectedOption: PropTypes.object,
 };

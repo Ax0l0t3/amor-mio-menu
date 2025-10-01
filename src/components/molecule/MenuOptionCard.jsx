@@ -5,27 +5,31 @@ import "../../styles/molecule/_menu-option-card.css";
 
 export const MenuOptionCard = ({
   cardName = "Default",
-  onClick = Function.prototype,
+  isSelected = false,
+  onLabelClick = Function.prototype,
+  onHexClick = Function.prototype,
 }) => {
   return (
-    <button
-      type="button"
-      className="bg-black flex justify-center items-center w-[11.5rem] h-[6rem] p-2 rounded-[0.5rem] mt-2 mr-2"
-      onClick={onClick}
-    >
-      <div className="hexagon-div">
-        <div className="top-hexagon-div" />
-        <div className="mid-hexagon-div" />
-        <div className="bottom-hexagon-div" />
-      </div>
-      <div className="text-[1.125rem] input-div">
+    <div className="bg-black flex justify-center items-center w-[11.5rem] h-[6rem] p-2 rounded-[0.5rem] mt-2 mr-2">
+      <button className="hexagon-div" type="button" onClick={onHexClick}>
+        <div className={`top-hexagon-div${isSelected ? "-selected" : ""}`} />
+        <div className={`mid-hexagon-div${isSelected ? "-selected" : ""}`} />
+        <div className={`bottom-hexagon-div${isSelected ? "-selected" : ""}`} />
+      </button>
+      <button
+        className="text-[1.125rem] input-div"
+        type="button"
+        onClick={onLabelClick}
+      >
         <h3 className="text-center">{cardName}</h3>
-      </div>
-    </button>
+      </button>
+    </div>
   );
 };
 
 MenuOptionCard.propTypes = {
   cardName: PropTypes.string,
-  onClick: PropTypes.func,
+  isSelected: PropTypes.bool,
+  onLabelClick: PropTypes.func,
+  onHexClick: PropTypes.func,
 };

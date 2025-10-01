@@ -25,7 +25,7 @@ export const BoolButtonsGroup = ({
       setParentObject(newObject);
     } else {
       const newObject = updateLocalObject(
-        coreObject[objectProperty].filter((e) => e != singleOption),
+        coreObject[objectProperty].filter((e) => !e.includes(singleOption)),
         objectProperty,
         coreObject,
       );
@@ -36,7 +36,10 @@ export const BoolButtonsGroup = ({
 
   const returnCheckboxes = (options, property) => {
     const returnCheckboxes = options.map((option, index) => {
-      const includesOption = thisCoreObject[property].includes(option);
+      const optionIndex = thisCoreObject[property].findIndex((element) =>
+        element.includes(option),
+      );
+      const includesOption = optionIndex > -1;
       return (
         <LiCheckbox
           id={option}
