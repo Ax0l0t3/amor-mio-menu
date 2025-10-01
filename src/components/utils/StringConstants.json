@@ -37,7 +37,7 @@
     },
     {
       "Title": "Calidad y Pruebas",
-      "Paragraph": "Ya quedó tu aplicación. Tiene miles de visitas por día. Y de pronto, alguien te escribe diciendote, la aplicación no sirve, o, se borró mi base de datos. Si te ha pasado, es muy probable que sea por falta de planeación y ambientes de pruebas para probar y corregir el correcto funcionamiento de tu aplicación. Ahora tus clientes te llaman enojados pq no pueden entrar. KotRooms ofrece testeo manual y automatizado de aplicaciónes. Para que no te vuelva a pasar, cada vez que subes tu código, podemos ejecutar un script que revise que no hayas roto nada, y que lo nuevo que agregaste esté ahí. Pruebas de integración, de rendimiento, de interfáz gráfica e incluso de seguridad.",
+      "Paragraph": "Ya quedó tu aplicación. Tiene miles de visitas por día. Y de pronto, alguien te escribe diciendote, la aplicación no sirve, o, se borró mi base de datos. Si te ha pasado, es muy probable que sea por falta de planeación y ambientes de pruebas para probar y corregir el correcto funcionamiento de tu aplicación. Ahora tus clientes te llaman enojados pq no pueden entrar. KotRooms ofrece testeo manual y automatizado de aplicaciónes. Pruebas de integración, de rendimiento, de interfáz gráfica e incluso de seguridad.",
       "Img": "../../public/testingServices.png"
     },
     {
