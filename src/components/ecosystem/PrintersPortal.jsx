@@ -70,9 +70,12 @@ export const PrintersPortal = ({ closePortal = Function.prototype }) => {
   const handleDuplicates = () => {
     for (let i = 1; i < currentPrinters.length; i++) {
       for (let k = i; k < currentPrinters.length; k++) {
-        const isTrue = areStringsSimilar(currentPrinters[i - 1].Name, currentPrinters[k].Name);
-        if(isTrue) {
-          setWarningIndexes([i-1, k]);
+        const isTrue = areStringsSimilar(
+          currentPrinters[i - 1].Name,
+          currentPrinters[k].Name,
+        );
+        if (isTrue) {
+          setWarningIndexes([i - 1, k]);
           return true;
         }
       }
@@ -93,7 +96,7 @@ export const PrintersPortal = ({ closePortal = Function.prototype }) => {
       return;
     }
     const hasDuplicates = handleDuplicates();
-    if(hasDuplicates){
+    if (hasDuplicates) {
       setWarning(true);
       setTimeout(() => {
         setWarning(false);
@@ -130,7 +133,10 @@ export const PrintersPortal = ({ closePortal = Function.prototype }) => {
     >
       <MenuButtons options={menuButtons} />
       <div className="text-center">
-        <WarningMessage isWarning={warning} message="Impresoras con mismo nombre o partes iguales" />
+        <WarningMessage
+          isWarning={warning}
+          message="Impresoras con mismo nombre o contiene otra impresora"
+        />
       </div>
       <div className="header-grid">
         <h4>Impresora</h4>
@@ -145,7 +151,7 @@ export const PrintersPortal = ({ closePortal = Function.prototype }) => {
             name={`printer-${index}`}
           >
             <InputField
-              className={warningIndexes.includes(index) && "warning-border"}
+              hasWarning={warningIndexes.includes(index)}
               inputWidth="w-full"
               name="Name"
               onBlur={(e) => handleRowBlur(e, index)}

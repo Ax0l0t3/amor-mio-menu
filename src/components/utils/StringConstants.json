@@ -85,7 +85,7 @@
     "Port": "Puerto",
     "Id": "Id"
   },
-  "ProcessPortal":{
+  "ProcessPortal": {
     "CounterWarning": "Valores mayores a 0"
   },
   "Dns": {

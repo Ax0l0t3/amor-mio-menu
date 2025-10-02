@@ -10,12 +10,12 @@ export const findAndSlice = (character, string) => {
 };
 
 export const removeParenthesis = (el) => {
-  if(el) return el.replace("(", "").replace(")", "");
-  };
+  if (el) return el.replace("(", "").replace(")", "");
+};
 
-  export const areStringsSimilar = (str1, str2) => {
-    if(str1.length > str2.length){
-      return str1.includes(str2);
-    }
-    return str2.includes(str1);
+export const areStringsSimilar = (str1, str2) => {
+  if (str1.length > str2.length) {
+    return str1.includes(str2);
   }
+  return str2.includes(str1);
+};

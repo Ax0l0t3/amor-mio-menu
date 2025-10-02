@@ -15,7 +15,7 @@ export const CounterDiv = ({
   tailwindStyle = "flex",
   counterChange = Function.prototype,
 }) => {
-  const {ProcessPortal} = StringConstants;
+  const { ProcessPortal } = StringConstants;
   const [counterValue, setCounterValue] = useState(defaultValue);
   const [warning, setWarning] = useState(false);
 
@@ -39,7 +39,10 @@ export const CounterDiv = ({
 
   return (
     <div className={tailwindStyle}>
-      <WarningMessage isWarning={warning} message={ProcessPortal.CounterWarning}/>
+      <WarningMessage
+        isWarning={warning}
+        message={ProcessPortal.CounterWarning}
+      />
       <p className="bg-[#454a48ff] w-[2.5rem] h-[1.6rem] flex items-center justify-center text-[18px]">
         {counterValue}
       </p>

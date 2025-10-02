@@ -43,9 +43,7 @@ export const BoolButtonsGroup = ({
           key={`${option}-${index}`}
           name={option}
           checked={isIncluded}
-          onChange={() =>
-            handleCheckboxChange(option, property, isIncluded)
-          }
+          onChange={() => handleCheckboxChange(option, property, isIncluded)}
         />
       );
     });
