@@ -30,15 +30,18 @@ export const AddItemPortal = ({ closePortal = Function.prototype }) => {
   const { mockObjects, setMockObjects } = useContext(DataContext);
   const { printersContext } = useContext(PrintersContext);
 
-  const [scopeObjects, setScopeObjects] = useState([]);
   const [extraCategory, setExtraCategory] = useState("");
   const [ingredientCategory, setIngredientCategory] = useState("");
-  const [selectedPrinter, setSelectedPrinter] = useState("");
   const [isAddExtraCategory, setIsAddExtraCategory] = useState(false);
   const [isAddIngredientCategory, setIsAddIngredientCategory] = useState(false);
   const [isAddTab, setIsAddTab] = useState(false);
-  const [newIngredient, setNewIngredient] = useState("");
   const [newExtra, setNewExtra] = useState("");
+  const [newIngredient, setNewIngredient] = useState("");
+  const [ingWarning, setIngWarning] = useState(false);
+  const [extraWarning, setExtraWarning] = useState(false);
+  const [scopeObjects, setScopeObjects] = useState([]);
+  const [selectedPrinter, setSelectedPrinter] = useState("");
+  const [tabWarning, setTabWarning] = useState(false);
 
   const headerButtons = [
     {
@@ -154,7 +157,15 @@ export const AddItemPortal = ({ closePortal = Function.prototype }) => {
     newOption,
     isAdd,
     resetInputField,
+    setWarning,
   ) => {
+    if (newOption === "") {
+      setWarning(true);
+      setTimeout(() => {
+        setWarning(false);
+      }, 3000);
+      return;
+    }
     const foundTabIndex = scopeObjects.findIndex(({ Selected }) => Selected);
     let foundTabObj = getSelectedTab();
     if (!foundTabObj) {
@@ -205,6 +216,13 @@ export const AddItemPortal = ({ closePortal = Function.prototype }) => {
     e.preventDefault();
     const formData = new FormData(e.target);
     const dataJson = localJsonSerialize(formData, 0);
+    if (dataJson.Title === "") {
+      setTabWarning(true);
+      setTimeout(() => {
+        setTabWarning(false);
+      }, 3000);
+      return;
+    }
     const foundTabIndex = scopeObjects.findIndex(
       (object) => object.Title === dataJson.Title,
     );
@@ -261,6 +279,7 @@ export const AddItemPortal = ({ closePortal = Function.prototype }) => {
       <div className="flex justify-between max-h-12">
         {isAddTab ? (
           <InputField
+            hasWarning={tabWarning}
             inputLabel={Commons.Tab}
             name={Commons.Title}
             placeholder="Nueva Pestaña"
@@ -310,6 +329,7 @@ export const AddItemPortal = ({ closePortal = Function.prototype }) => {
             />
           )}
           <InputField
+            hasWarning={ingWarning}
             inputLabel="Option"
             labelClassName="mr-2"
             onChange={newIngredientChange}
@@ -326,6 +346,7 @@ export const AddItemPortal = ({ closePortal = Function.prototype }) => {
                 newIngredient,
                 setIsAddIngredientCategory,
                 () => setNewIngredient(""),
+                setIngWarning,
               )
             }
           />
@@ -356,6 +377,7 @@ export const AddItemPortal = ({ closePortal = Function.prototype }) => {
             />
           )}
           <InputField
+            hasWarning={extraWarning}
             inputLabel="Option"
             labelClassName="mr-2"
             onChange={handleNewExtraChange}
@@ -372,6 +394,7 @@ export const AddItemPortal = ({ closePortal = Function.prototype }) => {
                 newExtra,
                 setIsAddExtraCategory,
                 () => setNewExtra(""),
+                setExtraWarning,
               )
             }
           />

@@ -1,0 +1,10 @@
+.input-field {
+    background-color: #454a48;
+    border: solid 1px #1f1612ff;
+    padding-left: 0.5rem;
+    margin-right: 0.5rem;
+}
+
+.warning-border {
+  border: solid 1px #f7df44ff;
+}

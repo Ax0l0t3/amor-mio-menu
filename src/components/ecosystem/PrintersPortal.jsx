@@ -4,6 +4,7 @@ import { useContext, useEffect, useRef, useState } from "react";
 // Atom
 import { ExitPrintSVG } from "../atom/ExitPrintIcon";
 import { InputField } from "../atom/InputField";
+import { WarningMessage } from "../atom/WarningMessage";
 
 // Molecule
 import { SvgButton } from "../molecule/SvgButton";
@@ -15,19 +16,22 @@ import { MenuButtons } from "../organism/MenuButtons";
 import { PrintersContext } from "../utils/DataContext";
 import { fetchPost } from "../utils/FetchUtils";
 import RegexConstants from "../utils/RegexConstants.json";
+import { areStringsSimilar } from "../utils/StringUtils";
 import StringConstants from "../utils/StringConstants.json";
 
 // Styles
 import "../../styles/ecosystem/_printers-portal.css";
 
 export const PrintersPortal = ({ closePortal = Function.prototype }) => {
-  const [focusElement, setFocusElement] = useState(false);
-  const { printersContext, setPrintersContext } = useContext(PrintersContext);
   const portalFormRef = useRef(null);
-  const { CommonRegex } = RegexConstants;
-  const { Dns } = StringConstants;
+  const { printersContext, setPrintersContext } = useContext(PrintersContext);
+  const [focusElement, setFocusElement] = useState(false);
   const [currentPrinters, setCurrentPrinters] = useState([]);
   const [currentFocus, setCurrentFocus] = useState(0);
+  const [warning, setWarning] = useState(false);
+  const [warningIndexes, setWarningIndexes] = useState([]);
+  const { CommonRegex } = RegexConstants;
+  const { Dns } = StringConstants;
   const printerAttribs = ["Name", "Ip", "Port"];
 
   const menuButtons = [
@@ -63,6 +67,21 @@ export const PrintersPortal = ({ closePortal = Function.prototype }) => {
     const editedPrinter = thisPrinters[index];
     editedPrinter[e.target.name] = e.target.value;
   };
+  const handleDuplicates = () => {
+    for (let i = 1; i < currentPrinters.length; i++) {
+      for (let k = i; k < currentPrinters.length; k++) {
+        const isTrue = areStringsSimilar(
+          currentPrinters[i - 1].Name,
+          currentPrinters[k].Name,
+        );
+        if (isTrue) {
+          setWarningIndexes([i - 1, k]);
+          return true;
+        }
+      }
+    }
+    return false;
+  };
   const handleSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
@@ -74,6 +93,15 @@ export const PrintersPortal = ({ closePortal = Function.prototype }) => {
       );
       const emptyInput = Array.from(nodeArray).find((e) => e.value === "");
       emptyInput.focus();
+      return;
+    }
+    const hasDuplicates = handleDuplicates();
+    if (hasDuplicates) {
+      setWarning(true);
+      setTimeout(() => {
+        setWarning(false);
+        setWarningIndexes([]);
+      }, 3000);
       return;
     }
     fetchPost(`${Dns.Api}/save-printers`, {
@@ -104,6 +132,12 @@ export const PrintersPortal = ({ closePortal = Function.prototype }) => {
       ref={portalFormRef}
     >
       <MenuButtons options={menuButtons} />
+      <div className="text-center">
+        <WarningMessage
+          isWarning={warning}
+          message="Impresoras con mismo nombre o contiene otra impresora"
+        />
+      </div>
       <div className="header-grid">
         <h4>Impresora</h4>
         <h4>Ip</h4>
@@ -117,11 +151,12 @@ export const PrintersPortal = ({ closePortal = Function.prototype }) => {
             name={`printer-${index}`}
           >
             <InputField
-              placeholder="Nombre..."
+              hasWarning={warningIndexes.includes(index)}
               inputWidth="w-full"
-              value={printer.Name}
               name="Name"
               onBlur={(e) => handleRowBlur(e, index)}
+              placeholder="Nombre..."
+              value={printer.Name}
             />
             <InputField
               placeholder="Ip..."

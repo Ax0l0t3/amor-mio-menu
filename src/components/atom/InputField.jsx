@@ -1,8 +1,11 @@
 import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
 
+import "../../styles/atom/_input-field.css";
+
 export const InputField = ({
   className = "",
+  hasWarning = false,
   inputEnabled = true,
   inputLabel = "",
   inputWidth = "w-[16%]",
@@ -36,7 +39,7 @@ export const InputField = ({
       {optionalTitle && <p className={titleClassName}>{optionalTitle}</p>}
       {inputLabel && <label className={labelClassName}>{inputLabel}</label>}
       <input
-        className={`bg-[#454a48] pl-2 ${inputWidth} mr-2 ${className}`}
+        className={`input-field ${inputWidth} ${className} ${hasWarning ? "warning-border" : ""}`}
         name={name}
         onChange={(e) => handleInputChange(e)}
         pattern={pattern}
@@ -52,6 +55,7 @@ export const InputField = ({
 
 InputField.propTypes = {
   className: PropTypes.string,
+  hasWarning: PropTypes.bool,
   inputEnabled: PropTypes.bool,
   inputLabel: PropTypes.string,
   inputWidth: PropTypes.string,
