@@ -12,12 +12,13 @@ import { Tabs } from "./components/organism/Tabs";
 import { ProcessPortal } from "./components/ecosystem/ProcessPortal";
 
 // Utils
-import { DataContext, PrintContext, PortalContext, PrintersContext } from "./components/utils/DataContext";
+import { DataContext, PrintContext, PortalContext, PrintersContext, ColoursContext } from "./components/utils/DataContext";
 import { fetchGet, fetchPost } from "./components/utils/FetchUtils";
 import StringConstants from "./components/utils/StringConstants.json";
 
 function App() {
   const { Dns } = StringConstants;
+  const [coloursContext, setColoursContext] = useState([]);
   const [labelOptions, setLabelOptions] = useState([]);
   const [mockObjects, setMockObjects] = useState([]);
   const [printContext, setPrintContext] = useState([]);
@@ -48,15 +49,15 @@ function App() {
       setFavourites([...favourites, { Name: favObject.Name, Favourite: true, Tab: workingTab.Title }]);
     };
   };
-  
+
   const handleAddingFavourite = (favObject) => {
     const updatedObjects = [...mockObjects];
     if (updatedObjects.some(({ Selected }) => Selected)) {
-      const workingTab = updatedObjects.find(({Selected}) => Selected);
+      const workingTab = updatedObjects.find(({ Selected }) => Selected);
       addFavourites(workingTab, favObject);
     }
-    else{
-      const workingTab = updatedObjects.find(({Title}) => Title === favObject.Tab);
+    else {
+      const workingTab = updatedObjects.find(({ Title }) => Title === favObject.Tab);
       addFavourites(workingTab, favObject);
     }
     fetchPost(`${Dns.Api}/post-data-menu`, { Tabs: updatedObjects });
@@ -67,10 +68,8 @@ function App() {
     const fetchData = async () => {
       const data = await fetchGet(`${Dns.Api}/data-menu`);
       let favouritesArray = [];
-      for(const tab of data.Tabs)
-      {
-        for(const option of tab.Options)
-        {
+      for (const tab of data.Tabs) {
+        for (const option of tab.Options) {
           if (option.Favourite) favouritesArray.push({ Name: option.Name, Favourite: true, Tab: tab.Title });
         }
       }
@@ -81,9 +80,14 @@ function App() {
       const data = await fetchGet(`${Dns.Api}/get-printers`);
       setPrintersContext(data?.Printers);
     };
+    const fetchColours = async () => {
+      const data = await fetchGet(`${Dns.Api}/get-colours`);
+      setColoursContext(data);
+    };
 
     fetchData();
     fetchPrinters();
+    fetchColours();
   }, []);
 
   useEffect(() => {
@@ -99,24 +103,26 @@ function App() {
   return (
     <DataContext.Provider value={{ mockObjects, setMockObjects }}>
       <PrintContext.Provider value={{ printContext, setPrintContext }}>
-        <PortalContext.Provider value={{ portalContext, setPortalContext }}>
-          <PrintersContext.Provider value={{ printersContext, setPrintersContext }}>
-            <NavBar onButtonClick={handlePortalUpdate} closePortal={closePortal} />
-            <Tabs />
-            <div className="options-cards">
-              {labelOptions.map((option, id) => (
-                <MenuOptionCard
-                  key={id}
-                  cardName={option.Name}
-                  isSelected={option.Favourite}
-                  onLabelClick={() => handleOptionClick(option)}
-                  onHexClick={() => handleAddingFavourite(option)}
-                />
-              ))}
-            </div>
-            <DisplayPortal isPortalVisible={portalContext.visible} portalComponent={portalContext.node} />
-          </PrintersContext.Provider>
-        </PortalContext.Provider>
+        <ColoursContext.Provider value={{ coloursContext, setColoursContext }}>
+          <PortalContext.Provider value={{ portalContext, setPortalContext }}>
+            <PrintersContext.Provider value={{ printersContext, setPrintersContext }}>
+              <NavBar onButtonClick={handlePortalUpdate} closePortal={closePortal} />
+              <Tabs />
+              <div className="options-cards">
+                {labelOptions.map((option, id) => (
+                  <MenuOptionCard
+                    key={id}
+                    cardName={option.Name}
+                    isSelected={option.Favourite}
+                    onLabelClick={() => handleOptionClick(option)}
+                    onHexClick={() => handleAddingFavourite(option)}
+                  />
+                ))}
+              </div>
+              <DisplayPortal isPortalVisible={portalContext.visible} portalComponent={portalContext.node} />
+            </PrintersContext.Provider>
+          </PortalContext.Provider>
+        </ColoursContext.Provider>
       </PrintContext.Provider>
     </DataContext.Provider>
   );

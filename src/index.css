@@ -24,7 +24,7 @@ body {
 .options-cards {
   align-content: start;
   background-blend-mode: hard-light;
-  background-color: #977f33ff;
+  background-color: var(--main-colour-1);
   background-image: url("/public/kot-rooms.png");
   background-position: bottom;
   background-repeat: no-repeat;
@@ -53,4 +53,8 @@ html {
   html {
     font-size: 16px;
   }
+}
+
+:root {
+  --main-colour-1: #977f33ff;
 }
