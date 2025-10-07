@@ -26,12 +26,8 @@
 
 .process-portal fieldset > div > input {
   flex-grow: 1;
-  background-color: #454a48;
+  background-color: var(--input-colour-1);
   padding: 0 1rem;
-}
-
-.process-portal fieldset > div > input:disabled {
-  background-color: #313634;
 }
 
 .process-portal fieldset label {
@@ -43,7 +39,7 @@
 
 .process-portal fieldset label > input {
   appearance: none;
-  background-color: #454a48;
+  background-color: var(--input-colour-1);
   box-shadow: none;
   height: 1.5em;
   width: 1.5em;
@@ -51,12 +47,12 @@
   transition: 100ms all linear;
 }
 .process-portal fieldset label > input:checked {
-  background-color: #d5b639ff;
+  background-color: var(--input-colour-2);
   transition: 100ms all linear;
 }
 
 .process-portal fieldset label > span {
-  background-color: #454a48;
+  background-color: var(--input-colour-1);
   padding: 0 1rem;
   width: 8rem;
 }

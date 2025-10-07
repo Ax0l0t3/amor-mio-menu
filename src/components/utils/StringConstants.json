@@ -74,6 +74,21 @@
     "DeleteModeString": "Delete Mode",
     "ModifyModeString": "Modify Mode"
   },
+  "PalettePortal": [
+    "--main-colour-1",
+    "--main-colour-2",
+    "--input-colour-1",
+    "--button-colour-1",
+    "--button-colour-2",
+    "--warning-colour-1",
+    "--input-colour-2",
+    "--background-colour-1",
+    "--background-colour-2",
+    "--tooltip-colour-1",
+    "--hover-colour-1",
+    "--close-colour-1",
+    "--highlight-colour-1"
+  ],
   "PrintPortal": {
     "Comments": "Comentarios",
     "Ingredients": "Ingredientes",

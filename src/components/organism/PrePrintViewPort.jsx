@@ -68,7 +68,7 @@ export const PrePrintViewPort = ({ closePortal = Function.prototype }) => {
         <TextButton
           buttonLabel="Cerrar"
           action={closePortal}
-          tailwindBg="bg-[#C4335F]"
+          tailwindBg="bg-[var(--close-colour-1)]"
         />
       </div>
     </div>

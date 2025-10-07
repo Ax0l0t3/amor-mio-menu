@@ -1,6 +1,6 @@
 .side-bar {
   align-items: center;
-  background-color: #977f33;
+  background-color: var(--main-colour-1);
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -13,6 +13,6 @@
 }
 
 .side-bar button:active{
-  background-color: #1f1612ff;
+  background-color: var(--main-colour-2);
   transition: all ease 0.1s;
 }

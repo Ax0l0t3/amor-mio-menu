@@ -28,7 +28,7 @@ export const SelectList = ({
         <label className={selectHeaderClassName}>{selectLabel}</label>
       )}
       <select
-        className="bg-[#454a48] h-[1.6rem] w-[16%] mr-2 pl-2"
+        className="bg-[var(--input-colour-1)] h-[1.6rem] w-[16%] mr-2 pl-2"
         name={name}
         onChange={(e) => handleChange(e)}
         value={!value ? defaultSelected : value}

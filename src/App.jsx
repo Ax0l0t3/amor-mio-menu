@@ -17,7 +17,7 @@ import { fetchGet, fetchPost } from "./components/utils/FetchUtils";
 import StringConstants from "./components/utils/StringConstants.json";
 
 function App() {
-  const { Dns } = StringConstants;
+  const { Dns, PalettePortal } = StringConstants;
   const [coloursContext, setColoursContext] = useState([]);
   const [labelOptions, setLabelOptions] = useState([]);
   const [mockObjects, setMockObjects] = useState([]);
@@ -82,6 +82,7 @@ function App() {
     };
     const fetchColours = async () => {
       const data = await fetchGet(`${Dns.Api}/get-colours`);
+      data.forEach( (c, i) => document.documentElement.style.setProperty(PalettePortal[i], c))
       setColoursContext(data);
     };
 

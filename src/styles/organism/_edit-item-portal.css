@@ -1,5 +1,5 @@
 .edit-item-portal {
-  background-color: #1f1612ff;
+  background-color: var(--main-colour-2);
   height: 100%;
   left: 4%;
   position: absolute;
@@ -20,10 +20,6 @@
 .deletable-entry label:hover {
   color: red;
   cursor: default;
-}
-
-.icon-disabled > path {
-  fill: #393939;
 }
 
 .edit-item-portal fieldset {

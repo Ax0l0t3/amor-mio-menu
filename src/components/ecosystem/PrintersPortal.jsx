@@ -36,13 +36,13 @@ export const PrintersPortal = ({ closePortal = Function.prototype }) => {
 
   const menuButtons = [
     {
-      className: "bg-[#828d51ff]",
+      className: "bg-[var(--button-colour-1)]",
       label: "Guardar",
       type: "submit",
     },
     {
       action: closePortal,
-      className: "bg-[#DB3356]",
+      className: "bg-[var(--close-colour-1)]",
       label: "Cerrar",
       type: "button",
     },

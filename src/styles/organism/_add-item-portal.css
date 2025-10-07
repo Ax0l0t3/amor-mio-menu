@@ -1,5 +1,5 @@
 .add-item-portal {
-  background-color: #1f1612ff;
+  background-color: var(--main-colour-2);
   height: 100%;
   left: 4%;
   padding: 1rem;

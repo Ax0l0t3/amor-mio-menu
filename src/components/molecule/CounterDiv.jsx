@@ -43,20 +43,20 @@ export const CounterDiv = ({
         isWarning={warning}
         message={ProcessPortal.CounterWarning}
       />
-      <p className="bg-[#454a48ff] w-[2.5rem] h-[1.6rem] flex items-center justify-center text-[18px]">
+      <p className="bg-[var(--input-colour-1)] w-[2.5rem] h-[1.6rem] flex items-center justify-center text-[18px]">
         {counterValue}
       </p>
       <button
         onClick={handleDecrement}
         type="button"
-        className={`bg-[#454a48ff] w-[1.6rem] h-[1.6rem] flex items-center justify-center ${warning ? "warning-border" : "normal-border"}`}
+        className={`bg-[var(--input-colour-1)] w-[1.6rem] h-[1.6rem] flex items-center justify-center ${warning ? "warning-border" : "normal-border"}`}
       >
         -
       </button>
       <button
         onClick={handleIncrement}
         type="button"
-        className="bg-[#454a48ff] w-[1.6rem] h-[1.6rem] flex items-center justify-center"
+        className="bg-[var(--input-colour-1)] w-[1.6rem] h-[1.6rem] flex items-center justify-center"
       >
         +
       </button>
