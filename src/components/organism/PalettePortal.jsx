@@ -18,7 +18,7 @@ import StringConstants from "../utils/StringConstants.json";
 import "../../styles/organism/_palette-portal.css";
 
 export const PalettePortal = ({ closePortal = Function.prototype }) => {
-  const { Dns, PalettePortal } = StringConstants;
+  const { Dns, PaletteStrings } = StringConstants;
   const { coloursContext, setColoursContext } = useContext(ColoursContext);
   const [returnColours, setReturnColours] = useState([]);
 
@@ -26,7 +26,7 @@ export const PalettePortal = ({ closePortal = Function.prototype }) => {
     const posColours = [...returnColours];
     posColours[id] = value;
     setReturnColours(posColours);
-    document.documentElement.style.setProperty(PalettePortal[id], value);
+    document.documentElement.style.setProperty(PaletteStrings[id], value);
   };
   const handleSave = () => {
     setColoursContext(returnColours);
@@ -35,7 +35,7 @@ export const PalettePortal = ({ closePortal = Function.prototype }) => {
   };
   const handleClose = () => {
     coloursContext.forEach((c, i) =>
-      document.documentElement.style.setProperty(PalettePortal[i], c),
+      document.documentElement.style.setProperty(PaletteStrings[i], c),
     );
     closePortal();
   };
@@ -50,15 +50,19 @@ export const PalettePortal = ({ closePortal = Function.prototype }) => {
       <div className="flex items-center justify-center h-screen">
         <div className="bg-white p-2 rounded-lg flex flex-col">
           <div className="flex">
-            {returnColours.map((color, id) => (
-              <input
-                type="color"
-                key={id}
-                value={color}
-                className={`w-[4.5rem] h-[4.5rem] border-[4px] hover:border-black`}
-                onChange={(e) => handleColourChange(id, e.target.value)}
-              />
-            ))}
+            {returnColours.map((color, id) => {
+              const isFirstElement = id === 0 ? "first-colour" : "";
+              const isLastElement = id === returnColours.length-1 ? "last-colour" : "";
+              const isElement = isFirstElement || isLastElement;
+              return (
+                <input
+                  type="color"
+                  key={id}
+                  value={color}
+                  className={`colour-class ${isElement}`}
+                  onChange={(e) => handleColourChange(id, e.target.value)}
+                />)
+            })}
           </div>
           <div className="flex justify-end gap-2 mt-2">
             <SvgButton clickAction={handleClose}>

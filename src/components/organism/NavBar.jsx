@@ -61,7 +61,7 @@ export const NavBar = ({
     {
       button: <CustomizeSVG />,
       action: () =>
-        changePortal(true, <PalettePortal closePortal={closePortal} />),
+        changePortal(false, {}),
     },
     {
       button: <AboutSVG />,
