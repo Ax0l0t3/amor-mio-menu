@@ -1,5 +1,5 @@
 .pre-print-portal {
-  background-color: #1f1612ff;
+  background-color: var(--main-colour-2);
   display: flex;
   height: 100%;
   left: 4%;

@@ -30,7 +30,7 @@ export const TicketMessages = ({ dishes, hoveredDish }) => {
     const isHovered = messageSplitted[hoveredIndex] === PrintPortal.Hovered;
     return (
       <div
-        className={isHovered ? "bg-[#45EAF7]" : "bg-white"}
+        className={isHovered ? "bg-[var(--hover-colour-1)]" : "bg-white"}
         style={pStyle}
         key={`${message}${coreIndex}`}
       >

@@ -4,7 +4,7 @@ export const TextButton = ({
   buttonLabel = "Default",
   action = Function.prototype,
   tailwindMargin = "",
-  tailwindBg = "bg-[#828d51ff]",
+  tailwindBg = "bg-[var(--button-colour-1)]",
   buttonType = "button",
 }) => {
   return (

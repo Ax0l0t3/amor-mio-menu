@@ -1,5 +1,5 @@
 .printers-portal-style {
-  background-color: #1f1612ff;
+  background-color: var(--main-colour-2);
   height: 100%;
   left: 4%;
   position: absolute;
@@ -32,11 +32,11 @@
 
 .printers-portal-style input{
   box-sizing: border-box;
-  outline: 1px solid #1f1612ff;
+  outline: 1px solid var(--main-colour-2);
 }
 
 .printers-portal-style input:invalid{
-  outline: 1px solid #f7df44ff;
+  outline: 1px solid var(--warning-colour-1);
   transition: all 0.15s;
 }
 

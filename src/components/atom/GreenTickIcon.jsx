@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 export const GreenTickIcon = ({
   svgWidth = 34,
   svgHeight = 34,
-  color = "#828d51",
+  color = "var(--button-colour-1)",
 }) => {
   return (
     <svg

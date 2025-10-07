@@ -1,5 +1,5 @@
 .toogle-button {
-  background-color: #454a48;
+  background-color: var(--input-colour-1);
   display: flex;
   width: 16%;
   align-items: center;
@@ -9,7 +9,7 @@
   text-wrap: nowrap;
 }
 .toogle-button.clicked {
-  background-image: linear-gradient(to right, #454a48, #d5b639ff);
+  background-image: linear-gradient(to right, var(--input-colour-1), var(--input-colour-2));
 }
 
 .toogle-button input {

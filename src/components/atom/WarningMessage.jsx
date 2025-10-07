@@ -8,7 +8,9 @@ export const WarningMessage = ({
 }) => {
   return (
     isWarning && (
-      <p className={`${className} mr-2 text-[#f7df44ff] warning`}>{message}</p>
+      <p className={`${className} mr-2 text-[var(--warning-colour-1)] warning`}>
+        {message}
+      </p>
     )
   );
 };

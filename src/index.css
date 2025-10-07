@@ -57,4 +57,16 @@ html {
 
 :root {
   --main-colour-1: #977f33ff;
+  --main-colour-2: #1f1612ff;
+  --input-colour-1: #454a48ff;
+  --input-colour-2: #d5b639ff;
+  --button-colour-1: #828d51ff;
+  --button-colour-2: #a5860fff;
+  --warning-colour-1: #f7df44ff;
+  --background-colour-1: #999999ff;
+  --background-colour-2: #e6e6e6ff;
+  --tooltip-colour-1: #1c0310ff;
+  --hover-colour-1: #45eaf7ff;
+  --close-colour-1: #db3356ff;
+  --highlight-colour-1: #b5baf7ff;
 }

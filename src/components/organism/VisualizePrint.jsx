@@ -129,7 +129,7 @@ export const VisualizePrint = ({
           />
         ))}
       </div>
-      <div className="bg-[#999999ff] w-[20.5rem] h-fit mr-4  font-[ibm-semibold] text-[0.9rem]">
+      <div className="bg-[var(--background-colour-1)] w-[20.5rem] h-fit mr-4  font-[ibm-semibold] text-[0.9rem]">
         <div className="preview-print-ticket">
           <h6>{returnNowDate()}</h6>
           <h6>{sectionName}</h6>

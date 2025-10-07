@@ -22,12 +22,6 @@
   margin-bottom: 0.25rem;
 }
 
-.single-input:read-only {
-  box-shadow: inset 4px 0px 22px #1f1612, inset -5px 0px 8px #DB3356;
-  cursor: default;
-  outline: none;
-}
-
 @media screen and (min-width: 1280px) {
   .fieldset-div {
     max-height: 12rem;

@@ -6,7 +6,7 @@ export const OptionMainTab = ({
 }) => {
   return (
     <button
-      className="bg-[#1f1612ff] w-[10rem] h-16 flex items-center justify-center text-center text-[1.25rem] cursor-pointer"
+      className="bg-[var(--main-colour-2)] w-[10rem] h-16 flex items-center justify-center text-center text-[1.25rem] cursor-pointer"
       onClick={action}
     >
       <h3>{cardTitle}</h3>

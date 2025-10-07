@@ -11,7 +11,3 @@
 .header-radio-buttons input {
   appearance: none;
 }
-
-.mode-unselected svg path {
-  fill: #333333;
-}

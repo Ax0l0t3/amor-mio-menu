@@ -4,7 +4,7 @@ const preview = {
   parameters: {
     backgrounds: {
       values: [
-        {name: "Dark", value: "#1f1612ff"}
+        {name: "Dark", value: "var(--main-colour-2)"}
       ],
       default: "Dark",
     },

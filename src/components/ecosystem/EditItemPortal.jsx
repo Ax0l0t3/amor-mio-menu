@@ -124,33 +124,40 @@ export const EditItemPortal = ({ closePortal = Function.prototype }) => {
 
   const menuButtons = [
     {
-      className: "bg-[#828d51ff]",
+      className: "bg-[var(--button-colour-1)]",
       label: "Guardar",
       type: "submit",
     },
     {
       className:
-        editMode === EditPortal.ModifyModeString ? "bg-[#a5860fff]" : "",
+        editMode === EditPortal.ModifyModeString
+          ? "bg-[var(--button-colour-2)]"
+          : "",
       label: "Modificar",
       type: "button",
       action: () => setEditMode(EditPortal.ModifyModeString),
     },
     {
-      className: editMode === EditPortal.EditModeString ? "bg-[#a5860fff]" : "",
+      className:
+        editMode === EditPortal.EditModeString
+          ? "bg-[var(--button-colour-2)]"
+          : "",
       label: "Editar",
       type: "button",
       action: getScreenshot,
     },
     {
       className:
-        editMode === EditPortal.DeleteModeString ? "bg-[#a5860fff]" : "",
+        editMode === EditPortal.DeleteModeString
+          ? "bg-[var(--button-colour-2)]"
+          : "",
       label: "Eliminar",
       type: "button",
       action: () => setEditMode(EditPortal.DeleteModeString),
     },
     {
       action: closePortal,
-      className: "bg-[#DB3356]",
+      className: "bg-[var(--close-colour-1)]",
       label: "Cerrar",
       type: "button",
     },

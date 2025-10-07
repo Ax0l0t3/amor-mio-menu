@@ -2,7 +2,7 @@
   position: relative;
   width: 3rem;
   height: 1.5rem;
-  background-color: #e6e6e6ff;
+  background-color: var(--background-colour-2);
   border-radius: 40px;
   cursor: pointer;
   transition: all 0.1s;
@@ -15,13 +15,13 @@
   height: 1.5rem;
   width: 1.5rem;
   left: 0px;
-  background-color: #999999ff;
+  background-color: var(--background-colour-1);
   border-radius: 40px;
   transition: all 0.1s;
 }
 
 .radio-slider:checked {
-  background-color: #d5b639ff;
+  background-color: var(--input-colour-2);
   transition: all 0.1s;
 }
 
@@ -42,7 +42,7 @@
 }
 
 .li-label {
-  background-color: #454a48;
+  background-color: var(--input-colour-1);
   text-overflow: ellipsis;
   overflow: hidden;
   width: 72%;
