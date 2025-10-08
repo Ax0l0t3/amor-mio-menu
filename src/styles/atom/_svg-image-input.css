@@ -1,0 +1,9 @@
+.svg-image-input {
+    display: flex;
+    cursor: pointer;
+}
+
+.svg-image-input>input {
+    visibility: hidden;
+    width: 0;
+}
