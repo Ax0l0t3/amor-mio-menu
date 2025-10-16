@@ -52,7 +52,8 @@ export const PalettePortal = ({ closePortal = Function.prototype }) => {
           <div className="flex">
             {returnColours.map((color, id) => {
               const isFirstElement = id === 0 ? "first-colour" : "";
-              const isLastElement = id === returnColours.length-1 ? "last-colour" : "";
+              const isLastElement =
+                id === returnColours.length - 1 ? "last-colour" : "";
               const isElement = isFirstElement || isLastElement;
               return (
                 <input
@@ -61,7 +62,8 @@ export const PalettePortal = ({ closePortal = Function.prototype }) => {
                   value={color}
                   className={`colour-class ${isElement}`}
                   onChange={(e) => handleColourChange(id, e.target.value)}
-                />)
+                />
+              );
             })}
           </div>
           <div className="flex justify-end gap-2 mt-2">
