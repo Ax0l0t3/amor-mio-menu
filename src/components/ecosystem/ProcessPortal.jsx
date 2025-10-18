@@ -60,12 +60,6 @@ export const ProcessPortal = ({
     }
   };
 
-  const handlePrinterClick = (selectedPrinter) => {
-    setLocalTab((prev) => {
-      return { ...prev, Printer: selectedPrinter };
-    });
-  };
-
   const convertToPrePrintObject = (initObject) => {
     const baseOrderObject = {
       ...initObject,
@@ -155,7 +149,6 @@ export const ProcessPortal = ({
           onSectionClick={() => setSelectedSection(expandableId)}
           showSection={selectedSection === expandableId}
           key={expandableId}
-          changePrinter={handlePrinterClick}
           saveOptions={() => handleOptionSave(counter)}
         >
           {selectedSection === expandableId ? (
@@ -241,7 +234,6 @@ export const ProcessPortal = ({
         closeAction={closePortal}
         onSectionClick={() => setSelectedSection("Comments")}
         showSection={selectedSection === "Comments"}
-        changePrinter={handlePrinterClick}
         saveOptions={() => handleOptionSave(counter)}
       >
         <p>Comentarios</p>
@@ -302,7 +294,6 @@ export const ProcessPortal = ({
           closeAction={closePortal}
           onSectionClick={() => setSelectedSection("Extras")}
           showSection={selectedSection === "Extras"}
-          changePrinter={handlePrinterClick}
           saveOptions={() => handleOptionSave(counter)}
         >
           {selectedSection == "Extras" ? (

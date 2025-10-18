@@ -21,9 +21,9 @@ import "../../styles/organism/_palette-portal.css";
 export const PalettePortal = ({ closePortal = Function.prototype }) => {
   const { Dns, PaletteStrings } = StringConstants;
   const { coloursContext, setColoursContext } = useContext(ColoursContext);
-  const [ aString, setAString] = useState("");
+  const [aString, setAString] = useState("");
   const [returnColours, setReturnColours] = useState([]);
-  const [ thisFile, setThisFile] = useState(null);
+  const [thisFile, setThisFile] = useState(null);
 
   const handleColourChange = (id, value) => {
     const posColours = [...returnColours];
@@ -47,13 +47,13 @@ export const PalettePortal = ({ closePortal = Function.prototype }) => {
   const handleImageChange = (e) => {
     setThisFile(e.target.files[0]);
     const fileUrl = URL.createObjectURL(e.target.files[0]);
-    console.log(fileUrl);
     document.documentElement.style.setProperty("--bg-image", `url(${fileUrl})`);
   };
 
   useEffect(() => {
     const workingColours = JSON.parse(JSON.stringify(coloursContext));
-    const thisString = document.documentElement.style.getPropertyValue("--bg-image");
+    const thisString =
+      document.documentElement.style.getPropertyValue("--bg-image");
     setReturnColours(workingColours);
     setAString(thisString);
   }, []);
@@ -83,7 +83,12 @@ export const PalettePortal = ({ closePortal = Function.prototype }) => {
             <SvgButton clickAction={handleClose}>
               <ExitPrintSVG svgWidth={34} svgHeight={34} />
             </SvgButton>
-            <SvgImageInput svgNode={<ImageIcon />} type="file" accept="image/jpeg,image/png" onChange={handleImageChange} />
+            <SvgImageInput
+              svgNode={<ImageIcon />}
+              type="file"
+              accept="image/jpeg,image/png"
+              onChange={handleImageChange}
+            />
             <SvgButton clickAction={handleSave}>
               <GreenTickIcon className="w-6 h-6" />
             </SvgButton>
