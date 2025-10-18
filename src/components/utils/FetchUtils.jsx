@@ -25,11 +25,11 @@ export const fetchPost = async (endpoint, postBody) => {
 
 export const fetchPostImage = async (endpoint, postBody) => {
   const formBody = new FormData();
-  formBody.append('file', postBody);
+  formBody.append("file", postBody);
 
   const response = await fetch(endpoint, {
     method: "POST",
-    body: formBody
+    body: formBody,
   });
   return response;
 };
