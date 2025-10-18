@@ -5,13 +5,14 @@ import { useContext, useEffect, useState } from "react";
 import { ExitPrintSVG } from "../atom/ExitPrintIcon";
 import { GreenTickIcon } from "../atom/GreenTickIcon";
 import { ImageIcon } from "../atom/ImageIcon";
+import { SvgImageInput } from "../atom/SvgImageInput";
 
 // Molecule
 import { SvgButton } from "../molecule/SvgButton";
 
 // Utils
 import { ColoursContext } from "../utils/DataContext";
-import { fetchPost } from "../utils/FetchUtils";
+import { fetchPost, fetchPostImage } from "../utils/FetchUtils";
 import StringConstants from "../utils/StringConstants.json";
 
 // Styles
@@ -20,7 +21,9 @@ import "../../styles/organism/_palette-portal.css";
 export const PalettePortal = ({ closePortal = Function.prototype }) => {
   const { Dns, PaletteStrings } = StringConstants;
   const { coloursContext, setColoursContext } = useContext(ColoursContext);
+  const [ aString, setAString] = useState("");
   const [returnColours, setReturnColours] = useState([]);
+  const [ thisFile, setThisFile] = useState(null);
 
   const handleColourChange = (id, value) => {
     const posColours = [...returnColours];
@@ -31,18 +34,28 @@ export const PalettePortal = ({ closePortal = Function.prototype }) => {
   const handleSave = () => {
     setColoursContext(returnColours);
     fetchPost(`${Dns.Api}/post-colours`, returnColours);
+    fetchPostImage(`${Dns.Api}/post-bg-image`, thisFile);
     closePortal();
   };
   const handleClose = () => {
     coloursContext.forEach((c, i) =>
       document.documentElement.style.setProperty(PaletteStrings[i], c),
     );
+    document.documentElement.style.setProperty("--bg-image", aString);
     closePortal();
+  };
+  const handleImageChange = (e) => {
+    setThisFile(e.target.files[0]);
+    const fileUrl = URL.createObjectURL(e.target.files[0]);
+    console.log(fileUrl);
+    document.documentElement.style.setProperty("--bg-image", `url(${fileUrl})`);
   };
 
   useEffect(() => {
     const workingColours = JSON.parse(JSON.stringify(coloursContext));
+    const thisString = document.documentElement.style.getPropertyValue("--bg-image");
     setReturnColours(workingColours);
+    setAString(thisString);
   }, []);
 
   return (
@@ -70,9 +83,7 @@ export const PalettePortal = ({ closePortal = Function.prototype }) => {
             <SvgButton clickAction={handleClose}>
               <ExitPrintSVG svgWidth={34} svgHeight={34} />
             </SvgButton>
-            <SvgButton clickAction={closePortal}>
-              <ImageIcon className="w-6 h-6" />
-            </SvgButton>
+            <SvgImageInput svgNode={<ImageIcon />} type="file" accept="image/jpeg,image/png" onChange={handleImageChange} />
             <SvgButton clickAction={handleSave}>
               <GreenTickIcon className="w-6 h-6" />
             </SvgButton>

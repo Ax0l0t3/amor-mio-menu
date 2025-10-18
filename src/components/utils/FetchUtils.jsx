@@ -23,6 +23,17 @@ export const fetchPost = async (endpoint, postBody) => {
   return response;
 };
 
+export const fetchPostImage = async (endpoint, postBody) => {
+  const formBody = new FormData();
+  formBody.append('file', postBody);
+
+  const response = await fetch(endpoint, {
+    method: "POST",
+    body: formBody
+  });
+  return response;
+};
+
 export const modifyHandler = (json, postObjects) => {
   const tabObj = postObjects.find((obj) => obj.Title === json.Title);
   const optObj = tabObj.Options.find((obj) => obj.Name === json.Name);

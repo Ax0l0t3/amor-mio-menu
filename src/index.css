@@ -23,9 +23,8 @@ body {
 
 .options-cards {
   align-content: start;
-  background-blend-mode: hard-light;
   background-color: var(--main-colour-1);
-  background-image: url("/public/kot-rooms.png");
+  background-image: var(--bg-image, none);
   background-position: bottom;
   background-repeat: no-repeat;
   background-size: cover;
@@ -69,4 +68,5 @@ html {
   --hover-colour-1: #45eaf7ff;
   --close-colour-1: #db3356ff;
   --highlight-colour-1: #b5baf7ff;
+  --bg-image: url("/public/kot-rooms.png");
 }

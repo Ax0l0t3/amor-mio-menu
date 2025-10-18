@@ -93,10 +93,17 @@ function App() {
       data.forEach((c, i) => document.documentElement.style.setProperty(PaletteStrings[i], c))
       setColoursContext(data);
     };
+    const fetchBgImage = async () => {
+      const response = await fetch(`${Dns.Api}/bg-image`);
+      const data = await response.blob();
+      const imageUrl = URL.createObjectURL(data);
+      document.documentElement.style.setProperty("--bg-image", `url(${imageUrl})`);
+    };
 
     fetchData();
     fetchPrinters();
     fetchColours();
+    fetchBgImage();
   }, []);
 
   useEffect(() => {
