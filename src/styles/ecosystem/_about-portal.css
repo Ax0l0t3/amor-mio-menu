@@ -62,7 +62,7 @@
 
 .about-portal {
   align-items: center;
-  background-image: url("/public/squareRoom3.png");
+  background-image: url("/public/images/squareRoom3.png");
   background-size: cover;
   display: flex;
   flex-direction: column;

@@ -16,6 +16,7 @@ import { AboutVideogamesSVG } from "../atom/AboutVideogames";
 import { ExitPrintSVG } from "../atom/ExitPrintIcon";
 
 // Molecule
+import { OverflowCard } from "../molecule/OverflowCard";
 import { SvgButton } from "../molecule/SvgButton";
 
 // Utils
@@ -23,7 +24,6 @@ import StringConstants from "../utils/StringConstants.json";
 
 // Styles
 import "../../styles/ecosystem/_about-portal.css";
-import { OverflowCard } from "../molecule/OverflowCard";
 
 export const AboutPortal = ({ closePortal = Function.prototype }) => {
   const { AboutPortal } = StringConstants;
