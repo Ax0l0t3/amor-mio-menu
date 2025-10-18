@@ -106,13 +106,13 @@ export const AboutPortal = ({ closePortal = Function.prototype }) => {
       >
         <div className="footer-contact">
           <AboutContactSVG svgHeight={30} svgWidth={30} />
-          <p>www.kotrooms.net</p>
+          <p>+52 99 11 24 96 16</p>
         </div>
         <div className="footer-colabs">
           <AboutColaboratorsSVG svgHeight={30} svgWidth={30} />
-          <p>KotRooms</p>
+          <p>KotRooms®</p>
           <p>|</p>
-          <p>CasiTrajeados</p>
+          <p>CasiTrajeados®</p>
         </div>
         <SvgButton clickAction={exitFn}>
           <ExitPrintSVG svgHeight={30} svgWidth={30} />

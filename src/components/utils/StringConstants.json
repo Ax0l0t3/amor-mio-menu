@@ -74,7 +74,7 @@
     "DeleteModeString": "Delete Mode",
     "ModifyModeString": "Modify Mode"
   },
-  "PalettePortal": [
+  "PaletteStrings": [
     "--main-colour-1",
     "--main-colour-2",
     "--input-colour-1",
