@@ -1,3 +1,4 @@
+import { createPortal } from "react-dom";
 import { useEffect, useState } from "react";
 
 //Molecule
@@ -6,6 +7,7 @@ import { MenuOptionCard } from "./components/molecule/MenuOptionCard";
 // Organisms
 import { DisplayPortal } from "./components/organism/DisplayPortal";
 import { NavBar } from "./components/organism/NavBar";
+import { PalettePortal } from "./components/organism/PalettePortal";
 import { Tabs } from "./components/organism/Tabs";
 
 // Ecosystems
@@ -17,17 +19,23 @@ import { fetchGet, fetchPost } from "./components/utils/FetchUtils";
 import StringConstants from "./components/utils/StringConstants.json";
 
 function App() {
-  const { Dns, PalettePortal } = StringConstants;
+  const { Dns, PaletteStrings } = StringConstants;
   const [coloursContext, setColoursContext] = useState([]);
+  const [favourites, setFavourites] = useState([]);
+  const [isCustomize, setIsCustomize] = useState(false);
   const [labelOptions, setLabelOptions] = useState([]);
   const [mockObjects, setMockObjects] = useState([]);
-  const [printContext, setPrintContext] = useState([]);
   const [portalContext, setPortalContext] = useState({ visible: false, node: null });
+  const [printContext, setPrintContext] = useState([]);
   const [printersContext, setPrintersContext] = useState([]);
-  const [favourites, setFavourites] = useState([]);
 
   const handlePortalUpdate = (isVisible, node) => {
-    setPortalContext({ visible: isVisible, node: node });
+    if (!isVisible && node !== null) {
+      setIsCustomize(true);
+    }
+    else {
+      setPortalContext({ visible: isVisible, node: node });
+    }
   }
   const closePortal = () => {
     handlePortalUpdate(false, null);
@@ -82,7 +90,7 @@ function App() {
     };
     const fetchColours = async () => {
       const data = await fetchGet(`${Dns.Api}/get-colours`);
-      data.forEach( (c, i) => document.documentElement.style.setProperty(PalettePortal[i], c))
+      data.forEach((c, i) => document.documentElement.style.setProperty(PaletteStrings[i], c))
       setColoursContext(data);
     };
     const fetchBgImage = async () => {
@@ -128,6 +136,7 @@ function App() {
                 ))}
               </div>
               <DisplayPortal isPortalVisible={portalContext.visible} portalComponent={portalContext.node} />
+              {isCustomize && createPortal(<PalettePortal closePortal={() => setIsCustomize(false)} />, document.getElementById("root"))}
             </PrintersContext.Provider>
           </PortalContext.Provider>
         </ColoursContext.Provider>

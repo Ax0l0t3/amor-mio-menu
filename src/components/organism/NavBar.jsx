@@ -15,7 +15,6 @@ import { SvgButton } from "../molecule/SvgButton";
 // Organism
 import { AddItemPortal } from "./AddItemPortal";
 import { PrePrintViewPort } from "./PrePrintViewPort";
-import { PalettePortal } from "./PalettePortal";
 
 // Ecosystem
 import { AboutPortal } from "../ecosystem/AboutPortal";
@@ -60,8 +59,7 @@ export const NavBar = ({
     },
     {
       button: <CustomizeSVG />,
-      action: () =>
-        changePortal(true, <PalettePortal closePortal={closePortal} />),
+      action: () => changePortal(false, {}),
     },
     {
       button: <AboutSVG />,
