@@ -1,5 +1,4 @@
 import PropTypes from "prop-types";
-import { useState } from "react";
 
 // Atoms
 import { TextButton } from "../atom/TextButton";
@@ -13,12 +12,12 @@ import "../../styles/organism/_expandable-div.css";
 export const ExpandableDiv = ({
   closeAction = Function.prototype,
   children,
+  isFastPrint = false,
   onSectionClick = Function.prototype,
   onPrintClick = Function.prototype,
   sendPrint = Function.prototype,
   showSection,
   saveOptions = Function.prototype,
-  isFastPrint = false,
 }) => {
   const svgs = [
     {
@@ -75,8 +74,11 @@ export const ExpandableDiv = ({
 
 ExpandableDiv.propTypes = {
   closeAction: PropTypes.func,
+  isFastPrint: PropTypes.bool,
   children: PropTypes.node,
   onSectionClick: PropTypes.func,
+  onPrintClick: PropTypes.func,
   showSection: PropTypes.bool,
+  sendPrint: PropTypes.func,
   saveOptions: PropTypes.func,
 };
