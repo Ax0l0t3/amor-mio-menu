@@ -252,12 +252,9 @@ export const ProcessPortal = ({
     const textArray = [];
     nodeArray.forEach((element) => textArray.push(element.innerHTML));
     const textToPrint = textArray.join("\n");
-    console.log(textToPrint);
     fetchPostString(`${Dns.Api}/printJson`, textToPrint);
     closePortal();
   };
-
-  console.log("fastPrintObject: ", fastPrintObject);
 
   return (
     <form className="process-portal" ref={allTicketsRef}>

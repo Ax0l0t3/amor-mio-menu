@@ -66,6 +66,7 @@ export const PreviewTicketSection = ({
 };
 
 PreviewTicketSection.propTypes = {
+  isToPrint: PropTypes.bool,
   parentObject: PropTypes.object,
   selectedObject: PropTypes.object,
   wrappedExtras: PropTypes.arrayOf(PropTypes.string),
