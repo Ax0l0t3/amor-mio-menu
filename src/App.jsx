@@ -14,7 +14,13 @@ import { Tabs } from "./components/organism/Tabs";
 import { ProcessPortal } from "./components/ecosystem/ProcessPortal";
 
 // Utils
-import { DataContext, PrintContext, PortalContext, PrintersContext, ColoursContext } from "./components/utils/DataContext";
+import {
+  DataContext,
+  PrintContext,
+  PortalContext,
+  PrintersContext,
+  ColoursContext,
+} from "./components/utils/DataContext";
 import { fetchGet, fetchPost } from "./components/utils/FetchUtils";
 import StringConstants from "./components/utils/StringConstants.json";
 
@@ -25,37 +31,46 @@ function App() {
   const [isCustomize, setIsCustomize] = useState(false);
   const [labelOptions, setLabelOptions] = useState([]);
   const [mockObjects, setMockObjects] = useState([]);
-  const [portalContext, setPortalContext] = useState({ visible: false, node: null });
+  const [portalContext, setPortalContext] = useState({
+    visible: false,
+    node: null,
+  });
   const [printContext, setPrintContext] = useState([]);
   const [printersContext, setPrintersContext] = useState([]);
 
   const handlePortalUpdate = (isVisible, node) => {
     if (!isVisible && node !== null) {
       setIsCustomize(true);
-    }
-    else {
+    } else {
       setPortalContext({ visible: isVisible, node: node });
     }
-  }
+  };
   const closePortal = () => {
     handlePortalUpdate(false, null);
   };
   const handleOptionClick = (name) => {
-    handlePortalUpdate(true, <ProcessPortal selectedOption={name} closePortal={closePortal} />)
+    handlePortalUpdate(
+      true,
+      <ProcessPortal selectedOption={name} closePortal={closePortal} />,
+    );
   };
 
   const addFavourites = (workingTab, favObject) => {
-    const selectedOption = workingTab.Options.find(opt => opt.Name === favObject.Name);
+    const selectedOption = workingTab.Options.find(
+      (opt) => opt.Name === favObject.Name,
+    );
     if (selectedOption.Favourite) {
       selectedOption.Favourite = false;
-      setFavourites(prev => {
-        return prev.filter(obj => obj.Name !== favObject.Name);
+      setFavourites((prev) => {
+        return prev.filter((obj) => obj.Name !== favObject.Name);
       });
-    }
-    else {
+    } else {
       selectedOption.Favourite = true;
-      setFavourites([...favourites, { Name: favObject.Name, Favourite: true, Tab: workingTab.Title }]);
-    };
+      setFavourites([
+        ...favourites,
+        { Name: favObject.Name, Favourite: true, Tab: workingTab.Title },
+      ]);
+    }
   };
 
   const handleAddingFavourite = (favObject) => {
@@ -63,9 +78,10 @@ function App() {
     if (updatedObjects.some(({ Selected }) => Selected)) {
       const workingTab = updatedObjects.find(({ Selected }) => Selected);
       addFavourites(workingTab, favObject);
-    }
-    else {
-      const workingTab = updatedObjects.find(({ Title }) => Title === favObject.Tab);
+    } else {
+      const workingTab = updatedObjects.find(
+        ({ Title }) => Title === favObject.Tab,
+      );
       addFavourites(workingTab, favObject);
     }
     fetchPost(`${Dns.Api}/post-data-menu`, { Tabs: updatedObjects });
@@ -78,7 +94,12 @@ function App() {
       let favouritesArray = [];
       for (const tab of data.Tabs) {
         for (const option of tab.Options) {
-          if (option.Favourite) favouritesArray.push({ Name: option.Name, Favourite: true, Tab: tab.Title });
+          if (option.Favourite)
+            favouritesArray.push({
+              Name: option.Name,
+              Favourite: true,
+              Tab: tab.Title,
+            });
         }
       }
       setFavourites(favouritesArray);
@@ -90,14 +111,19 @@ function App() {
     };
     const fetchColours = async () => {
       const data = await fetchGet(`${Dns.Api}/get-colours`);
-      data.forEach((c, i) => document.documentElement.style.setProperty(PaletteStrings[i], c))
+      data.forEach((c, i) =>
+        document.documentElement.style.setProperty(PaletteStrings[i], c),
+      );
       setColoursContext(data);
     };
     const fetchBgImage = async () => {
       const response = await fetch(`${Dns.Api}/bg-image`);
       const data = await response.blob();
       const imageUrl = URL.createObjectURL(data);
-      document.documentElement.style.setProperty("--bg-image", `url(${imageUrl})`);
+      document.documentElement.style.setProperty(
+        "--bg-image",
+        `url(${imageUrl})`,
+      );
     };
 
     fetchData();
@@ -107,13 +133,12 @@ function App() {
   }, []);
 
   useEffect(() => {
-    const selectedObj = mockObjects.find(obj => obj.Selected);
+    const selectedObj = mockObjects.find((obj) => obj.Selected);
     if (selectedObj) {
-      setLabelOptions(selectedObj.Options)
-    }
-    else {
+      setLabelOptions(selectedObj.Options);
+    } else {
       setLabelOptions(favourites);
-    };
+    }
   }, [mockObjects]);
 
   return (
@@ -121,8 +146,13 @@ function App() {
       <PrintContext.Provider value={{ printContext, setPrintContext }}>
         <ColoursContext.Provider value={{ coloursContext, setColoursContext }}>
           <PortalContext.Provider value={{ portalContext, setPortalContext }}>
-            <PrintersContext.Provider value={{ printersContext, setPrintersContext }}>
-              <NavBar onButtonClick={handlePortalUpdate} closePortal={closePortal} />
+            <PrintersContext.Provider
+              value={{ printersContext, setPrintersContext }}
+            >
+              <NavBar
+                onButtonClick={handlePortalUpdate}
+                closePortal={closePortal}
+              />
               <Tabs />
               <div className="options-cards">
                 {labelOptions.map((option, id) => (
@@ -135,8 +165,15 @@ function App() {
                   />
                 ))}
               </div>
-              <DisplayPortal isPortalVisible={portalContext.visible} portalComponent={portalContext.node} />
-              {isCustomize && createPortal(<PalettePortal closePortal={() => setIsCustomize(false)} />, document.getElementById("root"))}
+              <DisplayPortal
+                isPortalVisible={portalContext.visible}
+                portalComponent={portalContext.node}
+              />
+              {isCustomize &&
+                createPortal(
+                  <PalettePortal closePortal={() => setIsCustomize(false)} />,
+                  document.getElementById("root"),
+                )}
             </PrintersContext.Provider>
           </PortalContext.Provider>
         </ColoursContext.Provider>

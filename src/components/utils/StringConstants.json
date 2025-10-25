@@ -104,7 +104,7 @@
     "CounterWarning": "Valores mayores a 0"
   },
   "Dns": {
-    "Api": "http://localhost:5000"
+    "Api": ""
   },
   "Tabs": {
     "Favourites": "Favoritos"

@@ -57,16 +57,16 @@
   width: 8rem;
 }
 
-.expandible-header{
+.expandible-header {
   display: flex;
   align-items: center;
 }
 
-.expandible-header h6{
+.expandible-header h6 {
   margin-right: auto;
 }
 
-.expandible-header > label{
+.expandible-header > label {
   width: 1rem;
   height: 1rem;
 }

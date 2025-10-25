@@ -9,7 +9,11 @@
   text-wrap: nowrap;
 }
 .toogle-button.clicked {
-  background-image: linear-gradient(to right, var(--input-colour-1), var(--input-colour-2));
+  background-image: linear-gradient(
+    to right,
+    var(--input-colour-1),
+    var(--input-colour-2)
+  );
 }
 
 .toogle-button input {

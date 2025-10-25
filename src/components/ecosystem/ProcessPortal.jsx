@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState, useRef } from "react";
 
 // Atom
 import { InputField } from "../atom/InputField";
@@ -17,6 +17,8 @@ import { DataContext, PrintContext } from "../utils/DataContext";
 import { cleanParenthesis } from "../utils/ArrayUtils";
 import { getArrayOfProperty, updateLocalObject } from "../utils/ObjectUtils";
 import { replaceAndLower } from "../utils/StringUtils";
+import { fetchPostString } from "../utils/FetchUtils";
+import StringConstants from "../utils/StringConstants.json";
 
 // Styles
 import "../../styles/ecosystem/_process-portal.css";
@@ -27,6 +29,9 @@ export const ProcessPortal = ({
   prefilledObject,
   selectedOption,
 }) => {
+  const { Dns } = StringConstants;
+  const allTicketsRef = useRef(null);
+
   const { mockObjects } = useContext(DataContext);
   const { printContext, setPrintContext } = useContext(PrintContext);
 
@@ -39,6 +44,8 @@ export const ProcessPortal = ({
   const [newOrderField, setNewOrderField] = useState("");
   const [ingsToGo, setIngsToGo] = useState([]);
   const [extrasToGo, setExtrasToGo] = useState([]);
+  const [isPrintable, setIsPrintable] = useState(false);
+  const [fastPrintObject, setFastPrintObject] = useState(null);
 
   const placeholderConstant = `Orden-${ordersContext.length + 1}`;
 
@@ -60,18 +67,6 @@ export const ProcessPortal = ({
     }
   };
 
-  const convertToPrePrintObject = (initObject) => {
-    const baseOrderObject = {
-      ...initObject,
-      Printer: localTab.Printer,
-      Tab: localTab.Title,
-      ExtrasToGo: extrasToGo,
-      IngsToGo: ingsToGo,
-    };
-    if (newOrderField !== "") baseOrderObject.Order = newOrderField;
-    return baseOrderObject;
-  };
-
   const setOrdersToGo = (arrayToGo, objToWork, property) => {
     let indexes = [];
     arrayToGo.forEach((cat) => {
@@ -88,15 +83,31 @@ export const ProcessPortal = ({
     return modifiedIngredients;
   };
 
+  const convertToPrePrintObject = (initObject) => {
+    const baseOrderObject = {
+      ...initObject,
+      Printer: localTab.Printer,
+      Tab: localTab.Title,
+      ExtrasToGo: extrasToGo,
+      IngsToGo: ingsToGo,
+    };
+    if (newOrderField !== "") baseOrderObject.Order = newOrderField;
+    baseOrderObject.Ingredients = setOrdersToGo(
+      ingsToGo,
+      baseOrderObject,
+      "Ingredients",
+    );
+    baseOrderObject.Extras = setOrdersToGo(
+      extrasToGo,
+      baseOrderObject,
+      "Extras",
+    );
+    return baseOrderObject;
+  };
+
   const handleOptionSave = (qtty = 1) => {
     const array = [];
     const objectToAdd = convertToPrePrintObject(localOption);
-    objectToAdd.Ingredients = setOrdersToGo(
-      ingsToGo,
-      objectToAdd,
-      "Ingredients",
-    );
-    objectToAdd.Extras = setOrdersToGo(extrasToGo, objectToAdd, "Extras");
     for (let i = 0; i < qtty; i++) {
       const idConstructor = replaceAndLower(
         `${objectToAdd.Ingredients}${objectToAdd.Extras}${objectToAdd.Comments}`,
@@ -118,6 +129,15 @@ export const ProcessPortal = ({
 
   const handleCounterChange = (qtty) => {
     setCounter(qtty);
+  };
+
+  const handleFastPrintChange = () => {
+    setIsPrintable(!isPrintable);
+    if (fastPrintObject) {
+      setFastPrintObject(null);
+    } else {
+      setFastPrintObject(convertToPrePrintObject(localOption));
+    }
   };
 
   const handleToogleClick = (parameter, arrayToGo) => {
@@ -147,9 +167,12 @@ export const ProcessPortal = ({
         <ExpandableDiv
           closeAction={closePortal}
           onSectionClick={() => setSelectedSection(expandableId)}
+          onPrintClick={handleFastPrintChange}
+          sendPrint={handleSendPrint}
           showSection={selectedSection === expandableId}
           key={expandableId}
           saveOptions={() => handleOptionSave(counter)}
+          isFastPrint={isPrintable}
         >
           {selectedSection === expandableId ? (
             <>
@@ -220,21 +243,40 @@ export const ProcessPortal = ({
     setOrdersContext(getArrayOfProperty(printContext, "Order"));
   }, []);
 
+  const handleSendPrint = () => {
+    if (fastPrintObject == null) {
+      return;
+    }
+    const nodeArray =
+      allTicketsRef.current.querySelectorAll(".preview-section");
+    const textArray = [];
+    nodeArray.forEach((element) => textArray.push(element.innerHTML));
+    const textToPrint = textArray.join("\n");
+    console.log(textToPrint);
+    fetchPostString(`${Dns.Api}/printJson`, textToPrint);
+    closePortal();
+  };
+
+  console.log("fastPrintObject: ", fastPrintObject);
+
   return (
-    <form className="process-portal">
+    <form className="process-portal" ref={allTicketsRef}>
       {/*Preview ticket section*/}
       <PreviewTicketSection
         parentObject={localTab}
-        selectedObject={localOption}
+        selectedObject={fastPrintObject ?? localOption}
         wrappedIngredients={ingsToGo}
         wrappedExtras={extrasToGo}
+        isToPrint={isPrintable}
       />
       {/* Comments Section */}
       <ExpandableDiv
         closeAction={closePortal}
         onSectionClick={() => setSelectedSection("Comments")}
+        onPrintClick={handleFastPrintChange}
         showSection={selectedSection === "Comments"}
         saveOptions={() => handleOptionSave(counter)}
+        isFastPrint={isPrintable}
       >
         <p>Comentarios</p>
         {selectedSection === "Comments" && (
@@ -292,9 +334,11 @@ export const ProcessPortal = ({
       {localTab?.Extras?.length > 0 && (
         <ExpandableDiv
           closeAction={closePortal}
+          onPrintClick={handleFastPrintChange}
           onSectionClick={() => setSelectedSection("Extras")}
           showSection={selectedSection === "Extras"}
           saveOptions={() => handleOptionSave(counter)}
+          isFastPrint={isPrintable}
         >
           {selectedSection == "Extras" ? (
             <>

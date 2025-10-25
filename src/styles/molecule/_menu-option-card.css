@@ -44,19 +44,19 @@
 }
 
 .top-hexagon-div-selected {
-	width: 0px;
-	height: 0;
-	border-left: 10px solid #0000;
-	border-right: 10px solid #0000;
-	border-bottom: 6px solid var(--highlight-colour-1);
-	box-shadow: 0px 12px 19px var(--highlight-colour-1);
+  width: 0px;
+  height: 0;
+  border-left: 10px solid #0000;
+  border-right: 10px solid #0000;
+  border-bottom: 6px solid var(--highlight-colour-1);
+  box-shadow: 0px 12px 19px var(--highlight-colour-1);
 }
 
 .mid-hexagon-div-selected {
   height: 10px;
   width: 20px;
   background-color: var(--highlight-colour-1);
-  box-shadow: 0px 0px 16px var(--highlight-colour-1)
+  box-shadow: 0px 0px 16px var(--highlight-colour-1);
 }
 
 .bottom-hexagon-div-selected {

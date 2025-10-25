@@ -3,7 +3,7 @@
   overflow-y: scroll;
 }
 
-.fieldset-div input:focus:not(:read-only){
+.fieldset-div input:focus:not(:read-only) {
   border-right: 7px solid salmon;
   border-radius: 1px;
   outline: none;
