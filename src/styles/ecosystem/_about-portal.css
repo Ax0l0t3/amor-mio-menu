@@ -113,13 +113,13 @@
 }
 
 .svg-button {
-	background-color: #0a0b107f;
-	border-bottom: solid 5px #080d0acd;
-	border-radius: 5px;
-	border-top: solid 5px #080d0acd;
-	border-left: solid 5px #080d0acd;
-	border-right: solid 5px #080d0acd;
-	transition: all 0.25s ease-in-out;
+  background-color: #0a0b107f;
+  border-bottom: solid 5px #080d0acd;
+  border-radius: 5px;
+  border-top: solid 5px #080d0acd;
+  border-left: solid 5px #080d0acd;
+  border-right: solid 5px #080d0acd;
+  transition: all 0.25s ease-in-out;
 }
 
 .svg-button-active {
@@ -133,7 +133,7 @@
 }
 
 .svg-button:active path {
-  fill: #870D5A;
+  fill: #870d5a;
 }
 
 .svg-button:hover {

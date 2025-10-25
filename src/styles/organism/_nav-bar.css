@@ -7,12 +7,12 @@
   min-width: 4%;
 }
 
-.side-bar button{
+.side-bar button {
   background-color: transparent;
   transition: all ease 0.5s;
 }
 
-.side-bar button:active{
+.side-bar button:active {
   background-color: var(--main-colour-2);
   transition: all ease 0.1s;
 }

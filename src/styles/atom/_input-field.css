@@ -1,12 +1,14 @@
 .input-field {
-    background-color: var(--input-colour-1);
-    border: solid 1px var(--main-colour-2);
-    padding-left: 0.5rem;
-    margin-right: 0.5rem;
+  background-color: var(--input-colour-1);
+  border: solid 1px var(--main-colour-2);
+  padding-left: 0.5rem;
+  margin-right: 0.5rem;
 }
 
 .input-field:read-only {
-  box-shadow: inset 4px 0px 22px var(--main-colour-2), inset -5px 0px 8px var(--close-colour-1);
+  box-shadow:
+    inset 4px 0px 22px var(--main-colour-2),
+    inset -5px 0px 8px var(--close-colour-1);
   cursor: default;
   outline: none;
 }

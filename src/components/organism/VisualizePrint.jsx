@@ -16,6 +16,9 @@ import {
   collectionHasProperty,
 } from "../utils/ObjectUtils";
 
+// Utils
+import { returnNowDate } from "../utils/DateUtils";
+
 export const VisualizePrint = ({
   sectionName = "Default",
   options = [],
@@ -77,17 +80,6 @@ export const VisualizePrint = ({
     });
     return messagesNodes;
   };
-  const returnNowDate = () => {
-    const now = new Date();
-    const options = {
-      hour: "2-digit",
-      minute: "2-digit",
-      second: "2-digit",
-      hour12: true, // Use 12-hour format
-    };
-    const formattedTime = new Intl.DateTimeFormat("en-US", options).format(now);
-    return formattedTime;
-  };
 
   const closeDish = (id) => {
     const newArray = printContext.filter((option) => option.id !== id);
@@ -131,8 +123,12 @@ export const VisualizePrint = ({
       </div>
       <div className="bg-[var(--background-colour-1)] w-[20.5rem] h-fit mr-4  font-[ibm-semibold] text-[0.9rem]">
         <div className="preview-print-ticket">
-          <h6>{returnNowDate()}</h6>
-          <h6>{sectionName}</h6>
+          <div>
+            <h6>{returnNowDate()}</h6>
+          </div>
+          <div>
+            <h6>{sectionName}</h6>
+          </div>
           {returnMessagesWithOrders()}
           <TicketMessages
             dishes={getOptionsWoOrder()}

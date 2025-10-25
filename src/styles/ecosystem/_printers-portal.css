@@ -8,39 +8,39 @@
   overflow: hidden;
 }
 
-.header-grid{
+.header-grid {
   display: grid;
   grid-template-columns: 2% 30% 30% 30%;
   gap: 0.5rem;
   margin-bottom: 0.5rem;
 }
 
-.header-grid > :first-child{
+.header-grid > :first-child {
   grid-column-start: 2;
 }
 
-.printers-grid{
+.printers-grid {
   display: grid;
   grid-template-columns: 2% 30% 30% 30% auto;
   gap: 0.5rem;
   margin-bottom: 0.5rem;
 }
 
-.printers-grid > input:first-child{
+.printers-grid > input:first-child {
   grid-column-start: 2;
 }
 
-.printers-portal-style input{
+.printers-portal-style input {
   box-sizing: border-box;
   outline: 1px solid var(--main-colour-2);
 }
 
-.printers-portal-style input:invalid{
+.printers-portal-style input:invalid {
   outline: 1px solid var(--warning-colour-1);
   transition: all 0.15s;
 }
 
-.printers-portal-style input:focus{
+.printers-portal-style input:focus {
   border-right: 7px solid salmon;
   border-radius: 1px;
   transition: all 0.15s;
