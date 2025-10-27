@@ -12,6 +12,7 @@ export const Tabs = () => {
   const { Tabs } = StringConstants;
   const { mockObjects, setMockObjects } = useContext(DataContext);
   const [favouritesSelected, setFavouritesSelected] = useState(false);
+  const [draggedElementIndex, setDraggedElementIndex] = useState(0);
   const handleTabClick = (cardTitle) => {
     const returnObjects = mockObjects?.map((object) => {
       if (object.Title === cardTitle) {
@@ -34,6 +35,18 @@ export const Tabs = () => {
     setFavouritesSelected(true);
   };
 
+  const handleDragStart = (objIndex) => {
+    setDraggedElementIndex(objIndex);
+  };
+
+  const handleDragChange = (objIndex) => {
+    const objAtIndex = mockObjects.at(draggedElementIndex);
+    const updatedMenu = [...mockObjects];
+    updatedMenu.splice(draggedElementIndex, 1);
+    updatedMenu.splice(objIndex, 0, objAtIndex);
+    setMockObjects(updatedMenu);
+  };
+
   useEffect(() => {
     if (mockObjects) {
       const hasSelected = mockObjects.some(({ Selected }) => Selected);
@@ -47,18 +60,27 @@ export const Tabs = () => {
         <SelectedOptionMainTab cardTitle={Tabs.Favourites} />
       ) : (
         <OptionMainTab
-          cardTitle={Tabs.Favourites}
           action={() => handleFavouritesClick(Tabs.Favourites)}
+          cardTitle={Tabs.Favourites}
         />
       )}
-      {mockObjects?.map((object) =>
+      {mockObjects?.map((object, objIndex) =>
         object.Selected ? (
-          <SelectedOptionMainTab key={object.Title} cardTitle={object.Title} />
-        ) : (
-          <OptionMainTab
+          <SelectedOptionMainTab
+            draggable
             key={object.Title}
             cardTitle={object.Title}
+            onDragStart={() => handleDragStart(objIndex)}
+            onDragDrop={() => handleDragChange(objIndex)}
+          />
+        ) : (
+          <OptionMainTab
             action={() => handleTabClick(object.Title)}
+            cardTitle={object.Title}
+            draggable
+            key={object.Title}
+            onDragStart={() => setDraggedElementIndex(objIndex)}
+            onDragDrop={() => handleDragChange(objIndex)}
           />
         ),
       )}

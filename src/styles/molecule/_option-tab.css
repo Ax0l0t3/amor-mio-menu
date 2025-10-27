@@ -1,0 +1,10 @@
+.option-tab {
+    align-items: center;
+    background-color: var(--main-colour-2);
+    display: flex;
+    font-size: 1.25rem;
+    justify-content: center;
+    height: 4rem;
+    text-align: center;
+    width: 10rem;
+}
