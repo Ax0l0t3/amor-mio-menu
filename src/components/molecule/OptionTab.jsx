@@ -34,6 +34,7 @@ export const OptionMainTab = ({
 OptionMainTab.propTypes = {
   action: PropTypes.func,
   cardTitle: PropTypes.string,
+  className: PropTypes.string,
   draggable: PropTypes.bool,
   onDragDrop: PropTypes.func,
   onDragStart: PropTypes.func,
