@@ -8,6 +8,7 @@ import { EditSVG } from "../atom/EditIcon";
 import { HomeSVG } from "../atom/HomeIcon";
 import { PreSaveSVG } from "../atom/PreSaveIcon";
 import { PrinterIconSvg } from "../atom/PrinterIcon";
+import { TicketSvg } from "../atom/TicketIcon";
 
 // Molecule
 import { SvgButton } from "../molecule/SvgButton";
@@ -20,6 +21,7 @@ import { PrePrintViewPort } from "./PrePrintViewPort";
 import { AboutPortal } from "../ecosystem/AboutPortal";
 import { EditItemPortal } from "../ecosystem/EditItemPortal";
 import { PrintersPortal } from "../ecosystem/PrintersPortal";
+import { TicketsDbPortal } from "../ecosystem/TicketsDbPortal";
 
 // Styles
 import "../../styles/organism/_nav-bar.css";
@@ -60,6 +62,10 @@ export const NavBar = ({
     {
       button: <CustomizeSVG />,
       action: () => changePortal(false, {}),
+    },
+    {
+      button: <TicketSvg tailwindClass="m-4" />,
+      action: () => changePortal(true, <TicketsDbPortal closePortal={closePortal}/>),
     },
     {
       button: <AboutSVG />,

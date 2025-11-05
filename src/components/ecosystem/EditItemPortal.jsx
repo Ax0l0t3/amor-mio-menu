@@ -167,7 +167,7 @@ export const EditItemPortal = ({ closePortal = Function.prototype }) => {
   useEffect(() => setDefaults(), [mockObjects]);
 
   return (
-    <form className="edit-item-portal" onSubmit={(e) => handleSubmit(e)}>
+    <form className="portal-style" onSubmit={(e) => handleSubmit(e)}>
       <MenuButtons options={menuButtons} />
       <HeaderFieldset
         defaultDish={selectedDish.Name}

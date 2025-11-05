@@ -274,7 +274,7 @@ export const AddItemPortal = ({ closePortal = Function.prototype }) => {
   }, []);
 
   return (
-    <form className="add-item-portal" onSubmit={(e) => handleClosePortal(e)}>
+    <form className="portal-style" onSubmit={(e) => handleClosePortal(e)}>
       <MenuButtons options={headerButtons} />
       <div className="flex justify-between max-h-12">
         {isAddTab ? (

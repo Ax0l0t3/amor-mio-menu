@@ -5,3 +5,4 @@ export const DataContext = createContext([]);
 export const PrintContext = createContext([]);
 export const PrintersContext = createContext({});
 export const PortalContext = createContext({});
+export const TicketsContext = createContext([]);

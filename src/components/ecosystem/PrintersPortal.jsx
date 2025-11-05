@@ -19,8 +19,6 @@ import RegexConstants from "../utils/RegexConstants.json";
 import { areStringsSimilar } from "../utils/StringUtils";
 import StringConstants from "../utils/StringConstants.json";
 
-// Styles
-import "../../styles/ecosystem/_printers-portal.css";
 
 export const PrintersPortal = ({ closePortal = Function.prototype }) => {
   const portalFormRef = useRef(null);
@@ -127,7 +125,7 @@ export const PrintersPortal = ({ closePortal = Function.prototype }) => {
 
   return (
     <form
-      className="printers-portal-style"
+      className="portal-style"
       onSubmit={(e) => handleSubmit(e)}
       ref={portalFormRef}
     >
