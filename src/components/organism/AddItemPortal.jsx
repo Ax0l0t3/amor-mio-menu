@@ -21,9 +21,6 @@ import { fetchPost } from "../utils/FetchUtils";
 import { getArrayOfProperty, localJsonSerialize } from "../utils/ObjectUtils";
 import StringConstants from "../utils/StringConstants.json";
 
-// Styles
-import "../../styles/organism/_add-item-portal.css";
-
 export const AddItemPortal = ({ closePortal = Function.prototype }) => {
   const { AddPortal, Commons, Dns } = StringConstants;
 
