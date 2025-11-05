@@ -34,6 +34,16 @@ body {
   width: 100%;
 }
 
+.portal-style {
+  background-color: var(--main-colour-2);
+  height: 100%;
+  left: 4%;
+  position: absolute;
+  width: 96%;
+  font-size: 1.2rem;
+  overflow: hidden;
+}
+
 html {
   font-size: 12px;
 }
