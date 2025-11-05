@@ -19,7 +19,6 @@ import RegexConstants from "../utils/RegexConstants.json";
 import { areStringsSimilar } from "../utils/StringUtils";
 import StringConstants from "../utils/StringConstants.json";
 
-
 export const PrintersPortal = ({ closePortal = Function.prototype }) => {
   const portalFormRef = useRef(null);
   const { printersContext, setPrintersContext } = useContext(PrintersContext);

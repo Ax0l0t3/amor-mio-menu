@@ -148,8 +148,6 @@ function App() {
     }
   }, [mockObjects]);
 
-  console.log(ticketsContext);
-
   return (
     <DataContext.Provider value={{ mockObjects, setMockObjects }}>
       <PrintContext.Provider value={{ printContext, setPrintContext }}>
@@ -158,7 +156,9 @@ function App() {
             <PrintersContext.Provider
               value={{ printersContext, setPrintersContext }}
             >
-              <TicketsContext.Provider value={{ ticketsContext, setTicketsContext }} >
+              <TicketsContext.Provider
+                value={{ ticketsContext, setTicketsContext }}
+              >
                 <NavBar
                   onButtonClick={handlePortalUpdate}
                   closePortal={closePortal}

@@ -7,34 +7,33 @@ import { TicketsContext } from "../utils/DataContext";
 import "../../styles/ecosystem/_tickets-db-portal.css";
 
 export const TicketsDbPortal = ({ closePortal = Function.prototype }) => {
-    const { ticketsContext } = useContext(TicketsContext);
-    const menuButtons = [
-        {
-            action: closePortal,
-            className: "bg-[var(--close-colour-1)]",
-            label: "Cerrar",
-            type: "button",
-        }
-    ];
-    const ticketsHeader = () => {
-        return (
-            <div className="no-tickets-header">
-                <p>Sin comandas que mostrar</p>
-            </div>
-        )
-    }
-    console.log(ticketsContext);
+  const { ticketsContext } = useContext(TicketsContext);
+
+  const menuButtons = [
+    {
+      action: closePortal,
+      className: "bg-[var(--close-colour-1)]",
+      label: "Cerrar",
+      type: "button",
+    },
+  ];
+
+  const ticketsHeader = () => {
     return (
-        <form className="portal-style">
-            <MenuButtons options={menuButtons} />
-            {ticketsContext.length < 0
-                ? <p>Mostrar comandas</p>
-                : ticketsHeader()
-            }
-        </form>
+      <div className="no-tickets-header">
+        <p>Sin comandas que mostrar</p>
+      </div>
     );
+  };
+
+  return (
+    <form className="portal-style">
+      <MenuButtons options={menuButtons} />
+      {ticketsContext.length < 0 ? <p>Mostrar comandas</p> : ticketsHeader()}
+    </form>
+  );
 };
 
 TicketsDbPortal.propTypes = {
-    closePortal: PropTypes.func
-}
+  closePortal: PropTypes.func,
+};

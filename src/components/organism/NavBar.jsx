@@ -65,7 +65,8 @@ export const NavBar = ({
     },
     {
       button: <TicketSvg tailwindClass="m-4" />,
-      action: () => changePortal(true, <TicketsDbPortal closePortal={closePortal}/>),
+      action: () =>
+        changePortal(true, <TicketsDbPortal closePortal={closePortal} />),
     },
     {
       button: <AboutSVG />,
