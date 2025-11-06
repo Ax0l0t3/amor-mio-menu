@@ -8,16 +8,16 @@ import { TicketMessages } from "../molecule/TicketMessages";
 // Ecosystem
 import { ProcessPortal } from "../ecosystem/ProcessPortal";
 
-//Styles
-import "../../styles/organism/_visualize-print.css";
+// Utils
 import { PortalContext, PrintContext } from "../utils/DataContext";
+import { returnNowDate } from "../utils/DateUtils";
 import {
   getArrayOfProperty,
   collectionHasProperty,
 } from "../utils/ObjectUtils";
 
-// Utils
-import { returnNowDate } from "../utils/DateUtils";
+//Styles
+import "../../styles/organism/_visualize-print.css";
 
 export const VisualizePrint = ({
   sectionName = "Default",

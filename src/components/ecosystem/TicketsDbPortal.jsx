@@ -1,39 +1,68 @@
 import PropTypes from "prop-types";
-import { MenuButtons } from "../organism/MenuButtons";
 import { useContext } from "react";
+
+// Molecule
+import { TicketMessages } from "../molecule/TicketMessages";
+
+// Organism
+import { MenuButtons } from "../organism/MenuButtons";
+
+// Utils
 import { TicketsContext } from "../utils/DataContext";
 
 // Styles
 import "../../styles/ecosystem/_tickets-db-portal.css";
+import { formatDate } from "../utils/DateUtils";
 
 export const TicketsDbPortal = ({ closePortal = Function.prototype }) => {
-  const { ticketsContext } = useContext(TicketsContext);
+    const { ticketsContext } = useContext(TicketsContext);
 
-  const menuButtons = [
-    {
-      action: closePortal,
-      className: "bg-[var(--close-colour-1)]",
-      label: "Cerrar",
-      type: "button",
-    },
-  ];
+    const menuButtons = [
+        {
+            action: closePortal,
+            className: "bg-[var(--close-colour-1)]",
+            label: "Cerrar",
+            type: "button",
+        },
+    ];
 
-  const ticketsHeader = () => {
+    const noTicketsHeader = () => {
+        return (
+            <div className="no-tickets-header">
+                <p>Sin comandas que mostrar</p>
+            </div>
+        );
+    };
+    const returnTickets = () => {
+        ticketsContext.sort((a,b) => a.NowDate - b.NowDate);
+        const unsortedTickets = ticketsContext.map((obj, i) => {
+            const objDate = new Date(obj.NowDate);
+            const objOrder = obj.PrintedObjects[0].Order;
+            return (
+                <div className="pre-show-card" key={i} >
+                    <h6>{formatDate(objDate)}</h6>
+                    {objOrder && <h6>Orden para: {objOrder}</h6>}
+                    <TicketMessages dishes={obj.PrintedObjects} />
+                </div>
+            )
+        });
+        return (
+            <div className="tickets-div">
+                {unsortedTickets}
+            </div>
+        )
+    };
+
+    console.log(ticketsContext)
+
     return (
-      <div className="no-tickets-header">
-        <p>Sin comandas que mostrar</p>
-      </div>
+        <form className="portal-style">
+            <MenuButtons options={menuButtons} />
+            {ticketsContext.length > 0 ? returnTickets() : noTicketsHeader()}
+        </form>
     );
-  };
-
-  return (
-    <form className="portal-style">
-      <MenuButtons options={menuButtons} />
-      {ticketsContext.length < 0 ? <p>Mostrar comandas</p> : ticketsHeader()}
-    </form>
-  );
 };
 
 TicketsDbPortal.propTypes = {
-  closePortal: PropTypes.func,
+    closePortal: PropTypes.func,
 };

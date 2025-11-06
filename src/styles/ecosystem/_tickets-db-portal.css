@@ -10,3 +10,26 @@
   color: var(--input-colour-1);
   font-size: 3rem;
 }
+
+.pre-show-card {
+	background-color: #b9b9baff;
+	border: 1px solid black;
+	border-radius: 0.5rem;
+	color: black;
+    font-family: ibm-semibold;
+    font-size: 0.9rem;
+	height: 8rem;
+	min-width: 0;
+	overflow: clip;
+    padding: 0.5rem;
+	text-wrap: nowrap;
+}
+
+.tickets-div {
+	display: grid;
+	grid-template-columns: repeat(7, 1fr);
+	gap: 1rem;
+	margin: 0 1rem;
+	max-height: 42rem;
+	overflow-y: scroll;
+}
