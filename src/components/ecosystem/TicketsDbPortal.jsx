@@ -1,7 +1,15 @@
 import PropTypes from "prop-types";
-import { MenuButtons } from "../organism/MenuButtons";
 import { useContext } from "react";
+
+// Molecule
+import { TicketMessages } from "../molecule/TicketMessages";
+
+// Organism
+import { MenuButtons } from "../organism/MenuButtons";
+
+// Utils
 import { TicketsContext } from "../utils/DataContext";
+import { formatDate } from "../utils/DateUtils";
 
 // Styles
 import "../../styles/ecosystem/_tickets-db-portal.css";
@@ -18,18 +26,44 @@ export const TicketsDbPortal = ({ closePortal = Function.prototype }) => {
     },
   ];
 
-  const ticketsHeader = () => {
+  const noTicketsHeader = () => {
     return (
       <div className="no-tickets-header">
         <p>Sin comandas que mostrar</p>
       </div>
     );
   };
+  const returnTickets = () => {
+    ticketsContext.sort((a, b) => {
+      const dateA = a.NowDate.toUpperCase();
+      const dateB = b.NowDate.toUpperCase();
+      if (dateA < dateB) {
+        return -1;
+      }
+      if (dateA > dateB) {
+        return 1;
+      }
+
+      return 0;
+    });
+    const sortedTickets = ticketsContext.map((obj, i) => {
+      const objDate = new Date(obj.NowDate);
+      const objOrder = obj.PrintedObjects[0].Order;
+      return (
+        <div className="pre-show-card" key={i}>
+          <h6>{formatDate(objDate)}</h6>
+          {objOrder && <h6>Orden para: {objOrder}</h6>}
+          <TicketMessages dishes={obj.PrintedObjects} />
+        </div>
+      );
+    });
+    return <div className="tickets-div">{sortedTickets}</div>;
+  };
 
   return (
     <form className="portal-style">
       <MenuButtons options={menuButtons} />
-      {ticketsContext.length < 0 ? <p>Mostrar comandas</p> : ticketsHeader()}
+      {ticketsContext.length > 0 ? returnTickets() : noTicketsHeader()}
     </form>
   );
 };
