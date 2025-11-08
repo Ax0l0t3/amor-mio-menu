@@ -34,8 +34,19 @@ export const TicketsDbPortal = ({ closePortal = Function.prototype }) => {
         );
     };
     const returnTickets = () => {
-        ticketsContext.sort((a,b) => a.NowDate - b.NowDate);
-        const unsortedTickets = ticketsContext.map((obj, i) => {
+        ticketsContext.sort((a, b) => {
+            const dateA = a.NowDate.toUpperCase();
+            const dateB = b.NowDate.toUpperCase();
+            if (dateA < dateB) {
+                return -1;
+            }
+            if (dateA > dateB) {
+                return 1;
+            }
+
+            return 0;
+        });
+        const sortedTickets = ticketsContext.map((obj, i) => {
             const objDate = new Date(obj.NowDate);
             const objOrder = obj.PrintedObjects[0].Order;
             return (
@@ -48,7 +59,7 @@ export const TicketsDbPortal = ({ closePortal = Function.prototype }) => {
         });
         return (
             <div className="tickets-div">
-                {unsortedTickets}
+                {sortedTickets}
             </div>
         )
     };
