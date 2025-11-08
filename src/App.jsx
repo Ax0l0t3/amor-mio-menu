@@ -148,8 +148,6 @@ function App() {
     }
   }, [mockObjects]);
 
-  console.log(printContext);
-
   return (
     <DataContext.Provider value={{ mockObjects, setMockObjects }}>
       <PrintContext.Provider value={{ printContext, setPrintContext }}>
