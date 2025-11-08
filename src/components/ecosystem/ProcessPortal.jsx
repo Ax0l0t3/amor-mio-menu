@@ -90,7 +90,6 @@ export const ProcessPortal = ({
       Tab: localTab.Title,
       ExtrasToGo: extrasToGo,
       IngsToGo: ingsToGo,
-      NowDate: new Date(),
     };
     if (newOrderField !== "") baseOrderObject.Order = newOrderField;
     baseOrderObject.Ingredients = setOrdersToGo(

@@ -9,10 +9,10 @@ import { MenuButtons } from "../organism/MenuButtons";
 
 // Utils
 import { TicketsContext } from "../utils/DataContext";
+import { formatDate } from "../utils/DateUtils";
 
 // Styles
 import "../../styles/ecosystem/_tickets-db-portal.css";
-import { formatDate } from "../utils/DateUtils";
 
 export const TicketsDbPortal = ({ closePortal = Function.prototype }) => {
   const { ticketsContext } = useContext(TicketsContext);
