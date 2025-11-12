@@ -11,97 +11,20 @@
   font-size: 3rem;
 }
 
-.pre-show-card {
-  background-color: #b9b9baff;
+.search-input::placeholder {
+  color: var(--input-colour-1);
+}
+
+.search-input {
+  background-color: var(--main-colour-2);
+  border: solid 1px var(--input-colour-1);
   border-radius: 0.5rem;
-  color: black;
-  cursor: default;
-  display: flex;
-  font-family: ibm-semibold;
-  font-size: 0.9rem;
-  height: 8rem;
-  min-width: 0;
-  overflow: clip;
-  padding: 0.5rem;
-  text-align: start;
-  text-wrap: nowrap;
+  margin: 0 1rem 1rem 1rem;
+  padding: 0 1rem;
+  width: 97%;
 }
 
-.pre-show-card-selected {
-  color: black;
-  cursor: default;
-  display: flex;
-  font-family: ibm-semibold;
-  font-size: 0.9rem;
-  height: 8rem;
-  min-width: 0;
-  text-align: start;
-  text-wrap: nowrap;
-  position: relative;
-}
-
-.pre-show-card:hover {
-  background-color: white;
-}
-
-.tickets-div {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 1rem;
-  margin: 0 1rem;
-  max-height: 42rem;
-  overflow-y: scroll;
-}
-
-.overflow-container {
-  background-color: white;
-  border-radius: 0.5rem;
-  display: flex;
-  height: fit-content;
-  padding: 0.5rem;
-  width: fit-content;
-}
-
-.overflow-container path {
-  fill: black;
-}
-
-.seventh-element {
-  direction: rtl;
-}
-
-.seventh-element > div {
-  direction: ltr;
-}
-
-.ticket-icons {
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: start;
-  margin-left: 0.5rem;
-}
-
-.ticket-icons .ticket-close {
-  align-items: center;
-  border: 1.4px solid black;
-  display: flex;
-  height: 1.5rem;
-  justify-content: center;
-  padding: 0.1rem;
-  transform: rotate(45deg);
-  width: 1.5rem;
-}
-
-.ticket-icons > button {
-  border-radius: 100rem;
-  margin-bottom: 1.5rem;
-}
-
-.ticket-icons > button:hover {
-  background-color: black;
-}
-
-.ticket-icons > button:hover path {
-  fill: white;
+.search-input:focus {
+  background-color: var(--input-colour-1);
+  outline: none;
 }

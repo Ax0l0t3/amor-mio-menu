@@ -9,6 +9,7 @@ export const InputField = ({
   inputEnabled = true,
   inputLabel = "",
   inputWidth = "w-[16%]",
+  keepEmpty = false,
   labelClassName = "",
   name,
   onBlur = Function.prototype,
@@ -18,7 +19,6 @@ export const InputField = ({
   placeholder = "",
   titleClassName,
   value = "",
-  keepEmpty = false,
 }) => {
   const [inputValue, setInputValue] = useState(value);
 

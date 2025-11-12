@@ -109,12 +109,13 @@ export const ProcessPortal = ({
     const array = [];
     const objectToAdd = convertToPrePrintObject(localOption);
     for (let i = 0; i < qtty; i++) {
-      const idConstructor = replaceAndLower(
-        `${objectToAdd.Ingredients}${objectToAdd.Extras}${objectToAdd.Comments}`,
-      );
+      const ingConstructor = replaceAndLower(`${objectToAdd.Ingredients}`);
+      const extConstructor = replaceAndLower(`${objectToAdd.Extras}`);
+      const cmmtConstructor = replaceAndLower(`${objectToAdd.Comments}`);
+      const ordrConstructor = replaceAndLower(`${newOrderField}`);
       array.push({
         ...objectToAdd,
-        id: `${objectToAdd.Name}-${idConstructor}-${i}`,
+        id: `${ordrConstructor}-${objectToAdd.Name}-${ingConstructor}-${extConstructor}-${cmmtConstructor}-${i}`,
       });
     }
     if (optionId) {
