@@ -1,21 +1,19 @@
 import PropTypes from "prop-types";
-import { useContext } from "react";
-
-// Molecule
-import { TicketMessages } from "../molecule/TicketMessages";
+import { useContext, useState } from "react";
 
 // Organism
 import { MenuButtons } from "../organism/MenuButtons";
+import { TicketsGrid } from "../organism/TicketsGrid";
 
 // Utils
 import { TicketsContext } from "../utils/DataContext";
-import { formatDate } from "../utils/DateUtils";
 
 // Styles
 import "../../styles/ecosystem/_tickets-db-portal.css";
 
 export const TicketsDbPortal = ({ closePortal = Function.prototype }) => {
   const { ticketsContext } = useContext(TicketsContext);
+  const [searchValue, setSearchValue] = useState("");
 
   const menuButtons = [
     {
@@ -33,37 +31,20 @@ export const TicketsDbPortal = ({ closePortal = Function.prototype }) => {
       </div>
     );
   };
-  const returnTickets = () => {
-    ticketsContext.sort((a, b) => {
-      const dateA = a.NowDate.toUpperCase();
-      const dateB = b.NowDate.toUpperCase();
-      if (dateA < dateB) {
-        return -1;
-      }
-      if (dateA > dateB) {
-        return 1;
-      }
-
-      return 0;
-    });
-    const sortedTickets = ticketsContext.map((obj, i) => {
-      const objDate = new Date(obj.NowDate);
-      const objOrder = obj.PrintedObjects[0].Order;
-      return (
-        <div className="pre-show-card" key={i}>
-          <h6>{formatDate(objDate)}</h6>
-          {objOrder && <h6>Orden para: {objOrder}</h6>}
-          <TicketMessages dishes={obj.PrintedObjects} />
-        </div>
-      );
-    });
-    return <div className="tickets-div">{sortedTickets}</div>;
-  };
 
   return (
     <form className="portal-style">
       <MenuButtons options={menuButtons} />
-      {ticketsContext.length > 0 ? returnTickets() : noTicketsHeader()}
+      <input
+        className="search-input"
+        placeholder="Buscar..."
+        onChange={(e) => setSearchValue(e.target.value)}
+      />
+      {ticketsContext.length > 0 ? (
+        <TicketsGrid filterInput={searchValue} />
+      ) : (
+        noTicketsHeader()
+      )}
     </form>
   );
 };
