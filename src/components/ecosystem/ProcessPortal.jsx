@@ -13,11 +13,11 @@ import { ExpandableDiv } from "../organism/ExpandableDiv";
 import { PreviewTicketSection } from "../organism/PreviewTicketSection";
 
 // Utils
-import { DataContext, PrintContext } from "../utils/DataContext";
+import { DataContext, PrintContext, TicketsContext } from "../utils/DataContext";
 import { cleanParenthesis } from "../utils/ArrayUtils";
 import { getArrayOfProperty, updateLocalObject } from "../utils/ObjectUtils";
 import { replaceAndLower } from "../utils/StringUtils";
-import { fetchPostString } from "../utils/FetchUtils";
+import { fetchPost, fetchPostString } from "../utils/FetchUtils";
 import StringConstants from "../utils/StringConstants.json";
 
 // Styles
@@ -34,6 +34,7 @@ export const ProcessPortal = ({
 
   const { mockObjects } = useContext(DataContext);
   const { printContext, setPrintContext } = useContext(PrintContext);
+  const { ticketsContext, setTicketsContext } = useContext(TicketsContext);
 
   const [ordersContext, setOrdersContext] = useState([]);
   const [localTab, setLocalTab] = useState({});
@@ -45,7 +46,7 @@ export const ProcessPortal = ({
   const [ingsToGo, setIngsToGo] = useState([]);
   const [extrasToGo, setExtrasToGo] = useState([]);
   const [isPrintable, setIsPrintable] = useState(false);
-  const [fastPrintObject, setFastPrintObject] = useState(null);
+  const [fastPrintArray, setFastPrintArray] = useState(null);
 
   const placeholderConstant = `Orden-${ordersContext.length + 1}`;
 
@@ -105,19 +106,24 @@ export const ProcessPortal = ({
     return baseOrderObject;
   };
 
-  const handleOptionSave = (qtty = 1) => {
-    const array = [];
+  const constructPrintObj = (qtty) => {
+    const arrayOfOrders = [];
     const objectToAdd = convertToPrePrintObject(localOption);
     for (let i = 0; i < qtty; i++) {
       const ingConstructor = replaceAndLower(`${objectToAdd.Ingredients}`);
       const extConstructor = replaceAndLower(`${objectToAdd.Extras}`);
       const cmmtConstructor = replaceAndLower(`${objectToAdd.Comments}`);
       const ordrConstructor = replaceAndLower(`${newOrderField}`);
-      array.push({
+      arrayOfOrders.push({
         ...objectToAdd,
-        id: `${ordrConstructor}-${objectToAdd.Name}-${ingConstructor}-${extConstructor}-${cmmtConstructor}-${i}`,
+        Id: `${ordrConstructor}-${objectToAdd.Name}-${ingConstructor}-${extConstructor}-${cmmtConstructor}-${i}`,
       });
     }
+    return arrayOfOrders;
+  }
+
+  const handleOptionSave = (qtty = 1) => {
+    const array = constructPrintObj(qtty);
     if (optionId) {
       const toUpdate = [...printContext];
       const foundIndex = printContext.findIndex((item) => item.id === optionId);
@@ -134,10 +140,10 @@ export const ProcessPortal = ({
 
   const handleFastPrintChange = () => {
     setIsPrintable(!isPrintable);
-    if (fastPrintObject) {
-      setFastPrintObject(null);
+    if (fastPrintArray) {
+      setFastPrintArray(null);
     } else {
-      setFastPrintObject(convertToPrePrintObject(localOption));
+      setFastPrintArray(constructPrintObj(counter));
     }
   };
 
@@ -244,8 +250,8 @@ export const ProcessPortal = ({
     setOrdersContext(getArrayOfProperty(printContext, "Order"));
   }, []);
 
-  const handleSendPrint = () => {
-    if (fastPrintObject == null) {
+  const handleSendPrint = async () => {
+    if (fastPrintArray == null) {
       return;
     }
     const nodeArray =
@@ -253,7 +259,12 @@ export const ProcessPortal = ({
     const textArray = [];
     nodeArray.forEach((element) => textArray.push(element.innerHTML));
     const textToPrint = textArray.join("\n");
-    fetchPostString(`${Dns.Api}/printJson`, textToPrint);
+    const ticketToSave = { NowDate: new Date().toJSON(), PrintedObjects: fastPrintArray }
+    const response = await fetchPost(`${Dns.Api}/save-ticket`, ticketToSave);
+    if (response.ok) {
+      setTicketsContext([...ticketsContext, ticketToSave]);
+      // fetchPostString(`${Dns.Api}/printJson`, textToPrint);
+    }
     closePortal();
   };
 
@@ -262,7 +273,8 @@ export const ProcessPortal = ({
       {/*Preview ticket section*/}
       <PreviewTicketSection
         parentObject={localTab}
-        selectedObject={fastPrintObject ?? localOption}
+        selectedObject={localOption}
+        selectedObjects={fastPrintArray}
         wrappedIngredients={ingsToGo}
         wrappedExtras={extrasToGo}
         isToPrint={isPrintable}
@@ -272,8 +284,9 @@ export const ProcessPortal = ({
         closeAction={closePortal}
         onSectionClick={() => setSelectedSection("Comments")}
         onPrintClick={handleFastPrintChange}
-        showSection={selectedSection === "Comments"}
         saveOptions={() => handleOptionSave(counter)}
+        sendPrint={handleSendPrint}
+        showSection={selectedSection === "Comments"}
         isFastPrint={isPrintable}
       >
         <p>Comentarios</p>

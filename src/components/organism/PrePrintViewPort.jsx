@@ -8,8 +8,8 @@ import { TextButton } from "../atom/TextButton";
 import { VisualizePrint } from "./VisualizePrint";
 
 //Utils
-import { PrintContext } from "../utils/DataContext";
-import { fetchPostString } from "../utils/FetchUtils";
+import { PrintContext, TicketsContext } from "../utils/DataContext";
+import { fetchPost, fetchPostString } from "../utils/FetchUtils";
 import { getArrayOfProperty, getObjectPropValue } from "../utils/ObjectUtils";
 import StringConstants from "../utils/StringConstants.json";
 
@@ -20,18 +20,28 @@ export const PrePrintViewPort = ({ closePortal = Function.prototype }) => {
   const { Dns } = StringConstants;
   const allTicketsRef = useRef(null);
   const { printContext, setPrintContext } = useContext(PrintContext);
+  const { ticketsContext, setTicketsContext } = useContext(TicketsContext);
   const [localPrinters, setLocalPrinters] = useState([]);
   const [localOrders, setLocalOrders] = useState([]);
   const [workingObject, setWorkingObject] = useState({});
 
-  const handlePrint = () => {
+  const handlePrint = async () => {
     const nodeArray = allTicketsRef.current.querySelectorAll(
       ".preview-print-ticket",
     );
     const textArray = [];
     nodeArray.forEach((element) => textArray.push(element.innerHTML));
     const textToPrint = textArray.join("\n");
-    fetchPostString(`${Dns.Api}/printJson`, textToPrint);
+    if(printContext.length > 0)
+    {
+      const ticketToSave = {NowDate: new Date().toJSON(), PrintedObjects: printContext}
+      const response = await fetchPost(`${Dns.Api}/save-ticket`, ticketToSave);
+      if(response.ok)
+      {
+        setTicketsContext([...ticketsContext, ticketToSave]);
+        // fetchPostString(`${Dns.Api}/printJson`, textToPrint);
+      }
+    }
     setPrintContext([]);
     closePortal();
   };

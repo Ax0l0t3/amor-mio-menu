@@ -10,6 +10,7 @@ export const PreviewTicketSection = ({
   isToPrint = false,
   parentObject,
   selectedObject,
+  selectedObjects,
   wrappedIngredients,
   wrappedExtras,
 }) => {
@@ -24,12 +25,12 @@ export const PreviewTicketSection = ({
             <div>
               <h6>{parentObject.Printer}</h6>
             </div>
-            {selectedObject.Order && (
+            {selectedObjects[0].Order && (
               <div>
-                <h6>Orden para: {selectedObject.Order}</h6>
+                <h6>Orden para: {selectedObjects[0].Order}</h6>
               </div>
             )}
-            <TicketMessages dishes={[selectedObject]} />
+            <TicketMessages dishes={selectedObjects} />
           </>
         ) : (
           <>
@@ -69,6 +70,7 @@ PreviewTicketSection.propTypes = {
   isToPrint: PropTypes.bool,
   parentObject: PropTypes.object,
   selectedObject: PropTypes.object,
+  selectedObjects: PropTypes.array,
   wrappedExtras: PropTypes.arrayOf(PropTypes.string),
   wrappedIngredients: PropTypes.arrayOf(PropTypes.string),
 };
