@@ -13,7 +13,11 @@ import { ExpandableDiv } from "../organism/ExpandableDiv";
 import { PreviewTicketSection } from "../organism/PreviewTicketSection";
 
 // Utils
-import { DataContext, PrintContext, TicketsContext } from "../utils/DataContext";
+import {
+  DataContext,
+  PrintContext,
+  TicketsContext,
+} from "../utils/DataContext";
 import { cleanParenthesis } from "../utils/ArrayUtils";
 import { getArrayOfProperty, updateLocalObject } from "../utils/ObjectUtils";
 import { replaceAndLower } from "../utils/StringUtils";
@@ -120,7 +124,7 @@ export const ProcessPortal = ({
       });
     }
     return arrayOfOrders;
-  }
+  };
 
   const handleOptionSave = (qtty = 1) => {
     const array = constructPrintObj(qtty);
@@ -259,11 +263,14 @@ export const ProcessPortal = ({
     const textArray = [];
     nodeArray.forEach((element) => textArray.push(element.innerHTML));
     const textToPrint = textArray.join("\n");
-    const ticketToSave = { NowDate: new Date().toJSON(), PrintedObjects: fastPrintArray }
+    const ticketToSave = {
+      NowDate: new Date().toJSON(),
+      PrintedObjects: fastPrintArray,
+    };
     const response = await fetchPost(`${Dns.Api}/save-ticket`, ticketToSave);
     if (response.ok) {
       setTicketsContext([...ticketsContext, ticketToSave]);
-      // fetchPostString(`${Dns.Api}/printJson`, textToPrint);
+      fetchPostString(`${Dns.Api}/printJson`, textToPrint);
     }
     closePortal();
   };

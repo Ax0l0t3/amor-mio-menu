@@ -32,14 +32,15 @@ export const PrePrintViewPort = ({ closePortal = Function.prototype }) => {
     const textArray = [];
     nodeArray.forEach((element) => textArray.push(element.innerHTML));
     const textToPrint = textArray.join("\n");
-    if(printContext.length > 0)
-    {
-      const ticketToSave = {NowDate: new Date().toJSON(), PrintedObjects: printContext}
+    if (printContext.length > 0) {
+      const ticketToSave = {
+        NowDate: new Date().toJSON(),
+        PrintedObjects: printContext,
+      };
       const response = await fetchPost(`${Dns.Api}/save-ticket`, ticketToSave);
-      if(response.ok)
-      {
+      if (response.ok) {
         setTicketsContext([...ticketsContext, ticketToSave]);
-        // fetchPostString(`${Dns.Api}/printJson`, textToPrint);
+        fetchPostString(`${Dns.Api}/printJson`, textToPrint);
       }
     }
     setPrintContext([]);
