@@ -129,7 +129,7 @@ function App() {
     };
     const fetchPrintedTickets = async () => {
       const response = await fetchGet(`${Dns.Api}/get-printed-tickets`);
-      setTicketsContext(response);
+      setTicketsContext(response.PrintedOrders);
     };
 
     fetchData();

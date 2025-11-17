@@ -40,7 +40,7 @@ export const TicketsGrid = ({ filterInput }) => {
 
   const handleTicketFilter = (inputValue) => {
     const newTickets = ticketsContext.filter((objs) => {
-      return objs.PrintedObjects.some((obj) => obj.id.includes(inputValue));
+      return objs.PrintedObjects.some((obj) => obj.Id.includes(inputValue));
     });
     setFilteredTickets(newTickets);
   };
