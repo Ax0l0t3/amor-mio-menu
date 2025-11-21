@@ -13,11 +13,7 @@ import { ExpandableDiv } from "../organism/ExpandableDiv";
 import { PreviewTicketSection } from "../organism/PreviewTicketSection";
 
 // Utils
-import {
-  DataContext,
-  PrintContext,
-  TicketsContext,
-} from "../utils/DataContext";
+import { DataContext, PrintContext } from "../utils/DataContext";
 import { cleanParenthesis } from "../utils/ArrayUtils";
 import { getArrayOfProperty, updateLocalObject } from "../utils/ObjectUtils";
 import { replaceAndLower } from "../utils/StringUtils";
@@ -38,7 +34,6 @@ export const ProcessPortal = ({
 
   const { mockObjects } = useContext(DataContext);
   const { printContext, setPrintContext } = useContext(PrintContext);
-  const { ticketsContext, setTicketsContext } = useContext(TicketsContext);
 
   const [ordersContext, setOrdersContext] = useState([]);
   const [localTab, setLocalTab] = useState({});
@@ -269,7 +264,6 @@ export const ProcessPortal = ({
     };
     const response = await fetchPost(`${Dns.Api}/save-ticket`, ticketToSave);
     if (response.ok) {
-      setTicketsContext([...ticketsContext, ticketToSave]);
       fetchPostString(`${Dns.Api}/printJson`, textToPrint);
     }
     closePortal();

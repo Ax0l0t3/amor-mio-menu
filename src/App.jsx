@@ -20,7 +20,6 @@ import {
   PortalContext,
   PrintersContext,
   ColoursContext,
-  TicketsContext,
 } from "./components/utils/DataContext";
 import { fetchGet, fetchPost } from "./components/utils/FetchUtils";
 import StringConstants from "./components/utils/StringConstants.json";
@@ -38,7 +37,6 @@ function App() {
   });
   const [printContext, setPrintContext] = useState([]);
   const [printersContext, setPrintersContext] = useState([]);
-  const [ticketsContext, setTicketsContext] = useState([]);
 
   const handlePortalUpdate = (isVisible, node) => {
     if (!isVisible && node !== null) {
@@ -128,8 +126,7 @@ function App() {
       );
     };
     const fetchPrintedTickets = async () => {
-      const response = await fetchGet(`${Dns.Api}/get-printed-tickets`);
-      setTicketsContext(response.PrintedOrders);
+      await fetchPost(`${Dns.Api}/update-printed-tickets`, null);
     };
 
     fetchData();
@@ -156,35 +153,31 @@ function App() {
             <PrintersContext.Provider
               value={{ printersContext, setPrintersContext }}
             >
-              <TicketsContext.Provider
-                value={{ ticketsContext, setTicketsContext }}
-              >
-                <NavBar
-                  onButtonClick={handlePortalUpdate}
-                  closePortal={closePortal}
-                />
-                <Tabs />
-                <div className="options-cards">
-                  {labelOptions.map((option, id) => (
-                    <MenuOptionCard
-                      key={id}
-                      cardName={option.Name}
-                      isSelected={option.Favourite}
-                      onLabelClick={() => handleOptionClick(option)}
-                      onHexClick={() => handleAddingFavourite(option)}
-                    />
-                  ))}
-                </div>
-                <DisplayPortal
-                  isPortalVisible={portalContext.visible}
-                  portalComponent={portalContext.node}
-                />
-                {isCustomize &&
-                  createPortal(
-                    <PalettePortal closePortal={() => setIsCustomize(false)} />,
-                    document.getElementById("root"),
-                  )}
-              </TicketsContext.Provider>
+              <NavBar
+                onButtonClick={handlePortalUpdate}
+                closePortal={closePortal}
+              />
+              <Tabs />
+              <div className="options-cards">
+                {labelOptions.map((option, id) => (
+                  <MenuOptionCard
+                    key={id}
+                    cardName={option.Name}
+                    isSelected={option.Favourite}
+                    onLabelClick={() => handleOptionClick(option)}
+                    onHexClick={() => handleAddingFavourite(option)}
+                  />
+                ))}
+              </div>
+              <DisplayPortal
+                isPortalVisible={portalContext.visible}
+                portalComponent={portalContext.node}
+              />
+              {isCustomize &&
+                createPortal(
+                  <PalettePortal closePortal={() => setIsCustomize(false)} />,
+                  document.getElementById("root"),
+                )}
             </PrintersContext.Provider>
           </PortalContext.Provider>
         </ColoursContext.Provider>

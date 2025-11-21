@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 // Atom
 import { AddSVG } from "../atom/AddIcon";
@@ -10,14 +10,12 @@ import { SvgButton } from "../molecule/SvgButton";
 import { TicketMessages } from "../molecule/TicketMessages";
 
 // Utils
-import { TicketsContext } from "../utils/DataContext";
 import { formatDate } from "../utils/DateUtils";
 
 // Styles
 import "../../styles/ecosystem/_tickets-grid.css";
 
-export const TicketsGrid = ({ filterInput }) => {
-  const { ticketsContext } = useContext(TicketsContext);
+export const TicketsGrid = ({ filterInput, workingTickets }) => {
   const [selectedTicket, setSelectedTicket] = useState(formatDate(new Date()));
   const [filteredTickets, setFilteredTickets] = useState([]);
 
@@ -39,14 +37,14 @@ export const TicketsGrid = ({ filterInput }) => {
   });
 
   const handleTicketFilter = (inputValue) => {
-    const newTickets = ticketsContext.filter((objs) => {
+    const newTickets = workingTickets.filter((objs) => {
       return objs.PrintedObjects.some((obj) => obj.Id.includes(inputValue));
     });
     setFilteredTickets(newTickets);
   };
 
   useEffect(() => {
-    setFilteredTickets(ticketsContext);
+    setFilteredTickets(workingTickets);
   }, []);
   useEffect(() => {
     handleTicketFilter(filterInput);
@@ -112,4 +110,5 @@ export const TicketsGrid = ({ filterInput }) => {
 
 TicketsGrid.propTypes = {
   filterInput: PropTypes.string,
+  workingTickets: PropTypes.array,
 };
