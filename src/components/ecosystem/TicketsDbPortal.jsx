@@ -1,18 +1,20 @@
 import PropTypes from "prop-types";
-import { useContext, useState } from "react";
+import { useEffect, useState } from "react";
 
 // Organism
 import { MenuButtons } from "../organism/MenuButtons";
 import { TicketsGrid } from "../organism/TicketsGrid";
 
 // Utils
-import { TicketsContext } from "../utils/DataContext";
+import { fetchGet } from "../utils/FetchUtils";
+import StringConstants from "../utils/StringConstants.json";
 
 // Styles
 import "../../styles/ecosystem/_tickets-db-portal.css";
 
 export const TicketsDbPortal = ({ closePortal = Function.prototype }) => {
-  const { ticketsContext } = useContext(TicketsContext);
+  const { Dns } = StringConstants;
+  const [ticketsContext, setTicketsContext] = useState([]);
   const [searchValue, setSearchValue] = useState("");
 
   const menuButtons = [
@@ -32,6 +34,14 @@ export const TicketsDbPortal = ({ closePortal = Function.prototype }) => {
     );
   };
 
+  useEffect(() => {
+    const fetchPrintedTickets = async () => {
+      const response = await fetchGet(`${Dns.Api}/get-printed-tickets`);
+      setTicketsContext(response.PrintedOrders);
+    };
+    fetchPrintedTickets();
+  }, []);
+
   return (
     <form className="portal-style">
       <MenuButtons options={menuButtons} />
@@ -40,8 +50,11 @@ export const TicketsDbPortal = ({ closePortal = Function.prototype }) => {
         placeholder="Buscar..."
         onChange={(e) => setSearchValue(e.target.value)}
       />
-      {ticketsContext.length > 0 ? (
-        <TicketsGrid filterInput={searchValue} />
+      {ticketsContext && ticketsContext.length > 0 ? (
+        <TicketsGrid
+          workingTickets={ticketsContext}
+          filterInput={searchValue}
+        />
       ) : (
         noTicketsHeader()
       )}
