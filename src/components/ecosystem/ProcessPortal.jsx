@@ -125,7 +125,7 @@ export const ProcessPortal = ({
     const array = constructPrintObj(qtty);
     if (optionId) {
       const toUpdate = [...printContext];
-      const foundIndex = printContext.findIndex((item) => item.id === optionId);
+      const foundIndex = printContext.findIndex((item) => item.Id === optionId);
       toUpdate.splice(foundIndex, 1);
       setPrintContext([...toUpdate, ...array]);
     } else {

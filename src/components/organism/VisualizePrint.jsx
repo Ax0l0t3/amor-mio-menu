@@ -82,7 +82,7 @@ export const VisualizePrint = ({
   };
 
   const closeDish = (id) => {
-    const newArray = printContext.filter((option) => option.id !== id);
+    const newArray = printContext.filter((option) => option.Id !== id);
     setPrintContext(newArray);
   };
   const handleMouseEnter = (option) => {
@@ -100,7 +100,7 @@ export const VisualizePrint = ({
             key={index}
             cardTitle={option.Name}
             marginBottom="1rem"
-            closeAction={() => closeDish(option.id)}
+            closeAction={() => closeDish(option.Id)}
             onMouseEnter={() => handleMouseEnter(option)}
             onMouseLeave={handleMouseLeave}
             onCardClick={() =>
@@ -113,7 +113,7 @@ export const VisualizePrint = ({
                     }
                     prefilledObject={option}
                     selectedOption={option}
-                    optionId={option.id}
+                    optionId={option.Id}
                   />
                 ),
               })

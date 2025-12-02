@@ -78,7 +78,7 @@ export const TicketsGrid = ({ filterInput, workingTickets }) => {
                   >
                     <AddSVG svgHeight={16} svgWidth={16} />
                   </SvgButton>
-                  <SvgButton>
+                  <SvgButton clickAction={() => console.log("TicketPrinted")}>
                     <PrinterIconSvg
                       tailwindClass="m-0"
                       svgHeight={24}
