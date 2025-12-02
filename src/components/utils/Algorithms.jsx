@@ -42,8 +42,8 @@ export const messagesByLevels = (iteratorObject, hoveredDish, levels) => {
     // We iterate through levels
     levels.forEach((prop, index2) => {
       // We compare the hovered dish, if any, ID with the current one
-      const prop01 = hoveredDish === undefined ? "" : hoveredDish.id;
-      const prop02 = obj.id;
+      const prop01 = hoveredDish === undefined ? "" : hoveredDish.Id;
+      const prop02 = obj.Id;
       const isHovered = prop01 === prop02;
       // We push the complete msg [hovered\tpadding\tingredients]
       const thisMessage = `${isHovered ? PrintPortal.Hovered : PrintPortal.NotHovered}\t${index2 + 1}\t${returnArrays[index][index2]} x ${obj[prop]}`;
